@@ -1,0 +1,61 @@
+version: "3"
+
+networks:
+  cassandra-network:
+    driver: bridge
+
+containers:
+  cas1:
+    image: cassandra:4.0.10
+    hostname: testcas1
+    container_name: cas1
+    environment:
+      CASSANDRA_CLUSTER_NAME: MyCluster
+      CASSANDRA_SEEDS: "172.17.0.2"
+#      CASSANDRA_INITIAL_TOKEN: 0
+      #      CASSANDRA_LISTEN_ADDRESS:
+      #      CASSANDRA_BROADCAST_ADDRESS:
+      #      CASSANDRA_BROADCAST_RPC_ADDRESS:
+      #      CASSANDRA_ENDPOINT_SNITCH: SimpleSnitch
+#      CASSANDRA_AUTO_BOOTSTRAP: "false"
+#      TRACING: ON
+    networks:
+      - cassandra-network
+
+  cas2:
+    image: cassandra:4.0.10
+    hostname: testcas2
+    container_name: cas2
+    environment:
+      CASSANDRA_CLUSTER_NAME: MyCluster
+      CASSANDRA_SEEDS: "172.17.0.2"
+#      CASSANDRA_INITIAL_TOKEN: 1
+      #      CASSANDRA_LISTEN_ADDRESS: testcas2
+      #      CASSANDRA_BROADCAST_ADDRESS: testcas2
+      #      CASSANDRA_BROADCAST_RPC_ADDRESS: testcas2
+      #      CASSANDRA_ENDPOINT_SNITCH: SimpleSnitch
+#      CASSANDRA_AUTO_BOOTSTRAP: "false"
+    command:
+      cassandra -f -Dcassandra.initial_token=3074457345618258602 -Dcassandra.consistent.rangemovement=false
+    networks:
+      - cassandra-network
+
+  cas3:
+    image: cassandra:4.0.10
+    hostname: testcas3
+    container_name: cas3
+    environment:
+      CASSANDRA_CLUSTER_NAME: MyCluster
+      CASSANDRA_SEEDS: "172.17.0.2"
+#      CASSANDRA_INITIAL_TOKEN: 2
+      #      CASSANDRA_LISTEN_ADDRESS: testcas3
+      #      CASSANDRA_BROADCAST_ADDRESS: testcas3
+      #      CASSANDRA_BROADCAST_RPC_ADDRESS: testcas3
+      #      CASSANDRA_ENDPOINT_SNITCH: SimpleSnitch
+#      CASSANDRA_AUTO_BOOTSTRAP: "false"
+    command:
+      cassandra -f -Dcassandra.initial_token=-3074457345618258602 -Dcassandra.consistent.rangemovement=false
+    networks:
+      - cassandra-network
+
+
