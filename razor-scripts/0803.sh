@@ -64,6 +64,7 @@ echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Bringing up a new docker-compose c
 nohup docker-compose up > ${data_dir}/${log_dir2}/compose-$5-$6.log &
 check_if_3_node_UN
 echo "[$(date +%s%N), $(date +"%H:%M:%S")] A new cluster is properly set up." >> $rlog_pos
+sleep 10
 
 cd $blockade_dir
 blockade add cas1
