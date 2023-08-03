@@ -51,14 +51,6 @@ echo "Workload${1} with recordcount=${2} and operationcount=${3}" >> $rlog_pos
 echo "Location: $5" >> $rlog_pos
 echo "Fault type: $4" >> $rlog_pos
 
-cas1_ip=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' cas1)
-cqlsh_dir=/data/ruiming/xinda/softwares/cas/bin/cqlsh
-init_cql_dir=/data/ruiming/xinda/razor-scripts/init.cql
-ycsb_dir=/data/ruiming/xinda/softwares/ycsb-0.17.0
-docker_compose_dir=/data/ruiming/xinda/razor-scripts/docker
-blockade_dir=/data/ruiming/xinda
-running_pid_dir=/data/ruiming/xinda/razor-scripts/get_running_pid.sh
-
 cd $docker_compose_dir
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Bringing up a new docker-compose cluster" >> $rlog_pos
 nohup docker-compose up > ${data_dir}/${log_dir2}/compose-$5-$6.log &
@@ -66,16 +58,23 @@ check_if_3_node_UN
 echo "[$(date +%s%N), $(date +"%H:%M:%S")] A new cluster is properly set up." >> $rlog_pos
 sleep 10
 
+cas1_ip=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' cas1)
+cqlsh_dir=/data/ruiming/xinda/softwares/cas/bin/cqlsh
+init_cql_dir=/data/ruiming/xinda/razor-scripts/init.cql
+ycsb_dir=/data/ruiming/xinda/softwares/ycsb-0.17.0
+docker_compose_dir=/data/ruiming/xinda/razor-scripts/docker
+blockade_dir=/data/ruiming/xinda
+running_pid_dir=/data/ruiming/xinda/razor-scripts/get_running_pid.sh
 cd $blockade_dir
 blockade add cas1
 blockade add cas2
 blockade add cas3
-print_red_underlined "Current IP: $cas1_ip"
-print_red_underlined "Current IP: $cas1_ip"
-print_red_underlined "Current IP: $cas1_ip"
-print_red_underlined "Current IP: $cas1_ip"
+print_red_underlined "cas1 IP: $cas1_ip"
+
+# init
 $cqlsh_dir $cas1_ip 9042 -f $init_cql_dir
 echo "[$(date +%s%N), $(date +"%H:%M:%S")] KEYSPACE:ycsb and TABLE:usertable initiated" >> $rlog_pos
+# load YCSB wodkload
 ${ycsb_dir}/bin/ycsb.sh load cassandra-cql -p hosts=$cas1_ip -s -P ${ycsb_dir}/workloads/workload${1} -p recordcount=$2
 echo "[$(date +%s%N), $(date +"%H:%M:%S")] ${ycsb_dir}/workloads/workload${1} successfully loaded" >> $rlog_pos
 print_red_underlined "[$(date +%s%N), $(date +"%H:%M:%S")] ${ycsb_dir}/workloads/workload${1} successfully loaded"
