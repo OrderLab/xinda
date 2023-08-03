@@ -88,6 +88,7 @@ sleep 30
 #################hahahah##############
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" >> $rlog_pos
 # source ~/ycsb-my/faults-meeting4/faults/${6}.sh
+docker restart cas1
 cd $blockade_dir
 blockade slow cas1
 #################hahahah##############
