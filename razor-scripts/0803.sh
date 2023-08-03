@@ -59,7 +59,7 @@ docker_compose_dir=/data/ruiming/xinda/razor-scripts/docker
 blockade_dir=/data/ruiming/xinda
 running_pid_dir=/data/ruiming/xinda/razor-scripts/get_running_pid.sh
 
-cd docker_compose_dir
+cd $docker_compose_dir
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Bringing up a new docker-compose cluster" >> $rlog_pos
 nohup docker-compose up -f > ${data_dir}/${log_dir2}/compose-$5-$6.log &
 check_if_3_node_UN
