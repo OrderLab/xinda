@@ -70,7 +70,10 @@ cd $blockade_dir
 blockade add cas1
 blockade add cas2
 blockade add cas3
-
+print_red_underlined "Current IP: $cas1_ip"
+print_red_underlined "Current IP: $cas1_ip"
+print_red_underlined "Current IP: $cas1_ip"
+print_red_underlined "Current IP: $cas1_ip"
 $cqlsh_dir $cas1_ip 9042 -f $init_cql_dir
 echo "[$(date +%s%N), $(date +"%H:%M:%S")] KEYSPACE:ycsb and TABLE:usertable initiated" >> $rlog_pos
 ${ycsb_dir}/bin/ycsb.sh load cassandra-cql -p hosts=$cas1_ip -s -P ${ycsb_dir}/workloads/workload${1} -p recordcount=$2
