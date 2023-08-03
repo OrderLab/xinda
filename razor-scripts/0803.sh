@@ -30,6 +30,13 @@ function create_dir_if_not_exist() {
 }
 
 data_dir=/data/ruiming/data/node_restart
+cqlsh_dir=/data/ruiming/xinda/softwares/cas/bin/cqlsh
+init_cql_dir=/data/ruiming/xinda/razor-scripts/init.cql
+ycsb_dir=/data/ruiming/xinda/softwares/ycsb-0.17.0
+docker_compose_dir=/data/ruiming/xinda/razor-scripts/docker
+blockade_dir=/data/ruiming/xinda
+running_pid_dir=/data/ruiming/xinda/razor-scripts/get_running_pid.sh
+
 cd $data_dir
 log_dir1=r${2}_o${3}
 log_dir2=${log_dir1}/wkl${1}_logs
@@ -59,12 +66,6 @@ echo "[$(date +%s%N), $(date +"%H:%M:%S")] A new cluster is properly set up." >>
 sleep 10
 
 cas1_ip=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' cas1)
-cqlsh_dir=/data/ruiming/xinda/softwares/cas/bin/cqlsh
-init_cql_dir=/data/ruiming/xinda/razor-scripts/init.cql
-ycsb_dir=/data/ruiming/xinda/softwares/ycsb-0.17.0
-docker_compose_dir=/data/ruiming/xinda/razor-scripts/docker
-blockade_dir=/data/ruiming/xinda
-running_pid_dir=/data/ruiming/xinda/razor-scripts/get_running_pid.sh
 cd $blockade_dir
 blockade add cas1
 blockade add cas2
