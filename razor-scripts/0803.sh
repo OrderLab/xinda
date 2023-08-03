@@ -58,6 +58,13 @@ ycsb_dir=/data/ruiming/xinda/softwares/ycsb-0.17.0
 docker_compose_dir=/data/ruiming/xinda/razor-scripts/docker
 blockade_dir=/data/ruiming/xinda
 
+cd docker_compose_dir
+echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Bringing up a new docker-compose cluster" >> $rlog_pos
+nohup docker-compose up -f > ${data_dir}/${log_dir2}/compose-$5-$6.log &
+check_if_3_node_UN
+
+echo "[$(date +%s%N), $(date +"%H:%M:%S")] A new cluster is properly set up." >> $rlog_pos
+
 cd $blockade_dir
 blockade join
 blockade fast cas1
@@ -102,11 +109,6 @@ echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Blockade destroyed" >> $rlog_pos
 
 cd $docker_compose_dir
 docker-compose down
-echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Docker-compose destroyed, now bringing up" >> $rlog_pos
-nohup docker-compose up -f > ${data_dir}/${log_dir2}/compose-$5-$6.log &
-
-check_if_3_node_UN
-
-echo "[$(date +%s%N), $(date +"%H:%M:%S")] A new cluster is properly set up." >> $rlog_pos
+echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Docker-compose destroyed" >> $rlog_pos
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] THE END" >> $rlog_pos
 echo "" >> $rlog_pos
