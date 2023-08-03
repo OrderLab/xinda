@@ -1,5 +1,5 @@
-###################### ~/ycsb-my/faults-meeting4/1.sh ######################
-## bash ~/ycsb-my/faults-meeting4/1.sh 
+###################### /data/ruiming/xinda/razor-scripts/0803.sh ######################
+## bash /data/ruiming/xinda/razor-scripts/0803.sh a 10000 10000000 slow cas1 fault-1-1-freq1-slow1
 ## $1 a/b/c/d/e/f 
 ## $2 recordcount=10000 
 ## $3 operationcount 
@@ -57,18 +57,19 @@ init_cql_dir=/data/ruiming/xinda/razor-scripts/init.cql
 ycsb_dir=/data/ruiming/xinda/softwares/ycsb-0.17.0
 docker_compose_dir=/data/ruiming/xinda/razor-scripts/docker
 blockade_dir=/data/ruiming/xinda
+running_pid_dir=/data/ruiming/xinda/razor-scripts/get_running_pid.sh
 
 cd docker_compose_dir
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Bringing up a new docker-compose cluster" >> $rlog_pos
 nohup docker-compose up -f > ${data_dir}/${log_dir2}/compose-$5-$6.log &
 check_if_3_node_UN
-
 echo "[$(date +%s%N), $(date +"%H:%M:%S")] A new cluster is properly set up." >> $rlog_pos
 
 cd $blockade_dir
-blockade join
-blockade fast cas1
-blockade fast cas2
+blockade add cas1
+blockade add cas2
+blockade add cas3
+
 $cqlsh_dir $cas1_ip 9042 -f $init_cql_dir
 echo "[$(date +%s%N), $(date +"%H:%M:%S")] KEYSPACE:ycsb and TABLE:usertable initiated" >> $rlog_pos
 ${ycsb_dir}/bin/ycsb.sh load cassandra-cql -p hosts=$cas1_ip -s -P ${ycsb_dir}/workloads/workload${1} -p recordcount=$2
@@ -83,8 +84,10 @@ sleep 20
 #################hahahah##############
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" >> $rlog_pos
 # source ~/ycsb-my/faults-meeting4/faults/${6}.sh
+cd $blockade_dir
+blockade slow cas1
 #################hahahah##############
-program_pid=$(bash ~/ycsb-my/get_running_pid.sh)
+program_pid=$(bash $running_pid_dir)
 while ps -p $program_pid > /dev/null; do
 	this_time=$(date +%s)
 	print_red_underlined "Program $program_pid runs for $((this_time -start_time)) seconds."
