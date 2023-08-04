@@ -1,5 +1,5 @@
 ###################### /data/ruiming/xinda/razor-scripts/0803.sh ######################
-## bash /data/ruiming/xinda/razor-scripts/0803.sh a 10000 10000000 slow cas1 restart-slow3-dur5-0-5
+## bash /data/ruiming/xinda/razor-scripts/node_restart/0803.sh a 10000 10000000 slow cas1 restart-slow3-dur5-0-5
 ## $1 a/b/c/d/e/f 
 ## $2 recordcount=10000 
 ## $3 operationcount 
@@ -31,11 +31,11 @@ function create_dir_if_not_exist() {
 
 data_dir=/data/ruiming/data/node_restart
 cqlsh_dir=/data/ruiming/xinda/softwares/cas/bin/cqlsh
-init_cql_dir=/data/ruiming/xinda/razor-scripts/init.cql
+init_cql_dir=/data/ruiming/xinda/razor-scripts/node_restart/init.cql
 ycsb_dir=/data/ruiming/xinda/softwares/ycsb-0.17.0
-docker_compose_dir=/data/ruiming/xinda/razor-scripts/docker
+docker_compose_dir=/data/ruiming/xinda/razor-scripts/node_restart/docker
 blockade_dir=/data/ruiming/xinda
-running_pid_dir=/data/ruiming/xinda/razor-scripts/get_running_pid.sh
+running_pid_dir=/data/ruiming/xinda/razor-scripts/node_restart/get_running_pid.sh
 
 cd $data_dir
 log_dir1=r${2}_o${3}
