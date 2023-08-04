@@ -82,12 +82,12 @@ print_red_underlined "[$(date +%s%N), $(date +"%H:%M:%S")] ${ycsb_dir}/workloads
 
 start_time=$(date +%s)
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] $5-$6 begins" >> $rlog_pos
-${ycsb_dir}/bin/ycsb.sh run cassandra-cql -p hosts=$cas1_ip -s -P ${ycsb_dir}/workloads/workload${1} -p measurementtype=raw -p operationcount=$3 -p maxexecutiontime=120 -p status.interval=1 > ${data_dir}/${log_dir2}/raw-$5-$6.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$5-$6.log >&2) &
+${ycsb_dir}/bin/ycsb.sh run cassandra-cql -p hosts=$cas1_ip -s -P ${ycsb_dir}/workloads/workload${1} -p measurementtype=raw -p operationcount=$3 -p maxexecutiontime=150 -p status.interval=1 > ${data_dir}/${log_dir2}/raw-$5-$6.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$5-$6.log >&2) &
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Now wait 30s before cluster performance is stable " >> $rlog_pos
 sleep 30
 #################hahahah##############
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" >> $rlog_pos
-source /data/ruiming/data/node_restart/faults-meeting4/faults/${6}.sh
+source /data/ruiming/data/node_restart/faults/${6}.sh
 # docker restart cas1
 # cd $blockade_dir
 # blockade slow cas1
