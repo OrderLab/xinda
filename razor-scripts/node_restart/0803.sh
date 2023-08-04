@@ -40,6 +40,7 @@ running_pid_dir=/data/ruiming/xinda/razor-scripts/node_restart/get_running_pid.s
 cd $data_dir
 log_dir1=r${2}_o${3}
 log_dir2=${log_dir1}/wkl${1}_logs
+create_dir_if_not_exist $data_dir
 create_dir_if_not_exist $log_dir1
 create_dir_if_not_exist $log_dir2
 
