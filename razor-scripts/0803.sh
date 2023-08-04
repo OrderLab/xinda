@@ -1,11 +1,11 @@
 ###################### /data/ruiming/xinda/razor-scripts/0803.sh ######################
-## bash /data/ruiming/xinda/razor-scripts/0803.sh a 10000 10000000 slow cas1 fault-1-1-freq1-slow1
+## bash /data/ruiming/xinda/razor-scripts/0803.sh a 10000 10000000 slow cas1 restart-slow3-dur5-0-5
 ## $1 a/b/c/d/e/f 
 ## $2 recordcount=10000 
 ## $3 operationcount 
 ## $4 fault_type = flaky/slow/normal
 ## $5 location = cas1, cas2
-## $6 fault_name  e.g., fault-1-1-freq1-slow1
+## $6 fault_name  e.g., restart-slow3-dur5-0-5, norestart-slow3-dur5-0-5
 function print_red_underlined() {
 	echo -e "\e[4m\e[31m$1\e[0m"
 }
@@ -87,10 +87,10 @@ echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Now wait 30s before cluster perfor
 sleep 30
 #################hahahah##############
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" >> $rlog_pos
-# source ~/ycsb-my/faults-meeting4/faults/${6}.sh
-docker restart cas1
-cd $blockade_dir
-blockade slow cas1
+source /data/ruiming/data/node_restart/faults-meeting4/faults/${6}.sh
+# docker restart cas1
+# cd $blockade_dir
+# blockade slow cas1
 #################hahahah##############
 program_pid=$(bash $running_pid_dir)
 while ps -p $program_pid > /dev/null; do
