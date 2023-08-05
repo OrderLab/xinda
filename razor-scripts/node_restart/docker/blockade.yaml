@@ -3,8 +3,6 @@ containers:
   cas1:
     image: "cassandra:4.0.10"
     container_name: "cas1"
-    ports:
-      - "9042:9042"
     environment:
       - "CASSANDRA_SEEDS=cas1"
 
