@@ -115,12 +115,13 @@ docker cp cas2:/var/log/cassandra/debug.log  ${data_dir}/${log_dir2}/debug-$5-ca
 docker cp cas3:/var/log/cassandra/debug.log  ${data_dir}/${log_dir2}/debug-$5-cas3-$6.log
 mv ${data_dir}/${log_dir2}/debug-$5-$5-$6.log ${data_dir}/${log_dir2}/debug-$5-$5-$6-af-restart.log
 
+cd $docker_compose_dir
+docker-compose down
+echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Docker-compose destroyed" >> $rlog_pos
+
 cd $blockade_dir
 blockade --config $blockade_file destroy
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Blockade destroyed" >> $rlog_pos
 
-cd $docker_compose_dir
-docker-compose down
-echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Docker-compose destroyed" >> $rlog_pos
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] THE END" >> $rlog_pos
 echo "" >> $rlog_pos
