@@ -1,40 +1,40 @@
 version: "2.1"
+containers:
+  cas1:
+    image: "cassandra:4.0.10"
+    container_name: "cas1"
+    ports:
+      - "9042:9042"
+    environment:
+      - "CASSANDRA_SEEDS=cas1"
 
-cas1:
-  image: "cassandra:4.0.10"
-  container_name: "cas1"
-  ports:
-    - "9042:9042"
-  environment:
-    - "CASSANDRA_SEEDS=cas1"
+  cas2:
+    image: "cassandra:4.0.10"
+    container_name: "cas2"
+    environment:
+      - "CASSANDRA_SEEDS=cas1"
+    volumes:
+      - ./healthcheck.sh:/tmp/healthcheck.sh
+    healthcheck:
+      test: 'bash /tmp/healthcheck.sh'
+      #test: ["CMD-SHELL", "[ '$(nodetool status | grep 'UN ' | awk '{print $2}' | wc -l)' == 2 ]"]
+      #test: ["CMD", "curl", "-f", "http://localhost:9042"]
+      #test: ["CMD-SHELL", "[ $$(nodetool status | grep 'UN ' | awk '{print $2}' | wc -l) = 2 ]"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      - "cas1"
 
-cas2:
-  image: "cassandra:4.0.10"
-  container_name: "cas2"
-  environment:
-    - "CASSANDRA_SEEDS=cas1"
-  volumes:
-    - ./healthcheck.sh:/tmp/healthcheck.sh
-  healthcheck:
-    test: 'bash /tmp/healthcheck.sh'
-    #test: ["CMD-SHELL", "[ '$(nodetool status | grep 'UN ' | awk '{print $2}' | wc -l)' == 2 ]"]
-    #test: ["CMD", "curl", "-f", "http://localhost:9042"]
-    #test: ["CMD-SHELL", "[ $$(nodetool status | grep 'UN ' | awk '{print $2}' | wc -l) = 2 ]"]
-    interval: 30s
-    timeout: 10s
-    retries: 5
-  depends_on:
-    - "cas1"
-
-cas3:
-  image: "cassandra:4.0.10"
-  container_name: "cas3"
-  environment:
-    - "CASSANDRA_SEEDS=cas1"
-  restart: on-failure
-  depends_on:
-    cas2:
-      condition: service_healthy
+  cas3:
+    image: "cassandra:4.0.10"
+    container_name: "cas3"
+    environment:
+      - "CASSANDRA_SEEDS=cas1"
+    restart: on-failure
+    depends_on:
+      cas2:
+        condition: service_healthy
 
 network:
   slow: 1000ms 100ms distribution normal
