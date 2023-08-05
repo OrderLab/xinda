@@ -26,8 +26,8 @@ for duration in ${duration_ary[@]}; do
     for start_time in ${start_time_ary[@]}; do
         # echo restart-slow3-dur${duration}-${start_time}-$((start_time+duration))
         echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing cas1 restart-slow3-dur${duration}-${start_time}-$((start_time+duration)).sh now" >> $meta_log_loc
-        bash $main_bash_loc $1 10000 10000000 slow $2 restart-slow1-dur${duration}-${start_time}-$((start_time+duration)) slow1
+        bash $main_bash_loc $1 10000 10000000 slow $2 restart-slow3-dur${duration}-${start_time}-$((start_time+duration)) slow3
         echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing cas1 norestart-slow3-dur${duration}-${start_time}-$((start_time+duration)).sh now" >> $meta_log_loc
-        bash $main_bash_loc $1 10000 10000000 slow $2 norestart-slow1-dur${duration}-${start_time}-$((start_time+duration)) slow1
+        bash $main_bash_loc $1 10000 10000000 slow $2 norestart-slow3-dur${duration}-${start_time}-$((start_time+duration)) slow3
     done
 done
