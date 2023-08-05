@@ -6,6 +6,7 @@
 ## $4 fault_type = flaky/slow/normal
 ## $5 location = cas1, cas2
 ## $6 fault_name  e.g., restart-slow3-dur5-0-5, norestart-slow3-dur5-0-5
+## $7 blockade_identifier e.g., slow1, slow2, flaky1
 function print_red_underlined() {
 	echo -e "\e[4m\e[31m$1\e[0m"
 }
@@ -34,8 +35,9 @@ cqlsh_dir=/data/ruiming/xinda/softwares/cas/bin/cqlsh
 init_cql_dir=/data/ruiming/xinda/razor-scripts/node_restart/init.cql
 ycsb_dir=/data/ruiming/xinda/softwares/ycsb-0.17.0
 docker_compose_dir=/data/ruiming/xinda/razor-scripts/node_restart/docker
-blockade_dir=/data/ruiming/xinda
+blockade_dir=/data/ruiming/xinda/razor-scripts/node_restart/blockade
 running_pid_dir=/data/ruiming/xinda/razor-scripts/node_restart/get_running_pid.sh
+blockade_file=blockade-$7.yaml
 
 cd $data_dir
 log_dir1=r${2}_o${3}
@@ -68,9 +70,10 @@ sleep 10
 
 cas1_ip=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' cas1)
 cd $blockade_dir
-blockade add cas1
-blockade add cas2
-blockade add cas3
+blockade --config $blockade_file up
+blockade --config $blockade_file add cas1
+blockade --config $blockade_file add cas2
+blockade --config $blockade_file add cas3
 print_red_underlined "cas1 IP: $cas1_ip"
 
 # init
@@ -113,7 +116,7 @@ docker cp cas3:/var/log/cassandra/debug.log  ${data_dir}/${log_dir2}/debug-$5-ca
 mv ${data_dir}/${log_dir2}/debug-$5-$5-$6.log ${data_dir}/${log_dir2}/debug-$5-$5-$6-af-restart.log
 
 cd $blockade_dir
-blockade destroy
+blockade --config $blockade_file destroy
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Blockade destroyed" >> $rlog_pos
 
 cd $docker_compose_dir
