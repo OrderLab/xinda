@@ -12,10 +12,7 @@ function create_dir_if_not_exist() {
 data_dir=/data/ruiming/data/node_restart
 cd $data_dir
 log_dir1=r10000_o10000000
-log_dir2=${log_dir1}/wkla_logs
 create_dir_if_not_exist $log_dir1
-create_dir_if_not_exist $log_dir2
-meta_log_loc=${data_dir}/${log_dir2}/wkla_meta.log
 main_bash_loc=/data/ruiming/xinda/razor-scripts/node_restart/0810.sh 
 
 iteration_1st_half=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50)
@@ -28,6 +25,10 @@ location=cas1
 severity=slow3
 wkl=a
 start_time=60
+setup=setup4-full
+log_dir2=${log_dir1}/${setup}
+create_dir_if_not_exist $log_dir2
+meta_log_loc=${data_dir}/${log_dir2}/wkla_meta.log
 
 for iter in ${iteration_full[@]}; do
     end_time=$((start_time+duration))
@@ -35,10 +36,10 @@ for iter in ${iteration_full[@]}; do
         end_time=120
     fi
     # echo restart-slow3-dur${duration}-${start_time}-$((start_time+duration))
-    echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/full $location restart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
-    bash $main_bash_loc $wkl 10000 10000000 slow $location restart-${severity}-dur${duration}-${start_time}-${end_time} $severity $iter
-    echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/full $location norestart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
-    bash $main_bash_loc $wkl 10000 10000000 slow $location norestart-${severity}-dur${duration}-${start_time}-${end_time} $severity $iter
+    echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/${setup} $location restart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
+    bash $main_bash_loc $wkl 10000 10000000 slow $location restart-${severity}-dur${duration}-${start_time}-${end_time} $severity $iter $setup
+    echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/${setup} $location norestart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
+    bash $main_bash_loc $wkl 10000 10000000 slow $location norestart-${severity}-dur${duration}-${start_time}-${end_time} $severity $iter $setup
 done
 
 ## Setup 5 (1st half)
@@ -47,6 +48,10 @@ location=cas2
 severity=slow3
 wkl=a
 start_time=60
+setup=setup5-1st-half
+log_dir2=${log_dir1}/${setup}
+create_dir_if_not_exist $log_dir2
+meta_log_loc=${data_dir}/${log_dir2}/wkla_meta.log
 
 for iter in ${iteration_1st_half[@]}; do
     end_time=$((start_time+duration))
@@ -54,8 +59,8 @@ for iter in ${iteration_1st_half[@]}; do
         end_time=120
     fi
     # echo restart-slow3-dur${duration}-${start_time}-$((start_time+duration))
-    echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/1st-half $location restart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
-    bash $main_bash_loc $wkl 10000 10000000 slow $location restart-${severity}-dur${duration}-${start_time}-${end_time} $severity $iter
-    echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/1st-half $location norestart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
-    bash $main_bash_loc $wkl 10000 10000000 slow $location norestart-${severity}-dur${duration}-${start_time}-${end_time} $severity $iter
+    echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/${setup} $location restart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
+    bash $main_bash_loc $wkl 10000 10000000 slow $location restart-${severity}-dur${duration}-${start_time}-${end_time} $severity $iter $setup
+    echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/${setup} $location norestart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
+    bash $main_bash_loc $wkl 10000 10000000 slow $location norestart-${severity}-dur${duration}-${start_time}-${end_time} $severity $iter $setup
 done

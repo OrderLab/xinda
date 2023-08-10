@@ -1,5 +1,5 @@
 ###################### /data/ruiming/xinda/razor-scripts/node_restart/0810.sh ######################
-## bash /data/ruiming/xinda/razor-scripts/node_restart/0803.sh a 10000 10000000 slow cas1 restart-slow3-dur5-0-5 1
+## bash /data/ruiming/xinda/razor-scripts/node_restart/0803.sh a 10000 10000000 slow cas1 restart-slow3-dur5-0-5 1 setup1
 ## $1 a/b/c/d/e/f 
 ## $2 recordcount=10000 
 ## $3 operationcount 
@@ -8,6 +8,7 @@
 ## $6 fault_name  e.g., restart-slow3-dur5-0-5, norestart-slow3-dur5-0-5
 ## $7 blockade_identifier e.g., slow1, slow2, flaky1 slowdefault
 ## $8 iteration_identifier e.g., 1 2 3 4, ..., 100
+## $9 setup_identifier e.g., setup1-full, setup-1st-half, setup3-2nd-half
 function print_red_underlined() {
 	echo -e "\e[4m\e[31m$1\e[0m"
 }
@@ -42,7 +43,7 @@ blockade_file=blockade-$7.yaml
 
 cd $data_dir
 log_dir1=r${2}_o${3}
-log_dir2=${log_dir1}/wkl${1}_logs
+log_dir2=${log_dir1}/$9
 create_dir_if_not_exist $data_dir
 create_dir_if_not_exist $log_dir1
 create_dir_if_not_exist $log_dir2
