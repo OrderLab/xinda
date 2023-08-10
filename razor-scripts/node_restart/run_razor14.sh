@@ -24,7 +24,7 @@ duration=10
 location=cas1
 severity=slowdefault
 wkl=a
-start_time=60
+start_time=30
 setup=setup1-full
 log_dir2=${log_dir1}/${setup}
 create_dir_if_not_exist $log_dir2
@@ -47,7 +47,7 @@ duration=30
 location=cas1
 severity=slowdefault
 wkl=a
-start_time=40
+start_time=10
 setup=setup2-1st-half
 log_dir2=${log_dir1}/${setup}
 create_dir_if_not_exist $log_dir2
