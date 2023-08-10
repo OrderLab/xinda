@@ -6,7 +6,7 @@
 ## $4 fault_type = flaky/slow/normal
 ## $5 location = cas1, cas2
 ## $6 fault_name  e.g., restart-slow3-dur5-0-5, norestart-slow3-dur5-0-5
-## $7 blockade_identifier e.g., slow1, slow2, flaky1 slowdefault
+## $7 blockade_identifier e.g., slow1, slow2, flaky1 slow6(default)
 ## $8 iteration_identifier e.g., 1 2 3 4, ..., 100
 ## $9 setup_identifier e.g., setup1-full, setup-1st-half, setup3-2nd-half
 function print_red_underlined() {

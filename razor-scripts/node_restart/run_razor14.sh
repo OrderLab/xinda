@@ -22,7 +22,7 @@ iteration_full=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 2
 ## Setup 1 (full)
 duration=10
 location=cas1
-severity=slowdefault
+severity=slow6
 wkl=a
 start_time=30
 setup=setup1-full
@@ -45,7 +45,7 @@ done
 ## Setup 2 (1st half)
 duration=30
 location=cas1
-severity=slowdefault
+severity=slow6
 wkl=a
 start_time=10
 setup=setup2-1st-half
