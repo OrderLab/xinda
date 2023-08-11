@@ -23,7 +23,7 @@ services:
     container_name: datanode1
     restart: always
     volumes:
-      - hadoop_datanode:/hadoop/dfs/data
+      - hadoop_datanode1:/hadoop/dfs/data
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
@@ -34,7 +34,7 @@ services:
     container_name: datanode2
     restart: always
     volumes:
-      - hadoop_datanode:/hadoop/dfs/data
+      - hadoop_datanode2:/hadoop/dfs/data
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
@@ -45,7 +45,7 @@ services:
     container_name: datanode3
     restart: always
     volumes:
-      - hadoop_datanode:/hadoop/dfs/data
+      - hadoop_datanode3:/hadoop/dfs/data
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
@@ -100,5 +100,7 @@ services:
   
 volumes:
   hadoop_namenode:
-  hadoop_datanode:
+  hadoop_datanode1:
+  hadoop_datanode2:
+  hadoop_datanode3:
   hadoop_historyserver:
