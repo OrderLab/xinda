@@ -62,7 +62,7 @@ services:
 
   nodemanager1:
     image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
-    container_name: nodemanager
+    container_name: nodemanager1
     restart: always
     environment:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
@@ -71,7 +71,7 @@ services:
 
   nodemanager2:
     image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
-    container_name: nodemanager
+    container_name: nodemanager2
     restart: always
     environment:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
@@ -80,7 +80,7 @@ services:
 
   nodemanager3:
     image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
-    container_name: nodemanager
+    container_name: nodemanager3
     restart: always
     environment:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
