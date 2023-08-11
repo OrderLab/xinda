@@ -10,9 +10,6 @@ services:
       - 9000:9000
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
-      # - ./my-namenode.sh:/tmp/my-namenode.sh
-    # command:
-      # - bash /tmp/my-namenode.sh
     environment:
       - CLUSTER_NAME=test
     env_file:

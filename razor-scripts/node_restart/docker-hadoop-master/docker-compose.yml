@@ -26,9 +26,9 @@ services:
     env_file:
       - ./hadoop.env
 
-  datanode1:
+  datanode2:
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
-    container_name: datanode1
+    container_name: datanode2
     restart: always
     volumes:
       - hadoop_datanode1:/hadoop/dfs/data
@@ -37,9 +37,9 @@ services:
     env_file:
       - ./hadoop.env
 
-  datanode2:
+  datanode3:
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
-    container_name: datanode2
+    container_name: datanode3
     restart: always
     volumes:
       - hadoop_datanode2:/hadoop/dfs/data
@@ -98,6 +98,6 @@ services:
 volumes:
   hadoop_namenode:
   hadoop_datanode:
-  hadoop_datanode1:
   hadoop_datanode2:
+  hadoop_datanode3:
   hadoop_historyserver:
