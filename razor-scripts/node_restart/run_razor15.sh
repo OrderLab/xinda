@@ -35,42 +35,18 @@ iteration_1_40=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 2
 # razor19
 iteration_41_100=(41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100)
 
-## Setup 9 (61-100)
-duration=30
+## Setup 13 (1-50)
+duration=40
 location=cas1
 severity=slow6
 wkl=a
-start_time=35
-setup=setup9-61-100
-log_dir2=${log_dir1}/${setup}
-create_dir_if_not_exist $log_dir2
-meta_log_loc=${data_dir}/${log_dir2}/wkla_meta.log
-
-for iter in ${iteration_61_100[@]}; do
-    end_time=$((start_time+duration))
-    if [ $end_time -ge 120 ]; then
-        end_time=120
-    fi
-    # echo restart-slow3-dur${duration}-${start_time}-$((start_time+duration))
-    echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/${setup} $location restart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
-    bash $main_bash_loc $wkl 10000 10000000 slow $location restart-${severity}-dur${duration}-${start_time}-${end_time} $severity $iter $setup
-    echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/${setup} $location norestart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
-    bash $main_bash_loc $wkl 10000 10000000 slow $location norestart-${severity}-dur${duration}-${start_time}-${end_time} $severity $iter $setup
-done
-
-
-## Setup 10 (1-20)
-duration=30
-location=cas1
-severity=slow6
-wkl=d
 start_time=30
-setup=setup10-1-20
+setup=setup13
 log_dir2=${log_dir1}/${setup}
 create_dir_if_not_exist $log_dir2
 meta_log_loc=${data_dir}/${log_dir2}/wkla_meta.log
 
-for iter in ${iteration_1_20[@]}; do
+for iter in ${iteration_1st_half[@]}; do
     end_time=$((start_time+duration))
     if [ $end_time -ge 120 ]; then
         end_time=120
