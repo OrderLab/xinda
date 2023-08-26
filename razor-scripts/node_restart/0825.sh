@@ -91,7 +91,7 @@ function running_mrbench_iteratively() {
         echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)" > ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log
     done
 } 
-iteration_ary=(1 2 3 4 5 6 7 8 9 10)
+iteration_ary=($(seq 1 10))
 running_mrbench_iteratively $iteration_ary $5-$6-$8 &
 
 # docker exec -it namenode yarn jar $mrbench_dir mrbench -numRuns 10   > ${data_dir}/${log_dir2}/raw-$5-$6-$8.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$5-$6-$8.log >&2) &
@@ -105,11 +105,10 @@ source /data/ruiming/data/node_restart/faults/${6}.sh
 # cd $blockade_dir
 # blockade slow cas1
 #################hahahah##############
-program_pid=$(bash $running_pid_dir)
-while ps -p $program_pid > /dev/null; do
+last_mrbench_iter_fn=${data_dir}/${log_dir2}/raw-$2-mrbench${iteration_ary[-1]}.log
+while [ -e "$last_mrbench_iter_fn" ] &&  cat $last_mrbench_iter_fn | grep -q "ends" ; do
 	this_time=$(date +%s)
-	print_red_underlined "Program $program_pid runs for $((this_time -start_time)) seconds."
-	# Sleep for 1 second and increment the current time
+	print_red_underlined "$(echo $iteration_ary | wc -w) mrbench runs for $((this_time -start_time)) seconds."
 	sleep 10
 done
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Program safely ends" >> $rlog_pos
