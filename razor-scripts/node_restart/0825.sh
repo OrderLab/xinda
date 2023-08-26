@@ -101,9 +101,11 @@ running_mrbench_iteratively $iteration_ary $5-$6-$8 &
 # docker exec -it namenode yarn jar $mrbench_dir mrbench -numRuns 10   > ${data_dir}/${log_dir2}/raw-$5-$6-$8.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$5-$6-$8.log >&2) &
 
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Now wait 30s before cluster performance is stable " >> $rlog_pos
+print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] Now wait 30s before cluster performance is stable "
 sleep 30
 #################hahahah##############
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" >> $rlog_pos
+print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" 
 source /data/ruiming/data/node_restart/faults/${6}.sh
 # docker restart cas1
 # cd $blockade_dir
