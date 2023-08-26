@@ -86,9 +86,11 @@ function running_mrbench_iteratively() {
     # $2 = $5-$6-$8
 	iteration_ary=$1
     for iter in ${iteration_ary[@]}; do
-        echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $iteration_ary | wc -w)" > ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log
-        docker exec -it namenode yarn jar $mrbench_dir mrbench -numRuns 10 > ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$2-mrbench${iter}.log >&2)
-        echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)" > ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log
+        print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $iteration_ary | wc -w)"
+        echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $iteration_ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log
+        docker exec -it namenode yarn jar $mrbench_dir mrbench >> ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$2-mrbench${iter}.log >&2)
+        print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)"
+        echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log
     done
 } 
 iteration_ary=($(seq 1 10))
@@ -115,9 +117,9 @@ echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Program safely ends" >> $rlog_pos
 
 cd ${data_dir}/${log_dir2}
 
-docker logs datanode > ${data_dir}/${log_dir2}/debug-$5-datanode-$6-$8.log
-docker logs datanode1 > ${data_dir}/${log_dir2}/debug-$5-datanode1-$6-$8.log
-docker logs namenode > ${data_dir}/${log_dir2}/debug-$5-namenode-$6-$8.log
+docker logs datanode > ${data_dir}/${log_dir2}/dockerlogs-$5-datanode-$6-$8.log
+docker logs datanode1 > ${data_dir}/${log_dir2}/dockerlogs-$5-datanode1-$6-$8.log
+docker logs namenode > ${data_dir}/${log_dir2}/dockerlogs-$5-namenode-$6-$8.log
 # mv ${data_dir}/${log_dir2}/debug-$5-$5-$6-$8.log ${data_dir}/${log_dir2}/debug-$5-$5-$6-af-restart-$8.log
 
 cd $docker_compose_dir
