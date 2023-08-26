@@ -1,4 +1,4 @@
-## bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh - = + slow namenode restart-slow6-dur5-0-5 1 setup1
+## bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow namenode restart-slow6-dur5-0-5 1 test
 ## $1 a/b/c/d/e/f 
 ## $2 recordcount=10000 
 ## $3 operationcount 
