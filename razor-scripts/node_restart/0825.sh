@@ -79,7 +79,7 @@ blockade --config $blockade_file add datanode2
 
 start_time=$(date +%s)
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] $5-$6-$8 begins" >> $rlog_pos
-echo "## [$(date +%s%N), $(date +"%H:%M:%S")] $5-$6-$8 begins" >> raw-$5-$6-$8-mrbench.log
+echo "## [$(date +%s%N), $(date +"%H:%M:%S")] $5-$6-$8 begins" >> ${data_dir}/${log_dir2}/raw-$5-$6-$8-mrbench.log
 ####################################################################################################
 
 function running_mrbench_iteratively() {
