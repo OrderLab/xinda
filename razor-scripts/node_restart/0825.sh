@@ -87,10 +87,10 @@ function running_mrbench_iteratively() {
 	iteration_ary=$1
     for iter in ${iteration_ary[@]}; do
         print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $iteration_ary | wc -w)"
-        echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $iteration_ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log
-        docker exec namenode yarn jar $mrbench_dir mrbench >> ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$2-mrbench${iter}.log >&2)
+        echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $iteration_ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log
+        docker exec namenode yarn jar $mrbench_dir mrbench >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$2-mrbench${iter}.log >&2)
         print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)"
-        echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log
+        echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log
     done
 } 
 iteration_ary=($(seq 1 10))
@@ -107,10 +107,10 @@ source /data/ruiming/data/node_restart/faults/${6}.sh
 # cd $blockade_dir
 # blockade slow cas1
 #################hahahah##############
-last_mrbench_iter_fn=${data_dir}/${log_dir2}/raw-$5-$6-$8-mrbench${iteration_ary[-1]}.log
-while ! [ -e "$last_mrbench_iter_fn" ] &&  ! cat $last_mrbench_iter_fn | grep -q "ends" ; do
+mrbench_raw_fn=${data_dir}/${log_dir2}/raw-$5-$6-$8-mrbench.log
+while ! cat $mrbench_raw_fn | grep -q "${iteration_ary[-1]} ends" ; do
 	this_time=$(date +%s)
-	print_red_underlined "$(echo $iteration_ary | wc -w) mrbench runs for $((this_time -start_time)) seconds."
+	print_red_underlined "$(echo $iteration_ary | wc -w) mrbench running for $((this_time -start_time)) seconds now."
 	sleep 10
 done
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Program safely ends" >> $rlog_pos
