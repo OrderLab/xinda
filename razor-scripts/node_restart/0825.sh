@@ -88,7 +88,7 @@ function running_mrbench_iteratively() {
     for iter in ${iteration_ary[@]}; do
         print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $iteration_ary | wc -w)"
         echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $iteration_ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log
-        docker exec -it namenode yarn jar $mrbench_dir mrbench >> ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$2-mrbench${iter}.log >&2)
+        docker exec namenode yarn jar $mrbench_dir mrbench >> ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$2-mrbench${iter}.log >&2)
         print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)"
         echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench${iter}.log
     done
@@ -107,7 +107,7 @@ source /data/ruiming/data/node_restart/faults/${6}.sh
 # cd $blockade_dir
 # blockade slow cas1
 #################hahahah##############
-last_mrbench_iter_fn=${data_dir}/${log_dir2}/raw-$2-mrbench${iteration_ary[-1]}.log
+last_mrbench_iter_fn=${data_dir}/${log_dir2}/raw-$5-$6-$8-mrbench${iteration_ary[-1]}.log
 while ! [ -e "$last_mrbench_iter_fn" ] &&  ! cat $last_mrbench_iter_fn | grep -q "ends" ; do
 	this_time=$(date +%s)
 	print_red_underlined "$(echo $iteration_ary | wc -w) mrbench runs for $((this_time -start_time)) seconds."
