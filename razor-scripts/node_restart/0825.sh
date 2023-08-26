@@ -123,7 +123,7 @@ docker logs namenode > ${data_dir}/${log_dir2}/dockerlogs-$5-namenode-$6-$8.log
 # mv ${data_dir}/${log_dir2}/debug-$5-$5-$6-$8.log ${data_dir}/${log_dir2}/debug-$5-$5-$6-af-restart-$8.log
 
 cd $docker_compose_dir
-docker-compose down
+# docker-compose down
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Docker-compose destroyed" >> $rlog_pos
 
 cd $blockade_dir
