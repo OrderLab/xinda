@@ -88,7 +88,8 @@ function running_mrbench_iteratively() {
     for iter in ${iteration_ary[@]}; do
         print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $iteration_ary | wc -w)"
         echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $iteration_ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log
-        docker exec namenode yarn jar $mrbench_dir mrbench >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$2-mrbench${iter}.log >&2)
+        # docker exec namenode yarn jar $mrbench_dir mrbench >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$2-mrbench${iter}.log >&2)
+        docker exec namenode yarn jar $mrbench_dir mrbench >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log 2> ${data_dir}/${log_dir2}/runtime-$2-mrbench${iter}.log 
         print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)"
         echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log
     done
