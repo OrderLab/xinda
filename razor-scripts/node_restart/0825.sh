@@ -108,7 +108,7 @@ source /data/ruiming/data/node_restart/faults/${6}.sh
 # blockade slow cas1
 #################hahahah##############
 last_mrbench_iter_fn=${data_dir}/${log_dir2}/raw-$2-mrbench${iteration_ary[-1]}.log
-while [ -e "$last_mrbench_iter_fn" ] &&  cat $last_mrbench_iter_fn | grep -q "ends" ; do
+while ! [ -e "$last_mrbench_iter_fn" ] &&  ! cat $last_mrbench_iter_fn | grep -q "ends" ; do
 	this_time=$(date +%s)
 	print_red_underlined "$(echo $iteration_ary | wc -w) mrbench runs for $((this_time -start_time)) seconds."
 	sleep 10
@@ -123,7 +123,7 @@ docker logs namenode > ${data_dir}/${log_dir2}/dockerlogs-$5-namenode-$6-$8.log
 # mv ${data_dir}/${log_dir2}/debug-$5-$5-$6-$8.log ${data_dir}/${log_dir2}/debug-$5-$5-$6-af-restart-$8.log
 
 cd $docker_compose_dir
-# docker-compose down
+docker-compose down
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Docker-compose destroyed" >> $rlog_pos
 
 cd $blockade_dir
