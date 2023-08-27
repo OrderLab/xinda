@@ -96,7 +96,7 @@ duration_ary=(10 15 20 25 30 35 40)
 scheme_ary=(restart norestart)
 start_time_ary=(30 31 32 33 34 35 36 37 38 39)
 
-main_bash_loc=/data/ruiming/data/node_restart/hadoop/trytry/meta.log
+meta_log_loc=/data/ruiming/data/node_restart/hadoop/trytry/meta.log
 
 for dur in ${duration_ary[@]}; do
     for start_time in ${start_time_ary[@]}; do
