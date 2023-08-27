@@ -66,7 +66,7 @@ services:
       - 2181:2181
     environment:
       ZOO_MY_ID: 1
-      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zoo1:2888:3888;2181 server.3=zoo2:2888:3888;2181
   
   zoo1:
     image: zookeeper:3.4.10
@@ -77,7 +77,7 @@ services:
       - 2182:2181
     environment:
       ZOO_MY_ID: 2
-      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
+      ZOO_SERVERS: server.1=zoo:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zoo2:2888:3888;2181
   
   zoo2:
     image: zookeeper:3.4.10
@@ -88,7 +88,7 @@ services:
       - 2183:2181
     environment:
       ZOO_MY_ID: 3
-      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
+      ZOO_SERVERS: server.1=zoo:2888:3888;2181 server.2=zoo1:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
 
   hbase-master:
     image: bde2020/hbase-master:1.0.0-hbase1.2.6
