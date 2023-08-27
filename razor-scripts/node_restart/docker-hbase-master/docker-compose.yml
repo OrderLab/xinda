@@ -119,17 +119,17 @@ services:
     ports:
       - 16031:16030
   
-  hbase-regionserver2:
-    image: bde2020/hbase-regionserver:1.0.0-hbase1.2.6
-    container_name: hbase-regionserver2
-    hostname: hbase-regionserver2
-    env_file:
-      - ./hbase-distributed-local.env
-    environment:
-      HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver2
-      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
-    ports:
-      - 16032:16030
+  # hbase-regionserver2:
+  #   image: bde2020/hbase-regionserver:1.0.0-hbase1.2.6
+  #   container_name: hbase-regionserver2
+  #   hostname: hbase-regionserver2
+  #   env_file:
+  #     - ./hbase-distributed-local.env
+  #   environment:
+  #     HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver2
+  #     SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
+  #   ports:
+  #     - 16032:16030
 
 volumes:
   hadoop_namenode:
