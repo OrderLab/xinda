@@ -73,7 +73,7 @@ services:
       ZOO_MY_ID: 2
       ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=0.0.0.0:2888:3888 server.3=0.0.0.0:2888:3888
     ports:
-      - 2181:2182
+      - 2182:2181
   
   zoo2:
     image: zookeeper:3.4.10
@@ -82,7 +82,7 @@ services:
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=0.0.0.0:2888:3888 server.3=0.0.0.0:2888:3888
     ports:
-      - 2181:2183
+      - 2183:2181
 
   hbase-master:
     image: bde2020/hbase-master:1.0.0-hbase1.2.6
@@ -117,7 +117,7 @@ services:
       HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver1
       SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
     ports:
-      - 16030:16031
+      - 16031:16030
   
   hbase-regionserver2:
     image: bde2020/hbase-regionserver:1.0.0-hbase1.2.6
@@ -129,7 +129,7 @@ services:
       HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver2
       SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
     ports:
-      - 16030:16032
+      - 16032:16030
 
 volumes:
   hadoop_namenode:
