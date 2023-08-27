@@ -117,7 +117,7 @@ services:
       HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver1
       SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
     ports:
-      - 16030:16030
+      - 16030:16031
   
   hbase-regionserver2:
     image: bde2020/hbase-regionserver:1.0.0-hbase1.2.6
@@ -129,7 +129,7 @@ services:
       HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver2
       SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
     ports:
-      - 16030:16030
+      - 16030:16032
 
 volumes:
   hadoop_namenode:
