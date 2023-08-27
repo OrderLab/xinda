@@ -60,12 +60,31 @@
 
 
 
+# # setup 1
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur10-30-40 slow6 1 trytry
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur10-30-40 slow6 1 trytry
+# # setup 12
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur60-30-90 slow6 1 trytry
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur60-30-90 slow6 1 trytry
+# # setup 14
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur60-10-70 slow6 1 trytry
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur60-10-70 slow6 1 trytry
+# # setup 17
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow3-dur60-30-90 slow3 1 trytry
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow3-dur60-30-90 slow3 1 trytry
 
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur10-30-40 slow6 1 trytry
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur10-30-40 slow6 1 trytry
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur60-30-90 slow6 1 trytry
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur60-30-90 slow6 1 trytry
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur60-10-70 slow6 1 trytry
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur60-10-70 slow6 1 trytry
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow3-dur60-30-90 slow3 1 trytry
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow3-dur60-30-90 slow3 1 trytry
+# setup 2
+bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur30-10-40 slow6 1 trytry
+bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur30-10-40 slow6 1 trytry
+# setup 3
+bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur30-30-60 slow6 1 trytry
+bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur30-30-60 slow6 1 trytry
+# setup 4
+bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow3-dur30-30-60 slow3 1 trytry
+bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow3-dur30-30-60 slow3 1 trytry
+# setup 9
+bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur30-35-65 slow6 1 trytry
+bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur30-35-65 slow6 1 trytry
+# setup 13
+bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur40-30-70 slow6 1 trytry
+bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur40-30-70 slow6 1 trytry
