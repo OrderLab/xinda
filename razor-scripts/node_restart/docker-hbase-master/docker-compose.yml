@@ -91,7 +91,7 @@ services:
     env_file:
       - ./hbase-distributed-local.env
     environment:
-      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181"
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181"
     ports:
       - 16010:16010
 
