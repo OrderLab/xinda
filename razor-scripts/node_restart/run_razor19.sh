@@ -73,18 +73,37 @@
 # bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow3-dur60-30-90 slow3 1 trytry
 # bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow3-dur60-30-90 slow3 1 trytry
 
-# setup 2
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur30-10-40 slow6 1 trytry
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur30-10-40 slow6 1 trytry
-# setup 3
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur30-30-60 slow6 1 trytry
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur30-30-60 slow6 1 trytry
-# setup 4
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow3-dur30-30-60 slow3 1 trytry
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow3-dur30-30-60 slow3 1 trytry
-# setup 9
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur30-35-65 slow6 1 trytry
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur30-35-65 slow6 1 trytry
-# setup 13
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur40-30-70 slow6 1 trytry
-bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur40-30-70 slow6 1 trytry
+# # setup 2
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur30-10-40 slow6 1 trytry
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur30-10-40 slow6 1 trytry
+# # setup 3
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur30-30-60 slow6 1 trytry
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur30-30-60 slow6 1 trytry
+# # setup 4
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow3-dur30-30-60 slow3 1 trytry
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow3-dur30-30-60 slow3 1 trytry
+# # setup 9
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur30-35-65 slow6 1 trytry
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur30-35-65 slow6 1 trytry
+# # setup 13
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur40-30-70 slow6 1 trytry
+# bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur40-30-70 slow6 1 trytry
+
+# setup ?
+
+
+duration_ary=(10 15 20 25 30 35 40)
+scheme_ary=(restart norestart)
+start_time_ary=(30 31 32 33 34 35 36 37 38 39)
+
+main_bash_loc=/data/ruiming/data/node_restart/hadoop/trytry/meta.log
+
+for dur in ${duration_ary[@]}; do
+    for start_time in ${start_time_ary[@]}; do
+        end_time=$((dur+start_time))
+        echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing restart ${dur}/${start_time}" >> $meta_log_loc
+        bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode restart-slow6-dur${dur}-${start_time}-${end_time} slow6 1 trytry
+        echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing norestart ${dur}/${start_time}" >> $meta_log_loc
+        bash /data/ruiming/xinda/razor-scripts/node_restart/0825.sh 1_ 2_ 3_ slow datanode norestart-slow6-dur${dur}-${start_time}-${end_time} slow6 1 trytry
+    done
+done
