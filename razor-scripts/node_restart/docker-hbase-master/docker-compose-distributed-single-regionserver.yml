@@ -62,25 +62,7 @@ services:
     container_name: zoo
     environment:
       ZOO_MY_ID: 1
-      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=0.0.0.0:2888:3888 server.3=0.0.0.0:2888:3888
-    ports:
-      - 2181:2181
-  
-  zoo1:
-    image: zookeeper:3.4.10
-    container_name: zoo1
-    environment:
-      ZOO_MY_ID: 2
-      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=0.0.0.0:2888:3888 server.3=0.0.0.0:2888:3888
-    ports:
-      - 2181:2181
-  
-  zoo2:
-    image: zookeeper:3.4.10
-    container_name: zoo2
-    environment:
-      ZOO_MY_ID: 3
-      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=0.0.0.0:2888:3888 server.3=0.0.0.0:2888:3888
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888
     ports:
       - 2181:2181
 
@@ -103,31 +85,7 @@ services:
       - ./hbase-distributed-local.env
     environment:
       HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver
-      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
-    ports:
-      - 16030:16030
-  
-  hbase-regionserver1:
-    image: bde2020/hbase-regionserver:1.0.0-hbase1.2.6
-    container_name: hbase-regionserver1
-    hostname: hbase-regionserver1
-    env_file:
-      - ./hbase-distributed-local.env
-    environment:
-      HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver1
-      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
-    ports:
-      - 16030:16030
-  
-  hbase-regionserver2:
-    image: bde2020/hbase-regionserver:1.0.0-hbase1.2.6
-    container_name: hbase-regionserver2
-    hostname: hbase-regionserver2
-    env_file:
-      - ./hbase-distributed-local.env
-    environment:
-      HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver2
-      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 hbase-master:16010"
     ports:
       - 16030:16030
 
