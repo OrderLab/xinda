@@ -38,8 +38,8 @@ docker_compose_dir=/data/ruiming/xinda/razor-scripts/node_restart/docker-hbase-m
 blockade_dir=/data/ruiming/xinda/razor-scripts/node_restart/blockade
 running_pid_dir=/data/ruiming/xinda/razor-scripts/node_restart/get_running_pid.sh
 init_hbase_dir=/data/ruiming/xinda/razor-scripts/node_restart/init_hbase.sh
-blockade_file=blockade-$7.yaml
 running_pos=hbase-regionserver2
+blockade_file=blockade-$7.yaml
 cd $data_dir
 log_dir1=hbase
 log_dir2=${log_dir1}/$9
@@ -66,7 +66,7 @@ cd $docker_compose_dir
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Bringing up a new docker-compose cluster" >> $rlog_pos
 nohup docker-compose up > ${data_dir}/${log_dir2}/compose-$5-$6-$8.log &
 # check_if_3_node_UN
-sleep 30
+sleep 60
 echo "[$(date +%s%N), $(date +"%H:%M:%S")] A new cluster is properly set up." >> $rlog_pos
 
 region2_ip=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' hbase-regionserver2)
@@ -96,7 +96,11 @@ print_red_underlined "[$(date +%s%N), $(date +"%H:%M:%S")] ${ycsb_dir}/workloads
 
 start_time=$(date +%s)
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] $5-$6-$8 begins" >> $rlog_pos
-docker exec -it $running_pos /tmp/ycsb-0.17.0/bin/ycsb.sh run hbase12 -s -P /tmp/ycsb-0.17.0/workloads/workloada -cp /etc/hbase -p measurementtype=raw -p operationcount=10000000 -p maxexecutiontime=150 -p status.interval=1 > ${data_dir}/${log_dir2}/raw-$5-$6-$8.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$5-$6-$8.log >&2) &
+
+# docker exec -it $running_pos /tmp/ycsb-0.17.0/bin/ycsb run hbase12 -s -P /tmp/ycsb-0.17.0/workloads/workload${1} -cp /etc/hbase -p measurementtype=raw -p operationcount=10000000 -p maxexecutiontime=150 -p status.interval=1 -p columnfamily=family > ${data_dir}/${log_dir2}/raw-$5-$6-$8.log & # 2> >(tee ${data_dir}/${log_dir2}/runtime-$5-$6-$8.log >&2) &
+
+docker exec -d $running_pos sh -c "/tmp/ycsb-0.17.0/bin/ycsb run hbase12 -s -P /tmp/ycsb-0.17.0/workloads/workload${1} -cp /etc/hbase -p measurementtype=raw -p operationcount=10000000 -p maxexecutiontime=150 -p status.interval=1 -p columnfamily=family > /tmp/raw-$5-$6-$8.log"
+
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Now wait 30s before cluster performance is stable " >> $rlog_pos
 sleep 30
 #################hahahah##############
@@ -110,6 +114,7 @@ docker exec -it $running_pos bash /tmp/hbase-check-pid.sh >> $rlog_pos
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Program safely ends" >> $rlog_pos
 
 cd ${data_dir}/${log_dir2}
+docker cp $running_pos:/tmp/raw-$5-$6-$8.log .
 cat raw-$5-$6-$8.log | grep -e "READ," -e "UPDATE," -e "SCAN," -e "INSERT," -e "READ-MODIFY-WRITE," > ts-$5-$6-$8.log
 cat raw-$5-$6-$8.log | grep -v -e "READ," -e "UPDATE," -e "SCAN," -e "INSERT," -e "READ-MODIFY-WRITE," > sum-$5-$6-$8.log
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Convert raw to ts/sum" >> $rlog_pos
