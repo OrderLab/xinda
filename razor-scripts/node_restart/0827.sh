@@ -9,7 +9,7 @@
 ## $7 blockade_identifier e.g., slow1, slow2, flaky1 slow6(default)
 ## $8 iteration_identifier e.g., 1 2 3 4, ..., 100
 ## $9 setup_identifier e.g., setup1-full, setup-1st-half, setup3-2nd-half
-function pr _red_underlined() {
+function print_red_underlined() {
 	echo -e "\e[4m\e[31m$1\e[0m"
 }
 set -m
