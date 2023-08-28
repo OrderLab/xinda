@@ -78,7 +78,7 @@ print_red_underlined "hbase-regionserver2 IP: $region2_ip"
 
 # init
 docker cp $init_hbase_dir hbase-regionserver2:/tmp/init_hbase.sh
-docker exec -it hbase-master ./opt/hbase-1.2.6/bin/hbase shell ./tmp/init_hbase.sh
+docker exec -it hbase-regionserver2 ./opt/hbase-1.2.6/bin/hbase shell ./tmp/init_hbase.sh
 
 echo "[$(date +%s%N), $(date +"%H:%M:%S")] KEYSPACE:ycsb and TABLE:usertable initiated" >> $rlog_pos
 # load YCSB wodkload
