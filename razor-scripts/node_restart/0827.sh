@@ -9,7 +9,7 @@
 ## $7 blockade_identifier e.g., slow1, slow2, flaky1 slow6(default)
 ## $8 iteration_identifier e.g., 1 2 3 4, ..., 100
 ## $9 setup_identifier e.g., setup1-full, setup-1st-half, setup3-2nd-half
-function print_red_underlined() {
+function pr _red_underlined() {
 	echo -e "\e[4m\e[31m$1\e[0m"
 }
 set -m
@@ -37,7 +37,8 @@ ycsb_dir=/data/ruiming/xinda/softwares/ycsb-0.17.0
 docker_compose_dir=/data/ruiming/xinda/razor-scripts/node_restart/docker-hbase-master
 blockade_dir=/data/ruiming/xinda/razor-scripts/node_restart/blockade
 running_pid_dir=/data/ruiming/xinda/razor-scripts/node_restart/get_running_pid.sh
-init_hbase_dir=/data/ruiming/xinda/razor-scripts/node_restart/init_hbase.sh
+init_hbase_dir=/data/ruiming/xinda/razor-scripts/node_restart/hbase-init.sh
+check_pid_hbase_dir=/data/ruiming/xinda/razor-scripts/node_restart/hbase-check-pid.sh
 running_pos=hbase-regionserver2
 blockade_file=blockade-$7.yaml
 cd $data_dir
@@ -83,9 +84,9 @@ print_red_underlined "$running_pos IP: $region2_ip"
 # echo "/tmp/ycsb-0.17.0/bin/ycsb load hbase12 -s -P /tmp/ycsb-0.17.0/workloads/workload${1} -cp /etc/hbase -p recordcount=$2 -p columnfamily=family" >> $init_hbase_dir
 
 # init
-docker cp $init_hbase_dir ${running_pos}:/tmp/hbase-int.sh
-docker cp $init_hbase_dir ${running_pos}:/tmp/hbase-check-pid.sh
-docker exec -it ${running_pos} bash /tmp/hbase-int.sh
+docker cp $init_hbase_dir ${running_pos}:/tmp/hbase-init.sh
+docker cp $check_pid_hbase_dir ${running_pos}:/tmp/hbase-check-pid.sh
+docker exec -it ${running_pos} bash /tmp/hbase-init.sh
 echo "[$(date +%s%N), $(date +"%H:%M:%S")] TABLE:usertable COLUMNFAMILY:family initiated" >> $rlog_pos
 docker cp $ycsb_dir ${running_pos}:/tmp/
 
