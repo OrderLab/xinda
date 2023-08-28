@@ -100,7 +100,7 @@ echo "## [$(date +%s%N), $(date +"%H:%M:%S")] $5-$6-$8 begins" >> $rlog_pos
 
 # docker exec -it $running_pos /tmp/ycsb-0.17.0/bin/ycsb run hbase12 -s -P /tmp/ycsb-0.17.0/workloads/workload${1} -cp /etc/hbase -p measurementtype=raw -p operationcount=10000000 -p maxexecutiontime=150 -p status.interval=1 -p columnfamily=family > ${data_dir}/${log_dir2}/raw-$5-$6-$8.log & # 2> >(tee ${data_dir}/${log_dir2}/runtime-$5-$6-$8.log >&2) &
 
-docker exec -d $running_pos sh -c "/tmp/ycsb-0.17.0/bin/ycsb run hbase12 -s -P /tmp/ycsb-0.17.0/workloads/workload${1} -cp /etc/hbase -p measurementtype=raw -p operationcount=10000000 -p maxexecutiontime=150 -p status.interval=1 -p columnfamily=family > /tmp/raw-$5-$6-$8.log"
+docker exec -d $running_pos sh -c "/tmp/ycsb-0.17.0/bin/ycsb run hbase12 -s -P /tmp/ycsb-0.17.0/workloads/workload${1} -cp /etc/hbase -p measurementtype=raw -p operationcount=10000000 -p maxexecutiontime=150 -p status.interval=1 -p columnfamily=family > /tmp/raw-$5-$6-$8.log 2> >(tee /tmp/runtime-$5-$6-$8.log >&2)"
 
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Now wait 30s before cluster performance is stable " >> $rlog_pos
 sleep 30
@@ -116,6 +116,7 @@ echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Program safely ends" >> $rlog_pos
 
 cd ${data_dir}/${log_dir2}
 docker cp $running_pos:/tmp/raw-$5-$6-$8.log .
+docker cp $running_pos:/tmp/runtime-$5-$6-$8.log .
 cat raw-$5-$6-$8.log | grep -e "READ," -e "UPDATE," -e "SCAN," -e "INSERT," -e "READ-MODIFY-WRITE," > ts-$5-$6-$8.log
 cat raw-$5-$6-$8.log | grep -v -e "READ," -e "UPDATE," -e "SCAN," -e "INSERT," -e "READ-MODIFY-WRITE," > sum-$5-$6-$8.log
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Convert raw to ts/sum" >> $rlog_pos
