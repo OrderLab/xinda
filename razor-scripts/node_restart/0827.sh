@@ -1,4 +1,6 @@
 ###################### /data/ruiming/xinda/razor-scripts/node_restart/0827.sh ######################
+## HBase + HDFS/ZooKeeper + YCSB
+## Currently at least available on razor13
 ## bash /data/ruiming/xinda/razor-scripts/node_restart/0827.sh a 10000 3_ slow hbase-regionserver restart-slow6-dur5-0-5 slow6 1 setup1
 ## $1 a/b/c/d/e/f 
 ## $2 recordcount=10000 

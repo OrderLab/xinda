@@ -1,4 +1,5 @@
 ###################### /data/ruiming/xinda/razor-scripts/node_restart/0810.sh ######################
+## Cassandra + YCSB
 ## bash /data/ruiming/xinda/razor-scripts/node_restart/0803.sh a 10000 10000000 slow cas1 restart-slow3-dur5-0-5 1 setup1
 ## $1 a/b/c/d/e/f 
 ## $2 recordcount=10000 
