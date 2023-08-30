@@ -5,4 +5,12 @@ done
 
 cd /data/ruiming/xinda/softwares
 mv ycsb-0.17.0 ycsb-0.17.0-previous
+tar -xvf ycsb-ruiming.tar
+mv ycsb-ruiming ycsb-0.17.0
 
+
+# # on razor
+# SERVER_LIST=(razor14 razor15 razor16 razor17 razor19)
+# for SERVER in ${SERVER_LIST[@]}; do
+#     scp ycsb-ruiming.tar ruiming@${SERVER}:/data/ruiming/xinda/softwares/
+# done
