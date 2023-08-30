@@ -1,5 +1,15 @@
 ###################### /data/ruiming/xinda/razor-scripts/node_restart/run_razor15.sh ######################
+function create_dir_if_not_exist() {
+    if [ ! -d $1 ]; then
+        mkdir $1
+        print_red_underlined "[$(date +%s%N), $(date +"%H:%M:%S")] Directory $1 created."
+    else
+        print_red_underlined "[$(date +%s%N), $(date +"%H:%M:%S")] Directory $1 already exists."
+        #exit 1
+    fi
+}
 data_dir=/data/ruiming/data/node_restart/hbase
+create_dir_if_not_exist $data_dir
 cd $data_dir
 log_dir1=hbase-start0-39
 meta_log_loc=${data_dir}/${log_dir1}/meta.log
