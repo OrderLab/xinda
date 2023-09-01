@@ -11,6 +11,7 @@
 ## $7 blockade_identifier e.g., slow1, slow2, flaky1 slow6(default)
 ## $8 iteration_identifier e.g., 1 2 3 4, ..., 100
 ## $9 setup_identifier e.g., setup1-full, setup-1st-half, setup3-2nd-half
+## $10 running_pos, e.g., could be {hbase-master, hbase-regionserver2}
 function print_red_underlined() {
 	echo -e "\e[4m\e[31m$1\e[0m"
 }
@@ -41,8 +42,12 @@ blockade_dir=/data/ruiming/xinda/razor-scripts/node_restart/blockade
 running_pid_dir=/data/ruiming/xinda/razor-scripts/node_restart/get_running_pid.sh
 init_hbase_dir=/data/ruiming/xinda/razor-scripts/node_restart/hbase-init.sh
 check_pid_hbase_dir=/data/ruiming/xinda/razor-scripts/node_restart/hbase-check-pid.sh
-running_pos=hbase-regionserver2
 blockade_file=blockade-$7.yaml
+running_pos=hbase-regionserver2
+if [ ! -z "$10" ]; then
+    running_pos=$10
+fi
+print_red_underlined "Fault injection and restart location is: $running_pos"
 cd $data_dir
 log_dir1=hbase
 log_dir2=${log_dir1}/$9
