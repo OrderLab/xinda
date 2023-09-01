@@ -47,7 +47,8 @@ running_pos=hbase-regionserver2
 if [ ! -z "$10" ]; then
     running_pos=$10
 fi
-print_red_underlined "Fault injection and restart location is: $running_pos"
+print_red_underlined "YCSB workload will be running at: $running_pos"
+print_red_underlined "Fault injection and restart location is: $5"
 cd $data_dir
 log_dir1=hbase
 log_dir2=${log_dir1}/$9
