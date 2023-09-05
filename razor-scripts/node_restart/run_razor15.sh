@@ -29,8 +29,8 @@ for duration in ${DUR_ARY[@]}; do
         if [ $end_time -ge 120 ]; then
             end_time=120
         fi
-        # echo "## [$(date +%s%N), $(date +"%H:%M:%S")] [RESTART] Sourcing Duration:$duration / Start at $start_time $location restart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
-        # bash $main_bash_loc $wkl 10000 3_ slow $location restart-${severity}-dur${duration}-${start_time}-${end_time} $severity 1 $log_dir1
+        echo "## [$(date +%s%N), $(date +"%H:%M:%S")] [RESTART] Sourcing Duration:$duration / Start at $start_time $location restart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
+        bash $main_bash_loc $wkl 10000 3_ slow $location restart-${severity}-dur${duration}-${start_time}-${end_time} $severity 1 $log_dir1
         echo "## [$(date +%s%N), $(date +"%H:%M:%S")] [NO-RESTART] Sourcing Duration:$duration / Start at $start_time $location norestart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
         bash $main_bash_loc $wkl 10000 3_ slow $location norestart-${severity}-dur${duration}-${start_time}-${end_time} $severity 1 $log_dir1
     done
