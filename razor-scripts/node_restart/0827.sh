@@ -44,9 +44,9 @@ init_hbase_dir=/data/ruiming/xinda/razor-scripts/node_restart/hbase-init.sh
 check_pid_hbase_dir=/data/ruiming/xinda/razor-scripts/node_restart/hbase-check-pid.sh
 blockade_file=blockade-$7.yaml
 running_pos=hbase-regionserver2
-if [ ! -z "$10" ]; then
-    running_pos=$10
-fi
+# if [ ! -z "$10" ]; then
+#     running_pos=$10
+# fi
 print_red_underlined "YCSB workload will be running at: $running_pos"
 print_red_underlined "Fault injection and restart location is: $5"
 cd $data_dir
