@@ -11,13 +11,13 @@ function create_dir_if_not_exist() {
 data_dir=/data/ruiming/data/node_restart/hbase
 create_dir_if_not_exist $data_dir
 cd $data_dir
-log_dir1=hbase-start0-39
+log_dir1=hbase-start0-39-slow3
 meta_log_loc=${data_dir}/${log_dir1}/meta.log
 create_dir_if_not_exist $log_dir1
 main_bash_loc=/data/ruiming/xinda/razor-scripts/node_restart/0827.sh 
 START_TIME_ARY=(0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39)
 location=hbase-regionserver
-severity=slow6
+severity=slow3
 wkl=a
 
 # running on razor14, 15, 16, 17
