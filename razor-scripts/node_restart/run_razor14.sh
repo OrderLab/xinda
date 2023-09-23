@@ -45,7 +45,7 @@ identifier=mapre-5-10
 
 meta_log_loc=/data/ruiming/data/node_restart/hadoop/${identifier}/meta.log
 echo $meta_log_loc
-echo "123' >> $meta_log_loc
+echo "123" >> $meta_log_loc
 for dur in ${duration_ary[@]}; do
     for start_time in ${start_time_ary[@]}; do
         end_time=$((dur+start_time))
