@@ -37,15 +37,25 @@
 # done
 
 
+function create_dir_if_not_exist() {
+    if [ ! -d $1 ]; then
+        mkdir $1
+        print_red_underlined "[$(date +%s%N), $(date +"%H:%M:%S")] Directory $1 created."
+    else
+        print_red_underlined "[$(date +%s%N), $(date +"%H:%M:%S")] Directory $1 already exists."
+        #exit 1
+    fi
+}
 # duration_ary=(5 10 15 20 25 30 35 40)
 duration_ary=(5 10)
 scheme_ary=(restart norestart)
 start_time_ary=(0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39)
 identifier=mapre-5-10
 
+create_dir_if_not_exist /data/ruiming/data/node_restart/hadoop
+create_dir_if_not_exist /data/ruiming/data/node_restart/hadoop/${identifier}
 meta_log_loc=/data/ruiming/data/node_restart/hadoop/${identifier}/meta.log
-echo $meta_log_loc
-echo "123" >> $meta_log_loc
+
 for dur in ${duration_ary[@]}; do
     for start_time in ${start_time_ary[@]}; do
         end_time=$((dur+start_time))
