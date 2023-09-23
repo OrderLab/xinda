@@ -44,7 +44,8 @@ start_time_ary=(0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
 identifier=mapre-5-10
 
 meta_log_loc=/data/ruiming/data/node_restart/hadoop/${identifier}/meta.log
-
+echo $meta_log_loc
+echo "123' >> $meta_log_loc
 for dur in ${duration_ary[@]}; do
     for start_time in ${start_time_ary[@]}; do
         end_time=$((dur+start_time))
