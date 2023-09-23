@@ -92,20 +92,20 @@ docker cp hadoop-mapreduce-client-jobclient-3.2.1.jar datanode2:/opt/hadoop-3.2.
 function running_mrbench_iteratively() {
     # $1 iteration_ary
     # $2 = $5-$6-$8
-	iteration_ary=$1
-    for iter in ${iteration_ary[@]}; do
+	local ary=("${!1}")
+    for iter in ${ary[@]}; do
         # docker exec namenode yarn jar $mrbench_dir mrbench >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$2-mrbench${iter}.log >&2)
         while ! cat ${data_dir}/${log_dir2}/runtime-$2-mrbench${iter}.log  | grep -q "completed successfully" ; do
-            print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $iteration_ary | wc -w)"
-            echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $iteration_ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log
+            print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $ary | wc -w)"
+            echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} begins /$(echo $ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log
             docker exec datanode2 yarn jar $mrbench_dir mrbench >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log 2>> ${data_dir}/${log_dir2}/runtime-$2-mrbench${iter}.log 
-            print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)"
-            echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $iteration_ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log
+            print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $ary | wc -w)"
+            echo "## [$(date +%s%N), $(date +"%H:%M:%S")] ${iter} ends /$(echo $ary | wc -w)" >> ${data_dir}/${log_dir2}/raw-$2-mrbench.log
         done
     done
 } 
 iteration_ary=($(seq 1 10))
-running_mrbench_iteratively $iteration_ary $5-$6-$8 &
+running_mrbench_iteratively "iteration_ary[@]" $5-$6-$8 &
 
 # docker exec -it namenode yarn jar $mrbench_dir mrbench -numRuns 10   > ${data_dir}/${log_dir2}/raw-$5-$6-$8.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$5-$6-$8.log >&2) &
 
