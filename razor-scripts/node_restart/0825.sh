@@ -82,8 +82,13 @@ blockade --config $blockade_file add datanode2
 start_time=$(date +%s)
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] $5-$6-$8 begins" >> $rlog_pos
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] $5-$6-$8 begins" >> ${data_dir}/${log_dir2}/raw-$5-$6-$8-mrbench.log
-####################################################################################################
 
+# Copy self-configured jars to hadoop-namenode
+cd /data/ruiming/xinda/softwares/hadoop-3.2.1/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient/target
+docker cp hadoop-mapreduce-client-jobclient-3.2.1-tests.jar datanode2:/opt/hadoop-3.2.1/share/hadoop/mapreduce/
+docker cp hadoop-mapreduce-client-jobclient-3.2.1.jar datanode2:/opt/hadoop-3.2.1/share/hadoop/mapreduce/
+
+####################################################################################################
 function running_mrbench_iteratively() {
     # $1 iteration_ary
     # $2 = $5-$6-$8
