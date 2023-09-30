@@ -31,16 +31,16 @@ log_dir2=${log_dir1}/${setup}
 create_dir_if_not_exist $log_dir2
 meta_log_loc=${data_dir}/${log_dir2}/wkla_meta.log
 iter=1
-end_time=$((start_time+duration))
-if [ $end_time -ge 120 ]; then
-    end_time=120
-fi
 
 duration_ary=(5 10 15 20)
 wkl_ary=(a e)
 severity_ary=(slow3 slow6)
 location_ary=(cas1 cas2)
 for duration in ${duration_ary[@]}; do
+    end_time=$((start_time+duration))
+    if [ $end_time -ge 120 ]; then
+        end_time=120
+    fi
     for wkl in ${wkl_ary[@]}; do
         for severity in ${severity_ary[@]}; do
             for location in ${location_ary[@]}; do
