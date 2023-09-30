@@ -26,7 +26,7 @@ main_bash_loc=/data/ruiming/xinda/razor-scripts/node_restart/0810.sh
 # severity=slow6
 # wkl=a
 start_time=55
-setup=new_faults_enum_razor15
+setup=new_faults_enum_razor13
 log_dir2=${log_dir1}/${setup}
 create_dir_if_not_exist $log_dir2
 meta_log_loc=${data_dir}/${log_dir2}/wkla_meta.log
