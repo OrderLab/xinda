@@ -1,3 +1,12 @@
+function create_dir_if_not_exist() {
+    if [ ! -d $1 ]; then
+        mkdir $1
+        print_red_underlined "[$(date +%s%N), $(date +"%H:%M:%S")] Directory $1 created."
+    else
+        print_red_underlined "[$(date +%s%N), $(date +"%H:%M:%S")] Directory $1 already exists."
+        #exit 1
+    fi
+}
 data_dir=/data/ruiming/data/node_restart
 cd $data_dir
 log_dir1=r10000_o10000000

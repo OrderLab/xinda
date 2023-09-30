@@ -122,6 +122,8 @@ cd $docker_compose_dir
 docker-compose down
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Docker-compose destroyed" >> $rlog_pos
 
+echo "y" | docker volume prune
+
 cd $blockade_dir
 blockade --config $blockade_file destroy
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Blockade destroyed" >> $rlog_pos
