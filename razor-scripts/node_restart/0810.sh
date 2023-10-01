@@ -50,11 +50,11 @@ create_dir_if_not_exist $log_dir1
 create_dir_if_not_exist $log_dir2
 
 cd ${data_dir}/${log_dir2}
-if [ -e 1run-$5-$6-$8.log ]; then
-	rm 1run-$5-$6-$8.log
+if [ -e 1run-$5-$6-$8-$1.log ]; then
+	rm 1run-$5-$6-$8-$1.log
 fi
-touch 1run-$5-$6-$8.log
-rlog_pos=${data_dir}/${log_dir2}/1run-$5-$6-$8.log
+touch 1run-$5-$6-$8-$1.log
+rlog_pos=${data_dir}/${log_dir2}/1run-$5-$6-$8-$1.log
 
 
 echo "" >> $rlog_pos
@@ -66,7 +66,7 @@ echo "Fault type: $4" >> $rlog_pos
 
 cd $docker_compose_dir
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Bringing up a new docker-compose cluster" >> $rlog_pos
-nohup docker-compose up > ${data_dir}/${log_dir2}/compose-$5-$6-$8.log &
+nohup docker-compose up > ${data_dir}/${log_dir2}/compose-$5-$6-$8-$1.log &
 check_if_3_node_UN
 echo "[$(date +%s%N), $(date +"%H:%M:%S")] A new cluster is properly set up." >> $rlog_pos
 sleep 10
@@ -89,7 +89,7 @@ print_red_underlined "[$(date +%s%N), $(date +"%H:%M:%S")] ${ycsb_dir}/workloads
 
 start_time=$(date +%s)
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] $5-$6-$8 begins" >> $rlog_pos
-${ycsb_dir}/bin/ycsb.sh run cassandra-cql -p hosts=$cas1_ip -s -P ${ycsb_dir}/workloads/workload${1} -p measurementtype=raw -p operationcount=$3 -p maxexecutiontime=150 -p status.interval=1 > ${data_dir}/${log_dir2}/raw-$5-$6-$8.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$5-$6-$8.log >&2) &
+${ycsb_dir}/bin/ycsb.sh run cassandra-cql -p hosts=$cas1_ip -s -P ${ycsb_dir}/workloads/workload${1} -p measurementtype=raw -p operationcount=$3 -p maxexecutiontime=150 -p status.interval=1 > ${data_dir}/${log_dir2}/raw-$5-$6-$8-$1.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$5-$6-$8-$1.log >&2) &
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Now wait 30s before cluster performance is stable " >> $rlog_pos
 sleep 30
 #################hahahah##############
@@ -109,14 +109,14 @@ done
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Program safely ends" >> $rlog_pos
 
 cd ${data_dir}/${log_dir2}
-cat raw-$5-$6-$8.log | grep -e "READ," -e "UPDATE," -e "SCAN," -e "INSERT," -e "READ-MODIFY-WRITE," > ts-$5-$6-$8.log
-cat raw-$5-$6-$8.log | grep -v -e "READ," -e "UPDATE," -e "SCAN," -e "INSERT," -e "READ-MODIFY-WRITE," > sum-$5-$6-$8.log
+cat raw-$5-$6-$8-$1.log | grep -e "READ," -e "UPDATE," -e "SCAN," -e "INSERT," -e "READ-MODIFY-WRITE," > ts-$5-$6-$8-$1.log
+cat raw-$5-$6-$8-$1.log | grep -v -e "READ," -e "UPDATE," -e "SCAN," -e "INSERT," -e "READ-MODIFY-WRITE," > sum-$5-$6-$8-$1.log
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Convert raw to ts/sum" >> $rlog_pos
 
-docker cp cas1:/var/log/cassandra/debug.log  ${data_dir}/${log_dir2}/debug-$5-cas1-$6-$8.log
-docker cp cas2:/var/log/cassandra/debug.log  ${data_dir}/${log_dir2}/debug-$5-cas2-$6-$8.log
-docker cp cas3:/var/log/cassandra/debug.log  ${data_dir}/${log_dir2}/debug-$5-cas3-$6-$8.log
-mv ${data_dir}/${log_dir2}/debug-$5-$5-$6-$8.log ${data_dir}/${log_dir2}/debug-$5-$5-$6-af-restart-$8.log
+docker cp cas1:/var/log/cassandra/debug.log  ${data_dir}/${log_dir2}/debug-$5-cas1-$6-$8-$1.log
+docker cp cas2:/var/log/cassandra/debug.log  ${data_dir}/${log_dir2}/debug-$5-cas2-$6-$8-$1.log
+docker cp cas3:/var/log/cassandra/debug.log  ${data_dir}/${log_dir2}/debug-$5-cas3-$6-$8-$1.log
+mv ${data_dir}/${log_dir2}/debug-$5-$5-$6-$8.log ${data_dir}/${log_dir2}/debug-$5-$5-$6-af-restart-$8-$1.log
 
 cd $docker_compose_dir
 docker-compose down

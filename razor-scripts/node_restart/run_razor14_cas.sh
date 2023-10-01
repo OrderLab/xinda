@@ -26,7 +26,7 @@ main_bash_loc=/data/ruiming/xinda/razor-scripts/node_restart/0810.sh
 # severity=slow6
 # wkl=a
 start_time=55
-setup=new_faults_enum_razor14
+setup=new_faults_enum_wkl_razor14
 log_dir2=${log_dir1}/${setup}
 create_dir_if_not_exist $log_dir2
 meta_log_loc=${data_dir}/${log_dir2}/wkla_meta.log
@@ -45,9 +45,9 @@ for duration in ${duration_ary[@]}; do
         for severity in ${severity_ary[@]}; do
             for location in ${location_ary[@]}; do
                 # echo restart-slow3-dur${duration}-${start_time}-$((start_time+duration))
-                echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/${setup} $location restart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
+                echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/${setup} $location $wkl restart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
                 bash $main_bash_loc $wkl 10000 10000000 slow $location restart-${severity}-dur${duration}-${start_time}-${end_time} $severity $iter $setup
-                echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/${setup} $location norestart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
+                echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing ${iter}/${setup} $location $wkl norestart-${severity}-dur${duration}-${start_time}-${end_time}.sh now" >> $meta_log_loc
                 bash $main_bash_loc $wkl 10000 10000000 slow $location norestart-${severity}-dur${duration}-${start_time}-${end_time} $severity $iter $setup
             done
         done
