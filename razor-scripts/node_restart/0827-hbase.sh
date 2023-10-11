@@ -36,7 +36,7 @@ function create_dir_if_not_exist() {
 }
 
 data_dir=/data/ruiming/data/node_restart
-ycsb_dir=/data/ruiming/xinda/softwares/ycsb-0.17.0
+ycsb_dir=/data/ruiming/xinda/xinda-software/ycsb-0.17.0
 docker_compose_dir=/data/ruiming/xinda/razor-scripts/node_restart/docker-hbase-master
 blockade_dir=/data/ruiming/xinda/razor-scripts/node_restart/blockade
 running_pid_dir=/data/ruiming/xinda/razor-scripts/node_restart/get_running_pid.sh

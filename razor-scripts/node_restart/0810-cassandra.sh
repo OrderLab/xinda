@@ -35,9 +35,10 @@ function create_dir_if_not_exist() {
 }
 
 data_dir=/data/ruiming/data/node_restart
-cqlsh_dir=/data/ruiming/xinda/softwares/cas/bin/cqlsh
+# cqlsh_dir=/data/ruiming/xinda/softwares/cas/bin/cqlsh
+cqlsh_dir=/data/ruiming/xinda/xinda-software/cas/bin/cqlsh
 init_cql_dir=/data/ruiming/xinda/razor-scripts/node_restart/init.cql
-ycsb_dir=/data/ruiming/xinda/softwares/ycsb-0.17.0
+ycsb_dir=/data/ruiming/xinda/xinda-software/ycsb-0.17.0
 docker_compose_dir=/data/ruiming/xinda/razor-scripts/node_restart/docker-cassandra
 blockade_dir=/data/ruiming/xinda/razor-scripts/node_restart/blockade
 running_pid_dir=/data/ruiming/xinda/razor-scripts/node_restart/get_running_pid.sh
