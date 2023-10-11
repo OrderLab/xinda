@@ -112,13 +112,10 @@ docker exec -d $running_pos sh -c "/tmp/ycsb-0.17.0/bin/ycsb run hbase12 -s -P /
 
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Now wait 30s before cluster performance is stable " >> $rlog_pos
 sleep 30
-#################hahahah##############
+################# Fault injection using Blockade ##############
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" >> $rlog_pos
 source /data/ruiming/data/node_restart/faults/${6}.sh
-# docker restart cas1
-# cd $blockade_dir
-# blockade slow cas1
-#################hahahah##############
+################# Fault injection using Blockade ##############
 docker exec -it $running_pos bash /tmp/hbase-check-pid.sh >> $rlog_pos
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Program safely ends" >> $rlog_pos
 

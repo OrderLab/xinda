@@ -10,6 +10,7 @@
 ## $7 blockade_identifier e.g., slow1, slow2, flaky1 slow6(default)
 ## $8 iteration_identifier e.g., 1 2 3 4, ..., 100
 ## $9 setup_identifier e.g., setup1-full, setup-1st-half, setup3-2nd-half
+##		$9 is also name of the directory storing the results
 function print_red_underlined() {
 	echo -e "\e[4m\e[31m$1\e[0m"
 }
@@ -92,13 +93,10 @@ echo "## [$(date +%s%N), $(date +"%H:%M:%S")] $5-$6-$8 begins" >> $rlog_pos
 ${ycsb_dir}/bin/ycsb.sh run cassandra-cql -p hosts=$cas1_ip -s -P ${ycsb_dir}/workloads/workload${1} -p measurementtype=raw -p operationcount=$3 -p maxexecutiontime=150 -p status.interval=1 > ${data_dir}/${log_dir2}/raw-$5-$6-$8-$1.log 2> >(tee ${data_dir}/${log_dir2}/runtime-$5-$6-$8-$1.log >&2) &
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Now wait 30s before cluster performance is stable " >> $rlog_pos
 sleep 30
-#################hahahah##############
+################# Fault injection using Blockade ##############
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" >> $rlog_pos
 source /data/ruiming/data/node_restart/faults/${6}.sh
-# docker restart cas1
-# cd $blockade_dir
-# blockade slow cas1
-#################hahahah##############
+################# Fault injection using Blockade ##############
 program_pid=$(bash $running_pid_dir)
 while ps -p $program_pid > /dev/null; do
 	this_time=$(date +%s)

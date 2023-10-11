@@ -112,14 +112,11 @@ running_mrbench_iteratively "iteration_ary[@]" $5-$6-$8 &
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Now wait 30s before cluster performance is stable " >> $rlog_pos
 print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] Now wait 30s before cluster performance is stable "
 sleep 30
-#################hahahah##############
+################# Fault injection using Blockade ##############
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" >> $rlog_pos
 print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" 
 source /data/ruiming/data/node_restart/faults/${6}.sh
-# docker restart cas1
-# cd $blockade_dir
-# blockade slow cas1
-#################hahahah##############
+################# Fault injection using Blockade ##############
 mrbench_raw_fn=${data_dir}/${log_dir2}/raw-$5-$6-$8-mrbench.log
 while ! cat $mrbench_raw_fn | grep -q "${iteration_ary[-1]} ends" ; do
 	this_time=$(date +%s)
