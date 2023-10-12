@@ -115,7 +115,7 @@ sleep 30
 ################# Fault injection using Blockade ##############
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" >> $rlog_pos
 print_red_underlined "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" 
-source /data/ruiming/data/node_restart/faults/${6}.sh
+source /data/ruiming/xinda/razor-scripts/node_restart/faults/${6}.sh
 ################# Fault injection using Blockade ##############
 mrbench_raw_fn=${data_dir}/${log_dir2}/raw-$5-$6-$8-mrbench.log
 while ! cat $mrbench_raw_fn | grep -q "${iteration_ary[-1]} ends" ; do

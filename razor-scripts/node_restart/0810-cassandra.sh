@@ -96,7 +96,7 @@ echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Now wait 30s before cluster perfor
 sleep 30
 ################# Fault injection using Blockade ##############
 echo "## [$(date +%s%N), $(date +"%H:%M:%S")] Sourcing $6 now" >> $rlog_pos
-source /data/ruiming/data/node_restart/faults/${6}.sh
+source /data/ruiming/xinda/razor-scripts/node_restart/faults/${6}.sh
 ################# Fault injection using Blockade ##############
 program_pid=$(bash $running_pid_dir)
 while ps -p $program_pid > /dev/null; do
