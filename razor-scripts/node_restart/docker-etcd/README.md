@@ -66,7 +66,7 @@ go-ycsb run:
 ```
 # <bin path>/go-ycsb run etcd -P <repo path>/go-ycsb/workloads/workloada -p etcd.endpoints="http://0.0.0.0:2379" -p operationcount=10 -p measurementtype=raw
 
-/data/ruiming/xinda/xinda-software/go-ycsb run etcd -P /data/ruiming/xinda/xinda-software/go-ycsb-source/workloads/workloada -p etcd.endpoints="http://0.0.0.0:2379" -p operationcount=10 -p measurementtype=raw
+/data/ruiming/xinda/xinda-software/go-ycsb run etcd -P /data/ruiming/xinda/xinda-software/go-ycsb-source/workloads/workloada -p etcd.endpoints="http://0.0.0.0:2379" -p operationcount=10000 --interval 1
 
 # the differences from our previous usage are:
 # 1. use "run etcd" instead of "run basic"
