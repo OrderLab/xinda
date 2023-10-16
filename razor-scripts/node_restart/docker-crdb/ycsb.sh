@@ -27,7 +27,7 @@ fi
 if [ $should_run == 1 ]; then
     docker exec -it roach0 \
         ./cockroach workload run ycsb \
-        postgresql://root@roach1:26257,roach2:26257,roach3:26257?sslmode=disable \
+        postgresql://root@roach3:26257,roach2:26257,roach1:26257?sslmode=disable \
         --workload=A \
         --max-ops=1000000 \
         --duration=10m \
