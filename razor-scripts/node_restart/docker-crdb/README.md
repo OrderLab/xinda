@@ -45,6 +45,8 @@ SELECT COUNT(*) FROM ycsb.usertable;
 Then run workload.
 ```
 ./ycsb.sh run
+
+:warning: During ycsb-run, the ycsb client is communicating with the first specified container in the connection string (see details in `ycsb.sh`).
 ```
 
 ## References
