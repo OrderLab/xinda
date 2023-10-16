@@ -45,9 +45,9 @@ SELECT COUNT(*) FROM ycsb.usertable;
 Then run workload.
 ```
 ./ycsb.sh run
-
-:warning: During ycsb-run, the ycsb client is communicating with the first specified container in the connection string (see details in `ycsb.sh`).
 ```
+:warning: During ycsb-run, the ycsb client is communicating with the first specified container in the connection string (see details in `ycsb.sh`).
+
 
 ## References
 [Start a multi-node cluster](https://www.cockroachlabs.com/docs/v23.1/start-a-local-cluster-in-docker-mac)
