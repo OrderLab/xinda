@@ -3,6 +3,8 @@ version: "2"
 services:
   kafka-1:
     image: docker.io/bitnami/kafka:3.5
+    hostname:  kafka-1
+    container_name:  kafka-1
     restart: always
     ports:
       - "9092:9092"
@@ -22,6 +24,8 @@ services:
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
   kafka-2:
     image: docker.io/bitnami/kafka:3.5
+    hostname:  kafka-2
+    container_name:  kafka-2
     restart: always
     ports:
       - "9093:9092"
@@ -42,6 +46,8 @@ services:
 
   kafka-3:
     image: docker.io/bitnami/kafka:3.5
+    hostname:  kafka-3
+    container_name:  kafka-3
     restart: always
     ports:
       - "9094:9092"
@@ -62,6 +68,8 @@ services:
 
   kafka-4:
     image: docker.io/bitnami/kafka:3.5
+    hostname:  kafka-4
+    container_name:  kafka-4
     restart: always
     ports:
       - "9095:9092"
@@ -82,8 +90,10 @@ services:
 
   kafka-benchmarking:
     image: amazoncorretto
+    hostname:  kafka-benchmarking
+    container_name:  kafka-benchmarking
     volumes:
-      - /home/yuxuan/gitrepos/xinda-exp/kraft/kafka:/kafka
+      - ${path_to_kafka}:/kafka
     # keep the container running by starting the bash shell
     command: tail -f /dev/null
     depends_on:
