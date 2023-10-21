@@ -1,4 +1,4 @@
-version: '3.0'
+version: '3.8'
 
 services:
   etcd0:
@@ -20,11 +20,11 @@ services:
       - etcd0vol:/data.etcd
     networks:
       - etcd
-    # logging:
-    #   driver: "json-file"
-    #   options:
-    #     max-size: "1m"
-    #     max-file: "5"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "5"
     restart: always
 
   etcd1:
@@ -46,11 +46,11 @@ services:
       - etcd1vol:/data.etcd
     networks:
       - etcd
-    # logging:
-    #   driver: "json-file"
-    #   options:
-    #     max-size: "1m"
-    #     max-file: "5"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "5"
     restart: always
 
   etcd2:
@@ -72,35 +72,35 @@ services:
       - etcd2vol:/data.etcd
     networks:
       - etcd
-    # logging:
-    #   driver: "json-file"
-    #   options:
-    #     max-size: "1m"
-    #     max-file: "5"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "5"
     restart: always
 
-  # nginx:
-  #   image: nginx:alpine
-  #   hostname: nginx-etcd
-  #   container_name: nginx-etcd
-  #   volumes:
-  #     - type: bind
-  #       source: ./nginx/nginx.conf
-  #       target: /etc/nginx/nginx.conf
-  #   networks:
-  #    - etcd
-  #   ports:
-  #     - 2379:2379
-  #   depends_on:
-  #     - etcd0
-  #     - etcd1
-  #     - etcd2
-  #   logging:
-  #     driver: "json-file"
-  #     options:
-  #       max-size: "1m"
-  #       max-file: "5"
-  #   restart: always
+  nginx:
+    image: nginx:alpine
+    hostname: nginx-etcd
+    container_name: nginx-etcd
+    volumes:
+      - type: bind
+        source: ./nginx/nginx.conf
+        target: /etc/nginx/nginx.conf
+    networks:
+     - etcd
+    ports:
+      - 2379:2379
+    depends_on:
+      - etcd0
+      - etcd1
+      - etcd2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "5"
+    restart: always
 
 volumes:
   etcd0vol:
