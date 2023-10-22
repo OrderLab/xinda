@@ -8,8 +8,8 @@ services:
     restart: always
     ports:
       - "9092:9092"
-    volumes:
-      - "kafka_data_1:/bitnami"
+    #volumes:
+    #  - "kafka_data_1:/bitnami"
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -29,8 +29,8 @@ services:
     restart: always
     ports:
       - "9093:9092"
-    volumes:
-      - "kafka_data_2:/bitnami"
+    #volumes:
+    #  - "kafka_data_2:/bitnami"
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -51,8 +51,8 @@ services:
     restart: always
     ports:
       - "9094:9092"
-    volumes:
-      - "kafka_data_3:/bitnami"
+    #volumes:
+    #  - "kafka_data_3:/bitnami"
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -73,8 +73,8 @@ services:
     restart: always
     ports:
       - "9095:9092"
-    volumes:
-      - "kafka_data_4:/bitnami"
+    #volumes:
+    #  - "kafka_data_4:/bitnami"
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -101,13 +101,13 @@ services:
       - kafka-2
       - kafka-3
       - kafka-4
-volumes:
-  kafka_data_1:
-    driver: local
-  kafka_data_2:
-    driver: local
-  kafka_data_3:
-    driver: local  
-  kafka_data_4:
-    driver: local
+#volumes:
+#  kafka_data_1:
+#    driver: local
+#  kafka_data_2:
+#    driver: local
+#  kafka_data_3:
+#    driver: local  
+#  kafka_data_4:
+#    driver: local
   
