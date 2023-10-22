@@ -9,7 +9,7 @@ services:
     ports:
       - "9092:9092"
     volumes:
-      - "kafka_data_1:/data/ruiming/kafka/kafka-1"
+      - "/bitnami:/data/ruiming/kafka/kafka-1"
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -30,7 +30,7 @@ services:
     ports:
       - "9093:9092"
     volumes:
-      - "kafka_data_2:/data/ruiming/kafka/kafka-2"
+      - "/bitnami:/data/ruiming/kafka/kafka-2"
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -52,7 +52,7 @@ services:
     ports:
       - "9094:9092"
     volumes:
-      - "kafka_data_3:/data/ruiming/kafka/kafka-3"
+      - "/bitnami:/data/ruiming/kafka/kafka-3"
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -74,7 +74,7 @@ services:
     ports:
       - "9095:9092"
     volumes:
-      - "kafka_data_4:/data/ruiming/kafka/kafka-4"
+      - "/bitnami:/data/ruiming/kafka/kafka-4"
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
