@@ -92,8 +92,8 @@ services:
     image: amazoncorretto
     hostname:  kafka-benchmarking
     container_name:  kafka-benchmarking
-    volumes:
-      - ${path_to_kafka}:/kafka
+#    volumes:
+#      - ${path_to_kafka}:/kafka
     # keep the container running by starting the bash shell
     command: tail -f /dev/null
     depends_on:
