@@ -92,6 +92,11 @@ sh /kafka/bin/kafka-consumer-perf-test.sh \
 
 The above two tests can be run together. Note that once producer perf tests have been run to generate messages in the topic. Consumer perf tests can be ran multiple times by reusing existing data in the topic. The default time for Kafka to delete consumed data is 7 days, but it can be configured to be shorter.
 
+## Delete topics (in case disk space full)
+```bash
+sh /kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9092 --delete --topic test-xinda
+```
+
 ### Run e2e latency measuring test
 ```bash
 sh /kafka/bin/kafka-e2e-latency.sh \
