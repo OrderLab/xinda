@@ -3,7 +3,7 @@ version: "3"
 services:
   kafka-1:
     image: docker.io/bitnami/kafka:3.5
-    hostname:  kafka-1
+    #hostname:  kafka-1
     container_name:  kafka-1
     restart: always
     ports:
@@ -24,7 +24,7 @@ services:
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
   kafka-2:
     image: docker.io/bitnami/kafka:3.5
-    hostname:  kafka-2
+    #hostname:  kafka-2
     container_name:  kafka-2
     restart: always
     ports:
@@ -46,7 +46,7 @@ services:
 
   kafka-3:
     image: docker.io/bitnami/kafka:3.5
-    hostname:  kafka-3
+    #hostname:  kafka-3
     container_name:  kafka-3
     restart: always
     ports:
@@ -68,7 +68,7 @@ services:
 
   kafka-4:
     image: docker.io/bitnami/kafka:3.5
-    hostname:  kafka-4
+    #hostname:  kafka-4
     container_name:  kafka-4
     restart: always
     ports:
