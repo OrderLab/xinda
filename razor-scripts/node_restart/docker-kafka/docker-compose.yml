@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 
 services:
   kafka-1:
@@ -101,12 +101,3 @@ services:
       - kafka-2
       - kafka-3
       - kafka-4
-volumes:
-  kafka_data_1:
-    driver: local
-  kafka_data_2:
-    driver: local
-  kafka_data_3:
-    driver: local  
-  kafka_data_4:
-    driver: local  
