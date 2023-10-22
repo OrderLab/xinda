@@ -1,15 +1,13 @@
-version: "3"
+version: "2"
 
 services:
   kafka-1:
     image: docker.io/bitnami/kafka:3.5
-    #hostname:  kafka-1
-    container_name:  kafka-1
     restart: always
     ports:
       - "9092:9092"
     volumes:
-      - "/data/ruiming/kafka/kafka-1:/bitnami"
+      - "kafka_data_1:/bitnami"
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -24,13 +22,11 @@ services:
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
   kafka-2:
     image: docker.io/bitnami/kafka:3.5
-    #hostname:  kafka-2
-    container_name:  kafka-2
     restart: always
     ports:
       - "9093:9092"
     volumes:
-      - "/data/ruiming/kafka/kafka-2:/bitnami"
+      - "kafka_data_2:/bitnami"
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -46,13 +42,11 @@ services:
 
   kafka-3:
     image: docker.io/bitnami/kafka:3.5
-    #hostname:  kafka-3
-    container_name:  kafka-3
     restart: always
     ports:
       - "9094:9092"
     volumes:
-      - "/data/ruiming/kafka/kafka-3:/bitnami"
+      - "kafka_data_3:/bitnami"
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -68,13 +62,11 @@ services:
 
   kafka-4:
     image: docker.io/bitnami/kafka:3.5
-    #hostname:  kafka-4
-    container_name:  kafka-4
     restart: always
     ports:
       - "9095:9092"
     volumes:
-      - "/data/ruiming/kafka/kafka-4:/bitnami"
+      - "kafka_data_4:/bitnami"
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -90,10 +82,8 @@ services:
 
   kafka-benchmarking:
     image: amazoncorretto
-    hostname:  kafka-benchmarking
-    container_name:  kafka-benchmarking
-#    volumes:
-#      - ${path_to_kafka}:/kafka
+    volumes:
+      - /home/yuxuan/gitrepos/xinda-exp/kraft/kafka:/kafka
     # keep the container running by starting the bash shell
     command: tail -f /dev/null
     depends_on:
@@ -101,3 +91,13 @@ services:
       - kafka-2
       - kafka-3
       - kafka-4
+volumes:
+  kafka_data_1:
+    driver: local
+  kafka_data_2:
+    driver: local
+  kafka_data_3:
+    driver: local  
+  kafka_data_4:
+    driver: local
+  
