@@ -2,14 +2,19 @@ version: "2"
 
 services:
   kafka-1:
-    image: docker.io/bitnami/kafka:3.5
-    hostname:  kafka-1
-    container_name:  kafka-1
+    # image: docker.io/bitnami/kafka:3.5
+    image: kafka-3.5-root
+    hostname: kafka-1
+    container_name: kafka-1
     restart: always
     ports:
       - "9092:9092"
-#    volumes:
-#      - "/data/ruiming/kafka/kafka-1:/bitnami"
+    volumes:
+      # - "/data/ruiming/kafka/kafka-1:/bitnami"
+      - "/home/yunchi/data/kafka/kafka-1:/bitnami"
+    # user: ${CURRENT_UID}
+    # user: 1007:1010
+    # command: chmod -R 777 /bitnami
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -22,15 +27,19 @@ services:
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+
   kafka-2:
-    image: docker.io/bitnami/kafka:3.5
-    hostname:  kafka-2
-    container_name:  kafka-2
+    # image: docker.io/bitnami/kafka:3.5
+    image: kafka-3.5-root
+    hostname: kafka-2
+    container_name: kafka-2
     restart: always
     ports:
       - "9093:9092"
-#    volumes:
-#      - "/data/ruiming/kafka/kafka-2:/bitnami"
+    volumes:
+      - "/home/yunchi/data/kafka/kafka-2:/bitnami"
+    #      - "/data/ruiming/kafka/kafka-2:/bitnami"
+    # user: ${CURRENT_UID}
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -45,14 +54,17 @@ services:
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
 
   kafka-3:
-    image: docker.io/bitnami/kafka:3.5
-    hostname:  kafka-3
-    container_name:  kafka-3
+    # image: docker.io/bitnami/kafka:3.5
+    image: kafka-3.5-root
+    hostname: kafka-3
+    container_name: kafka-3
     restart: always
     ports:
       - "9094:9092"
- #   volumes:
- #     - "/data/ruiming/kafka/kafka-3:/bitnami"
+    volumes:
+      - "/home/yunchi/data/kafka/kafka-3:/bitnami"
+    #     - "/data/ruiming/kafka/kafka-3:/bitnami"
+    # user: ${CURRENT_UID}
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -67,14 +79,17 @@ services:
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
 
   kafka-4:
-    image: docker.io/bitnami/kafka:3.5
-    hostname:  kafka-4
-    container_name:  kafka-4
+    # image: docker.io/bitnami/kafka:3.5
+    image: kafka-3.5-root
+    hostname: kafka-4
+    container_name: kafka-4
     restart: always
     ports:
       - "9095:9092"
-  #  volumes:
-  #    - "/data/ruiming/kafka/kafka-4:/bitnami"
+    volumes:
+      - "/home/yunchi/data/kafka/kafka-4:/bitnami"
+      # - "/data/ruiming/kafka/kafka-4:/bitnami"
+      # user: ${CURRENT_UID}
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -90,10 +105,10 @@ services:
 
   kafka-benchmarking:
     image: amazoncorretto
-    hostname:  kafka-benchmarking
-    container_name:  kafka-benchmarking
-#    volumes:
-#      - ${path_to_kafka}:/kafka
+    hostname: kafka-benchmarking
+    container_name: kafka-benchmarking
+    #    volumes:
+    #      - ${path_to_kafka}:/kafka
     # keep the container running by starting the bash shell
     command: tail -f /dev/null
     depends_on:
@@ -101,6 +116,7 @@ services:
       - kafka-2
       - kafka-3
       - kafka-4
+
 #volumes:
 #  kafka_data_1:
 #    driver: local
