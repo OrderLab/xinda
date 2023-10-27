@@ -34,7 +34,7 @@ services:
       retries: 5
     depends_on:
       - "cas1"
-    user: ${GID}:${UID}
+    user: ${UID}:${GID}
     env_file: .env
  
   cas3:
