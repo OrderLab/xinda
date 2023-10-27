@@ -9,8 +9,9 @@ services:
     ports:
       - "9092:9092"
     volumes:
-      - {LOCAL_DIR_kafka1}:{CONTAINER_DIR}
+      - ${LOCAL_DIR_kafka1}:${CONTAINER_DIR}
     user: 1006:0
+    env_file: .env
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
