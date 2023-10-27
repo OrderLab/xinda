@@ -1,5 +1,12 @@
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/big-data-europe/Lobby)
 
+# TODO
+1. Find the working dirs for nodemanager and resourcemanager
+2. Add more benchmarks
+   * mrbench
+   * wordcount?
+   * ...
+
 # Changes
 
 Version 2.0.0 introduces uses wait_for_it script for the cluster startup
