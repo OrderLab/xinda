@@ -25,16 +25,17 @@ To measure the performance of Kafka, we need to first create a topic. Execute th
 ```bash
 sh /kafka/bin/kafka-topics.sh \
 	--create \
-	--bootstrap-server kafka-1:9092 \
+	--bootstrap-server kafka1:9092 \
         --replication-factor <integer> \ # 4 as we have 4 kafka nodes
         --partitions <integer> \ # reasonable value would be from 1 to ~100 
 	--topic test-xinda # name of the topic to be create
+# sh /kafka/bin/kafka-topics.sh --create --bootstrap-server kafka1:9092 --replication-factor 4 --partitions 10 --topic test-xinda
 ```
 
 ### Checking for Topic Replication and Partition Status
 The command allows you to check the leader for each paritition and replica status (ISR stands for in-sync replicas).
 ```bash
-sh /kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092 --describe --topic test-xinda 
+sh /kafka/bin/kafka-topics.sh --bootstrap-server kafka1:9092,kafka2:9092,kafka3:9092,kafka4:9092 --describe --topic test-xinda 
 ```
 Example output (topic was created with 3 partition and 4 replica):
 ```bash
@@ -46,7 +47,7 @@ Topic: test-xinda       TopicId: rosCO2PBRRWGZw7aTmQ4wQ PartitionCount: 3       
 
 ### Checking for Kafka quorum status (membership of Kafka nodes, not the quorum of topics)
 ```bash
-> sh /kafka/bin/kafka-metadata-quorum.sh --bootstrap-server kafka-1:9092 describe --status
+> sh /kafka/bin/kafka-metadata-quorum.sh --bootstrap-server kafka1:9092 describe --status
 
 ClusterId:              ZGI1NTk0YmY3NzVjNDk5MA
 LeaderId:               4
@@ -59,7 +60,7 @@ CurrentObservers:       []
 ```
 
 ```bash
-> sh /kafka/bin/kafka-metadata-quorum.sh --bootstrap-server kafka-1:9092 describe --replication
+> sh /kafka/bin/kafka-metadata-quorum.sh --bootstrap-server kafka1:9092 describe --replication
 NodeId  LogEndOffset    Lag     LastFetchTimestamp      LastCaughtUpTimestamp   Status  
 4       2467            0       1697594204877           1697594204877           Leader  
 1       2467            0       1697594204419           1697594204419           Follower
@@ -73,7 +74,7 @@ NodeId  LogEndOffset    Lag     LastFetchTimestamp      LastCaughtUpTimestamp   
 sh /kafka/bin/kafka-producer-perf-test.sh \
 	--topic test-xinda \
 	--num-records <integer> \ # usually set to several millions to keep the consumer test run longer
-	--producer-props bootstrap.servers=kafka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092 \ 
+	--producer-props bootstrap.servers=kafka1:9092,kafka2:9092,kafka3:9092,kafka4:9092 \ 
 	--throughput -1 \ # -1 sets no limit on maximal throughput
 	--record-size <number of bytes> \ # usually set to 1024 -- 1KB
 	--reporting-interval 1000 # report every 1 second
@@ -82,7 +83,7 @@ sh /kafka/bin/kafka-producer-perf-test.sh \
 ### Run consumer performance test
 ```bash
 sh /kafka/bin/kafka-consumer-perf-test.sh \
-	--bootstrap-server kafka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092 \
+	--bootstrap-server kafka1:9092,kafka2:9092,kafka3:9092,kafka4:9092 \
 	--messages 1000000 \ # number of messages to read
 	--reporting-interval 1000 \
 	--show-detailed-stats \ 
@@ -94,13 +95,13 @@ The above two tests can be run together. Note that once producer perf tests have
 
 ## Delete topics (in case disk space full)
 ```bash
-sh /kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9092 --delete --topic test-xinda
+sh /kafka/bin/kafka-topics.sh --bootstrap-server kafka1:9092 --delete --topic test-xinda
 ```
 
 ### Run e2e latency measuring test
 ```bash
 sh /kafka/bin/kafka-e2e-latency.sh \
-	kafka-1:9092,kafka-2:9092,kafka-3:9092,kafka-4:9092 \
+	kafka1:9092,kafka2:9092,kafka3:9092,kafka4:9092 \
 	<number of messages> \
 	<1/all for producer acks> \ # producer proceeds only when 1 or all in-sync replicas have received the message 
 	<size of each message>
