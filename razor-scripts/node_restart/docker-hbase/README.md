@@ -1,5 +1,13 @@
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/big-data-europe/Lobby)
 
+# Notes (by ruiming)
+```
+# Check zookeeper connection status
+# Similar if we want to query zoo1 and zoo2
+docker exec -it zoo sh -c "echo srvr | nc zoo 2181"
+docker exec -it zoo sh -c "echo stat | nc zoo 2181"
+```
+
 # docker-hbase
 
 # Standalone
