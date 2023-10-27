@@ -13,7 +13,7 @@ services:
       - ${LOCAL_DIR_cas1}:${CONTAINER_DIR}
 #      - ${DATA_DIR}:/var/lib/cassandra/data
 #      - /data/ruiming/tmp/cfs_mount/cassandra/cas1:/var/lib/cassandra/data
-    user: ${GID}:${UID}
+    user: ${UID}:${GID}
     env_file: .env
 
   cas2:
