@@ -1,0 +1,149 @@
+version: "3"
+
+services:
+  zoo:
+    image: zookeeper:3.4.10
+    container_name: zoo
+    hostname: zoo
+    restart: always
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zoo1:2888:3888 server.3=zoo2:2888:3888
+  
+  zoo1:
+    image: zookeeper:3.4.10
+    container_name: zoo1
+    hostname: zoo1
+    restart: always
+    ports:
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoo:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zoo2:2888:3888
+  
+  zoo2:
+    image: zookeeper:3.4.10
+    container_name: zoo2
+    hostname: zoo2
+    restart: always
+    ports:
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoo:2888:3888 server.2=zoo1:2888:3888 server.3=0.0.0.0:2888:3888
+
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
+    container_name: namenode
+    environment:
+      - CLUSTER_NAME=test
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 50070:50070
+    depends_on:
+      - zoo
+      - zoo1
+      - zoo2
+
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+    container_name: datanode
+    volumes:
+      - ${LOCAL_DIR_datanode}:${CONTAINER_DIR_datanode}
+    # volumes:
+    #   - hadoop_datanode:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070"
+    env_file:
+      - ./hadoop.env
+      - ./.env
+    ports:
+      - 50075:50075
+
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop2.7.4-java8
+    container_name: resourcemanager
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075"
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 8088:8088
+
+  nodemanager1:
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop2.7.4-java8
+    container_name: nodemanager
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 8042:8042
+
+  historyserver:
+    image: bde2020/hadoop-historyserver:2.0.0-hadoop2.7.4-java8
+    container_name: historyserver
+    # volumes:
+    #   - hadoop_historyserver:/hadoop/yarn/timeline
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 8188:8188
+
+
+  hbase-master:
+    image: bde2020/hbase-master:1.0.0-hbase1.2.6
+    container_name: hbase-master
+    hostname: hbase-master
+    env_file:
+      - ./hbase-distributed-local.env
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181"
+    ports:
+      - 16010:16010
+
+  hbase-regionserver:
+    image: bde2020/hbase-regionserver:1.0.0-hbase1.2.6
+    container_name: hbase-regionserver
+    hostname: hbase-regionserver
+    env_file:
+      - ./hbase-distributed-local.env
+    environment:
+      HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
+    ports:
+      - 16030:16030
+  
+  hbase-regionserver1:
+    image: bde2020/hbase-regionserver:1.0.0-hbase1.2.6
+    container_name: hbase-regionserver1
+    hostname: hbase-regionserver1
+    env_file:
+      - ./hbase-distributed-local.env
+    environment:
+      HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver1
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
+    ports:
+      - 16031:16030
+  
+  hbase-regionserver2:
+    image: bde2020/hbase-regionserver:1.0.0-hbase1.2.6
+    container_name: hbase-regionserver2
+    hostname: hbase-regionserver2
+    env_file:
+      - ./hbase-distributed-local.env
+    environment:
+      HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver2
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
+    ports:
+      - 16032:16030
+
+# volumes:
+#   hadoop_namenode:
+#   hadoop_datanode:
+#   hadoop_historyserver:
