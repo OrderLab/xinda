@@ -46,7 +46,7 @@ java.io.IOException: Premature EOF from inputStream
 	at org.apache.hadoop.hdfs.server.datanode.DataXceiver.run(DataXceiver.java:253)
 	at java.lang.Thread.run(Thread.java:748)
 ```
-However, if we inject the same slow faults to namenode, the creation still takes super long time (in fact never finish) but both datanode/namenode logs do not have anything related to "slow"
+However, if we inject the same slow faults to namenode, the creation still take super long time (in fact never finish) but both datanode/namenode logs do not have anything related to "slow"
 
 # docker-hbase
 
