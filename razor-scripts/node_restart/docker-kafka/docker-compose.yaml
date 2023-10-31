@@ -8,9 +8,6 @@ services:
     restart: always
     ports:
       - "9092:9092"
-    volumes:
-      - "/data/ruiming/temp/mnt-temp/kafka/kafka1:/bitnami"
-    user: 1006:0
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -39,9 +36,6 @@ services:
     restart: always
     ports:
       - "9093:9092"
-    volumes:
-      - "/data/ruiming/temp/mnt-temp/kafka/kafka1:/bitnami"
-    user: 1006:0
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -70,9 +64,6 @@ services:
     restart: always
     ports:
       - "9094:9092"
-    volumes:
-      - "/data/ruiming/temp/mnt-temp/kafka/kafka1:/bitnami"
-    user: 1006:0
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -101,9 +92,6 @@ services:
     restart: always
     ports:
       - "9095:9092"
-    volumes:
-      - "/data/ruiming/temp/mnt-temp/kafka/kafka1:/bitnami"
-    user: 1006:0
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
