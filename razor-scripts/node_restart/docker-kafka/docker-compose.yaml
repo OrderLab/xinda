@@ -28,10 +28,7 @@ services:
       # # - KAFKA_CFG_LOG_SEGMENT_BYTES=10485760 # 10MB, twins of KAFKA_CFG_LOG_ROLL_MS
       # - KAFKA_CFG_LOG_ROLL_MS=5000 # Twins of KAFKA_CFG_LOG_SEGMENT_BYTES: The maximum time before a new log segment is rolled out (in milliseconds).
       # - KAFKA_CFG_LOG_CLEANER_THREADS=1 # The number of background threads to use for log cleaning
-    deploy:
-      resources:
-        limits:
-          cpus: '0-15'
+    cpuset: "0-15"
 
   kafka2:
     image: docker.io/bitnami/kafka:3.5
@@ -60,10 +57,7 @@ services:
       # # - KAFKA_CFG_LOG_SEGMENT_BYTES=10485760 # 10MB, twins of KAFKA_CFG_LOG_ROLL_MS
       # - KAFKA_CFG_LOG_ROLL_MS=5000 # Twins of KAFKA_CFG_LOG_SEGMENT_BYTES: The maximum time before a new log segment is rolled out (in milliseconds).
       # - KAFKA_CFG_LOG_CLEANER_THREADS=1 # The number of background threads to use for log cleaning
-    deploy:
-      resources:
-        limits:
-          cpus: '0-15'
+    cpuset: "0-15"
 
   kafka3:
     image: docker.io/bitnami/kafka:3.5
@@ -92,10 +86,7 @@ services:
       # # - KAFKA_CFG_LOG_SEGMENT_BYTES=10485760 # 10MB, twins of KAFKA_CFG_LOG_ROLL_MS
       # - KAFKA_CFG_LOG_ROLL_MS=5000 # Twins of KAFKA_CFG_LOG_SEGMENT_BYTES: The maximum time before a new log segment is rolled out (in milliseconds).
       # - KAFKA_CFG_LOG_CLEANER_THREADS=1 # The number of background threads to use for log cleaning
-    deploy:
-      resources:
-        limits:
-          cpus: '0-15'
+    cpuset: "0-15"
 
   kafka4:
     image: docker.io/bitnami/kafka:3.5
@@ -124,10 +115,7 @@ services:
       # # - KAFKA_CFG_LOG_SEGMENT_BYTES=10485760 # 10MB, twins of KAFKA_CFG_LOG_ROLL_MS
       # - KAFKA_CFG_LOG_ROLL_MS=5000 # Twins of KAFKA_CFG_LOG_SEGMENT_BYTES: The maximum time before a new log segment is rolled out (in milliseconds).
       # - KAFKA_CFG_LOG_CLEANER_THREADS=1 # The number of background threads to use for log cleaning
-    deploy:
-      resources:
-        limits:
-          cpus: '0-15'
+    cpuset: "0-15"
 
   kafka-benchmarking:
     image: amazoncorretto
