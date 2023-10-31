@@ -3,6 +3,13 @@
 ## TODO
 Need [OpenMessaging](https://openmessaging.cloud/docs/benchmarks/) support.
 
+Useful links:
+```
+https://docs.confluent.io/platform/current/installation/configuration/topic-configs.html#max-message-bytes
+https://www.conduktor.io/kafka/kafka-topic-configuration-log-retention/
+https://kafka.apache.org/documentation/#topicconfigs_retention.ms
+```
+
 ## Overview
 This directory contains 
 - one `docker-compose.yml` file that spins up a ***four-node*** Kakfa cluster in ***Kraft*** mode, and another container to run benchmarking scripts. 
