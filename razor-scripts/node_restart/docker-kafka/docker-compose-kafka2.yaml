@@ -20,6 +20,14 @@ services:
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - KAFKA_CFG_LOG_CLEANUP_POLICY=delete
+      - KAFKA_CFG_RETENTION_MS=5000
+      - KAFKA_CFG_LOG_RETENTION_CHECK_INTERVAL_MS=1000 # The frequency in milliseconds that the log cleaner checks whether any log is eligible for deletion
+      - KAFKA_CFG_LOG_RETENTION_MS=5000 # The time to keep a log file before deleting it (in milliseconds)
+      - KAFKA_CFG_LOG_SEGMENT_DELETE_DELAY_MS=5000 # time to wait before deleting a file from the filesystem
+      # - KAFKA_CFG_LOG_SEGMENT_BYTES=10485760 # 10MB, twins of KAFKA_CFG_LOG_ROLL_MS
+      - KAFKA_CFG_LOG_ROLL_MS=5000 # Twins of KAFKA_CFG_LOG_SEGMENT_BYTES: The maximum time before a new log segment is rolled out (in milliseconds).
+      - KAFKA_CFG_LOG_CLEANER_THREADS=8 # The number of background threads to use for log cleaning
 
   kafka2:
     image: docker.io/bitnami/kafka:3.5
@@ -44,6 +52,14 @@ services:
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - KAFKA_CFG_LOG_CLEANUP_POLICY=delete
+      - KAFKA_CFG_RETENTION_MS=5000
+      - KAFKA_CFG_LOG_RETENTION_CHECK_INTERVAL_MS=1000 # The frequency in milliseconds that the log cleaner checks whether any log is eligible for deletion
+      - KAFKA_CFG_LOG_RETENTION_MS=5000 # The time to keep a log file before deleting it (in milliseconds)
+      - KAFKA_CFG_LOG_SEGMENT_DELETE_DELAY_MS=5000 # time to wait before deleting a file from the filesystem
+      # - KAFKA_CFG_LOG_SEGMENT_BYTES=10485760 # 10MB, twins of KAFKA_CFG_LOG_ROLL_MS
+      - KAFKA_CFG_LOG_ROLL_MS=5000 # Twins of KAFKA_CFG_LOG_SEGMENT_BYTES: The maximum time before a new log segment is rolled out (in milliseconds).
+      - KAFKA_CFG_LOG_CLEANER_THREADS=8 # The number of background threads to use for log cleaning
 
   kafka3:
     image: docker.io/bitnami/kafka:3.5
@@ -64,6 +80,14 @@ services:
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - KAFKA_CFG_LOG_CLEANUP_POLICY=delete
+      - KAFKA_CFG_RETENTION_MS=5000
+      - KAFKA_CFG_LOG_RETENTION_CHECK_INTERVAL_MS=1000 # The frequency in milliseconds that the log cleaner checks whether any log is eligible for deletion
+      - KAFKA_CFG_LOG_RETENTION_MS=5000 # The time to keep a log file before deleting it (in milliseconds)
+      - KAFKA_CFG_LOG_SEGMENT_DELETE_DELAY_MS=5000 # time to wait before deleting a file from the filesystem
+      # - KAFKA_CFG_LOG_SEGMENT_BYTES=10485760 # 10MB, twins of KAFKA_CFG_LOG_ROLL_MS
+      - KAFKA_CFG_LOG_ROLL_MS=5000 # Twins of KAFKA_CFG_LOG_SEGMENT_BYTES: The maximum time before a new log segment is rolled out (in milliseconds).
+      - KAFKA_CFG_LOG_CLEANER_THREADS=8 # The number of background threads to use for log cleaning
 
   kafka4:
     image: docker.io/bitnami/kafka:3.5
@@ -84,6 +108,14 @@ services:
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - KAFKA_CFG_LOG_CLEANUP_POLICY=delete
+      - KAFKA_CFG_RETENTION_MS=5000
+      - KAFKA_CFG_LOG_RETENTION_CHECK_INTERVAL_MS=1000 # The frequency in milliseconds that the log cleaner checks whether any log is eligible for deletion
+      - KAFKA_CFG_LOG_RETENTION_MS=5000 # The time to keep a log file before deleting it (in milliseconds)
+      - KAFKA_CFG_LOG_SEGMENT_DELETE_DELAY_MS=5000 # time to wait before deleting a file from the filesystem
+      # - KAFKA_CFG_LOG_SEGMENT_BYTES=10485760 # 10MB, twins of KAFKA_CFG_LOG_ROLL_MS
+      - KAFKA_CFG_LOG_ROLL_MS=5000 # Twins of KAFKA_CFG_LOG_SEGMENT_BYTES: The maximum time before a new log segment is rolled out (in milliseconds).
+      - KAFKA_CFG_LOG_CLEANER_THREADS=8 # The number of background threads to use for log cleaning
 
   kafka-benchmarking:
     image: amazoncorretto
