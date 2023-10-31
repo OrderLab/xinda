@@ -15,13 +15,9 @@ You should see output like:
 Java(TM) SE Runtime Environment 18.9 (build 11.0.20+9-LTS-256)
 Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.20+9-LTS-256, mixed mode)
 ```
-If the second line Runtime Environment has version less than 18.x and build less than 11.x, install jdk-11 (elsewhere outside xinda repo, or add to .gitignore).
+If the second line Runtime Environment has version less than 18.x and build less than 11.x, export jdk-11 binary to system path. In `~/.bashrc`, add the following line, and replace `destination_dir`:
 ```
-tar -xzf jdk-11.0.20_linux-x64.tar destination_dir
-```
-Export jdk-11 binary to system path. In `~/.bashrc`, add the following line, and replace `destination_dir`:
-```
-export PATH=destination_dir/jdk-11.0.20/bin:$PATH
+export PATH=xinda-software/jdk-11.0.20/bin:$PATH
 ```
 Refresh `~/.bashrc``, and check java version. You should have JRE 18.9.
 ```
