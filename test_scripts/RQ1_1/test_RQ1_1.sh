@@ -4,6 +4,18 @@ if [ $# -eq 0 ]; then
     echo "No input provided. Exiting."
     exit 1
 fi
+function create_dir_if_not_exist() {
+    if [ ! -d $1 ]; then
+        mkdir $1
+        print_red_underlined "[$(date +%s%N), $(date +"%H:%M:%S")] Directory $1 created."
+    else
+        print_red_underlined "[$(date +%s%N), $(date +"%H:%M:%S")] Directory $1 already exists."
+        #exit 1
+    fi
+}
+
+main_py=/data/ruiming/xinda/main.py
+meta_log_loc=./meta.log
 sys_name=$1
 data_dir=rq1_1
 start_time=60
@@ -36,7 +48,7 @@ for duration in ${duration_ary[@]}; do
                 "cassandra")
                     for location in ${cassandra_location[@]}; do
                         for wkl in ${ycsb_wkl[@]}; do
-                            python3 ../main.py --sys_name $sys_name \
+                            python3 $main_py --sys_name $sys_name \
                                 --data_dir $data_dir \
                                 --fault_location $location \
                                 --fault_type $fault_type \
@@ -51,7 +63,8 @@ for duration in ${duration_ary[@]}; do
                 "crdb")
                     for location in ${crdb_location[@]}; do
                         for wkl in ${ycsb_wkl_crdb[@]}; do
-                            python3 ../main.py --sys_name $sys_name \
+                            echo "## [$(date +%s%N), $(date +"%H:%M:%S"), BEGIN] $sys_name ${fault_type}-${severity}-dur${duration}-${location}-st${start_time} workload: $wkl" >> $meta_log_loc
+                            python3 $main_py --sys_name $sys_name \
                                 --data_dir $data_dir \
                                 --fault_location $location \
                                 --fault_type $fault_type \
