@@ -86,13 +86,17 @@ parser.add_argument('--fault_severity', type = str, required=True,
 parser.add_argument('--fault_start_time', type = int, required=True,
                     help='[Faults] Fault injection timing in seconds after the benchmark is running.')
 parser.add_argument('--bench_exec_time', type = str, default = '150',
-                    help='[Benchmark] Benchmark duration in seconds.')
+                    help='[Benchmark] Benchmark duration in seconds')
+parser.add_argument('--log_root_dir', type = str, default = '/data/ruiming/data/default',
+                    help='[Init] The root directory to store logs (data)')
+parser.add_argument('--iter', type = str, default = '1',
+                    help='[Init] Iteration of current experiment setup')
 parser.add_argument('--ycsb_wkl', type = str, default = 'readonly',
                     help='[Benchmark] YCSB workload type.')
 parser.add_argument('--ycsb_recordcount', type = str, default = '10000',
-                    help='[Benchmark] Number of records during ycsb-load phase.')
+                    help='[Benchmark] Number of records during ycsb-load phase')
 parser.add_argument('--ycsb_operationcount', type = str, default = '10000000',
-                    help='[Benchmark] Number of operations during ycsb-run phase.')
+                    help='[Benchmark] Number of operations during ycsb-run phase')
 parser.add_argument('--ycsb_measurementtype', type = str, default = 'raw',
                     help='[Benchmark] YCSB measurement type.')
 parser.add_argument('--ycsb_status_interval', type = str, default = '1',
@@ -120,76 +124,83 @@ def main():
     args = parser.parse_args()
     sys_name = args.sys_name
     fault = slow_fault.SlowFault(type_ = args.fault_type,
-                      location_ = args.fault_location,
-                      duration_ = args.fault_duration,
-                      severity_ = args.fault_severity,
-                      start_time_ = args.fault_start_time)
+                        location_ = args.fault_location,
+                        duration_ = args.fault_duration,
+                        severity_ = args.fault_severity,
+                        start_time_ = args.fault_start_time)
     # benchmark = Benchmark()
     if sys_name == 'cassandra':
         benchmark = YCSB_CASSANDRA(exec_time_ = args.bench_exec_time,
-                                   workload_ = args.ycsb_wkl,
-                                   recordcount_ = args.ycsb_recordcount,
-                                   operationcount_ = args.ycsb_operationcount,
-                                   measurementtype_ = args.ycsb_measurementtype,
-                                   status_interval_ = args.ycsb_status_interval
-                                   )
+                                    workload_ = args.ycsb_wkl,
+                                    recordcount_ = args.ycsb_recordcount,
+                                    operationcount_ = args.ycsb_operationcount,
+                                    measurementtype_ = args.ycsb_measurementtype,
+                                    status_interval_ = args.ycsb_status_interval
+                                    )
         sys = cassandra.Cassandra(sys_name_ = sys_name,
-                                  fault_ = fault,
-                                  benchmark_ = benchmark,
-                                  data_dir_ = args.data_dir)
+                                    fault_ = fault,
+                                    benchmark_ = benchmark,
+                                    data_dir_ = args.data_dir,
+                                    log_root_dir_ = args.log_root_dir,
+                                    iter_ = args.iter)
         sys.test()
     elif sys_name == 'hbase':
         benchmark = YCSB_HBASE(exec_time_ = args.bench_exec_time,
-                               workload_ = args.ycsb_wkl,
-                               recordcount_ = args.ycsb_recordcount,
-                               operationcount_ = args.ycsb_operationcount,
-                               measurementtype_ = args.ycsb_measurementtype,
-                               status_interval_ = args.ycsb_status_interval,
-                               columnfamily_ = args.ycsb_columnfamily)
+                                workload_ = args.ycsb_wkl,
+                                recordcount_ = args.ycsb_recordcount,
+                                operationcount_ = args.ycsb_operationcount,
+                                measurementtype_ = args.ycsb_measurementtype,
+                                status_interval_ = args.ycsb_status_interval,
+                                columnfamily_ = args.ycsb_columnfamily)
         sys = hbase.HBase(sys_name_ = sys_name,
-                          fault_ = fault,
-                          benchmark_ = benchmark,
-                          data_dir_ = args.data_dir)
+                            fault_ = fault,
+                            benchmark_ = benchmark,
+                            data_dir_ = args.data_dir,
+                            log_root_dir_ = args.log_root_dir,
+                            iter_ = args.iter)
         sys.test()
     elif sys_name == 'etcd':
         benchmark = YCSB_ETCD(exec_time_ = args.bench_exec_time,
-                              workload_ = args.ycsb_wkl,
-                              recordcount_ = args.ycsb_recordcount,
-                              operationcount_ = args.ycsb_operationcount,
-                              measurementtype_ = args.ycsb_measurementtype,
-                              status_interval_ = args.ycsb_status_interval,
-                              threadcount_ = args.ycsb_etcd_threadcount,
-                              etcd_endpoints_ = args.ycsb_etcd_endpoints)
+                                workload_ = args.ycsb_wkl,
+                                recordcount_ = args.ycsb_recordcount,
+                                operationcount_ = args.ycsb_operationcount,
+                                measurementtype_ = args.ycsb_measurementtype,
+                                status_interval_ = args.ycsb_status_interval,
+                                threadcount_ = args.ycsb_etcd_threadcount,
+                                etcd_endpoints_ = args.ycsb_etcd_endpoints)
         sys = etcd.Etcd(sys_name_ = sys_name,
                         fault_ = fault,
                         benchmark_ = benchmark,
-                        data_dir_ = args.data_dir)
+                        data_dir_ = args.data_dir,
+                        log_root_dir_ = args.log_root_dir,
+                        iter_ = args.iter)
         sys.test()
     elif sys_name == 'crdb':
         benchmark = YCSB_CRDB(exec_time_ = args.bench_exec_time,
-                              workload_ = args.ycsb_wkl,
-                              operationcount_ = args.ycsb_operationcount,
-                              max_rate_ = args.ycsb_crdb_max_rate,
-                              concurrency_ = args.ycsb_crdb_concurrency,
-                              status_interval_ = args.ycsb_status_interval,
-                              load_connection_string_ = args.ycsb_crdb_load_conn_string,
-                              run_connection_string_ = args.ycsb_crdb_run_conn_string)
+                                workload_ = args.ycsb_wkl,
+                                operationcount_ = args.ycsb_operationcount,
+                                max_rate_ = args.ycsb_crdb_max_rate,
+                                concurrency_ = args.ycsb_crdb_concurrency,
+                                status_interval_ = args.ycsb_status_interval,
+                                load_connection_string_ = args.ycsb_crdb_load_conn_string,
+                                run_connection_string_ = args.ycsb_crdb_run_conn_string)
         sys = crdb.Crdb(sys_name_ = sys_name,
                         fault_ = fault,
                         benchmark_ = benchmark,
-                        data_dir_ = args.data_dir)
+                        data_dir_ = args.data_dir,
+                        log_root_dir_ = args.log_root_dir,
+                        iter_ = args.iter)
         sys.test()
     elif sys_name == 'hadoop':
         benchmark = MRBENCH_MAPRED(num_reduces_ = args.mrbench_num_reduce,
-                                   num_iter_ = args.mrbench_num_iter)
+                                    num_iter_ = args.mrbench_num_iter)
         sys = mapred.Mapred(sys_name_ = sys_name,
                             fault_ = fault,
                             benchmark_ = benchmark,
-                            data_dir_ = args.data_dir)
-        sys.test()
-        
-    print(args.ycsb_status_interval)
-    
+                            data_dir_ = args.data_dir,
+                            log_root_dir_ = args.log_root_dir,
+                            iter_ = args.iter)
+        sys.test()    
 
 if __name__ == "__main__":
     main()

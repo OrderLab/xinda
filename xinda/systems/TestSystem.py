@@ -15,11 +15,12 @@ class TestSystem:
                  sys_name_: str, 
                  fault_: SlowFault, 
                  benchmark_: Benchmark,
-                 data_dir_: str, 
+                 data_dir_: str,
+                 log_root_dir_='/data/ruiming/data/default',
                  iter_: int = 1):
         self.sys_name = sys_name_
         self.fault = fault_
-        self.log = Logging(sys_name_, data_dir_, fault_, iter_)
+        self.log = Logging(sys_name_, data_dir_, fault_, iter_, log_root_dir_)
         self.tool = Tool(sys_name_)
         self.benchmark = benchmark_
         self.start_time = None

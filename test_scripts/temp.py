@@ -36,4 +36,6 @@ print(b.exec_time)
 #                benchmark_= b,
 #                data_dir_= "xixi1")
 
-print(os.path.dirname(os.path.abspath(__file__)))
+# print(os.path.dirname(os.path.abspath(__file__)))
+
+# python3 main.py --sys_name cassandra --data_dir test1 --fault_type nw --fault_location cas1 --fault_duration 30 --fault_severity slow3 --fault_start_time 10 --bench_exec_time 60
