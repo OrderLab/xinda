@@ -1,0 +1,36 @@
+cassandra:
+    - cas1
+    - cas2
+    - cas3
+
+hbase:
+    - hbase-master
+    - hbase-regionserver
+    - hbase-regionserver1
+    - hbase-regionserver2
+    - datanode
+    - namenode
+
+hadoop:
+    - namenode
+    - datanode
+    - datanode1
+    - datanode2
+
+etcd:
+    - etcd0
+    - etcd1
+    - etcd2
+
+crdb:
+    - roach1
+    - roach2
+    - roach3
+
+kafka:
+    - kafka1
+    - kafka2
+    - kafka3
+    - kafka4
+
+
