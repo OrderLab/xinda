@@ -20,7 +20,7 @@ class TestSystem:
                  iter_: int = 1):
         self.sys_name = sys_name_
         self.fault = fault_
-        self.log = Logging(sys_name_, data_dir_, fault_, iter_, log_root_dir_)
+        self.log = Logging(sys_name_, data_dir_, fault_, benchmark_, iter_, log_root_dir_)
         self.tool = Tool(sys_name_)
         self.benchmark = benchmark_
         self.start_time = None

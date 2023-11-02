@@ -73,6 +73,7 @@ for duration in ${duration_ary[@]}; do
                                 --fault_start_time $start_time \
                                 --bench_exec_time 150 \
                                 --ycsb_wkl $wkl
+                            echo "## [$(date +%s%N), $(date +"%H:%M:%S"), END]" >> $meta_log_loc
                         done
                     done
                     ;;

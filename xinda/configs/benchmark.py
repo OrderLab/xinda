@@ -78,16 +78,20 @@ class YCSB_CRDB(Benchmark):
 
 class MRBENCH_MAPRED(Benchmark):
     def __init__(self, 
+                 workload_ = 'mrbench',
                  num_reduces_ = '3',
                  num_iter_ = 10):
+        self.workload = workload_
         self.num_reduces = num_reduces_
         self.num_iter = num_iter_
 
 class KAFKA(Benchmark):
     def __init__(self, 
+                 workload_ = 'perf_test',
                  replication_factor_ = '4',
                  topic_partition_ = '10',
                  topic_title_ = 'test-xinda'):
+        self.workload = workload_
         self.replication_factor = replication_factor_
         self.topic_partition = topic_partition_
         self.topic_title = topic_title_

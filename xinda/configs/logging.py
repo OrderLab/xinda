@@ -1,16 +1,20 @@
 import os
 from xinda.configs.slow_fault import SlowFault
+from xinda.configs.benchmark import *
 
 class Logging:
     def __init__(self, 
                  sys_name_ : str,
                  data_dir_ : str,
                  fault_ : SlowFault,
+                 benchmark_ : Benchmark,
                  iter_ : int,
                  log_root_dir_='/data/ruiming/data/default'):
-        path1 = os.path.join(log_root_dir_, sys_name_)
+        path0 = os.path.join(log_root_dir_, sys_name_)
+        self.create_dir_if_not_exist(path0)
+        path1 = os.path.join(log_root_dir_, sys_name_, data_dir_)
         self.create_dir_if_not_exist(path1)
-        path2 = os.path.join(log_root_dir_, sys_name_, data_dir_)
+        path2 = os.path.join(log_root_dir_, sys_name_, data_dir_, benchmark_.workload)
         self.data_dir = path2
         self.create_dir_if_not_exist(path2)
         iter_ = str(iter_)
