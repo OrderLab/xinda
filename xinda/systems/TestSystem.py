@@ -30,7 +30,7 @@ class TestSystem:
             self.container_config = yaml.safe_load(config_file)
         if fault_.location not in self.container_config[sys_name_]:
             raise ValueError(f"Exception: {fault_.location} is not a member of {sys_name_}:{self.container_config[sys_name_]}")
-        self.info(f"Current workload: {self.benchmark.workload_}")
+        self.info(f"Current workload: {self.benchmark.workload}")
      
     def info(self,
              msg_ : str,
