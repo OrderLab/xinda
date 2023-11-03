@@ -44,6 +44,8 @@ for duration in ${duration_ary[@]}; do
             hbase_location=$hbase_fs_location
         fi
         for severity in ${severity_ary[@]}; do
+            echo $severity
+            echo $severity_ary
             case "$sys_name" in
                 "cassandra")
                     for location in ${cassandra_location[@]}; do
