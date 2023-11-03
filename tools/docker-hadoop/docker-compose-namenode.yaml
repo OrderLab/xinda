@@ -6,7 +6,7 @@ services:
     container_name: namenode
     restart: always
     ports:
-      - 9870:9870
+      - 9869:9870
       - 9001:9000
     volumes:
     - ${LOCAL_DIR_namenode}:${CONTAINER_DIR_namenode}
