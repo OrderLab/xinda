@@ -109,7 +109,7 @@ parser.add_argument('--ycsb_etcd_endpoints', type = str, default = 'http://0.0.0
                     help='[Benchmark] Connection strings for the YCSB client to connect etcd.')
 parser.add_argument('--ycsb_crdb_max_rate', type = str, default = '0',
                     help='[Benchmark] crdb max_rate (0 for no limits).')
-parser.add_argument('--ycsb_crdb_concurrency', type = str, default = '16',
+parser.add_argument('--ycsb_crdb_concurrency', type = str, default = '50',
                     help='[Benchmark] The number of concurrent workers.')
 parser.add_argument('--ycsb_crdb_load_conn_string', type = str, default = 'postgresql://root@roach3:26257?sslmode=disable',
                     help='[Benchmark] Connection strings during YCSB load phase')
