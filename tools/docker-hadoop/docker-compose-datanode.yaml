@@ -6,8 +6,13 @@ services:
     container_name: namenode
     restart: always
     ports:
+<<<<<<< HEAD
       - 9869:9870
       - 9000:9000
+=======
+      - 9870:9870
+      - 9001:9000
+>>>>>>> change port 9000 to 9001
     environment:
       - CLUSTER_NAME=test
     env_file:
