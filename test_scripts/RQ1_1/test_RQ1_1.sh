@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 # Testing duration, severity and location at fixed timing of 60s
 if [ $# -eq 0 ]; then
     echo "No input provided. Exiting."
