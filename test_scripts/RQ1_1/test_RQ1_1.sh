@@ -20,7 +20,7 @@ sys_name=$1
 data_dir=rq1_1
 start_time=60
 duration_ary=(-1 5 10 20 30 40 50 60)
-fault_type_ary=(nw fs)
+fault_type_ary=(fs nw)
 nw_severity=(low high medium)
 fs_severity=(1000 10000 100000 1000000)
 cassandra_location=(cas1 cas2)
@@ -48,6 +48,7 @@ for duration in ${duration_ary[@]}; do
                 "cassandra")
                     for location in ${cassandra_location[@]}; do
                         for wkl in ${ycsb_wkl[@]}; do
+                            echo "## [$(date +%s%N), $(date +"%H:%M:%S"), BEGIN] $sys_name ${fault_type}-${severity}-dur${duration}-${location}-st${start_time} workload: $wkl" >> $meta_log_loc
                             python3 $main_py --sys_name $sys_name \
                                 --data_dir $data_dir \
                                 --fault_location $location \
@@ -57,6 +58,7 @@ for duration in ${duration_ary[@]}; do
                                 --fault_start_time $start_time \
                                 --bench_exec_time 150 \
                                 --ycsb_wkl $wkl
+                            echo "## [$(date +%s%N), $(date +"%H:%M:%S"), END]" >> $meta_log_loc
                         done
                     done
                     ;;
@@ -82,6 +84,10 @@ for duration in ${duration_ary[@]}; do
                     exit 1
                     ;;
             esac
+            if [ $duration -eq -1 ]; then
+                echo "## [$(date +%s%N), $(date +"%H:%M:%S"), BREAK] We dont care about different severities for duration=-1" >> $meta_log_loc
+                break
+            fi
         done
     done
 done
