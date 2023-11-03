@@ -19,8 +19,9 @@ services:
     networks:
       - etcd
     restart: always
-    env_file:
-      - ./.env
+    depends_on:
+      etcd1:
+        condition: service_started
 
   etcd1:
     image: quay.io/coreos/etcd:v3.5.0
@@ -43,9 +44,8 @@ services:
     networks:
       - etcd
     restart: always
-    depends_on:
-      etcd0:
-        condition: service_started
+    env_file:
+      - ./.env
 
   etcd2:
     image: quay.io/coreos/etcd:v3.5.0
@@ -66,7 +66,7 @@ services:
       - etcd
     restart: always
     depends_on:
-      etcd0:
+      etcd1:
         condition: service_started
 
 networks:
