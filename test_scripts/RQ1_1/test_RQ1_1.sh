@@ -83,6 +83,55 @@ for duration in ${duration_ary[@]}; do
                         done
                     done
                     ;;
+                "etcd")
+                    for location in ${etcd_location[@]}; do
+                        for wkl in ${ycsb_wkl[@]}; do
+                            echo "## [$(date +%s%N), $(date +"%H:%M:%S"), BEGIN] $sys_name ${fault_type}-${severity}-dur${duration}-${location}-st${start_time} workload: $wkl" >> $meta_log_loc
+                            python3 $main_py --sys_name $sys_name \
+                                --data_dir $data_dir \
+                                --fault_location $location \
+                                --fault_type $fault_type \
+                                --fault_duration $duration \
+                                --fault_severity $severity \
+                                --fault_start_time $start_time \
+                                --bench_exec_time 150 \
+                                --ycsb_wkl $wkl
+                            echo "## [$(date +%s%N), $(date +"%H:%M:%S"), END]" >> $meta_log_loc
+                        done
+                    done
+                    ;;
+                "hbase")
+                    for location in ${hbase_location[@]}; do
+                        for wkl in ${ycsb_wkl[@]}; do
+                            echo "## [$(date +%s%N), $(date +"%H:%M:%S"), BEGIN] $sys_name ${fault_type}-${severity}-dur${duration}-${location}-st${start_time} workload: $wkl" >> $meta_log_loc
+                            python3 $main_py --sys_name $sys_name \
+                                --data_dir $data_dir \
+                                --fault_location $location \
+                                --fault_type $fault_type \
+                                --fault_duration $duration \
+                                --fault_severity $severity \
+                                --fault_start_time $start_time \
+                                --bench_exec_time 150 \
+                                --ycsb_wkl $wkl
+                            echo "## [$(date +%s%N), $(date +"%H:%M:%S"), END]" >> $meta_log_loc
+                        done
+                    done
+                    ;;
+                "hadoop")
+                    for location in ${hadoop_location[@]}; do
+                            echo "## [$(date +%s%N), $(date +"%H:%M:%S"), BEGIN] $sys_name ${fault_type}-${severity}-dur${duration}-${location}-st${start_time} workload: mrbench" >> $meta_log_loc
+                            python3 $main_py --sys_name $sys_name \
+                                --data_dir $data_dir \
+                                --fault_location $location \
+                                --fault_type $fault_type \
+                                --fault_duration $duration \
+                                --fault_severity $severity \
+                                --fault_start_time $start_time \
+                                --bench_exec_time 150
+                            echo "## [$(date +%s%N), $(date +"%H:%M:%S"), END]" >> $meta_log_loc
+                        done
+                    done
+                    ;;
                 *)
                     echo "Unknown option: $first_arg. Exit"
                     exit 1
