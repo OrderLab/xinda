@@ -39,10 +39,10 @@ for duration in ${duration_ary[@]}; do
         hbase_location=()
         if [ $fault_type == 'nw' ]; then
             severity_ary=("${nw_severity[@]}")
-            hbase_location=$hbase_nw_location
+            hbase_location=("${hbase_nw_location[@]}")
         else
             severity_ary=("${fs_severity[@]}")
-            hbase_location=$hbase_fs_location
+            hbase_location=("${hbase_fs_location[@]}")
         fi
         for severity in ${severity_ary[@]}; do
             case "$sys_name" in
