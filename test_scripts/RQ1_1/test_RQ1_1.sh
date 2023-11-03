@@ -86,10 +86,10 @@ for duration in ${duration_ary[@]}; do
                     exit 1
                     ;;
             esac
-            if [ $duration -eq -1 ]; then
-                echo "## [$(date +%s%N), $(date +"%H:%M:%S"), BREAK] We dont care about different severities for duration=-1" >> $meta_log_loc
-                break
-            fi
+            # if [ $duration -eq -1 ]; then
+            #     echo "## [$(date +%s%N), $(date +"%H:%M:%S"), BREAK] We dont care about different severities for duration=-1" >> $meta_log_loc
+            #     break
+            # fi
         done
     done
 done

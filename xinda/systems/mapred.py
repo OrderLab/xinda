@@ -103,22 +103,22 @@ class Mapred(TestSystem):
     def _post_process(self):
         p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
 
-nw_fault = SlowFault(
-    type_="nw", # nw or fs
-    location_ = "datanode", # e.g., datanode
-    duration_ = 20,
-    severity_ = "slow3",
-    start_time_ = 5)
-fs_fault = SlowFault(
-    type_="fs", # nw or fs
-    location_ = "datanode", # e.g., datanode
-    duration_ = 20,
-    severity_ = "100000",
-    start_time_ = 5)
-b = MRBENCH_MAPRED(num_reduces_='3',
-                   num_iter_=3)
+# nw_fault = SlowFault(
+#     type_="nw", # nw or fs
+#     location_ = "datanode", # e.g., datanode
+#     duration_ = 20,
+#     severity_ = "slow3",
+#     start_time_ = 5)
+# fs_fault = SlowFault(
+#     type_="fs", # nw or fs
+#     location_ = "datanode", # e.g., datanode
+#     duration_ = 20,
+#     severity_ = "100000",
+#     start_time_ = 5)
+# b = MRBENCH_MAPRED(num_reduces_='3',
+#                    num_iter_=3)
 
-t = Mapred(sys_name_= "hadoop",
-               fault_ = nw_fault,
-               benchmark_= b,
-               data_dir_= "xixi1")
+# t = Mapred(sys_name_= "hadoop",
+#                fault_ = nw_fault,
+#                benchmark_= b,
+#                data_dir_= "xixi1")
