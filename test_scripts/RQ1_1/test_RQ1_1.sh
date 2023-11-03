@@ -15,7 +15,7 @@ function create_dir_if_not_exist() {
 export UID=$(id -u)
 export GID=$(id -g)
 main_py=/data/ruiming/xinda/main.py
-meta_log_loc=./meta.$(date +"%m.%d.%H.%M.%S").log
+meta_log_loc=/data/ruiming/data/default/crdb/meta.$(date +"%m.%d.%H.%M.%S").log
 sys_name=$1
 data_dir=rq1_1
 start_time=60
