@@ -16,12 +16,15 @@ class TestSystem:
                  fault_: SlowFault, 
                  benchmark_: Benchmark,
                  data_dir_: str,
+                 iter_: int = 1,
                  log_root_dir_='/data/ruiming/data/default',
-                 iter_: int = 1):
+                 xinda_software_dir_ = "/data/ruiming/xinda/xinda-software",
+                 xinda_tools_dir_ = "/data/ruiming/xinda/tools",
+                 charybdefs_mount_dir_ = "/data/ruiming/tmp1"):
         self.sys_name = sys_name_
         self.fault = fault_
         self.log = Logging(sys_name_, data_dir_, fault_, benchmark_, iter_, log_root_dir_)
-        self.tool = Tool(sys_name_)
+        self.tool = Tool(sys_name_, xinda_software_dir_, xinda_tools_dir_, charybdefs_mount_dir_)
         self.benchmark = benchmark_
         self.start_time = None
         ct_yaml = os.path.join(os.path.dirname(os.path.abspath(__file__)),

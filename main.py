@@ -91,6 +91,13 @@ parser.add_argument('--bench_exec_time', type = str, default = '150',
 # Init
 parser.add_argument('--log_root_dir', type = str, default = '/data/ruiming/data/default',
                     help='[Init] The root directory to store logs (data)')
+parser.add_argument('--xinda_software_dir', type = str, default = "/data/ruiming/xinda/xinda-software",
+                    help='[Init] The path to xinda-software')
+parser.add_argument('--xinda_tools_dir', type = str, default = "/data/ruiming/xinda/tools",
+                    help='[Init] The path to xinda/tools')
+parser.add_argument('--charybdefs_mount_dir', type = str, default = "/data/ruiming/tmp1",
+                    help='[Init] The path where docker volume and charybdefs use to mount')
+
 parser.add_argument('--iter', type = str, default = '1',
                     help='[Init] Iteration of current experiment setup')
 # YCSB - Benchmark
@@ -157,7 +164,10 @@ def main():
                                     benchmark_ = benchmark,
                                     data_dir_ = args.data_dir,
                                     log_root_dir_ = args.log_root_dir,
-                                    iter_ = args.iter)
+                                    iter_ = args.iter,
+                                    xinda_software_dir_ = args.xinda_software_dir,
+                                    xinda_tools_dir_ = args.xinda_tools_dir,
+                                    charybdefs_mount_dir_ = args.charybdefs_mount_dir)
         sys.test()
     elif sys_name == 'hbase':
         benchmark = YCSB_HBASE(exec_time_ = args.bench_exec_time,
@@ -172,7 +182,10 @@ def main():
                             benchmark_ = benchmark,
                             data_dir_ = args.data_dir,
                             log_root_dir_ = args.log_root_dir,
-                            iter_ = args.iter)
+                            iter_ = args.iter,
+                            xinda_software_dir_ = args.xinda_software_dir,
+                            xinda_tools_dir_ = args.xinda_tools_dir,
+                            charybdefs_mount_dir_ = args.charybdefs_mount_dir)
         sys.test()
     elif sys_name == 'etcd':
         benchmark = YCSB_ETCD(exec_time_ = args.bench_exec_time,
@@ -188,7 +201,10 @@ def main():
                         benchmark_ = benchmark,
                         data_dir_ = args.data_dir,
                         log_root_dir_ = args.log_root_dir,
-                        iter_ = args.iter)
+                        iter_ = args.iter,
+                        xinda_software_dir_ = args.xinda_software_dir,
+                        xinda_tools_dir_ = args.xinda_tools_dir,
+                        charybdefs_mount_dir_ = args.charybdefs_mount_dir)
         sys.test()
     elif sys_name == 'crdb':
         benchmark = YCSB_CRDB(exec_time_ = args.bench_exec_time,
@@ -204,7 +220,10 @@ def main():
                         benchmark_ = benchmark,
                         data_dir_ = args.data_dir,
                         log_root_dir_ = args.log_root_dir,
-                        iter_ = args.iter)
+                        iter_ = args.iter,
+                        xinda_software_dir_ = args.xinda_software_dir,
+                        xinda_tools_dir_ = args.xinda_tools_dir,
+                        charybdefs_mount_dir_ = args.charybdefs_mount_dir)
         sys.test()
     elif sys_name == 'hadoop':
         if args.hadoop_wkl is None or args.hadoop_wkl not in ['terasort', 'mrbench']:
@@ -222,7 +241,10 @@ def main():
                             benchmark_ = benchmark,
                             data_dir_ = args.data_dir,
                             log_root_dir_ = args.log_root_dir,
-                            iter_ = args.iter)
+                            iter_ = args.iter,
+                            xinda_software_dir_ = args.xinda_software_dir,
+                            xinda_tools_dir_ = args.xinda_tools_dir,
+                            charybdefs_mount_dir_ = args.charybdefs_mount_dir)
         sys.test()    
 
 if __name__ == "__main__":
