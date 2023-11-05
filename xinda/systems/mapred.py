@@ -22,14 +22,17 @@ class Mapred(TestSystem):
         self._copy_file_to_container()
         # run the mrbench benchmark in background
         self.start_time = int(time.time()*1e9)
-        self.mrbench_run_background()
+        if self.benchmark.workload == 'mrbench':
+            self.mrbench_run_background()
+        elif self.benchmark.workload == 'terasort':
+            self.terasort_run_background()
         # inject slow faults
         if self.fault.type != 'none':
             self.inject()
         else:
             self.info("Fault type == none, no faults shall be injected")
         # wrap-up and end
-        self.info("Waiting for the mrbench jobs to end")
+        self.info(f"Waiting for the {self.benchmark.workload} jobs to end")
         self.run_thread.join()
         self._post_process()
         self.docker_down()
@@ -65,12 +68,17 @@ class Mapred(TestSystem):
                'cp',
                'hadoop-mapreduce-client-jobclient-3.2.1-tests.jar',
                f"datanode2:/{self.tool.mapred_hadoop_container}"]
-        p = subprocess.run(cmd, cwd=self.tool.mapred_hadoop_local)
+        p = subprocess.run(cmd, cwd=self.tool.hadoop_mapreduce_client_local)
         cmd = ['docker',
                'cp',
                'hadoop-mapreduce-client-jobclient-3.2.1.jar',
                f"datanode2:/{self.tool.mapred_hadoop_container}"]
-        p = subprocess.run(cmd, cwd=self.tool.mapred_hadoop_local)
+        p = subprocess.run(cmd, cwd=self.tool.hadoop_mapreduce_client_local)
+        cmd = ['docker',
+               'cp',
+               'hadoop-mapreduce-examples-3.2.1.jar',
+               f"datanode2:/{self.tool.mapred_hadoop_container}"]
+        p = subprocess.run(cmd, cwd=self.tool.hadoop_mapreduce_examples_local)
     
     def _mrbench_run(self):
         def check_mrbench_completion(log_file):
@@ -84,10 +92,10 @@ class Mapred(TestSystem):
         for i in range(1, self.benchmark.num_iter+1):
             raw_log = os.path.join(self.log.data_dir, 
                                    'raw-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-mrbench" + ".log")
-            print(raw_log)
+            # print(raw_log)
             runtime_log = os.path.join(self.log.data_dir, 
                                    'runtime-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-mrbench" + str(i) +  ".log")
-            print(runtime_log)
+            # print(runtime_log)
             while not check_mrbench_completion(runtime_log):
                 cmd = f"docker exec datanode2 yarn jar {self.tool.mapred_mrbench_on_container} mrbench -reduces {self.benchmark.num_reduces}"
                 self.info(f"{i} begins /{self.benchmark.num_iter}", rela=self.start_time)
@@ -96,6 +104,27 @@ class Mapred(TestSystem):
                 if not check_mrbench_completion(runtime_log):
                     self.info(f"{i} FAILed !!!!!", rela=self.start_time)
     
+    def _terasort_gen(self):
+        raw_log = os.path.join(self.log.data_dir, 'raw-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-teragen" + ".log")
+        runtime_log = os.path.join(self.log.data_dir, 'runtime-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-teragen" +  ".log")
+        cmd = f"docker exec datanode2 yarn jar {self.tool.mapred_terasort_on_container} teragen {self.benchmark.num_of_100_byte_rows} {self.benchmark.input_dir}"
+        _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"))
+    
+    def _terasort_sort(self):
+        raw_log = os.path.join(self.log.data_dir, 'raw-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-terasort" + ".log")
+        runtime_log = os.path.join(self.log.data_dir, 'runtime-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-terasort" +  ".log")
+        cmd = f"docker exec datanode2 yarn jar {self.tool.mapred_terasort_on_container} terasort {self.benchmark.input_dir} {self.benchmark.output_dir}"
+        _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"))
+    
+    def _terasort(self):
+        self._terasort_gen()
+        self._terasort_sort()
+    
+    def terasort_run_background(self):
+        self.run_thread = threading.Thread(target=self._terasort)
+        self.run_thread.start()
+
+
     def mrbench_run_background(self):
         self.run_thread = threading.Thread(target=self._mrbench_run)
         self.run_thread.start()

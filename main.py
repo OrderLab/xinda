@@ -74,6 +74,7 @@ parser.add_argument('--sys_name', type = str, required=True,
                     help='Name of the distributed systems to be tested.')
 parser.add_argument('--data_dir', type = str, required=True,
                     help='Name of data directory to store all the logs')
+# Slow fault
 parser.add_argument('--fault_type', type = str, required=True,
                     choices=['nw','fs','none'],
                     help='[Faults] Types of slow faults to be injected.')
@@ -87,10 +88,12 @@ parser.add_argument('--fault_start_time', type = int, required=True,
                     help='[Faults] Fault injection timing in seconds after the benchmark is running.')
 parser.add_argument('--bench_exec_time', type = str, default = '150',
                     help='[Benchmark] Benchmark duration in seconds')
+# Init
 parser.add_argument('--log_root_dir', type = str, default = '/data/ruiming/data/default',
                     help='[Init] The root directory to store logs (data)')
 parser.add_argument('--iter', type = str, default = '1',
                     help='[Init] Iteration of current experiment setup')
+# YCSB - Benchmark
 parser.add_argument('--ycsb_wkl', type = str, default = 'readonly',
                     help='[Benchmark] YCSB workload type.')
 parser.add_argument('--ycsb_recordcount', type = str, default = '10000',
@@ -115,10 +118,22 @@ parser.add_argument('--ycsb_crdb_load_conn_string', type = str, default = 'postg
                     help='[Benchmark] Connection strings during YCSB load phase')
 parser.add_argument('--ycsb_crdb_run_conn_string', type = str, default = 'postgresql://root@roach3:26257,roach2:26257,roach1:26257?sslmode=disable',
                     help='[Benchmark] Connection strings during YCSB run phase')
+# hadoop - Benchmark
+parser.add_argument('--hadoop_wkl', type = str,
+                    help='[Benchmark] Specify which benchmark to test mapreduce',
+                    choices=['mrbench', 'terasort'])
+# mrbench - hadoop - Benchmark
 parser.add_argument('--mrbench_num_iter', type = int, default = 10,
                     help='[Benchmark] Number of mrbench jobs running iteratively')
 parser.add_argument('--mrbench_num_reduce', type = str, default = '3',
                     help='[Benchmark] Number of mapreduce reduce tasks')
+# terasort - hadoop - Benchmark
+parser.add_argument('--terasort_num_of_100_byte_rows', type = str, default = '10737418',
+                    help='[Benchmark] Number of 100-byte rows to sort in terasort')
+parser.add_argument('--terasort_input_dir', type = str, default = '/input',
+                    help='[Benchmark] The input directory to store teragen data in HDFS')
+parser.add_argument('--terasort_output_dir', type = str, default = '/output',
+                    help='[Benchmark] The output directory to store terasort results in HDFS')
 
 def main():
     args = parser.parse_args()
@@ -192,8 +207,16 @@ def main():
                         iter_ = args.iter)
         sys.test()
     elif sys_name == 'hadoop':
-        benchmark = MRBENCH_MAPRED(num_reduces_ = args.mrbench_num_reduce,
-                                    num_iter_ = args.mrbench_num_iter)
+        if args.hadoop_wkl is None or args.hadoop_wkl not in ['terasort', 'mrbench']:
+            print("Need to specify which benchmark to test hadoop (--hadoop_wkl). Options: terasort OR mrbench.")
+            exit(1)
+        if args.hadoop_wkl == 'mrbench':
+            benchmark = MRBENCH_MAPRED(num_reduces_ = args.mrbench_num_reduce,
+                                       num_iter_ = args.mrbench_num_iter)
+        elif args.hadoop_wkl == 'terasort':
+            benchmark = TERASORT_MAPRED(num_of_100_byte_rows_ = args.terasort_num_of_100_byte_rows,
+                                        input_dir_ = args.terasort_input_dir,
+                                        output_dir_ = args.terasort_output_dir)
         sys = mapred.Mapred(sys_name_ = sys_name,
                             fault_ = fault,
                             benchmark_ = benchmark,

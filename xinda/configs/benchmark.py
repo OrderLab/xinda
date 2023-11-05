@@ -85,6 +85,17 @@ class MRBENCH_MAPRED(Benchmark):
         self.num_reduces = num_reduces_
         self.num_iter = num_iter_
 
+class TERASORT_MAPRED(Benchmark):
+    def __init__(self, 
+                 workload_ = 'terasort',
+                 num_of_100_byte_rows_ = '10737418', # 1GB data
+                 input_dir_ = '/input', # HDFS DFS location
+                 output_dir_ = '/output'): 
+        self.workload = workload_
+        self.num_of_100_byte_rows = num_of_100_byte_rows_
+        self.input_dir = input_dir_
+        self.output_dir = output_dir_
+
 class KAFKA(Benchmark):
     def __init__(self, 
                  workload_ = 'perf_test',

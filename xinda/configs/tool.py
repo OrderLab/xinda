@@ -35,9 +35,12 @@ class Tool:
         self.hbase_ycsb_wkl="/tmp/ycsb-workloads/ycsb"
 
         # MapReduce
-        self.mapred_hadoop_local="/data/ruiming/xinda/xinda-software/hadoop-3.2.1/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient/target"
+        self.hadoop_mapreduce_client_local="/data/ruiming/xinda/xinda-software/hadoop-3.2.1/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient/target"
         self.mapred_hadoop_container="/opt/hadoop-3.2.1/share/hadoop/mapreduce/"
         self.mapred_mrbench_on_container="/opt/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.2.1-tests.jar"
+        
+        self.hadoop_mapreduce_examples_local="/data/ruiming/xinda/xinda-software/hadoop-3.2.1/hadoop-mapreduce-project/hadoop-mapreduce-examples/target"
+        self.mapred_terasort_on_container="/opt/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.2.1.jar"
 
         # Kafka
         self.kafka = '/data/ruiming/xinda/xinda-software/kafka'
