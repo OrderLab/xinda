@@ -1,0 +1,25 @@
+
+---
+- name: Install CMake Version 3.23.0
+  hosts: all
+  become: true
+  vars_files:
+    - data.yml
+
+  tasks:
+    - name: Download tar files
+      get_url:
+        url: https://github.com/Kitware/CMake/releases/download/v3.23.0/cmake-3.23.0-linux-x86_64.tar.gz
+        dest: "/tmp/cmake-3.23.0-linux-x86_64.tar.gz"
+
+    - name: Untar tar files
+      unarchive:
+        src: "/tmp/cmake-3.23.0-linux-x86_64.tar.gz"
+        dest: "/opt/"
+        remote_src: yes
+
+    - name: Link cmake to usr/local/bin
+      file:
+        src: /opt/cmake-3.23.0-linux-x86_64/bin/cmake
+        dest: /usr/local/bin/cmake
+        state: link

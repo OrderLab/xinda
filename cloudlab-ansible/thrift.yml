@@ -1,0 +1,89 @@
+---
+- name: Install Thrift
+  hosts: all
+  become: true
+  vars:
+    thrift_version: "0.10.0"
+    thrift_dir: "thrift-{{ thrift_version }}"
+    thrift_dist: "{{ thrift_dir }}.tar.gz"
+    thrift_url: "http://archive.apache.org/dist/thrift/{{ thrift_version }}/{{ thrift_dist }}"
+
+  tasks:
+    - name: Check if Thrift is already installed
+      command: which thrift
+      register: thrift_installed
+      failed_when: thrift_installed.rc != 0 and thrift_installed.rc != 1
+      changed_when: false
+
+    - name: Print message if Thrift is installed
+      debug:
+        msg: "Thrift is already installed."
+      when: thrift_installed.rc == 0
+
+    - name: Install dependencies for Thrift
+      apt:
+        name:
+          - libboost-dev
+          - libboost-test-dev
+          - libboost-program-options-dev
+          - libboost-system-dev
+          - libboost-filesystem-dev
+          - libevent-dev
+          - automake
+          - libtool
+          - flex
+          - bison
+          - pkg-config
+          - g++
+          - libssl-dev
+        update_cache: yes
+        state: present
+      when: thrift_installed.rc != 0
+
+    - name: Download Thrift source
+      get_url:
+        url: "{{ thrift_url }}"
+        dest: "/tmp/{{ thrift_dist }}"
+      when: thrift_installed.rc != 0
+
+    - name: Ensure destination directory exists
+      file:
+        path: "/tmp/{{ thrift_dir }}"
+        state: directory
+
+    - name: Extract Thrift source
+      unarchive:
+        src: "/tmp/{{ thrift_dist }}"
+        dest: "/tmp/{{ thrift_dir }}"
+        extra_opts: [--strip-components=1]
+        remote_src: yes
+      when: thrift_installed.rc != 0
+
+    - name: Configure Thrift
+      command: ./configure chdir=/tmp/{{ thrift_dir }}
+      when: thrift_installed.rc != 0
+
+    - name: Compile Thrift
+      command: make -j8 chdir=/tmp/{{ thrift_dir }}
+      when: thrift_installed.rc != 0
+
+    - name: Install Thrift
+      command: make install chdir=/tmp/{{ thrift_dir }}
+      when: thrift_installed.rc != 0
+
+    - name: Update shared library cache
+      command: ldconfig
+      when: thrift_installed.rc != 0
+
+    - name: Install Thrift Python module
+      command: python setup.py install chdir=/tmp/{{ thrift_dir }}/lib/py
+      when: thrift_installed.rc != 0
+
+    - name: Cleanup Thrift distribution
+      file:
+        path: "/tmp/{{ item }}"
+        state: absent
+      loop:
+        - "{{ thrift_dist }}"
+        - "{{ thrift_dir }}"
+      when: thrift_installed.rc != 0

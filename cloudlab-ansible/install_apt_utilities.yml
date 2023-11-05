@@ -1,0 +1,12 @@
+---
+- name: Install packages
+  hosts: all
+  become: true
+  vars_files:
+    - data.yml
+
+  tasks:
+    - name: install utility packages
+      apt:
+        name: "{{ UTILITY_PKGS }}"
+        update_cache: yes

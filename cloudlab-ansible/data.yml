@@ -1,0 +1,42 @@
+---
+DOCKER_DEPS:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+DOCKER_TOOLS:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-compose
+UTILITY_PKGS:
+  - htop
+  - make=4.1-9.1ubuntu1
+  # - gcc=7.5.0 NOTE: This is already installed on Ubuntu 18.04
+  # - g++=7.5.0 NOTE: This is already installed on Ubuntu 18.04
+  - libfuse-dev=2.9.7-1ubuntu1 
+  - python-thrift=0.9.1-2
+  - pkg-config=0.29.1-0ubuntu2
+PKG_TAR_LINKS:
+  - name: cmake
+    link: https://github.com/Kitware/CMake/releases/download/v3.23.0/cmake-3.23.0-linux-x86_64.tar.gz
+    version: 3.23.0
+  - name: thrift
+    link: https://github.com/OrderLab/xinda/files/13254551/thrift-0.10.0.tar.gz
+    version: 0.10.0
+  - name: m4
+    link: https://github.com/OrderLab/xinda/files/13254552/m4-1.4.19.tar.gz
+    version: 1.4.19
+  - name: autoconf
+    link: https://github.com/OrderLab/xinda/files/13254553/autoconf-2.69.tar.gz
+    version: 2.69
+# PYTHON_PKGS:
+#   - deepdiff
+#   - kubernetes==22.6.0
+#   - exrex
+#   - jsonschema
+#   - jsonpatch
+#   - pandas
+#   - tabulate
+#   - pydantic

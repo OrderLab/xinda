@@ -1,0 +1,34 @@
+---
+- name: Install everything
+  hosts: all
+  vars_files:
+    - data.yml
+
+- name: Install docker
+  import_playbook: docker.yml
+
+- name: Install xinda
+  import_playbook: xinda.yml
+
+- name: Install utilities available from APT-GET
+  import_playbook: install_apt_utilities.yml
+
+- name: Install blockade
+  import_playbook: blockade.yml
+
+- name: Install CMake
+  import_playbook: cmake.yml
+
+- name: Install Thrift
+  import_playbook: thrift.yml
+
+- name: Install M4
+  import_playbook: m4.yml
+
+- name: Install Autoconf
+  import_playbook: autoconf.yml
+
+- name: Install Charybdefs
+  import_playbook: charybdefs.yml
+
+

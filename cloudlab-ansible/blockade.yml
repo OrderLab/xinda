@@ -1,0 +1,55 @@
+---
+- name: Setup blockade in a conda env with Python 3.6
+  hosts: all
+  become: false
+
+  tasks:
+    - name: Download miniconda installer
+      get_url:
+        url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+        dest: /tmp/miniconda.sh
+        mode: 0755
+
+    - name: Install miniconda
+      shell: /tmp/miniconda.sh -b -p ~/miniconda3
+      args:
+        creates: ~/miniconda3/condabin/conda
+
+    - name: Init conda on bash
+      shell: "~/miniconda3/bin/conda init bash"
+      args:
+        executable: /bin/bash      
+      
+    - name: Create Python 3.6 environment
+      shell: conda create -y -n py36 python=3.6
+      environment:
+        PATH: "{{ ansible_env.HOME }}/miniconda3/condabin:{{ ansible_env.PATH }}"
+      args:
+        creates: ~/miniconda3/envs/py36/bin/python
+        executable: /bin/bash
+
+    - name: Automatically activate py36 environment
+      lineinfile:
+        dest: ~/.bashrc
+        line: 'conda activate py36'
+        state: present
+
+    - name: Install blockade in the py36 environment 
+      shell: ~/miniconda3/envs/py36/bin/pip install blockade
+      args:
+        creates: ~/miniconda3/envs/py36/bin/blockade
+        executable: /bin/bash
+
+# TODO: link blockade to /usr/local/bin
+    - name: Link the binary to usr/local/bin for non-interactive shells
+      file:
+        src: /users/{{ ansible_user }}/miniconda3/envs/py36/bin/blockade
+        dest: /usr/local/bin/blockade
+        state: link
+      become: yes
+
+    - name: Ensure /usr/local/bin is in the PATH
+      lineinfile:
+        dest: ~/.bashrc
+        line: 'export PATH=$PATH:/usr/local/bin'
+        state: present

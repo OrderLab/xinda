@@ -1,0 +1,38 @@
+---
+- name: Install M4 Version 1.4.19
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Download tar files
+      get_url:
+        url: https://ftp.gnu.org/gnu/m4/m4-1.4.19.tar.gz
+        dest: "/tmp/m4-1.4.19.tar.gz"
+
+    - name: Untar tar files
+      unarchive:
+        src: "/tmp/m4-1.4.19.tar.gz"
+        dest: "/opt/"
+        remote_src: yes
+
+    - name: configure
+      shell: ./configure --prefix=/usr/local
+      args:
+        chdir: /opt/m4-1.4.19
+        creates: /opt/m4-1.4.19/Makefile
+
+    - name: make
+      make:
+        chdir: /opt/m4-1.4.19
+
+    - name: make install
+      make:
+        chdir: /opt/m4-1.4.19
+        target: install
+      become: yes
+
+    - name: Setup path
+      lineinfile:
+        path: /users/{{ ansible_user }}/.bashrc
+        line: "export PATH=/usr/local/bin:$PATH"
+        state: present

@@ -1,0 +1,39 @@
+---
+- name: Install Autoconf Version 2.69
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Download tar files
+      get_url:
+        url: https://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
+        dest: "/tmp/autoconf-2.69.tar.gz"
+
+    - name: Untar tar files
+      unarchive:
+        src: "/tmp/autoconf-2.69.tar.gz"
+        dest: "/opt/"
+        remote_src: yes
+
+    - name: configure
+      shell: ./configure --prefix=/usr/local
+      args:
+        chdir: /opt/autoconf-2.69
+        creates: /opt/autoconf-2.69/Makefile
+
+    - name: make
+      make:
+        chdir: /opt/autoconf-2.69
+
+    - name: make install
+      make:
+        chdir: /opt/autoconf-2.69
+        target: install
+      become: yes
+
+    - name: Setup path
+      lineinfile:
+        path: /users/{{ ansible_user }}/.bashrc
+        line: "export PATH=/usr/local/bin:$PATH"
+        state: present
+        

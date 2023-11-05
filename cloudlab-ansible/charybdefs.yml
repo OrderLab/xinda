@@ -1,0 +1,33 @@
+---
+- name: Install Charybdefs
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Ensure xinda-softwares directory exists
+      file:
+        path: /users/{{ ansible_user }}/workdir/xinda-software
+        state: directory
+
+    - name: Run Thrift Gen
+      shell: thrift -r --gen cpp server.thrift && thrift -r --gen py server.thrift
+      args:
+        chdir: /users/{{ ansible_user }}/workdir/xinda-software/charybdefs
+        creates: /users/{{ ansible_user }}/workdir/xinda-software/charybdefs/gen-cpp
+    
+    - name: Run CMake
+      shell: cmake CMakeLists.txt
+      args:
+        chdir: /users/{{ ansible_user }}/workdir/xinda-software/charybdefs
+        creates: /users/{{ ansible_user }}/workdir/xinda-software/charybdefs/Makefile
+    
+    - name: Run Make
+      make:
+        chdir: /users/{{ ansible_user }}/workdir/xinda-software/charybdefs
+
+    - name: Copy the folder to home directory
+      copy:
+        src: /users/{{ ansible_user }}/workdir/xinda-software/charybdefs
+        dest: /users/{{ ansible_user }}/charybdefs
+        remote_src: yes
+        force: yes
