@@ -97,7 +97,6 @@ parser.add_argument('--xinda_tools_dir', type = str, default = "/data/ruiming/xi
                     help='[Init] The path to xinda/tools')
 parser.add_argument('--charybdefs_mount_dir', type = str, default = "/data/ruiming/tmp1",
                     help='[Init] The path where docker volume and charybdefs use to mount')
-
 parser.add_argument('--iter', type = str, default = '1',
                     help='[Init] Iteration of current experiment setup')
 # YCSB - Benchmark

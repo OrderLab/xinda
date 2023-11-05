@@ -16,8 +16,8 @@ class TestSystem:
                  fault_: SlowFault, 
                  benchmark_: Benchmark,
                  data_dir_: str,
-                 iter_: int = 1,
                  log_root_dir_='/data/ruiming/data/default',
+                 iter_: int = 1,
                  xinda_software_dir_ = "/data/ruiming/xinda/xinda-software",
                  xinda_tools_dir_ = "/data/ruiming/xinda/tools",
                  charybdefs_mount_dir_ = "/data/ruiming/tmp1"):
