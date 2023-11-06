@@ -4,6 +4,9 @@
   vars_files:
     - data.yml
 
+- name: Mount file systems
+  import_playbook: tmpfs.yml
+
 - name: Install docker
   import_playbook: docker.yml
 

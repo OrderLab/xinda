@@ -9,7 +9,7 @@ DOCKER_TOOLS:
   - docker-ce
   - docker-ce-cli
   - containerd.io
-  - docker-compose
+  - docker-compose-plugin
 UTILITY_PKGS:
   - htop
   - make=4.1-9.1ubuntu1
@@ -31,6 +31,7 @@ PKG_TAR_LINKS:
   - name: autoconf
     link: https://github.com/OrderLab/xinda/files/13254553/autoconf-2.69.tar.gz
     version: 2.69
+TMPFS_SIZE: 350G
 # PYTHON_PKGS:
 #   - deepdiff
 #   - kubernetes==22.6.0

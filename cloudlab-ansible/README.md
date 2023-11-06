@@ -11,13 +11,14 @@ Specifically, below are the things that this folder do:
     - `blockade``: installed in a conda environment with python3.6. The env is automatically activated when you login to the node.
     - `Thrift` and the correct toolchain to build it.
     - `Charybdefs` and the correct toolchain to build it: the `Charybdefs` source code is the modified version from the xinda-software repo. The built directory is copied to `~/charybdefs`.
-2. Clone Xinda and Xinda-software repos to `~/workdir`.
-3. Setup environment variables in `~/.bashrc`.
+2. Setup environment variables in `~/.bashrc`.
+3. Clone Xinda and Xinda-software repos to `~/workdir`.
 
 ### Note
 
 1. Most of the installed programs' binaries are either installed in or linked to `/usr/local/bin`. So even if you don't activate the conda environment, you can still use the `blockade` command.
 2. Some of the environment variables might not be available in a non-interactive shell. Do mind that when you run the experiments (try to always use interactive shells).
+3. **Important** This script is supposed to be run on a `c220g2` node (available in the wisconsin cluster). The `c220g2` node has a 480GB SATA SSD mounted at `/var/lib/docker`. The `workdir` is mounted on `/dev/sdb`, a 1.1TB HDD.
 
 ## How to use it?
 

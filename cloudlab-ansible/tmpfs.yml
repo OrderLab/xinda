@@ -1,0 +1,55 @@
+---
+- name: Mount file systems
+  hosts: all
+  become: true
+  vars_files:
+    - data.yml
+
+  tasks:
+    - name: check if docker is mounted
+      shell: mount | grep /var/lib/docker
+      register: docker_mounted
+      changed_when: false
+      failed_when: false
+      ignore_errors: true
+      
+    - name: Create docker directory
+      ansible.builtin.file:
+        path: /var/lib/docker
+        state: directory
+      when: docker_mounted.stdout == ""  # docker is not mounted
+
+    - name: Mount the spare SSD to docker (only for c220g2)
+      shell: /usr/local/etc/emulab/mkextrafs.pl -r /dev/sdc -s 1 -f /var/lib/docker
+      become: true
+      when: docker_mounted.stdout == ""  # workdir is not mounted
+
+    - name: Change ownership of docker
+      ansible.builtin.file:
+        path: /var/lib/docker
+        mode: "u=rwx,g=rwx,o=rwx"
+        state: directory
+
+    - name: create work dir
+      become: false
+      ansible.builtin.file:
+        path: "/users/{{ ansible_user }}/workdir"
+        state: directory
+
+    - name: Check if workdir is mounted
+      shell: mount | grep /users/{{ ansible_user }}/workdir
+      register: workdir_mounted
+      changed_when: false
+      failed_when: false
+      ignore_errors: true
+
+    - name: Mount the spare SSD to workdir (only for c220g2)
+      shell: /usr/local/etc/emulab/mkextrafs.pl -r /dev/sdb -s 1 -f /users/{{ ansible_user }}/workdir
+      become: true
+      when: workdir_mounted.stdout == ""  # workdir is not mounted
+
+    - name: Change ownership of workdir
+      ansible.builtin.file:
+        path: "/users/{{ ansible_user }}/workdir"
+        mode: "u=rwx,g=rwx,o=rwx"
+        state: directory
