@@ -1,0 +1,27 @@
+---
+- name: Installing OpenJDK 11.0.20 
+  become: true
+  hosts: all
+
+  tasks:
+    - name: Download OpenJDK 11.0.20
+      get_url:
+        url: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
+        dest: /tmp/openjdk-11.0.2_linux-x64_bin.tar.gz
+        mode: 0755
+        validate_certs: no
+
+    - name: Extract OpenJDK 11.0.20
+      unarchive:
+        src: /tmp/openjdk-11.0.2_linux-x64_bin.tar.gz
+        dest: /tmp
+        remote_src: yes
+        creates: /tmp/jdk-11.0.2
+        mode: 0755
+
+    - name: Copy everything within the folder to /usr/local
+      copy:
+        src: /tmp/jdk-11.0.2/
+        dest: /usr/local
+        remote_src: yes
+        mode: 0755
