@@ -96,13 +96,33 @@ class TERASORT_MAPRED(Benchmark):
         self.input_dir = input_dir_
         self.output_dir = output_dir_
 
-class KAFKA(Benchmark):
+class PERFTEST_KAFKA(Benchmark):
     def __init__(self, 
                  workload_ = 'perf_test',
-                 replication_factor_ = '4',
+                 replication_factor_ = '3',
                  topic_partition_ = '10',
-                 topic_title_ = 'test-xinda'):
+                 topic_title_ = 'test-xinda',
+                 throughput_upper_bound_ = 10000,
+                 num_msg_ = 14000000,
+                 exec_time_ = 150 ):
         self.workload = workload_
+        self.benchmark = workload_
         self.replication_factor = replication_factor_
         self.topic_partition = topic_partition_
         self.topic_title = topic_title_
+        self.exec_time = int(exec_time_)
+        self.throughput_upper_bound = throughput_upper_bound_
+        self.num_msg = num_msg_
+
+class OPENMSG_KAFKA(Benchmark):
+    def __init__(self, 
+                 benchmark_ = 'openmsg',
+                 workload_ = 'openmsg',
+                 driver_ = 'kafka-latency',
+                 workload_file_ = 'simple-workload',
+                 exec_time_ = 150 ):
+        self.benchmark = benchmark_
+        self.workload = workload_ + '-' + workload_file_
+        self.exec_time = int(exec_time_)
+        self.driver = driver_
+        self.workload_file = workload_file_

@@ -63,6 +63,12 @@ class Logging:
         # For Kafka
         self.kafka_producer = os.path.join(path2, 'producer-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
         self.kafka_consumer = os.path.join(path2, 'consumer-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.openmsg_driver = os.path.join(path2, 'driver-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.openmsg_worker1 = os.path.join(path2, 'worker1-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.openmsg_worker2 = os.path.join(path2, 'worker2-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.openmsg_driver_stderr = os.path.join(path2, 'err-driver-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.openmsg_worker1_stderr = os.path.join(path2, 'err-worker1-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.openmsg_worker2_stderr = os.path.join(path2, 'err-worker2-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
         
     
     def create_dir_if_not_exist(self, path_):

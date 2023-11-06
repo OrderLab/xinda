@@ -140,6 +140,24 @@ parser.add_argument('--terasort_input_dir', type = str, default = '/input',
                     help='[Benchmark] The input directory to store teragen data in HDFS')
 parser.add_argument('--terasort_output_dir', type = str, default = '/output',
                     help='[Benchmark] The output directory to store terasort results in HDFS')
+# kafka - Benchmark
+parser.add_argument('--kafka_wkl', type = str,
+                    help='[Benchmark] Specify which benchmark to test kafka',
+                    choices=['perf_test', 'openmsg'])
+# perf_test - kafka - Benchmark
+parser.add_argument('--kafka_replication_factor', type = str, default = '3',
+                    help='[Benchmark] Replication factor of performance testing in Kafka')
+parser.add_argument('--kafka_topic_partition', type = str, default = '10',
+                    help='[Benchmark] Number of topic partitions of performance testing in Kafka')
+parser.add_argument('--kafka_throughput_ub', type = int, default = 10000,
+                    help='[Benchmark] The upper bound (limit) of throughput in performance testing in Kafka')
+parser.add_argument('--kafka_num_msg', type = int, default = 14000000,
+                    help='[Benchmark] The number of messages in performance testing in Kafka')
+# openmsg - kafka - Benchmark
+parser.add_argument('--openmsg_driver', type = str, default = 'kafka-latency',
+                    help='[Benchmark] The yaml filename of openmsg kafka driver')
+parser.add_argument('--openmsg_workload', type = str, default = 'simple-workload',
+                    help='[Benchmark] The yaml filename of openmsg workload')
 
 def main():
     args = parser.parse_args()
@@ -245,9 +263,39 @@ def main():
                             xinda_tools_dir_ = args.xinda_tools_dir,
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir)
         sys.test()    
+    elif sys_name == 'kafka':
+        if args.kafka_wkl is None or args.kafka_wkl not in ['perf_test', 'openmsg']:
+            print("Need to specify which benchmark to test kafka (--kafka_wkl). Options: perf_test OR openmsg.")
+            exit(1)
+        if args.kafka_wkl == 'perf_test':
+            benchmark = PERFTEST_KAFKA(replication_factor_ = args.kafka_replication_factor,
+                                       topic_partition_ = args.kafka_topic_partition,
+                                       throughput_upper_bound_=args.kafka_throughput_ub,
+                                       num_msg_=args.kafka_num_msg,
+                                       exec_time_ = args.bench_exec_time)
+        elif args.kafka_wkl == 'openmsg':
+            benchmark = OPENMSG_KAFKA(driver_=args.openmsg_driver,
+                                      workload_file_=args.openmsg_workload,
+                                      exec_time_ = args.bench_exec_time)
+        sys = kafka.Kafka(sys_name_ = sys_name,
+                          fault_ = fault,
+                          benchmark_ = benchmark,
+                          data_dir_ = args.data_dir,
+                          log_root_dir_ = args.log_root_dir,
+                          iter_ = args.iter,
+                          xinda_software_dir_ = args.xinda_software_dir,
+                          xinda_tools_dir_ = args.xinda_tools_dir,
+                          charybdefs_mount_dir_ = args.charybdefs_mount_dir)
+        sys.test()  
 
 if __name__ == "__main__":
     main()
 
 # python3 main.py --sys_name cassandra --data_dir test1 --fault_type nw --fault_location cas1 --fault_duration 30 --fault_severity slow3 --fault_start_time 10 --bench_exec_time 60
 # python3 main.py --sys_name cassandra --data_dir writeonly --fault_type nw --fault_location cas1 --fault_duration 30 --fault_severity slow3 --fault_start_time 10 --bench_exec_time 60 --ycsb_wkl writeonly
+
+## nw kafka
+# python3 main.py --sys_name kafka --data_dir xixi2 --fault_type nw --fault_location kafka1 --fault_duration 30 --fault_severity slow-low --fault_start_time 10 --bench_exec_time 60 --kafka_wkl perf_test
+# python3 main.py --sys_name kafka --data_dir xixi2 --fault_type nw --fault_location kafka1 --fault_duration 30 --fault_severity flaky-low --fault_start_time 10 --bench_exec_time 60 --kafka_wkl openmsg
+## fs kafka
+# python3 main.py --sys_name kafka --data_dir xixi2 --fault_type fs --fault_location kafka1 --fault_duration 30 --fault_severity 1000 --fault_start_time 10 --bench_exec_time 60 --kafka_wkl perf_test

@@ -44,4 +44,6 @@ class Tool:
         self.mapred_terasort_on_container="/opt/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.2.1.jar"
 
         # Kafka
-        self.kafka = os.path.join(xinda_software_dir_, 'kafka')
+        self.kafka_compiled_source = os.path.join(xinda_software_dir_, 'kafka')
+        self.openmsg_compiled_source = '/data/ruiming/temp/openmessaging' # test use only (on razor14)
+        # self.openmsg_compiled_source = os.path.join(xinda_software_dir_, 'openmessaging')
