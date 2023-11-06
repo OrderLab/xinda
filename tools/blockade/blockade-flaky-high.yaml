@@ -1,0 +1,8 @@
+containers:
+  dummy:
+    image: "luca3m/sleep"
+    container_name: "dummy"
+
+network:
+  # slow: 500ms 100ms distribution normal
+  flaky: cas1 random 70%
