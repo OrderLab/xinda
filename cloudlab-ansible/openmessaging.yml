@@ -1,0 +1,24 @@
+---
+# TODO: add this and the charybdefs bin to system path
+- name: Compile OpenMessaging
+  hosts: all
+  become: false
+  vars_files:
+    - data.yml
+
+  tasks:
+    - name: Run mvn spotless:apply in xinda-software/openmessaging
+      shell: |
+        mvn spotless:apply
+      args:
+        chdir: /users/{{ ansible_user }}/workdir/xinda-software/openmessaging
+        executable: /bin/bash
+      # ignore_errors: true
+    
+    - name: Compile OpenMessaging
+      shell: |
+        mvn clean install -Denforcer.skip=true
+      args:
+        chdir: /users/{{ ansible_user }}/workdir/xinda-software/openmessaging
+        executable: /bin/bash
+      # ignore_errors: true

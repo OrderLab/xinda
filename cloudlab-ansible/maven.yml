@@ -1,0 +1,34 @@
+---
+- name: Install Maven 3.8.8
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Download Tar files
+      get_url:
+        url: https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz
+        dest: /tmp/apache-maven-3.8.8-bin.tar.gz
+        mode: 0755
+        validate_certs: no
+
+    - name: Extract Tar files
+      unarchive:
+        src: /tmp/apache-maven-3.8.8-bin.tar.gz
+        dest: /tmp
+        remote_src: yes
+        creates: /tmp/apache-maven-3.8.8
+        mode: 0755
+
+    - name: Copy everything within the folder to /usr/local
+      copy:
+        src: /tmp/apache-maven-3.8.8/
+        dest: /usr/local
+        remote_src: yes
+        mode: 0755
+
+    - name: Remove /usr/local/lib/ext (otherwise JVM won't start)
+      file:
+        path: /usr/local/lib/ext
+        state: absent
+        force: yes
+        mode: 0755
