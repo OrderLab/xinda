@@ -16,7 +16,7 @@ services:
     image: cockroachdb/cockroach:v23.1.11
     container_name: roach1
     hostname: roach1
-    user: ${UID}:${GID}
+    # user: ${UID}:${GID}
     ports:
       - "26257:26257"
       - "8079:8080"

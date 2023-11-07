@@ -50,7 +50,7 @@ services:
       - "9094:9092"
     volumes:
       - ${LOCAL_DIR_kafka3}:${CONTAINER_DIR}
-    user: ${UID}:${GID}
+    # user: ${UID}:${GID}
     env_file: .env
     environment:
       # KRaft settings

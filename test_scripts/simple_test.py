@@ -71,12 +71,16 @@ parser.add_argument('--test_fault_types', action='store_true',
 parser.add_argument('--test_duration_minus_1', action='store_true',
                     help='Test if we set fault duration as -1')
 
+args = parser.parse_args()
+if args.test_fault_types is None and args.test_duration_minus_1 is None:
+    print("Specify test flags")
+    exit(1)
 test_configs = {
-    "hbase": "hbase-regionserver",
-    "etcd": "etcd0",
-    "crdb": "roach1",
-    "hadoop": "datanode",
-    "cassandra": "cas1",
+    # "hbase": "datanode",
+    # "etcd": "etcd0",
+    # "crdb": "roach1",
+    # "hadoop": "datanode",
+    # "cassandra": "cas1",
     "kafka": "kafka1"
 }
 benchmark_configs = {
@@ -85,15 +89,15 @@ benchmark_configs = {
     "cassandra": ["ycsb"],
     "crdb": ["ycsb", "sysbench"],
     "hadoop": ["mrbench","terasort"],
-    "kafka": ["openmsg","perf_test"],
+    # "kafka": ["openmsg","perf_test"],
+    "kafka": ['perf_test']
 }
-args = parser.parse_args()
 
 if args.test_fault_types:
     with open('./simple_test.log', 'a') as file:
         file.write(info("test_fault_types\n"))
     fault_configs = {
-        # 'fs': '10000',
+        'fs': '10000',
         'nw': 'slow-medium',
         'none': 'xxx' # random string
     }
@@ -123,8 +127,8 @@ if args.test_duration_minus_1:
     with open('./simple_test.log', 'a') as file:
         file.write(info("test_duration_minus_1\n"))
     for sys in test_configs.keys():
-        # for type in ['fs', 'nw']:
-        for type in ['nw']:
+        for type in ['fs', 'nw']:
+        # for type in ['nw']:
             for benchmark in benchmark_configs[sys]:
                 cmd = [f'python3 ../main.py --sys_name {sys}',
                             f'--data_dir {type}_test',

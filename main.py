@@ -89,18 +89,28 @@ parser.add_argument('--fault_start_time', type = int, required=True,
 parser.add_argument('--bench_exec_time', type = str, default = '150',
                     help='[Benchmark] Benchmark duration in seconds')
 # Init
-parser.add_argument('--log_root_dir', type = str, default = '/data/ruiming/data/default',
+# parser.add_argument('--log_root_dir', type = str, default = '/data/ruiming/data/default',
+#                     help='[Init] The root directory to store logs (data)')
+# parser.add_argument('--xinda_software_dir', type = str, default = "/data/ruiming/xinda/xinda-software",
+#                     help='[Init] The path to xinda-software')
+# parser.add_argument('--xinda_tools_dir', type = str, default = "/data/ruiming/xinda/tools",
+#                     help='[Init] The path to xinda/tools')
+# parser.add_argument('--charybdefs_mount_dir', type = str, default = "/data/ruiming/tmp1",
+#                     help='[Init] The path where docker volume and charybdefs use to mount')
+# parser.add_argument('--iter', type = str, default = '1',
+#                     help='[Init] Iteration of current experiment setup')
+parser.add_argument('--log_root_dir', type = str, default = '/users/YXXinda/workdir/data/default',
                     help='[Init] The root directory to store logs (data)')
-parser.add_argument('--xinda_software_dir', type = str, default = "/data/ruiming/xinda/xinda-software",
+parser.add_argument('--xinda_software_dir', type = str, default = "/users/YXXinda/workdir/xinda-software",
                     help='[Init] The path to xinda-software')
-parser.add_argument('--xinda_tools_dir', type = str, default = "/data/ruiming/xinda/tools",
+parser.add_argument('--xinda_tools_dir', type = str, default = "/users/YXXinda/workdir/xinda/tools",
                     help='[Init] The path to xinda/tools')
-parser.add_argument('--charybdefs_mount_dir', type = str, default = "/data/ruiming/tmp1",
+parser.add_argument('--charybdefs_mount_dir', type = str, default = "/users/YXXinda/workdir/tmp",
                     help='[Init] The path where docker volume and charybdefs use to mount')
 parser.add_argument('--iter', type = str, default = '1',
                     help='[Init] Iteration of current experiment setup')
 # YCSB - Benchmark
-parser.add_argument('--ycsb_wkl', type = str, default = 'readonly',
+parser.add_argument('--ycsb_wkl', type = str, default = 'mixed',
                     help='[Benchmark] YCSB workload type.')
 parser.add_argument('--ycsb_recordcount', type = str, default = '10000',
                     help='[Benchmark] Number of records during ycsb-load phase')
@@ -247,9 +257,18 @@ def main():
         if args.benchmark is None or args.benchmark not in ['ycsb', 'sysbench']:
             print("Need to specify which benchmark to test crdb (--benchmark). Options: ycsb OR sysbench.")
             exit(1)
+        if args.ycsb_wkl == 'readonly':
+            wkl = 'C'
+        elif args.ycsb_wkl == 'mixed':
+            wkl = 'A'
+        elif args.ycsb_wkl == 'writeonly':
+            print('Currently crdb does not support ycsb:writeonly')
+            exit(1)
+        else:
+            wkl = args.ycsb_wkl
         if args.benchmark == 'ycsb':
             benchmark = YCSB_CRDB(exec_time_ = args.bench_exec_time,
-                                    workload_ = args.ycsb_wkl,
+                                    workload_ = wkl,
                                     operationcount_ = args.ycsb_operationcount,
                                     max_rate_ = args.ycsb_crdb_max_rate,
                                     concurrency_ = args.ycsb_crdb_concurrency,
@@ -334,7 +353,7 @@ if __name__ == "__main__":
 # python3 main.py --sys_name kafka --data_dir xixi2 --fault_type fs --fault_location kafka1 --fault_duration 30 --fault_severity 1000 --fault_start_time 10 --bench_exec_time 60 --kafka_wkl perf_test
 
 ## nw crdb
-# python3 main.py --sys_name crdb --data_dir xixi2 --fault_type nw --fault_location roach1 --fault_duration 30 --fault_severity slow-low --fault_start_time 10 --bench_exec_time 60 --crdb_wkl ycsb --ycsb_wkl a
-# python3 main.py --sys_name crdb --data_dir xixi2 --fault_type nw --fault_location roach1 --fault_duration 30 --fault_severity flaky-low --fault_start_time 10 --bench_exec_time 60 --crdb_wkl sysbench
+# python3 main.py --sys_name crdb --data_dir xixi2 --fault_type nw --fault_location roach1 --fault_duration 30 --fault_severity slow-low --fault_start_time 10 --bench_exec_time 60 --ycsb_wkl a --benchmark ycsb
+# python3 main.py --sys_name crdb --data_dir xixi2 --fault_type nw --fault_location roach1 --fault_duration 30 --fault_severity flaky-low --fault_start_time 10 --bench_exec_time 60 --benchmark sysbench
 ## fs crdb
-# python3 main.py --sys_name crdb --data_dir xixi2 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 60 --crdb_wkl sysbench
+# python3 main.py --sys_name crdb --data_dir xixi2 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 60 --benchmark sysbench

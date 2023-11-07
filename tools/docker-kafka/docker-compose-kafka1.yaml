@@ -9,9 +9,10 @@ services:
     ports:
       - "9092:9092"
     volumes:
-      - ${LOCAL_DIR_kafka1}:${CONTAINER_DIR}
-    user: ${UID}:${GID}
-    env_file: .env
+      - "kafka_data_11:/bitnami"
+      # - ${LOCAL_DIR_kafka1}:${CONTAINER_DIR}
+    # user: ${UID}:${GID}
+    # env_file: .env
     environment:
       # KRaft settings
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
@@ -98,3 +99,17 @@ services:
       - kafka2
       - kafka3
       - kafka4
+
+volumes:
+  kafka_data_11:
+    driver: local
+
+
+
+dir1 = container上的data dir
+dir2 = 本地用来mount dir1的dir
+dir3 = fuse mount dir2的dir
+
+charybdefs通过把dir3和dir2 mount起来、inject fault到dir3、从而让dir2变慢
+
+dir1和dir2是bind mount，所以docker上的data dir也会变慢

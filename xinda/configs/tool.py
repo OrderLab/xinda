@@ -2,9 +2,9 @@ import os
 class Tool:
     def __init__(self, 
                  sys_name_ : str,
-                 xinda_software_dir_ = "/data/ruiming/xinda/xinda-software",
-                 xinda_tools_dir_ = "/data/ruiming/xinda/tools",
-                 charybdefs_mount_dir_ = "/data/ruiming/tmp1"):
+                 xinda_software_dir_ : str, #= "/data/ruiming/xinda/xinda-software",
+                 xinda_tools_dir_ : str, #= "/data/ruiming/xinda/tools",
+                 charybdefs_mount_dir_ : str): #= "/data/ruiming/tmp1"):
         
         # Scripts
         self.compose = os.path.join(xinda_tools_dir_, ("docker-" + sys_name_))
