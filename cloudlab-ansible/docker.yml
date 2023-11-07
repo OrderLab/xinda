@@ -71,3 +71,9 @@
         name: "{{ user.stdout }}"
         groups: "docker"
         append: "yes"
+
+    - name: Link /usr/libexec/docker/cli-plugins/docker-compose to /usr/local/bin/docker-compose
+      file:
+        src: /usr/libexec/docker/cli-plugins/docker-compose
+        dest: /usr/local/bin/docker-compose
+        state: link

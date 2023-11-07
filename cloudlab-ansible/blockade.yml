@@ -53,3 +53,10 @@
         dest: ~/.bashrc
         line: 'export PATH=$PATH:/usr/local/bin'
         state: present
+
+    - name: Pre-pull images rmlu/sysbench:latest and luca3m/sleep:latest
+      shell: |
+        docker pull rmlu/sysbench:latest
+        docker pull luca3m/sleep:latest
+      args:
+        executable: /bin/bash

@@ -167,7 +167,13 @@ class TestSystem:
     def blockade_up(self):
         # Create blockade
         cmd = f'blockade --config blockade-{self.fault.severity}.yaml up'
-        _ = subprocess.run(cmd, cwd=self.tool.blockade, stderr=subprocess.PIPE, shell=True)
+        p = subprocess.run(cmd, cwd=self.tool.blockade, stderr=subprocess.PIPE, shell=True)
+        # check return code
+        if p.returncode != 0:
+            err_msg = p.stderr.decode('utf-8')
+            raise Exception(f"Unknown error during blockade initialization. Abort. stderr: {err_msg}.")        
+        self.info('Blockade created')
+        
         # Add running containers to blockade
         for container_name in list(self.container_info.keys()):
             cmd = ['blockade',
