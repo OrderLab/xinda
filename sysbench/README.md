@@ -5,7 +5,7 @@ In the file `sysbench/src/drivers/mysql/drv_mysql.c`, modify `MYSQL_OPT_COMPRESS
 ```
 cd sysbench
 ./autogen.sh
-./configure --with-pgsql
+./configure --with-pgsql --without-mysql
 make -j
 ./src/sysbench --help
 ```
