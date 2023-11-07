@@ -10,6 +10,9 @@ COLNAME_ERR = "errors"
 
 
 class RuntimeParser:
+    def __init__(self) -> None:
+        self.name = "RuntimeParser"
+        
     def parse(self, path):
         t = get_trial_setup_context_from_path(path)
         DB_PARSER = {

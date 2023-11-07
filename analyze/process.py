@@ -19,12 +19,16 @@ def get_all_logpaths(data_dir, ext=".log") -> List[str]:
     return [p for p in paths if os.path.splitext(p)[-1] == ext]
 
 
-def parse_single(log_path, output_path, parser):
+def parse_single(log_path, output_path, parser) -> None:
+    ctx = get_trial_setup_context_from_path(log_path)
     df = parser.parse(log_path)
-    df.to_csv(output_path, index=False)
+    if df is None:
+        logging.warn(f"Unimplemented {ctx.system} {parser.name} for {log_path}. ")
+    else:
+        df.to_csv(output_path, index=False)
 
 
-def parse_batch(data_dir, output_dir, parser_names):
+def parse_batch(data_dir, output_dir, parser_names) -> None:
     log_ctx = {}
     for l in get_all_logpaths(data_dir):
         try:
