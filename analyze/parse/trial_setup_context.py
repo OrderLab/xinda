@@ -1,4 +1,4 @@
-from tools import get_fname, get_dir
+from parse.tools import get_fname, get_dir
 
 
 class TrialSetupContext:
@@ -40,7 +40,7 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
             i = tokens.index(s)
             tokens[i] += "-" + tokens[i+1]
             tokens = tokens[:i+1] + tokens[i+2:]
-    assert len(tokens) in [6,8], tokens
+    assert len(tokens) in [6,8], f"{path} -> {tokens}"
     t.log_type = tokens[0]
     t.injection_location = tokens[1]
     t.injection_type = tokens[2]
@@ -55,7 +55,7 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
 
 
 if __name__ == "__main__":
-    path = "/home/yunchi/data/xinda/hbase/rq_1/readonly/ts-hbase-regionserver-nw-flaky-medium-dur40-60-100-1.log"
+    path = "/home/yunchi/data/xinda/default/hbase/rq_1/readonly/ts-hbase-regionserver-nw-flaky-medium-dur40-60-100-1.log"
     t = get_trial_setup_context_from_path(path)
     print(t)
 
