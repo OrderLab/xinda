@@ -22,9 +22,9 @@ class Mapred(TestSystem):
         self._copy_file_to_container()
         # run the mrbench benchmark in background
         self.start_time = int(time.time()*1e9)
-        if self.benchmark.workload == 'mrbench':
+        if self.benchmark.benchmark == 'mrbench':
             self.mrbench_run_background()
-        elif self.benchmark.workload == 'terasort':
+        elif self.benchmark.benchmark == 'terasort':
             self.terasort_run_background()
         # inject slow faults
         if self.fault.type != 'none':

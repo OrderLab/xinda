@@ -10,6 +10,7 @@ class YCSB_CASSANDRA(Benchmark):
                  operationcount_ = '10000000',
                  measurementtype_ = 'raw',
                  status_interval_ = '1'):
+        self.benchmark = 'ycsb'
         self.exec_time = exec_time_
         self.workload = workload_
         self.recordcount = recordcount_
@@ -33,6 +34,7 @@ class YCSB_HBASE(Benchmark):
         # self.load_exec_time = load_exec_time_
         self.exec_time = exec_time_
         self.workload = workload_
+        self.benchmark = 'ycsb'
         self.recordcount = recordcount_
         self.operationcount = operationcount_
         self.measurementtype = measurementtype_
@@ -52,6 +54,7 @@ class YCSB_ETCD(Benchmark):
                  etcd_endpoints_ = 'http://0.0.0.0:2379'):
         self.exec_time = exec_time_
         self.workload = workload_
+        self.benchmark = 'ycsb'
         self.recordcount = recordcount_
         self.operationcount = operationcount_
         self.measurementtype = measurementtype_
@@ -109,6 +112,7 @@ class MRBENCH_MAPRED(Benchmark):
                  num_reduces_ = '3',
                  num_iter_ = 10):
         self.workload = workload_
+        self.benchmark = workload_
         self.num_reduces = num_reduces_
         self.num_iter = num_iter_
         self.identifier = workload_
@@ -120,6 +124,7 @@ class TERASORT_MAPRED(Benchmark):
                  input_dir_ = '/input', # HDFS DFS location
                  output_dir_ = '/output'): 
         self.workload = workload_
+        self.benchmark = workload_
         self.num_of_100_byte_rows = num_of_100_byte_rows_
         self.input_dir = input_dir_
         self.output_dir = output_dir_

@@ -125,9 +125,12 @@ parser.add_argument('--ycsb_crdb_load_conn_string', type = str, default = 'postg
 parser.add_argument('--ycsb_crdb_run_conn_string', type = str, default = 'postgresql://root@roach3:26257,roach2:26257,roach1:26257?sslmode=disable',
                     help='[Benchmark] Connection strings during YCSB run phase')
 # hadoop - Benchmark
-parser.add_argument('--hadoop_wkl', type = str,
-                    help='[Benchmark] Specify which benchmark to test mapreduce',
-                    choices=['mrbench', 'terasort'])
+parser.add_argument('--benchmark', type = str, required=True,
+                    help='[Benchmark] Specify which benchmark to test the system',
+                    choices=['ycsb','mrbench', 'terasort', 'perf_test', 'openmsg', 'ycsb', 'sysbench'])
+# parser.add_argument('--hadoop_wkl', type = str,
+#                     help='[Benchmark] Specify which benchmark to test mapreduce',
+#                     choices=['mrbench', 'terasort'])
 # mrbench - hadoop - Benchmark
 parser.add_argument('--mrbench_num_iter', type = int, default = 10,
                     help='[Benchmark] Number of mrbench jobs running iteratively')
@@ -141,9 +144,9 @@ parser.add_argument('--terasort_input_dir', type = str, default = '/input',
 parser.add_argument('--terasort_output_dir', type = str, default = '/output',
                     help='[Benchmark] The output directory to store terasort results in HDFS')
 # kafka - Benchmark
-parser.add_argument('--kafka_wkl', type = str,
-                    help='[Benchmark] Specify which benchmark to test kafka',
-                    choices=['perf_test', 'openmsg'])
+# parser.add_argument('--kafka_wkl', type = str,
+#                     help='[Benchmark] Specify which benchmark to test kafka',
+#                     choices=['perf_test', 'openmsg'])
 # perf_test - kafka - Benchmark
 parser.add_argument('--kafka_replication_factor', type = str, default = '3',
                     help='[Benchmark] Replication factor of performance testing in Kafka')
@@ -159,9 +162,9 @@ parser.add_argument('--openmsg_driver', type = str, default = 'kafka-latency',
 parser.add_argument('--openmsg_workload', type = str, default = 'simple-workload',
                     help='[Benchmark] The yaml filename of openmsg workload')
 # crdb - Benchmark
-parser.add_argument('--crdb_wkl', type = str,
-                    help='[Benchmark] Specify which benchmark to test crdb',
-                    choices=['ycsb', 'sysbench'])
+# parser.add_argument('--crdb_wkl', type = str,
+#                     help='[Benchmark] Specify which benchmark to test crdb',
+#                     choices=['ycsb', 'sysbench'])
 # sysbench - crdb - Benchmark
 parser.add_argument('--sysbench_lua_scheme', type = str, default='oltp_write_only',
                     help='[Benchmark] The lua scheme to run sysbench workload on crdb',
@@ -241,10 +244,10 @@ def main():
                         charybdefs_mount_dir_ = args.charybdefs_mount_dir)
         sys.test()
     elif sys_name == 'crdb':
-        if args.crdb_wkl is None or args.crdb_wkl not in ['ycsb', 'sysbench']:
-            print("Need to specify which benchmark to test crdb (--crdb_wkl). Options: ycsb OR sysbench.")
+        if args.benchmark is None or args.benchmark not in ['ycsb', 'sysbench']:
+            print("Need to specify which benchmark to test crdb (--benchmark). Options: ycsb OR sysbench.")
             exit(1)
-        if args.crdb_wkl == 'ycsb':
+        if args.benchmark == 'ycsb':
             benchmark = YCSB_CRDB(exec_time_ = args.bench_exec_time,
                                     workload_ = args.ycsb_wkl,
                                     operationcount_ = args.ycsb_operationcount,
@@ -253,8 +256,8 @@ def main():
                                     status_interval_ = args.ycsb_status_interval,
                                     load_connection_string_ = args.ycsb_crdb_load_conn_string,
                                     run_connection_string_ = args.ycsb_crdb_run_conn_string)
-        elif args.crdb_wkl == 'sysbench':
-            benchmark = SYSBENCH_CRDB(workload_ = args.crdb_wkl,
+        elif args.benchmark == 'sysbench':
+            benchmark = SYSBENCH_CRDB(workload_ = args.benchmark,
                                       lua_scheme_ = args.sysbench_lua_scheme,
                                       table_size_=args.sysbench_table_size,
                                       num_table_=args.sysbench_num_table,
@@ -273,13 +276,13 @@ def main():
                         charybdefs_mount_dir_ = args.charybdefs_mount_dir)
         sys.test()
     elif sys_name == 'hadoop':
-        if args.hadoop_wkl is None or args.hadoop_wkl not in ['terasort', 'mrbench']:
-            print("Need to specify which benchmark to test hadoop (--hadoop_wkl). Options: terasort OR mrbench.")
+        if args.benchmark is None or args.benchmark not in ['terasort', 'mrbench']:
+            print("Need to specify which benchmark to test hadoop (--benchmark). Options: terasort OR mrbench.")
             exit(1)
-        if args.hadoop_wkl == 'mrbench':
+        if args.benchmark == 'mrbench':
             benchmark = MRBENCH_MAPRED(num_reduces_ = args.mrbench_num_reduce,
                                        num_iter_ = args.mrbench_num_iter)
-        elif args.hadoop_wkl == 'terasort':
+        elif args.benchmark == 'terasort':
             benchmark = TERASORT_MAPRED(num_of_100_byte_rows_ = args.terasort_num_of_100_byte_rows,
                                         input_dir_ = args.terasort_input_dir,
                                         output_dir_ = args.terasort_output_dir)
@@ -294,16 +297,16 @@ def main():
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir)
         sys.test()    
     elif sys_name == 'kafka':
-        if args.kafka_wkl is None or args.kafka_wkl not in ['perf_test', 'openmsg']:
-            print("Need to specify which benchmark to test kafka (--kafka_wkl). Options: perf_test OR openmsg.")
+        if args.benchmark is None or args.benchmark not in ['perf_test', 'openmsg']:
+            print("Need to specify which benchmark to test kafka (--benchmark). Options: perf_test OR openmsg.")
             exit(1)
-        if args.kafka_wkl == 'perf_test':
+        if args.benchmark == 'perf_test':
             benchmark = PERFTEST_KAFKA(replication_factor_ = args.kafka_replication_factor,
                                        topic_partition_ = args.kafka_topic_partition,
                                        throughput_upper_bound_=args.kafka_throughput_ub,
                                        num_msg_=args.kafka_num_msg,
                                        exec_time_ = args.bench_exec_time)
-        elif args.kafka_wkl == 'openmsg':
+        elif args.benchmark == 'openmsg':
             benchmark = OPENMSG_KAFKA(driver_=args.openmsg_driver,
                                       workload_file_=args.openmsg_workload,
                                       exec_time_ = args.bench_exec_time)
