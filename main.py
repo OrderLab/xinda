@@ -158,6 +158,23 @@ parser.add_argument('--openmsg_driver', type = str, default = 'kafka-latency',
                     help='[Benchmark] The yaml filename of openmsg kafka driver')
 parser.add_argument('--openmsg_workload', type = str, default = 'simple-workload',
                     help='[Benchmark] The yaml filename of openmsg workload')
+# crdb - Benchmark
+parser.add_argument('--crdb_wkl', type = str,
+                    help='[Benchmark] Specify which benchmark to test crdb',
+                    choices=['ycsb', 'sysbench'])
+# sysbench - crdb - Benchmark
+parser.add_argument('--sysbench_lua_scheme', type = str, default='oltp_write_only',
+                    help='[Benchmark] The lua scheme to run sysbench workload on crdb',
+                    choices=['oltp_read_only', 'oltp_write_only', 'oltp_read_write'])
+parser.add_argument('--sysbench_table_size', type = int, default = 10000,
+                    help='[Benchmark] The table size to run sysbench workload on crdb')
+parser.add_argument('--sysbench_num_table', type = int, default = 1,
+                    help='[Benchmark] Number of tables in a sysbench workload to run on crdb')
+parser.add_argument('--sysbench_num_thread', type = int, default = 1,
+                    help='[Benchmark] Number of threads to run sysbench workloads on crdb')
+parser.add_argument('--sysbench_report_interval', type = int, default = 1,
+                    help='[Benchmark] Granularity of sysbench statistics at run-time')
+
 
 def main():
     args = parser.parse_args()
@@ -224,14 +241,27 @@ def main():
                         charybdefs_mount_dir_ = args.charybdefs_mount_dir)
         sys.test()
     elif sys_name == 'crdb':
-        benchmark = YCSB_CRDB(exec_time_ = args.bench_exec_time,
-                                workload_ = args.ycsb_wkl,
-                                operationcount_ = args.ycsb_operationcount,
-                                max_rate_ = args.ycsb_crdb_max_rate,
-                                concurrency_ = args.ycsb_crdb_concurrency,
-                                status_interval_ = args.ycsb_status_interval,
-                                load_connection_string_ = args.ycsb_crdb_load_conn_string,
-                                run_connection_string_ = args.ycsb_crdb_run_conn_string)
+        if args.crdb_wkl is None or args.crdb_wkl not in ['ycsb', 'sysbench']:
+            print("Need to specify which benchmark to test crdb (--crdb_wkl). Options: ycsb OR sysbench.")
+            exit(1)
+        if args.crdb_wkl == 'ycsb':
+            benchmark = YCSB_CRDB(exec_time_ = args.bench_exec_time,
+                                    workload_ = args.ycsb_wkl,
+                                    operationcount_ = args.ycsb_operationcount,
+                                    max_rate_ = args.ycsb_crdb_max_rate,
+                                    concurrency_ = args.ycsb_crdb_concurrency,
+                                    status_interval_ = args.ycsb_status_interval,
+                                    load_connection_string_ = args.ycsb_crdb_load_conn_string,
+                                    run_connection_string_ = args.ycsb_crdb_run_conn_string)
+        elif args.crdb_wkl == 'sysbench':
+            benchmark = SYSBENCH_CRDB(workload_ = args.crdb_wkl,
+                                      lua_scheme_ = args.sysbench_lua_scheme,
+                                      table_size_=args.sysbench_table_size,
+                                      num_table_=args.sysbench_num_table,
+                                      num_thread_=args.sysbench_num_thread,
+                                      exec_time_=args.bench_exec_time,
+                                      report_interval_=args.sysbench_report_interval
+                                      )
         sys = crdb.Crdb(sys_name_ = sys_name,
                         fault_ = fault,
                         benchmark_ = benchmark,
@@ -299,3 +329,9 @@ if __name__ == "__main__":
 # python3 main.py --sys_name kafka --data_dir xixi2 --fault_type nw --fault_location kafka1 --fault_duration 30 --fault_severity flaky-low --fault_start_time 10 --bench_exec_time 60 --kafka_wkl openmsg
 ## fs kafka
 # python3 main.py --sys_name kafka --data_dir xixi2 --fault_type fs --fault_location kafka1 --fault_duration 30 --fault_severity 1000 --fault_start_time 10 --bench_exec_time 60 --kafka_wkl perf_test
+
+## nw crdb
+# python3 main.py --sys_name crdb --data_dir xixi2 --fault_type nw --fault_location roach1 --fault_duration 30 --fault_severity slow-low --fault_start_time 10 --bench_exec_time 60 --crdb_wkl ycsb --ycsb_wkl a
+# python3 main.py --sys_name crdb --data_dir xixi2 --fault_type nw --fault_location roach1 --fault_duration 30 --fault_severity flaky-low --fault_start_time 10 --bench_exec_time 60 --crdb_wkl sysbench
+## fs crdb
+# python3 main.py --sys_name crdb --data_dir xixi2 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 60 --crdb_wkl sysbench

@@ -14,7 +14,7 @@ class Logging:
         self.create_dir_if_not_exist(path0)
         path1 = os.path.join(log_root_dir_, sys_name_, data_dir_)
         self.create_dir_if_not_exist(path1)
-        path2 = os.path.join(log_root_dir_, sys_name_, data_dir_, benchmark_.workload.lower())
+        path2 = os.path.join(log_root_dir_, sys_name_, data_dir_, benchmark_.identifier)
         self.data_dir = path2
         self.create_dir_if_not_exist(path2)
         iter_ = str(iter_)
