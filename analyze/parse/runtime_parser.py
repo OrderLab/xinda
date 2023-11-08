@@ -19,12 +19,12 @@ class RuntimeParser:
             "cassandra": _runtime_parser_cassandra,
             "crdb": _runtime_parser_crdb,
             "etcd": _runtime_parser_etcd,
-            "hadoop": _runtime_parser_hadoop,
             "hbase": _runtime_parser_hbase,
-            "kafka": _runtime_parser_kafka,
         }
-        parser = DB_PARSER[t.system]
-        return parser(read_raw_logfile(path))
+        if t.system in DB_PARSER:
+            return DB_PARSER[t.system](read_raw_logfile(path))
+        else:
+            return None
     
 
 def _runtime_parser_cassandra(log_raw):
@@ -71,22 +71,5 @@ def _runtime_parser_etcd(log_raw):
     return df
 
 
-def _runtime_parser_hadoop(log_raw):
-    return None
-
-
 def _runtime_parser_hbase(log_raw):
     return _runtime_parser_cassandra(log_raw)
-
-def _runtime_parser_kafka(log_raw):
-    return None
-
-
-if __name__ == "__main__":
-    path = "/home/yunchi/data/xinda/default/cassandra/rq1_1/writeonly/runtime-cas1-fs-1000000-dur60-60-120-1.log"
-    path = "/home/yunchi/data/xinda/default/crdb/rq1_1/a/runtime-roach1-fs-10000-dur60-60-120-1.log"
-    path = "/home/yunchi/data/xinda/default/etcd/rq1_1/mixed/runtime-etcd1-nw-high-dur60-60-120-1.log"
-    path = "/home/yunchi/data/xinda/default/hbase/rq1_1/readonly/runtime-hbase-regionserver-nw-low-dur40-60-100-1.log"
-    parser = RuntimeParser()
-    df = parser.parse(path)
-    print(df)

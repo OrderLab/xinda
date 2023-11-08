@@ -52,11 +52,3 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
     t.iter = int(tokens[-1])
 
     return t
-
-
-if __name__ == "__main__":
-    path = "/home/yunchi/data/xinda/default/hbase/rq_1/readonly/ts-hbase-regionserver-nw-flaky-medium-dur40-60-100-1.log"
-    t = get_trial_setup_context_from_path(path)
-    print(t)
-
-
