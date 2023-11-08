@@ -24,4 +24,11 @@
     - name: Run Make
       make:
         chdir: /users/{{ ansible_user }}/workdir/xinda-software/charybdefs
+    
+    - name: Ensure user_allow_other is added
+      lineinfile:
+        dest: /etc/fuse.conf
+        line: 'user_allow_other'
+        state: present
+      become: yes
 
