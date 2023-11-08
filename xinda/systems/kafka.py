@@ -173,11 +173,15 @@ class Kafka(TestSystem):
 #     location_ = "kafka1", # e.g., datanode
 #     duration_ = 20,
 #     severity_ = "10000",
-#     start_time_ = 35)
-# # b = PERFTEST_KAFKA(exec_time_ = 30)
-# b = OPENMSG_KAFKA(exec_time_ = 30)
+#     start_time_ = 5)
+# b = PERFTEST_KAFKA(exec_time_ = 30)
+# # b = OPENMSG_KAFKA(exec_time_ = 30)
 
 # t = Kafka(sys_name_= "kafka",
-#                fault_ = nw_fault,
+#                fault_ = fs_fault,
 #                benchmark_= b,
-#                data_dir_= "xixi1")
+#                data_dir_= "xixi1",
+#                log_root_dir_='/users/YXXinda/workdir/data/default',
+#                xinda_software_dir_="/users/YXXinda/workdir/xinda-software",
+#                xinda_tools_dir_="/users/YXXinda/workdir/xinda/tools",
+#                charybdefs_mount_dir_="/users/YXXinda/workdir/tmp")

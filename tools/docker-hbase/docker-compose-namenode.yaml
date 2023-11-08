@@ -38,12 +38,12 @@ services:
     image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
     container_name: namenode
     volumes:
-      - ${LOCAL_DIR_namenode}:${CONTAINER_DIR_namenode}
+      - ${LOCAL_DIR_namenode_hbase}:${CONTAINER_DIR_namenode}
     environment:
       - CLUSTER_NAME=test
     env_file:
       - ./hadoop.env
-      - ./.env
+      - .env
     ports:
       - 50070:50070
     depends_on:

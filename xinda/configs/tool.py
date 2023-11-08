@@ -6,6 +6,9 @@ class Tool:
                  xinda_tools_dir_ : str, #= "/data/ruiming/xinda/tools",
                  charybdefs_mount_dir_ : str): #= "/data/ruiming/tmp1"):
         
+        self.xinda_software_dir = xinda_software_dir_
+        self.xinda_tools_dir = xinda_tools_dir_
+        self.charybdefs_mount_dir = charybdefs_mount_dir_
         # Scripts
         self.compose = os.path.join(xinda_tools_dir_, ("docker-" + sys_name_))
         self.blockade = os.path.join(xinda_tools_dir_, "blockade")
@@ -45,5 +48,48 @@ class Tool:
 
         # Kafka
         self.kafka_compiled_source = os.path.join(xinda_software_dir_, 'kafka')
-        self.openmsg_compiled_source = '/data/ruiming/temp/openmessaging' # test use only (on razor14)
-        # self.openmsg_compiled_source = os.path.join(xinda_software_dir_, 'openmessaging')
+        # self.openmsg_compiled_source = '/data/ruiming/temp/openmessaging' # test use only (on razor14)
+        self.openmsg_compiled_source = os.path.join(xinda_software_dir_, 'openmessaging')
+        self.generate_env()
+    
+    def generate_env(self):
+        env_path = f'{self.compose}/.env'
+        uid = os.getuid()
+        gid = os.getgid()
+        msg = [f"UID={uid}",
+               f"GID={gid}",
+               f"GID_KAFKA=0",
+               # Cassandra
+               f'LOCAL_DIR_cas1={self.fuse_dir}/cas1',
+               f'LOCAL_DIR_cas2={self.fuse_dir}/cas2',
+               'CONTAINER_DIR_cas=/var/lib/cassandra/data',
+               # crdb
+               f'LOCAL_DIR_roach1={self.fuse_dir}/roach1',
+               'CONTAINER_DIR_roach1=/cockroach/cockroach-data',
+               f'LOCAL_DIR_roach2={self.fuse_dir}/roach2',
+               'CONTAINER_DIR_roach2=/cockroach/cockroach-data',
+               # etcd
+               f'LOCAL_DIR_etcd0={self.fuse_dir}/etcd0',
+               'CONTAINER_DIR_etcd0=/data.etcd',
+               f'LOCAL_DIR_etcd0={self.fuse_dir}/etcd1',
+               'CONTAINER_DIR_etcd0=/data.etcd',
+               # hadoop
+               f'LOCAL_DIR_datanode={self.fuse_dir}/datanode',
+               'CONTAINER_DIR_datanode=/hadoop/dfs/data',
+               f'LOCAL_DIR_namenode={self.fuse_dir}/namenode',
+               'CONTAINER_DIR_namenode=/hadoop/dfs/name',
+               f'LOCAL_DIR_historyserver={self.fuse_dir}/historyserver',
+               'CONTAINER_DIR_historyserver=/hadoop/yarn/timeline',
+               f'LOCAL_DIR_nodemanager={self.fuse_dir}/nodemanager',
+               'CONTAINER_DIR_nodemanager=/opt/hadoop-3.2.1/logs',
+               # hbase
+               f'LOCAL_DIR_datanode_hbase={self.fuse_dir}/datanode',
+               f'LOCAL_DIR_namenode_hbase={self.fuse_dir}/namenode',
+               f'LOCAL_DIR_kafka1={self.fuse_dir}/kafka1',
+               f'LOCAL_DIR_kafka2={self.fuse_dir}/kafka2',
+               f'LOCAL_DIR_kafka3={self.fuse_dir}/kafka3',
+               f'LOCAL_DIR_kafka4={self.fuse_dir}/kafka4',
+               'CONTAINER_DIR_kafka=/bitnami']
+        with open(env_path, "w") as file:
+            for line in msg:
+                file.write(line + "\n")

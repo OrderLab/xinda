@@ -149,21 +149,21 @@ class Crdb(TestSystem):
 
 
 
-nw_fault = SlowFault(
-    type_="nw", # nw or fs
-    location_ = "roach1", # e.g., datanode
-    duration_ = 30,
-    severity_ = "slow3",
-    start_time_ = 35)
-fs_fault = SlowFault(
-    type_="fs", # nw or fs
-    location_ = "roach1", # e.g., datanode
-    duration_ = 30,
-    severity_ = "100000",
-    start_time_ = 35)
-b = YCSB_CRDB(exec_time_='150',workload_='a',concurrency_='16')
+# nw_fault = SlowFault(
+#     type_="nw", # nw or fs
+#     location_ = "roach1", # e.g., datanode
+#     duration_ = 30,
+#     severity_ = "slow3",
+#     start_time_ = 35)
+# fs_fault = SlowFault(
+#     type_="fs", # nw or fs
+#     location_ = "roach1", # e.g., datanode
+#     duration_ = 30,
+#     severity_ = "100000",
+#     start_time_ = 35)
+# b = YCSB_CRDB(exec_time_='150',workload_='a',concurrency_='16')
 
-t = Crdb(sys_name_= "crdb",
-               fault_ = nw_fault,
-               benchmark_= b,
-               data_dir_= "xixi1")
+# t = Crdb(sys_name_= "crdb",
+#                fault_ = nw_fault,
+#                benchmark_= b,
+#                data_dir_= "xixi1")

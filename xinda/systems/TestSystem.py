@@ -16,11 +16,11 @@ class TestSystem:
                  fault_: SlowFault, 
                  benchmark_: Benchmark,
                  data_dir_: str,
-                 log_root_dir_='/users/YXXinda/workdir/data/default',
-                 iter_: int = 1,
-                 xinda_software_dir_ = "/users/YXXinda/workdir/xinda-software",
-                 xinda_tools_dir_ = "/users/YXXinda/workdir/xinda/tools",
-                 charybdefs_mount_dir_ = "/users/YXXinda/workdir/tmp"):
+                 log_root_dir_, #='/users/YXXinda/workdir/data/default',
+                 xinda_software_dir_, #= "/users/YXXinda/workdir/xinda-software",
+                 xinda_tools_dir_, # = "/users/YXXinda/workdir/xinda/tools",
+                 charybdefs_mount_dir_,
+                 iter_: int = 1):# = "/users/YXXinda/workdir/tmp"):
         self.sys_name = sys_name_
         self.fault = fault_
         self.log = Logging(sys_name_, data_dir_, fault_, benchmark_, iter_, log_root_dir_)

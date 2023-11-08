@@ -16,14 +16,14 @@ services:
     image: cockroachdb/cockroach:v23.1.11
     container_name: roach1
     hostname: roach1
-    # user: ${UID}:${GID}
+    user: ${UID}:${GID}
     ports:
       - "26257:26257"
       - "8079:8080"
     volumes:
       - ${LOCAL_DIR_roach1}:${CONTAINER_DIR_roach1}
     env_file:
-      - ./.env
+      - .env
     networks:
       - roachnet
     command: start --advertise-addr=roach1:26357 --http-addr=roach1:8080 --listen-addr=roach1:26357 --sql-addr=roach1:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357

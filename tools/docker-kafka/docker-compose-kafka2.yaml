@@ -29,8 +29,8 @@ services:
     ports:
       - "9093:9092"
     volumes:
-      - ${LOCAL_DIR_kafka2}:${CONTAINER_DIR}
-    # user: ${UID}:${GID}
+      - "${LOCAL_DIR_kafka2}:${CONTAINER_DIR_kafka}"
+    user: ${UID}:${GID_KAFKA}
     env_file: .env
     environment:
       # KRaft settings

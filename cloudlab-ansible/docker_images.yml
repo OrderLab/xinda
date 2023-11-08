@@ -1,0 +1,32 @@
+---
+- name: Pre-pull all images used in the experiments
+  hosts: all
+  become: false
+
+  tasks:
+    - name: Pre-pull
+      shell: |
+        docker pull rmlu/sysbench:latest
+        docker pull amazoncorretto:latest
+        docker pull bitnami/kafka:3.5
+        docker pull cockroachdb/cockroach:v23.1.11
+        docker pull cassandra:4.0.10
+        docker pull hello-world:latest
+        docker pull vimagick/iptables:latest
+        docker pull quay.io/coreos/etcd:v3.5.0
+        docker pull bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+        docker pull bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+        docker pull bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+        docker pull bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
+        docker pull bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+        docker pull bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+        docker pull bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
+        docker pull bde2020/hadoop-resourcemanager:2.0.0-hadoop2.7.4-java8
+        docker pull bde2020/hadoop-nodemanager:2.0.0-hadoop2.7.4-java8
+        docker pull bde2020/hadoop-historyserver:2.0.0-hadoop2.7.4-java8
+        docker pull luca3m/sleep:latest
+        docker pull zookeeper:3.4.10
+        docker pull bde2020/hbase-regionserver:1.0.0-hbase1.2.6
+        docker pull bde2020/hbase-master:1.0.0-hbase1.2.6
+      args:
+        executable: /bin/bash

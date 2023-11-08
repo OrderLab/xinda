@@ -52,14 +52,14 @@ services:
     image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
     container_name: datanode
     volumes:
-      - ${LOCAL_DIR_datanode}:${CONTAINER_DIR_datanode}
+      - ${LOCAL_DIR_datanode_hbase}:${CONTAINER_DIR_datanode}
     # volumes:
     #   - hadoop_datanode:/hadoop/dfs/data
     environment:
       SERVICE_PRECONDITION: "namenode:50070"
     env_file:
       - ./hadoop.env
-      - ./.env
+      - .env
     ports:
       - 50075:50075
 
