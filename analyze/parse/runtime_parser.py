@@ -1,5 +1,6 @@
 import re
 import pandas as pd
+
 from parse.trial_setup_context import get_trial_setup_context_from_path
 from parse.tools import read_raw_logfile
 
@@ -12,7 +13,7 @@ COLNAME_ERR = "errors"
 class RuntimeParser:
     def __init__(self) -> None:
         self.name = "RuntimeParser"
-        
+
     def parse(self, path):
         t = get_trial_setup_context_from_path(path)
         DB_PARSER = {
@@ -25,7 +26,7 @@ class RuntimeParser:
             return DB_PARSER[t.system](read_raw_logfile(path))
         else:
             return None
-    
+
 
 def _runtime_parser_cassandra(log_raw):
     pattern = r"(\d*) sec:.*; (.*) current ops\/sec;.*, average latency\(us\): \d*\.\d*"
@@ -47,7 +48,7 @@ def _runtime_parser_crdb(log_raw):
             assert len(row) == 9 and row[-1].isalpha()
             sec = int(float(row[0][:-1]))
             if sec not in data_raw:
-                data_raw[sec] = [0,0]
+                data_raw[sec] = [0, 0]
             er = float(row[1])
             tp = float(row[2])
             data_raw[sec][0] += tp
