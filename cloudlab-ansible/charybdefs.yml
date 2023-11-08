@@ -1,7 +1,7 @@
 ---
 - name: Install Charybdefs
   hosts: all
-  become: true
+  become: false
 
   tasks:
     - name: Ensure xinda-softwares directory exists
@@ -25,9 +25,3 @@
       make:
         chdir: /users/{{ ansible_user }}/workdir/xinda-software/charybdefs
 
-    - name: Copy the folder to home directory
-      copy:
-        src: /users/{{ ansible_user }}/workdir/xinda-software/charybdefs
-        dest: /users/{{ ansible_user }}/charybdefs
-        remote_src: yes
-        force: yes
