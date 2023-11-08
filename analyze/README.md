@@ -1,10 +1,10 @@
 1. run process
 ```
-python process.py -d data_dir -o output_dir -p runtime
+python process.py -d data_dir -o output_dir
 ```
 eg.
 ```
-python process.py -d /home/yunchi/data/xinda -o /home/yunchi/data/xinda_analyze -p runtime
+python process.py -d /home/yunchi/data/xinda -o /home/yunchi/data/xinda_analyze
 ```
 - `-d`: data directory, optional if correct path is set in `config.py`.
 - `-o`: output directory, optional if correct path is set in `config.py`.
