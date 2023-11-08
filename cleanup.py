@@ -3,6 +3,7 @@ import subprocess
 import psutil # pip3 install psutil
 import time
 import datetime
+import os
 import argparse
 
 def info(msg_ : str,
@@ -42,7 +43,7 @@ else:
     for name in container_info.keys():
         if name == 'dummy':
             cmd = 'blockade destroy'
-            _ = subprocess.run(cmd, shell=True, cwd="/users/YXXinda/workdir/xinda/tools/blockade")
+            _ = subprocess.run(cmd, shell=True, cwd=f"{os.path.expanduser('~')}/workdir/xinda/tools/blockade")
             info('Blockade destroyed')
             next
         try:
@@ -61,7 +62,7 @@ matching_processes = [process.info for process in process_list if keyword in pro
 if len(matching_processes) != 0:
     charybdefs_dir = matching_processes[0]['cmdline'][2]
     cmd = f'./stop.sh {charybdefs_dir}'
-    _ = subprocess.run(cmd, shell=True, cwd="/users/YXXinda/workdir/xinda-software/charybdefs")
+    _ = subprocess.run(cmd, shell=True, cwd=f"{os.path.expanduser('~')}/workdir/xinda-software/charybdefs")
     info(f'charybdefs stopped at {charybdefs_dir}')
 else:
     info('No running charybdefs instance. Skip')
