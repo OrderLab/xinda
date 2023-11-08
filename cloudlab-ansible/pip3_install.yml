@@ -1,0 +1,14 @@
+---
+- name: pip3 install necessary packages
+  hosts: all
+  become: false
+
+  tasks:
+    - name: pip3 install
+      shell: |
+        conda run -n py36 pip3 install docker
+        conda run -n py36 pip3 install psutil
+      args:
+        executable: /bin/bash
+      environment:
+        PATH: "{{ ansible_env.HOME }}/miniconda3/condabin:{{ ansible_env.PATH }}"

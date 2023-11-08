@@ -49,3 +49,6 @@
 - name: Pre-pull all docker images
   import_playbook: docker_images.yml
 
+- name: pip3 install
+  import_playbook: pip3_install.yml
+
