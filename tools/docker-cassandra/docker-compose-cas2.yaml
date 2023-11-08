@@ -23,7 +23,7 @@ services:
       - "CASSANDRA_SEEDS=cas1"
     volumes:
       - ./healthcheck.sh:/tmp/healthcheck.sh
-      - ${LOCAL_DIR_cas2}:${CONTAINER_DIR}
+      - ${LOCAL_DIR_cas2}:${CONTAINER_DIR_cas}
     healthcheck:
       test: 'bash /tmp/healthcheck.sh'
       #test: ["CMD-SHELL", "[ '$(nodetool status | grep 'UN ' | awk '{print $2}' | wc -l)' == 2 ]"]
@@ -34,7 +34,7 @@ services:
       retries: 5
     depends_on:
       - "cas1"
-    # user: ${UID}:${GID}
+    user: ${UID}:${GID}
     env_file: .env
  
   cas3:

@@ -10,7 +10,7 @@ services:
     environment:
       - "CASSANDRA_SEEDS=cas1"
     volumes:
-      - ${LOCAL_DIR_cas1}:${CONTAINER_DIR}
+      - ${LOCAL_DIR_cas1}:${CONTAINER_DIR_cas}
 #      - ${DATA_DIR}:/var/lib/cassandra/data
 #      - /data/ruiming/tmp/cfs_mount/cassandra/cas1:/var/lib/cassandra/data
     user: ${UID}:${GID}

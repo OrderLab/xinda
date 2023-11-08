@@ -76,30 +76,30 @@ if args.test_fault_types is None and args.test_duration_minus_1 is None:
     print("Specify test flags")
     exit(1)
 test_configs = {
-    # "hbase": "datanode",
-    # "etcd": "etcd0",
-    # "crdb": "roach1",
-    # "hadoop": "datanode",
-    # "cassandra": "cas1",
-    "kafka": "kafka1"
+    "kafka": "kafka1",
+    "crdb": "roach1",
+    "hadoop": "datanode",
+    "hbase": "datanode",
+    "etcd": "etcd0",
+    "cassandra": "cas1",
 }
 benchmark_configs = {
     "hbase": ["ycsb"],
     "etcd": ["ycsb"],
     "cassandra": ["ycsb"],
-    "crdb": ["ycsb", "sysbench"],
-    "hadoop": ["mrbench","terasort"],
-    # "kafka": ["openmsg","perf_test"],
-    "kafka": ['perf_test']
+    "crdb": ["ycsb"],#, "sysbench"],
+    "hadoop": ["mrbench"],#,"terasort"],
+    "kafka": ["openmsg","perf_test"],
+    # "kafka": ['perf_test']
 }
 
 if args.test_fault_types:
     with open('./simple_test.log', 'a') as file:
         file.write(info("test_fault_types\n"))
     fault_configs = {
-        'fs': '10000',
+        # 'fs': '10000',
         'nw': 'slow-medium',
-        'none': 'xxx' # random string
+        # 'none': 'xxx' # random string
     }
     for sys in test_configs.keys():
         for type in fault_configs.keys():
@@ -127,8 +127,8 @@ if args.test_duration_minus_1:
     with open('./simple_test.log', 'a') as file:
         file.write(info("test_duration_minus_1\n"))
     for sys in test_configs.keys():
-        for type in ['fs', 'nw']:
-        # for type in ['nw']:
+        # for type in ['fs', 'nw']:
+        for type in ['nw']:
             for benchmark in benchmark_configs[sys]:
                 cmd = [f'python3 ../main.py --sys_name {sys}',
                             f'--data_dir {type}_test',
