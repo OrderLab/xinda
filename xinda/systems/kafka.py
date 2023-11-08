@@ -145,21 +145,21 @@ class Kafka(TestSystem):
         # kafka-latency.yaml has (nearly) the same configs as kafka.yaml in previous commits. kafka.yaml is said to be the standard configs.
         # https://github.com/openmessaging/benchmark/blob/211cbcd436b022d1734d8d1d9e760b34a05f4488/driver-kafka/kafka.yaml
         cmd = ' '.join(cmd)
-        self.driver_process = subprocess.Popen('exec ' + cmd, shell=True, stdout=open(self.log.openmsg_driver, 'a'), stderr=open(self.log.openmsg_driver_stderr, 'a'), cwd=self.tool.openmsg_compiled_source)
+        self.driver_process = subprocess.Popen('exec ' + cmd, shell=True, stdout=open(self.log.openmsg_driver, 'a'), cwd=self.tool.openmsg_compiled_source)
     
     def _openmsg_run_worker1(self):
         cmd = ['bin/benchmark-worker',
         '--port 8082',
         '--stats-port 8083']
         cmd = ' '.join(cmd)
-        self.worker1_process = subprocess.Popen('exec ' + cmd, shell=True, stdout=open(self.log.openmsg_worker1, 'a'), stderr=open(self.log.openmsg_worker1_stderr, 'a'), cwd=self.tool.openmsg_compiled_source)
+        self.worker1_process = subprocess.Popen('exec ' + cmd, shell=True, stdout=open(self.log.openmsg_worker1, 'a'), cwd=self.tool.openmsg_compiled_source)
     
     def _openmsg_run_worker2(self):
         cmd = ['bin/benchmark-worker',
         '--port 8084',
         '--stats-port 8085']
         cmd = ' '.join(cmd)
-        self.worker2_process = subprocess.Popen('exec ' + cmd, shell=True, stdout=open(self.log.openmsg_worker2, 'a'), stderr=open(self.log.openmsg_worker2_stderr, 'a'), cwd=self.tool.openmsg_compiled_source)
+        self.worker2_process = subprocess.Popen('exec ' + cmd, shell=True, stdout=open(self.log.openmsg_worker2, 'a'), cwd=self.tool.openmsg_compiled_source)
 
 
 # nw_fault = SlowFault(
