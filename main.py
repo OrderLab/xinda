@@ -99,13 +99,13 @@ parser.add_argument('--bench_exec_time', type = str, default = '150',
 #                     help='[Init] The path where docker volume and charybdefs use to mount')
 # parser.add_argument('--iter', type = str, default = '1',
 #                     help='[Init] Iteration of current experiment setup')
-parser.add_argument('--log_root_dir', type = str, default = '/users/YXXinda/workdir/data/default',
+parser.add_argument('--log_root_dir', type = str, default = '~/workdir/data/default',
                     help='[Init] The root directory to store logs (data)')
-parser.add_argument('--xinda_software_dir', type = str, default = "/users/YXXinda/workdir/xinda-software",
+parser.add_argument('--xinda_software_dir', type = str, default = "~/workdir/xinda-software",
                     help='[Init] The path to xinda-software')
-parser.add_argument('--xinda_tools_dir', type = str, default = "/users/YXXinda/workdir/xinda/tools",
+parser.add_argument('--xinda_tools_dir', type = str, default = "~/workdir/xinda/tools",
                     help='[Init] The path to xinda/tools')
-parser.add_argument('--charybdefs_mount_dir', type = str, default = "/users/YXXinda/workdir/tmp",
+parser.add_argument('--charybdefs_mount_dir', type = str, default = "~/workdir/tmp",
                     help='[Init] The path where docker volume and charybdefs use to mount')
 parser.add_argument('--iter', type = str, default = '1',
                     help='[Init] Iteration of current experiment setup')
