@@ -43,3 +43,6 @@
 - name: Compile OpenMessaging
   import_playbook: openmessaging.yml
 
+- name: Add alias
+  import_playbook: alias.yml
+
