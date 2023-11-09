@@ -177,8 +177,8 @@ parser.add_argument('--openmsg_workload', type = str, default = 'simple-workload
 #                     choices=['ycsb', 'sysbench'])
 # sysbench - crdb - Benchmark
 parser.add_argument('--sysbench_lua_scheme', type = str, default='oltp_write_only',
-                    help='[Benchmark] The lua scheme to run sysbench workload on crdb',
-                    choices=['oltp_read_only', 'oltp_write_only', 'oltp_read_write'])
+                    help='[Benchmark] The lua scheme to run sysbench workload on crdb')
+                    # choices=['oltp_read_only', 'oltp_write_only', 'oltp_read_write'])
 parser.add_argument('--sysbench_table_size', type = int, default = 10000,
                     help='[Benchmark] The table size to run sysbench workload on crdb')
 parser.add_argument('--sysbench_num_table', type = int, default = 1,
