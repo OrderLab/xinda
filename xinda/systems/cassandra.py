@@ -39,25 +39,35 @@ class Cassandra(TestSystem):
         
     def _docker_status_checker(self):
         cmd = ["docker exec -it cas1 nodetool status | grep 'UN ' | awk '{print $2}' | wc -l"]
+        counter = 0
         while True:
             num_normal_node = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE).stdout.strip()
             if num_normal_node == b'3':
                 self.info("Cassandra cluster properly set up.")
                 break
             else:
-                print("Still waiting for cluster to set up. Sleep 10s")
+                counter = counter + 10
+                print(f"Still waiting for cluster to set up. Sleep 10s / Elapsed {counter}s / Need ~210s)")
                 time.sleep(10)
         self.docker_get_status()
     
     def _init_cql(self):
-        cmd = [self.tool.cas_cqlsh,
-               self.container_info['cas1'],
-               9042,
-               '-f',
-               self.tool.cas_init_cql
-        ]
-        cmd = [str(item) for item in cmd]
+        cmd = ['docker',
+            'cp',
+            self.tool.cas_init_cql,
+            f"cas1:/opt/cassandra/bin/init.cql"]
         p = subprocess.run(cmd)
+        # cmd = [self.tool.cas_cqlsh,
+        #        self.container_info['cas1'],
+        #        9042,
+        #        '-f',
+        #        self.tool.cas_init_cql
+        # ]
+        # cmd = [str(item) for item in cmd]
+        # print(' '.join(cmd))
+        # p = subprocess.run(cmd)
+        cmd = 'docker exec -it cas1 ./opt/cassandra/bin/cqlsh -f /opt/cassandra/bin/init.cql'
+        p = subprocess.run(cmd, shell=True)
         self.info("KEYSPACE:ycsb and TABLE:usertable initiated")
     
     def _load_ycsb(self):
@@ -93,6 +103,7 @@ class Cassandra(TestSystem):
         # time.sleep(30)
     
     def _wait_till_benchmark_ends(self):
+        self.info("Wait until benchmark ends", rela=self.start_time)
         self.ycsb_process.wait()
         self.info("Benchmark safely ends", rela=self.start_time)
     
