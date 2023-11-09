@@ -19,6 +19,8 @@ which is really a 'nightmare': we need $3.5\times3840/60\approx224\ machine\ hou
 
 > Iterating through all possible combinations of variables is indeed time-consuming. But we can't say for sure that these variables are not correlated: e.g., only some combinations could trigger a certain system behavior. I think the variable that is most easily excluded is $[fault\ location]$, as the nodes do not differ from each other in most distributed systems (except for hadoop and hbase). We can first try different values of $[fault\ location]$, make sure they won't affect results in some systems, and thus simplifying the equation step by step.
 
+- [ ] Another thing is that we need to tune the parameters so that the system performance is reasonably good.
+
 ## Usage
 
 ```
