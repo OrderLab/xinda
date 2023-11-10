@@ -30,6 +30,12 @@ class Logging:
         self.time_series = os.path.join(path2, 'ts-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
         self.summary = os.path.join(path2, 'sum-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
 
+        # For crdb
+        self.crdb_log = os.path.join(path2, 'crlog-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.crdb_health_log = os.path.join(path2, 'health-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.crdb_pebble_log = os.path.join(path2, 'pebble-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.crdb_stderr_log = os.path.join(path2, 'stderr-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+
         # For HBase
         self.raw_container = f"/tmp/raw-{fault_.location}-{fault_.info}-{iter_}.log"
         self.runtime_container = f"/tmp/runtime-{fault_.location}-{fault_.info}-{iter_}.log"

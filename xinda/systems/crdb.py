@@ -83,7 +83,19 @@ class Crdb(TestSystem):
         self.info("Benchmark safely ends", rela=self.start_time)
     
     def _post_process(self):
-        p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
+        # p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
+        log_dict = [
+            {'log_on_container': '/cockroach/cockroach-data/logs/cockroach.log', 'log_on_host': self.log.crdb_log},
+            {'log_on_container': '/cockroach/cockroach-data/logs/cockroach-pebble.log', 'log_on_host': self.log.crdb_pebble_log},
+            {'log_on_container': '/cockroach/cockroach-data/logs/cockroach-health.log', 'log_on_host': self.log.crdb_health_log},
+            {'log_on_container': '/cockroach/cockroach-data/logs/cockroach-stderr.log', 'log_on_host': self.log.crdb_stderr_log}
+        ]
+        for log in log_dict:
+            get_symlink_cmd = f'docker exec {self.fault.location} readlink {log["log_on_container"]}'
+            p = subprocess.run(get_symlink_cmd, shell=True, stdout=subprocess.PIPE)
+            symlink = '/cockroach/cockroach-data/logs/' + p.stdout.decode('utf-8').strip()
+            get_reallog_cmd = f'docker cp {self.fault.location}:{symlink} {log["log_on_host"]}'
+            p = subprocess.run(get_reallog_cmd, shell=True)
     
     def _sysbench_init(self):
         cmd = "docker exec -i roach0 ./cockroach sql --host=roach1:26257 --insecure"
