@@ -78,6 +78,17 @@ services:
     #     max-size: "1m"
     #     max-file: "5"
     restart: always
+  etcd-benchmark:
+    image: rmlu/etcd-benchmark:latest
+    container_name: etcd-benchmark
+    privileged: true
+    depends_on:
+      - etcd0
+      - etcd1
+      - etcd2
+    command: tail -f /dev/null
+    networks:
+      - etcd
 
   # nginx:
   #   image: nginx:alpine

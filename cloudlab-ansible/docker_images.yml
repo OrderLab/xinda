@@ -6,6 +6,7 @@
   tasks:
     - name: Pre-pull
       shell: |
+        docker pull rmlu/etcd-benchmark:latest
         docker pull rmlu/sysbench:latest
         docker pull amazoncorretto:latest
         docker pull bitnami/kafka:3.5

@@ -1,5 +1,8 @@
+## Misc
 
-# etcd
+* (2023-11-10) Add support to etcd-benchmarking tool. Running as a separate docker container. Links:
+    * https://github.com/OrderLab/xinda-etcd-benchmark
+    * https://hub.docker.com/r/rmlu/etcd-benchmark
 
 ## Start in docker
 
