@@ -12,7 +12,7 @@
 We choose the following benchmarks to test etcd:
 | Benchmark | Description1 | Description2  | 
 | --- | --- | --- |
-| lease-keepalive | how quickly and reliably an etcd cluster can handle lease keepalive requests | |
+| lease-keepalive | how quickly and reliably an etcd cluster can handle lease keepalive requests | Leases are a mechanism for detecting client liveness. The cluster grants leases with a time-to-live. A lease expires if the etcd cluster does not receive a keepAlive within a given TTL period. To tie leases into the key-value store, each key may be attached to at most one lease. When a lease expires or is revoked, all keys attached to that lease will be deleted. Each expired key generates a delete event in the event history. |
 | range | how efficiently are keys fetched from the key-value store using the Range API call | |
 | stm | Testing different isolation and locking mechaisms for transactions | Software Transactional Memory |
 | txn-put | Testing atomic put |  |
