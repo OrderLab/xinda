@@ -63,6 +63,65 @@ class YCSB_ETCD(Benchmark):
         self.etcd_endpoints = etcd_endpoints_
         self.identifier = 'ycsb-' + workload_
 
+class OFFICIAL_ETCD(Benchmark):
+    def __init__(self, 
+                 workload_ : str, # lease-keepalive range stm txn-put watch watch-get
+                 total_ : int,
+                 max_execution_time_ = 600,
+                 isolation_ = 'r', # r s c ss
+                 stm_locker_ = 'stm', # stm lock-client
+                 num_watchers_=1000000,
+                 ):
+        '''
+        docker exec -it etcd-benchmark benchmark lease-keepalive --endpoints=etcd0:2379,etcd2379,etcd2:2379 --total 800000
+                
+        docker exec -it etcd-benchmark benchmark range key --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 --total 380000
+        
+        docker exec -it etcd-benchmark benchmark stm --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 --total 380000 --isolation r --stm-locker stm
+        docker exec -it etcd-benchmark benchmark stm --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 --total 130000 --isolation s --stm-locker stm
+        docker exec -it etcd-benchmark benchmark stm --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 --total 400000 --isolation c --stm-locker stm
+        docker exec -it etcd-benchmark benchmark stm --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 --total 130000 --isolation ss --stm-locker stm
+
+        docker exec -it etcd-benchmark benchmark stm --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 --total 6000 --isolation r --stm-locker lock-client
+        docker exec -it etcd-benchmark benchmark stm --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 --total 6000 --isolation s --stm-locker lock-client
+        docker exec -it etcd-benchmark benchmark stm --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 --total 6000 --isolation c --stm-locker lock-client
+        docker exec -it etcd-benchmark benchmark stm --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 --total 6000 --isolation ss --stm-locker lock-client
+        
+        docker exec -it etcd-benchmark benchmark txn-put --endpoints=etcd0:2379,etcd1:2379,etcd2:79 --total 13000
+        
+        docker exec -it etcd-benchmark benchmark watch --endpoints=etcd0:2379,etcd1:2379,etcd2:23 --put-total 12000
+        
+        docker exec -it etcd-benchmark benchmark watch-get --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 --watchers 1000000
+        '''
+        self.max_execution_time = max_execution_time_
+        self.benchmark = 'etcd-official'
+        if workload_ == 'stm':
+            self.identifier = 'official-' + workload_ + '-isolation_' + isolation_ + '-locker_' + stm_locker_
+        else:
+            self.identifier = 'official-' + workload_
+        self.official_endpoints = 'etcd0:2379,etcd1:2379,etcd2:2379'
+        stm_total_dict = {
+            'r': {'stm': 380000, 'lock-client': 6000},
+            's': {'stm': 130000, 'lock-client': 6000},
+            'c': {'stm': 400000, 'lock-client': 6000},
+            'ss': {'stm': 130000, 'lock-client': 6000}            
+        }
+        if workload_ == 'stm':
+            self.total = stm_total_dict[isolation_][stm_locker_]
+        else:
+            self.total = total_
+        if workload_ in ['lease-keepalive', 'range', 'txn-put']:
+            self.official_flags = f"--total {self.total}"
+        elif workload_ == 'watch':
+            self.official_flags = f"--put-total {self.total}"
+        elif workload_ == 'watch-get':
+            self.official_flags = f"--watchers {num_watchers_}"
+        elif workload_ == 'stm':
+            self.official_flags = f"--total {self.total} --isolation {isolation_} --stm-locker {stm_locker_}"
+        if workload_ == 'range':
+            workload_ = 'range key'
+        self.workload = workload_
+
 class YCSB_CRDB(Benchmark):
     def __init__(self, 
                  exec_time_ : str, # in seconds

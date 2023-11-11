@@ -60,6 +60,21 @@ class GenerateTestScript():
                              'oltp_write_only', 
                              'select_random_points', 
                              'select_random_ranges' ]
+        self.etcd_official = [
+            {'lease-keepalive': ['--etcd_official_total 800000']},
+            {'range': ['--etcd_official_total 380000']},
+            {'stm': ['--etcd_official_total 380000 --etcd_official_isolation r --etcd_official_locker stm',
+                     '--etcd_official_total 130000 --etcd_official_isolation s --etcd_official_locker stm',
+                     '--etcd_official_total 400000 --etcd_official_isolation c --etcd_official_locker stm',
+                     '--etcd_official_total 130000 --etcd_official_isolation ss --etcd_official_locker stm',
+                     '--etcd_official_total 6000 --etcd_official_isolation r --etcd_official_locker lock-client',
+                     '--etcd_official_total 6000 --etcd_official_isolation s --etcd_official_locker lock-client',
+                     '--etcd_official_total 6000 --etcd_official_isolation c --etcd_official_locker lock-client',
+                     '--etcd_official_total 6000 --etcd_official_isolation ss --etcd_official_locker lock-client']},
+            {'txn-put': ['--etcd_official_total 13000']},
+            {'watch': ['--etcd_official_total 12000']},
+            {'watch-get': ['--etcd_official_num_watchers 1000000']}
+        ]
         # severity
         self.severity_dict = {
             'nw': ['slow-low', 'slow-medium', 'slow-high', 'flaky-low', 'flaky-medium', 'flaky-high'],
@@ -131,6 +146,18 @@ class GenerateTestScript():
                                                 f"--sysbench_lua_scheme {lua_scheme}"
                                             ]
                                             self.append_to_file(msg=' '.join(cmd))
+                                    if sys_name == 'etcd':
+                                        # etcd-official
+                                        for item in self.etcd_official:
+                                            for wkl_name, flag_list in item.items():
+                                                for flag in flag_list:
+                                                    cmd = meta_cmd + [
+                                                        f"--benchmark etcd-official",
+                                                        f"--etcd_official_wkl {wkl_name}",
+                                                        flag
+                                                    ]
+                                                    self.append_to_file(msg=' '.join(cmd))
+                                            
                                 elif sys_name == 'hadoop':
                                     # mrbench
                                     cmd = meta_cmd + ["--benchmark mrbench"]

@@ -137,7 +137,7 @@ parser.add_argument('--ycsb_crdb_run_conn_string', type = str, default = 'postgr
 # hadoop - Benchmark
 parser.add_argument('--benchmark', type = str, required=True,
                     help='[Benchmark] Specify which benchmark to test the system',
-                    choices=['ycsb','mrbench', 'terasort', 'perf_test', 'openmsg', 'ycsb', 'sysbench'])
+                    choices=['ycsb','mrbench', 'terasort', 'perf_test', 'openmsg', 'ycsb', 'sysbench', 'etcd-official'])
 # parser.add_argument('--hadoop_wkl', type = str,
 #                     help='[Benchmark] Specify which benchmark to test mapreduce',
 #                     choices=['mrbench', 'terasort'])
@@ -187,6 +187,24 @@ parser.add_argument('--sysbench_num_thread', type = int, default = 1,
                     help='[Benchmark] Number of threads to run sysbench workloads on crdb')
 parser.add_argument('--sysbench_report_interval', type = int, default = 1,
                     help='[Benchmark] Granularity of sysbench statistics at run-time')
+# official-benchmark - etcd - Benchmark
+parser.add_argument('--etcd_official_wkl', type = str, default = 'lease-keepalive',
+                    choices=['txn-put', 'lease-keepalive', 'range', 'stm', 'watch', 'watch-get'],
+                    help='[Benchmark] The benchmark from etcd official benchmarking tool to test etcd')
+parser.add_argument('--etcd_official_total', type = int, default = 800000,
+                    help='[Benchmark] The total number of requests in an etcd official benchmark')
+parser.add_argument('--etcd_official_max_execution_time', type = int, default = 600,
+                    help='[Benchmark] The maximum execution time of an etcd official benchmark (unit: seconds)')
+parser.add_argument('--etcd_official_isolation', type = str, default = 'r',
+                    choices=['r', 'c', 's', 'ss'],
+                    help='[Benchmark] The isolation scheme of transactions in official:stm benchmark')
+parser.add_argument('--etcd_official_locker', type = str, default = 'stm',
+                    choices=['stm', 'lock-client'],
+                    help='[Benchmark] The locking scheme of transactions in official:stm benchmark')
+parser.add_argument('--etcd_official_num_watchers', type = int, default = 1000000,
+                    help='[Benchmark] Number of watchers in benchmark:official-watch-get')
+
+
 
 
 def main():
@@ -235,14 +253,22 @@ def main():
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir)
         sys.test()
     elif sys_name == 'etcd':
-        benchmark = YCSB_ETCD(exec_time_ = args.bench_exec_time,
-                                workload_ = args.ycsb_wkl,
-                                recordcount_ = args.ycsb_recordcount,
-                                operationcount_ = args.ycsb_operationcount,
-                                measurementtype_ = args.ycsb_measurementtype,
-                                status_interval_ = args.ycsb_status_interval,
-                                threadcount_ = args.ycsb_etcd_threadcount,
-                                etcd_endpoints_ = args.ycsb_etcd_endpoints)
+        if args.benchmark == 'ycsb':
+            benchmark = YCSB_ETCD(exec_time_ = args.bench_exec_time,
+                                    workload_ = args.ycsb_wkl,
+                                    recordcount_ = args.ycsb_recordcount,
+                                    operationcount_ = args.ycsb_operationcount,
+                                    measurementtype_ = args.ycsb_measurementtype,
+                                    status_interval_ = args.ycsb_status_interval,
+                                    threadcount_ = args.ycsb_etcd_threadcount,
+                                    etcd_endpoints_ = args.ycsb_etcd_endpoints)
+        elif args.benchmark == 'etcd-official':
+            benchmark = OFFICIAL_ETCD(workload_ = args.etcd_official_wkl,
+                                    total_ = args.etcd_official_total,
+                                    max_execution_time_ = args.etcd_official_max_execution_time,
+                                    isolation_ = args.etcd_official_isolation,
+                                    stm_locker_ = args.etcd_official_locker,
+                                    num_watchers_ = args.etcd_official_num_watchers)
         sys = etcd.Etcd(sys_name_ = sys_name,
                         fault_ = fault,
                         benchmark_ = benchmark,
