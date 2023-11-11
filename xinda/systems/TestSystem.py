@@ -32,7 +32,8 @@ class TestSystem:
         with open(ct_yaml, "r") as config_file:
             self.container_config = yaml.safe_load(config_file)
         if fault_.location not in self.container_config[sys_name_]:
-            raise ValueError(f"Exception: {fault_.location} is not a member of {sys_name_}:{self.container_config[sys_name_]}")
+            if sys_name_ != 'etcd':
+                raise ValueError(f"Exception: {fault_.location} is not a member of {sys_name_}:{self.container_config[sys_name_]}")
         self.info(f"Current workload: {self.benchmark.workload}")
      
     def info(self,
@@ -213,7 +214,7 @@ class TestSystem:
         elapsed_time_in_seconds = (int(time.time()*1e9) - ref)/1e9
         return round(elapsed_time_in_seconds, 3)
     
-    def inject(self):
+    def inject(self, cfs_pattern = None):
         if self.start_time is None:
             raise ValueError(f"Exception: self.start_time is None. Either the benchmark has not started yet, or we fail/forget to set this parameter")
         if self.fault.duration == -1:
@@ -227,7 +228,10 @@ class TestSystem:
             cmd_clear = ['blockade', 'fast', self.fault.location]
             work_dir = self.tool.blockade
         else:
-            cmd_inject = ['./inject_client', '--delay', self.fault.severity]
+            if cfs_pattern is None:
+                cmd_inject = ['./inject_client', '--delay', self.fault.severity]
+            else:
+                cmd_inject = ['./inject_client', '--pattern', cfs_pattern, '--delay', self.fault.severity]
             cmd_clear = ['./inject_client', '--clear']
             work_dir = self.tool.cfs_source
         # Sleep until fault begins

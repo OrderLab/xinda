@@ -210,6 +210,9 @@ parser.add_argument('--etcd_official_num_watchers', type = int, default = 100000
 def main():
     args = parser.parse_args()
     sys_name = args.sys_name
+    if sys_name == 'etcd' and args.fault_location not in ['leader', 'follower']:
+        print('Currently etcd only supports leader/follower faults')
+        exit(1)
     fault = slow_fault.SlowFault(type_ = args.fault_type,
                         location_ = args.fault_location,
                         duration_ = args.fault_duration,

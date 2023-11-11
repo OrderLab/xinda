@@ -11,7 +11,7 @@ class Etcd(TestSystem):
             self.blockade_up()
         elif self.fault.type == 'fs':
             self.charybdefs_up()
-            self.docker_up()
+            self.docker_up_charybdefs_etcd()
             time.sleep(10)
             self.docker_get_status()
         elif self.fault.type == 'none':
@@ -20,13 +20,14 @@ class Etcd(TestSystem):
             self.docker_get_status()
         else:
             raise ValueError(f"Fault type:{self.fault.type} is not one of {{nw, fs}}")
+        self.get_leader_name()
         if self.benchmark.benchmark == 'ycsb':
             # load and run benchmark
             self._load_ycsb()
             self._run_ycsb()
             # inject slow faults
             if self.fault.type != 'none':
-                self.inject()
+                self.inject(cfs_pattern=f".*{self.fault.location}.*")
             else:
                 self.info("Fault type == none, no faults shall be injected")
             # wrap-up and end
@@ -36,7 +37,7 @@ class Etcd(TestSystem):
             self.run_official()
             # inject slow faults
             if self.fault.type != 'none':
-                self.inject()
+                self.inject(cfs_pattern=f".*{self.fault.location}.*")
             else:
                 self.info("Fault type == none, no faults shall be injected")
             # wrap-up and end
@@ -47,6 +48,42 @@ class Etcd(TestSystem):
         elif self.fault.type == 'fs':
             self.charybdefs_down()
         self.info("THE END")
+    
+    def docker_up_charybdefs_etcd(self):
+        cmd = ['docker-compose',
+                '-f', f'docker-compose-all.yaml',
+                'up',
+                '-d']
+        cmd = ' '.join(cmd)
+        print("Try exactly 4 times :O")
+        for i in range(4):
+            _ = subprocess.Popen(cmd, shell=True, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL, cwd=self.tool.compose)
+            time.sleep(1)
+            print(f'try again {i+1}/4')
+        self.info('Bringing up a new docker-compose cluster in the charybdefs way')
+    
+    def get_leader_name(self):
+        cmd = 'docker exec etcd0 etcdctl --write-out=table --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 endpoint status'
+        awk_cmd = "awk '/true/ {print $2}'"
+        p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+        cmd_output = p.stdout.read()
+        self.info(cmd_output.decode('utf-8'))
+        awk_process = subprocess.Popen(awk_cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        leader_name, _ = awk_process.communicate(input=cmd_output)
+        p.stdout.close()
+        self.leader_name = leader_name.decode('utf-8').strip()[:5]
+        etcd_nodes = ['etcd0','etcd1','etcd2']
+        if self.leader_name not in etcd_nodes:
+            raise ValueError(f"Leader name {self.leader_name} is not in {{etcd0, etcd1, etcd2}}")
+        etcd_nodes.remove(self.leader_name)
+        self.follower_name = etcd_nodes[0]
+        self.info(f"Leader: {self.leader_name}, followers:{etcd_nodes}, choose one follower: {self.follower_name}")
+        fault_loc = self.fault.location
+        if self.fault.location == 'leader':
+            self.fault.location = self.leader_name
+        elif self.fault.location == 'follower':
+            self.fault.location = self.follower_name
+        self.info(f"Fault injection location changed from {fault_loc} to {self.fault.location}")
     
     def _load_ycsb(self):
         cmd = [self.tool.go_ycsb_bin,
@@ -141,3 +178,7 @@ class Etcd(TestSystem):
 #                xinda_software_dir_ = f"{os.path.expanduser('~')}/workdir/xinda-software",
 #                 xinda_tools_dir_ = f"{os.path.expanduser('~')}/workdir/xinda/tools",
 #                 charybdefs_mount_dir_ = f"{os.path.expanduser('~')}/workdir/tmp")
+
+# python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir 11_11 --fault_type fs --fault_location leader --fault_duration 30 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 60 --ycsb_wkl writeonly --benchmark ycsb
+
+# python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir 11_11 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-high --fault_start_time 10 --bench_exec_time 60 --ycsb_wkl writeonly --benchmark ycsb

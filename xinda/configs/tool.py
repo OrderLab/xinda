@@ -70,9 +70,9 @@ class Tool:
                'CONTAINER_DIR_roach2=/cockroach/cockroach-data',
                # etcd
                f'LOCAL_DIR_etcd0={self.fuse_dir}/etcd0',
-               'CONTAINER_DIR_etcd0=/data.etcd',
+               'CONTAINER_DIR_etcd=/data.etcd',
                f'LOCAL_DIR_etcd1={self.fuse_dir}/etcd1',
-               'CONTAINER_DIR_etcd1=/data.etcd',
+               f'LOCAL_DIR_etcd2={self.fuse_dir}/etcd2',
                # hadoop
                f'LOCAL_DIR_datanode={self.fuse_dir}/datanode',
                'CONTAINER_DIR_datanode=/hadoop/dfs/data',

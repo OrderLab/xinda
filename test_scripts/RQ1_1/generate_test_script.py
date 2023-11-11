@@ -32,7 +32,7 @@ class GenerateTestScript():
         self.location_dict = {
             'cassandra': ['cas1', 'cas2'],
             'crdb': ['roach1', 'roach2'],
-            'etcd': ['etcd0', 'etcd1'],
+            'etcd': ['leader', 'follower'],
             'hadoop': ['datanode', 'namenode'],
             'hbase-fs': ['datanode', 'namenode'],
             'hbase-nw': ['datanode', 'namenode', 'hbase-master','hbase-regionserver'],
