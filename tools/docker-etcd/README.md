@@ -21,19 +21,6 @@ Available Commands:                                                             
   watch-get       Benchmark watch with get
   watch-latency   Benchmark watch latency
 ```
-
-| Benchmark | Description |  Flag to control request num|
-| --- | --- |
-| lease-keepalive | 3.5 | | --batch-limit int| 
-| mvcc | 3.5 | | --batch-limit int|
-| put | 3 | | --total int |
-| range | 5 | | --total int |
-| stm | For Software Transactional Memory | --total int | --isolation string     Read Committed (c), Repeatable Reads (r), Serializable (s), or Snapshot (ss) (default "r")|
-| txn-put | 4.5 | --total int| |
-| watch | 3.3 |
-| watch-get | 3.3 |
-| watch-latency | 3.3 |
-
 ### lease-keepalive
 > Leases are a mechanism for detecting client liveness. The cluster grants leases with a time-to-live. A lease expires if the etcd cluster does not receive a keepAlive within a given TTL period. To tie leases into the key-value store, each key may be attached to at most one lease. When a lease expires or is revoked, all keys attached to that lease will be deleted. Each expired key generates a delete event in the event history.
 ```
