@@ -55,6 +55,7 @@ docker exec -it etcd-benchmark benchmark range key --endpoints=etcd0:2379,etcd1:
 ### stm
 `stm`` stands for `Software Transactional Memory`. 
 > --isolation string {Read Committed (c), Repeatable Reads (r), Serializable (s), or Snapshot (ss) (default "r")}.
+
 Taken from gpt4 (need to double-check):
 * Read Committed (c): This isolation level guarantees that any data read is committed at the moment it is read. Thus, it does not see uncommitted (or "dirty") data. However, it can still experience non-repeatable reads and phantom reads.
 * Repeatable Reads (r): This isolation level ensures that if a transaction reads data a second time within the same transaction, it will find the same data, thus preventing non-repeatable reads. However, it can still experience phantom reads because it does not guarantee a snapshot of the data; other transactions could insert new rows that match a query condition.
@@ -62,6 +63,7 @@ Taken from gpt4 (need to double-check):
 * Snapshot (ss): This isolation level provides a snapshot of the database at a point in time. Each read within the transaction sees a consistent snapshot of the data as it existed at the start of the transaction or at the point of the first read. Other transactions' changes to the database that occur after the snapshot are not visible within the transaction.
 
 > --stm-locker string    Wrap STM transaction with a custom locking mechanism (stm, lock-client, lock-rpc) (default "stm")
+
 Taken from gpt4 (need to double-check):
 * STM-Locker (optmistic):
     * This likely refers to using STM's own locking mechanisms to manage concurrency. STM in etcd is a software layer that allows for transactions to be composed of multiple operations that either all succeed or all fail.
@@ -107,6 +109,7 @@ docker exec -it etcd-benchmark benchmark txn-put --endpoints=etcd0:2379,etcd1:23
 ```
 
 ### watch vs. watch-get
+Taken from gpt4 (need to double-check):
 > The watch benchmark is about the change notification performance, while the watch-get benchmark is about the performance of establishing new watches and catching up with the current state of the watched keys. Both are important for understanding the performance characteristics of etcd under different real-world usage scenarios.
 
 
