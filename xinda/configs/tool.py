@@ -71,8 +71,8 @@ class Tool:
                # etcd
                f'LOCAL_DIR_etcd0={self.fuse_dir}/etcd0',
                'CONTAINER_DIR_etcd0=/data.etcd',
-               f'LOCAL_DIR_etcd0={self.fuse_dir}/etcd1',
-               'CONTAINER_DIR_etcd0=/data.etcd',
+               f'LOCAL_DIR_etcd1={self.fuse_dir}/etcd1',
+               'CONTAINER_DIR_etcd1=/data.etcd',
                # hadoop
                f'LOCAL_DIR_datanode={self.fuse_dir}/datanode',
                'CONTAINER_DIR_datanode=/hadoop/dfs/data',
@@ -85,6 +85,7 @@ class Tool:
                # hbase
                f'LOCAL_DIR_datanode_hbase={self.fuse_dir}/datanode',
                f'LOCAL_DIR_namenode_hbase={self.fuse_dir}/namenode',
+               # kafka
                f'LOCAL_DIR_kafka1={self.fuse_dir}/kafka1',
                f'LOCAL_DIR_kafka2={self.fuse_dir}/kafka2',
                f'LOCAL_DIR_kafka3={self.fuse_dir}/kafka3',
