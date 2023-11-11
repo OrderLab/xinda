@@ -53,7 +53,7 @@ docker exec -it etcd-benchmark benchmark range key --endpoints=etcd0:2379,etcd1:
 ```
 
 ### stm
-`stm`` stands for `Software Transactional Memory`. 
+`stm` stands for `Software Transactional Memory`. 
 > --isolation string {Read Committed (c), Repeatable Reads (r), Serializable (s), or Snapshot (ss) (default "r")}.
 
 Taken from gpt4 (need to double-check):
