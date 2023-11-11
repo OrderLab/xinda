@@ -1,12 +1,25 @@
-## Misc
+# Misc
 
 * (2023-11-10) Add support to etcd-benchmarking tool. Running as a separate docker container. Links:
     * https://github.com/OrderLab/xinda-etcd-benchmark
     * https://hub.docker.com/r/rmlu/etcd-benchmark
 
-## etcd-benchmark
+# etcd-benchmark
 
 !!IMPORTANT!! https://etcd.io/docs/v3.2/learning/api
+
+## TL;DR
+We choose the following benchmarks to test etcd:
+| Benchmark | Description1 | Description2  | 
+| --- | --- | --- |
+| lease-keepalive | how quickly and reliably an etcd cluster can handle lease keepalive requests | |
+| range | how efficiently are keys fetched from the key-value store using the Range API call | |
+| stm | Testing different isolation and locking mechaisms for transactions | Software Transactional Memory |
+| txn-put | Testing atomic put |  |
+| watch | Testing the performance of processing watch requests and sending events to watchers | The Watch API provides an event-based interface for asynchronously monitoring changes to keys. An etcd3 watch waits for changes to keys by continuously watching from a given revision, either current or historical, and streams key updates back to the client |
+| watch-get | Testing performance of establishing new watches and catching up with the current state of the watched keys |  Benchmark for serialized key gets with many unsynced watchers |
+
+## Exploring different benchmarks
 ```
 $ docker exec -it etcd-benchmark benchmark -h
 Available Commands:                                                                                                                [16/1914]
@@ -112,6 +125,7 @@ docker exec -it etcd-benchmark benchmark txn-put --endpoints=etcd0:2379,etcd1:23
 Taken from gpt4 (need to double-check):
 > The watch benchmark is about the change notification performance, while the watch-get benchmark is about the performance of establishing new watches and catching up with the current state of the watched keys. Both are important for understanding the performance characteristics of etcd under different real-world usage scenarios.
 
+# Instructions (by Leyan)
 
 ## Start in docker
 
