@@ -45,6 +45,7 @@ class Kafka(TestSystem):
             self._wait_till_openmsg_ends()
         else:
             raise ValueError(f"Benchmark: {self.benchmark.workload} is not one of {{perf_test, openmsg}}")
+        self._post_process()
         self.docker_down()
         if self.fault.type == 'nw':
             self.blockade_down()
@@ -160,7 +161,8 @@ class Kafka(TestSystem):
         '--stats-port 8085']
         cmd = ' '.join(cmd)
         self.worker2_process = subprocess.Popen('exec ' + cmd, shell=True, stdout=open(self.log.openmsg_worker2, 'a'), cwd=self.tool.openmsg_compiled_source)
-
+    def _post_process(self):
+        p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
 
 # nw_fault = SlowFault(
 #     type_="nw", # nw or fs

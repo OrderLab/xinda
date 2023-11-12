@@ -32,7 +32,6 @@ class Etcd(TestSystem):
                 self.info("Fault type == none, no faults shall be injected")
             # wrap-up and end
             self._wait_till_ycsb_ends()
-            self._post_process()
         elif self.benchmark.benchmark == 'etcd-official':
             self.run_official()
             # inject slow faults
@@ -42,6 +41,7 @@ class Etcd(TestSystem):
                 self.info("Fault type == none, no faults shall be injected")
             # wrap-up and end
             self._wait_till_official_ends()
+        self._post_process()
         self.docker_down()
         if self.fault.type == 'nw':
             self.blockade_down()
