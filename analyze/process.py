@@ -2,13 +2,16 @@ import argparse
 import os
 import logging
 import json
+import pandas as pd
 
 from config import DATA_DIR, OUTPUT_DIR
-from typing import List
+from typing import List, Tuple, Dict
 from parse.runtime_parser import RuntimeParser
 from parse.raw_parser import RawParser
 from parse.info_parser import InfoParser
-from parse.trial_setup_context import get_trial_setup_context_from_path
+from parse.context import get_trial_setup_context_from_path, TrialSetupContext
+from genmeta.context import GenMetaContext
+
 
 PARSERS = {
     "runtime": RuntimeParser,
@@ -17,12 +20,12 @@ PARSERS = {
 }
 
 
-def get_all_logpaths(data_dir, ext=".log") -> List[str]:
+def get_all_files(data_dir, exts=[".log"]) -> List[str]:
     paths = []
     for root, dirs, files in os.walk(data_dir):
         for file in files:
             paths.append(os.path.join(root, file))
-    return [p for p in paths if os.path.splitext(p)[-1] == ext]
+    return [p for p in paths if os.path.splitext(p)[-1] in exts]
 
 
 def parse_single(log_path, output_path, parser) -> None:
@@ -38,26 +41,74 @@ def parse_single(log_path, output_path, parser) -> None:
         data.to_csv(output_path, index=False)
 
 
-def parse_batch(data_dir, output_dir, parser_names) -> None:
+def parse_batch(data_dir, output_dir) -> None:
     log_ctx = {}
-    for l in get_all_logpaths(data_dir):
+    for p in get_all_files(data_dir):
         try:
-            log_ctx[l] = get_trial_setup_context_from_path(l)
+            log_ctx[p] = get_trial_setup_context_from_path(p)
         except:
-            logging.warning(f"Skip {l}. Cannot parse context from filename.")
+            logging.info(f"Skip {p}. Cannot parse context from filename.")
 
-    for psrname in parser_names:
-        target_paths = [l for l, ctx in log_ctx.items()
-                        if ctx.log_type == psrname]
-        for path in target_paths:
-            ext = ".json" if psrname == "info" else ".csv"
-            outpath = os.path.splitext(path.replace(
-                data_dir, output_dir))[0] + ext
-            if os.path.exists(outpath):
-                continue
-            os.makedirs(os.path.dirname(outpath), exist_ok=True)
-            parse_single(path, outpath, PARSERS[psrname]())
+    for path, ctx in log_ctx.items():
+        psrname = ctx.log_type
+        if psrname not in PARSERS:
+            continue
+        
+        ext = ".json" if psrname == "info" else ".csv"
+        outpath = os.path.splitext(path.replace(data_dir, output_dir))[0] + ext
+        if os.path.exists(outpath):
+            continue
+        os.makedirs(os.path.dirname(outpath), exist_ok=True)
+        
+        parse_single(path, outpath, PARSERS[psrname]())
 
+
+def hash_tsctx(ctx: TrialSetupContext) -> Tuple:
+    return (ctx.action, ctx.system, ctx.question, ctx.workload, \
+        ctx.injection_location, ctx.injection_type, ctx.severity, \
+        ctx.start, ctx.duration, ctx.iter)
+
+
+def gen_meta(data_dir, output_dir) -> None:
+    parsed_data_files = get_all_files(data_dir, exts=[".csv"])
+    outpath = os.path.join(output_dir, "meta.csv")
+    if outpath in parsed_data_files:
+        parsed_data_files.remove(outpath)
+    
+    genmeta_tasks: Dict[Tuple, GenMetaContext] = {}
+    for p in parsed_data_files:
+        ctx = get_trial_setup_context_from_path(p)
+        key = hash_tsctx(ctx)
+        if key not in genmeta_tasks:
+            genmeta_tasks[key] = GenMetaContext(ctx)
+            
+        if ctx.system == "hadoop" and ctx.log_type == "raw":
+            if ctx.workload == "mrbench":
+                genmeta_tasks[key].raw_mrbench_csv = p
+            elif ctx.workload == "terasort":
+                if ctx.suffix == "teragen":
+                    genmeta_tasks[key].raw_teragen_csv = p
+                elif ctx.suffix == "terasort":
+                    genmeta_tasks[key].raw_terasort_csv = p
+                else: raise
+            else: raise
+                
+        if ctx.system != "hadoop" and  ctx.log_type == "runtime":
+            genmeta_tasks[key].runtime_csv = p
+    
+    meta = []
+    meta_colnames = ["rq", "system", "workload", "fault_type", "fault_location", \
+        "fault_duration", "fault_start", "fault_severity", "iter_flag", \
+        "metric", "value"]
+    for _, gmctx in genmeta_tasks.items():
+        metric, value = gmctx.evaluate()
+        meta.append((gmctx.ctx.question, gmctx.ctx.system, gmctx.ctx.workload, \
+            gmctx.ctx.injection_type, gmctx.ctx.injection_location, \
+            gmctx.ctx.duration, gmctx.ctx.start, gmctx.ctx.severity, gmctx.ctx.iter, \
+            metric, value))
+    df = pd.DataFrame(sorted(meta), columns=meta_colnames)
+    df.to_csv(outpath, index=False)
+        
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="xinda log parser")
@@ -65,17 +116,16 @@ if __name__ == "__main__":
                         help="Specify root of data directory containing all logs")
     parser.add_argument("-o", "--output_dir", default=OUTPUT_DIR,
                         help="Specify root of output directory for outputing all logs")
-    parser.add_argument("-p", "--parser", default=None,
-                        help="Specify the target parser name. Default for all.")
 
     args = parser.parse_args()
-    parser_names = args.parser.split(
-        ",") if args.parser is not None else list(PARSERS.keys())
-    for pname in parser_names:
-        if pname not in PARSERS:
-            raise ValueError(f"{pname} parser is not supported")
+
 
     parse_batch(
         data_dir=os.path.abspath(args.data_dir),
         output_dir=os.path.abspath(args.output_dir),
-        parser_names=parser_names)
+    )
+    
+    gen_meta(
+        data_dir=os.path.abspath(args.output_dir),
+        output_dir=os.path.abspath(args.output_dir),
+    )

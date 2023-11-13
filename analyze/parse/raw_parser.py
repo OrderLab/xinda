@@ -1,7 +1,7 @@
 import re
 import pandas as pd
 
-from parse.trial_setup_context import get_trial_setup_context_from_path
+from parse.context import get_trial_setup_context_from_path
 from parse.tools import read_raw_logfile
 
 COLNAME_JOBID = "job_id"

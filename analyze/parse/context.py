@@ -18,9 +18,11 @@ class TrialSetupContext:
         self.end: int = 0
 
         self.iter: int = 0
+        self.suffix: str = ""
     
     def __str__(self) -> str:
-        return f"{self.action}, {self.system}, {self.question}, {self.workload}, {self.log_type}, {self.injection_location}, {self.injection_type}, {self.severity}, {self.duration}, {self.start}, {self.end}, {self.iter}"
+        return f"{self.action}, {self.system}, {self.question}, {self.workload}, {self.log_type}, {self.injection_location}, {self.injection_type}, {self.severity}, {self.duration}, {self.start}, {self.end}, {self.iter}, {self.suffix}"
+
         
 def get_trial_setup_context_from_path(path) -> TrialSetupContext:
     t = TrialSetupContext()
@@ -37,6 +39,7 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
     tokens = get_fname(path).split("-")
     if t.system == "hadoop":
         if tokens[-1] in ["terasort", "teragen"] or tokens[-1].startswith("mrbench"):
+            t.suffix = tokens[-1]
             tokens = tokens[:-1]
     for s in ["slow", "flaky", "hbase"]:
         if s in tokens:

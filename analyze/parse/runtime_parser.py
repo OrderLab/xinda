@@ -1,7 +1,7 @@
 import re
 import pandas as pd
 
-from parse.trial_setup_context import get_trial_setup_context_from_path
+from parse.context import get_trial_setup_context_from_path
 from parse.tools import read_raw_logfile
 
 
@@ -16,19 +16,26 @@ class RuntimeParser:
 
     def parse(self, path):
         t = get_trial_setup_context_from_path(path)
-        DB_PARSER = {
-            "cassandra": _runtime_parser_cassandra,
-            "crdb": _runtime_parser_crdb,
-            "etcd": _runtime_parser_etcd,
-            "hbase": _runtime_parser_hbase,
-        }
-        if t.system in DB_PARSER:
-            return DB_PARSER[t.system](read_raw_logfile(path))
-        else:
+        if t.system == "hadoop":
             return None
+        wl = ""
+        if t.workload.startswith("ycsb"):
+            wl = "ycsb"
+        elif t.workload.startswith("sysbench"):
+            wl = "sysbench"
+        else: raise
+        db_parser_key = (t.system, wl)
+        DB_PARSER = {
+            ("cassandra", "ycsb"): _runtime_parser_cassandra_ycsb,
+            ("crdb",  "ycsb"): _runtime_parser_crdb_ycsb,
+            ("crdb",  "sysbench"): _runtime_parser_crdb_sysbench,
+            ("etcd", "ycsb"): _runtime_parser_etcd_ycsb,
+            ("hbase", "ycsb"): _runtime_parser_hbase_ycsb,
+        }
+        return DB_PARSER[db_parser_key](read_raw_logfile(path))
 
 
-def _runtime_parser_cassandra(log_raw):
+def _runtime_parser_cassandra_ycsb(log_raw):
     pattern = r"(\d*) sec:.*; (.*) current ops\/sec;.*, average latency\(us\): \d*\.\d*"
     matches = re.findall(pattern, log_raw)
     data_raw = {}
@@ -39,7 +46,7 @@ def _runtime_parser_cassandra(log_raw):
     return df
 
 
-def _runtime_parser_crdb(log_raw):
+def _runtime_parser_crdb_ycsb(log_raw):
     lines = log_raw.split("\n")
     data_raw = {}
     for line in lines:
@@ -59,8 +66,14 @@ def _runtime_parser_crdb(log_raw):
     df = pd.DataFrame(data, columns=[COLNAME_TIME, COLNAME_TP, COLNAME_ERR])
     return df
 
+def _runtime_parser_crdb_sysbench(log_raw):
+    pattern = r"\[ (\d*)s \].* tps: ([\S]*).* err\/s: ([\S]*)"
+    matches = re.findall(pattern, log_raw)
+    data = matches
+    df = pd.DataFrame(data, columns=[COLNAME_TIME, COLNAME_TP, COLNAME_ERR])
+    return df
 
-def _runtime_parser_etcd(log_raw):
+def _runtime_parser_etcd_ycsb(log_raw):
     pattern = r"TOTAL  - Takes\(s\): ([^\s]*), Count: ([^\s]*),"
     matches = re.findall(pattern, log_raw)
     data = []
@@ -72,5 +85,5 @@ def _runtime_parser_etcd(log_raw):
     return df
 
 
-def _runtime_parser_hbase(log_raw):
-    return _runtime_parser_cassandra(log_raw)
+def _runtime_parser_hbase_ycsb(log_raw):
+    return _runtime_parser_cassandra_ycsb(log_raw)

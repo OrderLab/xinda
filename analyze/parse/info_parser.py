@@ -14,7 +14,7 @@ class InfoParser:
 
 
 def _info_parser(log_raw) -> Dict:
-    pattern_ctx = r"(\{[\s\S]*\})"
+    pattern_ctx = r"(\{[\s\S]*?\})"
     ctx = json.loads("".join(list(re.findall(pattern_ctx, log_raw)[0])))
 
     pattern_dcup = r", (\S*)\] Containers IP addr retrieved"
