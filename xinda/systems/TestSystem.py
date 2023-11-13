@@ -4,6 +4,7 @@ import datetime
 import time
 import yaml
 import docker
+import psutil
 import threading
 from xinda.configs.logging import Logging
 from xinda.configs.slow_fault import SlowFault
@@ -35,7 +36,36 @@ class TestSystem:
             if sys_name_ != 'etcd':
                 raise ValueError(f"Exception: {fault_.location} is not a member of {sys_name_}:{self.container_config[sys_name_]}")
         self.info(f"Current workload: {self.benchmark.workload}")
-     
+        self.cleanup()
+    
+    def cleanup(self):
+        client = docker.from_env()
+        containers = client.containers.list(all=True)
+        # blockade
+        for container in containers:
+            if container.name == 'dummy':
+                self.info('Prior blockade instance detected. Destroying now.')
+                cmd = 'blockade destroy'
+                _ = subprocess.run(cmd, shell=True, cwd=self.tool.blockade)
+                break
+        # docker
+        if len(containers) > 0:
+            self.info(f"Prior docker instance(s) detected. Stopping & removing now.")
+            _ = subprocess.run('docker stop $(docker ps -a -q)', shell=True, check=True)
+            _ = subprocess.run('docker rm $(docker ps -a -q)', shell=True, check=True)
+        # charybdefs
+        keyword = "charybdefs"
+        process_list = psutil.process_iter(attrs=['pid', 'name', 'cmdline'])
+        matching_processes = [process.info for process in process_list if keyword in process.info['name']]
+        if len(matching_processes) != 0:
+            self.info(f'Prior charybdefs instance detected. Stopping now.')
+            charybdefs_dir = matching_processes[0]['cmdline'][2]
+            cmd = f'./stop.sh {charybdefs_dir}'
+            _ = subprocess.run(cmd, shell=True, cwd=self.tool.cfs_source)
+            cmd = f'rm -rf {self.tool.charybdefs_mount_dir}'
+            _ = subprocess.run(cmd, shell=True)
+            time.sleep(5)
+    
     def info(self,
              msg_ : str,
              rela = None,
