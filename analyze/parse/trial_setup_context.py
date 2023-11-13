@@ -40,15 +40,16 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
             i = tokens.index(s)
             tokens[i] += "-" + tokens[i+1]
             tokens = tokens[:i+1] + tokens[i+2:]
-    assert len(tokens) in [6,8], f"{path} -> {tokens}"
+    assert (len(tokens) in [6,8]) or (len(tokens) == 9 and tokens[-1].startswith("mrbench")), f"{path} -> {tokens}"
     t.log_type = tokens[0]
     t.injection_location = tokens[1]
     t.injection_type = tokens[2]
     t.severity = tokens[3]
-    if len(tokens) == 8:
+    if len(tokens) == 6:
+        t.iter = int(tokens[5])
+    if len(tokens) in [8,9]:
         t.duration = int(tokens[4][3:])
         t.start = int(tokens[5])
         t.end = int(tokens[6])
-    t.iter = int(tokens[-1])
-
+        t.iter = int(tokens[7])
     return t

@@ -12,7 +12,7 @@ def test_info_parser():
 
 
 def test_raw_parser():
-    path = "/home/yunchi/data/xinda/default/hadoop/rq1_1/mrbench/raw-namenode-nw-high-dur60-60-120-1.log"
+    path = "/home/yunchi/data/yunchi/xinda/default/hadoop/rq1_1/mrbench/raw-datanode-nw-slow-high-dur20-60-80-1-mrbench.log"
     parser = RawParser()
     df = parser.parse(path)
     print(df)
@@ -34,4 +34,5 @@ def test_context_parser():
     print(t)
 
 
-test_info_parser()
+# test_info_parser()
+test_raw_parser()

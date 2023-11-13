@@ -1,2 +1,2 @@
-DATA_DIR = "/home/yunchi/data/xinda"
-OUTPUT_DIR = "/home/yunchi/data/xinda_analyze"
+DATA_DIR = "/data/yunchi/xinda"
+OUTPUT_DIR = "/data/yunchi/xinda_result"
