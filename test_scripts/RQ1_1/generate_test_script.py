@@ -209,8 +209,8 @@ class GenerateTestScript():
         if filename is None:
             filename = self.output_file
         self.counter = self.counter + 1
-        begin_line = f"echo \"## [$(date +%s%N), $(date +\"%H:%M:%S\"), BEGIN] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
-        end_line = f"echo \"## [$(date +%s%N), $(date +\"%H:%M:%S\"), END] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
+        begin_line = f"echo \"## [$(date +%s%N), $(date +\"%Y-%m-%d %H:%M:%S %Z utc%z\"), BEGIN] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
+        end_line = f"echo \"## [$(date +%s%N), $(date +\"%Y-%m-%d %H:%M:%S %Z utc%z\"), END] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
         with open(filename, 'a') as fp:
             fp.write("%s\n" % begin_line)
             fp.write("%s\n" % msg)
