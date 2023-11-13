@@ -27,5 +27,5 @@ class GenMetaContext:
             else: raise
         else:
             metric = "average_throughput(ops/sec)"
-            value = pd.read_csv(self.runtime_csv)["throughput(ops/sec)"].mean()
+            value = pd.read_csv(self.runtime_csv)["throughput(ops/sec)"].iloc[30:].mean()
         return metric, str(value)
