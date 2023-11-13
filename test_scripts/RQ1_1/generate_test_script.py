@@ -169,6 +169,15 @@ class GenerateTestScript():
                                     # perf_test
                                     cmd = meta_cmd + ["--benchmark perf_test"]
                                     self.append_to_file(msg=' '.join(cmd))
+                                    # openmsg
+                                    for driver in self.benchmark_dict['kafka']['openmsg']['driver']:
+                                        for workload in self.benchmark_dict['kafka']['openmsg']['workload']:
+                                            cmd = meta_cmd + [
+                                                f"--benchmark openmsg",
+                                                f"--openmsg_driver {driver}",
+                                                f"--openmsg_workload {workload}"
+                                            ]
+                                            self.append_to_file(msg=' '.join(cmd))
                             if duration == -1:
                                 print("We dont care about different severities for duration=-1")
                                 break
@@ -209,8 +218,8 @@ class GenerateTestScript():
         if filename is None:
             filename = self.output_file
         self.counter = self.counter + 1
-        begin_line = f"echo \"## [$(date +%s%N), $(date +\"%Y-%m-%d %H:%M:%S %Z utc%z\"), BEGIN] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
-        end_line = f"echo \"## [$(date +%s%N), $(date +\"%Y-%m-%d %H:%M:%S %Z utc%z\"), END] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
+        begin_line = f"echo \"## [$(date +%s%N), $(date +\"%H:%M:%S\"), BEGIN] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
+        end_line = f"echo \"## [$(date +%s%N), $(date +\"%H:%M:%S\"), END] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
         with open(filename, 'a') as fp:
             fp.write("%s\n" % begin_line)
             fp.write("%s\n" % msg)
