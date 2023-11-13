@@ -13,11 +13,11 @@ class TrialSetupContext:
         self.injection_type = ""
         self.severity = ""
 
-        self.duration = -1
-        self.start = -1
-        self.end = -1
+        self.duration: int = 0
+        self.start: int = 0
+        self.end: int = 0
 
-        self.iter = -1
+        self.iter: int = 0
     
     def __str__(self) -> str:
         return f"{self.action}, {self.system}, {self.question}, {self.workload}, {self.log_type}, {self.injection_location}, {self.injection_type}, {self.severity}, {self.duration}, {self.start}, {self.end}, {self.iter}"
@@ -35,12 +35,15 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
     # handle severity: {slow, flaky}-{low, medium,high}
     # handle container: hbase-*
     tokens = get_fname(path).split("-")
+    if t.system == "hadoop":
+        if tokens[-1] in ["terasort", "teragen"] or tokens[-1].startswith("mrbench"):
+            tokens = tokens[:-1]
     for s in ["slow", "flaky", "hbase"]:
         if s in tokens:
             i = tokens.index(s)
             tokens[i] += "-" + tokens[i+1]
             tokens = tokens[:i+1] + tokens[i+2:]
-    assert (len(tokens) in [6,8]) or (len(tokens) == 9 and tokens[-1].startswith("mrbench")), f"{path} -> {tokens}"
+    assert len(tokens) in [6,8], f"{path} -> {tokens}"
     t.log_type = tokens[0]
     t.injection_location = tokens[1]
     t.injection_type = tokens[2]
