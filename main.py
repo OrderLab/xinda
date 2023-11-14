@@ -90,6 +90,10 @@ parser.add_argument('--fault_start_time', type = int, required=True,
                     help='[Faults] Fault injection timing in seconds after the benchmark is running.')
 parser.add_argument('--bench_exec_time', type = str, default = '150',
                     help='[Benchmark] Benchmark duration in seconds')
+parser.add_argument('--unique_identifier', type = str, default = None,
+                    help='A unique identifier of current experiment')
+parser.add_argument('--batch_test_log', type = str, default = None,
+                    help='Path to the meta log file of batch test')
 # Init
 # parser.add_argument('--log_root_dir', type = str, default = '/data/ruiming/data/default',
 #                     help='[Init] The root directory to store logs (data)')
@@ -381,16 +385,24 @@ if __name__ == "__main__":
         sys = main(args)
         sys.info(f"Current command:\npython3 {cur_command}")
         sys.test()
-    except KeyboardInterrupt:
-        pass
-    except Exception as e:
-        with open(f"./stderr.log", 'a') as log_file:
-            log_file.write('#'*30+'\n')
+    # except KeyboardInterrupt:
+    #     pass
+    except (KeyboardInterrupt, Exception) as e:
+        if args.batch_test_log is not None:
+            log_file_path = args.batch_test_log
+        else:
+            log_file_path = './stderr.log'
+        with open(log_file_path, 'a') as log_file:
+            # if args.unique_identifier is not None:
+            #     log_file.write('[' + args.unique_identifier + ']' + '#'*30 + '\n')
+            # else:
+            #     log_file.write('#'*30+'\n')
+            log_file.write('#'*50+'\n')
             cur_ts = int(time.time()*1e9)
             log_file.write(f"[{str(cur_ts)}, {datetime.datetime.now()}]\n")
             log_file.write(f"{cur_command}\n")
             traceback.print_exc(file=log_file)
-            log_file.write('#'*30+'\n\n\n')
+            log_file.write('#'*50+'\n')
         
 # python3 main.py --sys_name cassandra --data_dir test1 --fault_type nw --fault_location cas1 --fault_duration 30 --fault_severity slow3 --fault_start_time 10 --bench_exec_time 60
 # python3 main.py --sys_name cassandra --data_dir writeonly --fault_type nw --fault_location cas1 --fault_duration 30 --fault_severity slow3 --fault_start_time 10 --bench_exec_time 60 --ycsb_wkl writeonly

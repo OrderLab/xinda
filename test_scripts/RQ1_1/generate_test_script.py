@@ -222,8 +222,10 @@ class GenerateTestScript():
         end_line = f"echo \"## [$(date +%s%N), $(date +\"%Y-%m-%d %H:%M:%S %Z utc%z\"), END] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
         with open(filename, 'a') as fp:
             fp.write("%s\n" % begin_line)
-            fp.write("%s\n" % msg)
-            fp.write("%s\n\n" % end_line)
+            fp.write(f"{msg} --unique_identifier {self.counter} --batch_test_log {self.meta_log_loc}\n")
+            fp.write("%s\n" % end_line)
+            fp.write(f"echo -e '\\n' >> {self.meta_log_loc}")
+            fp.write('\n\n')
 
 # def __main__():
 parser = argparse.ArgumentParser(description="TEST \o/")
