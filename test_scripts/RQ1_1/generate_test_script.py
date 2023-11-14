@@ -4,16 +4,45 @@ import yaml
 import time
 import datetime
 import argparse
+import socket
 
 class GenerateTestScript():
+    port_info = {'crdb': {'roach1': [26257, 8079],
+                          'roach2': [26258, 8081],
+                          'roach3': [26259, 8082]},
+                 'cassandra': {'cas1': [9042]},
+                 'hadoop': {'namenode': [9869, 9001]},
+                 'hbase': {'zoo': [2181],
+                           'zoo1': [2182],
+                           'zoo2': [2183],
+                           'namenode': [50070],
+                           'datanode': [50075],
+                           'resourcemanager': [8088],
+                           'nodemanager1': [8042],
+                           'historyserver': [8188],
+                           'hbase-master': [16010],
+                           'hbase-regionserver': [16030],
+                           'hbase-regionserver1': [16031],
+                           'hbase-regionserver2': [16032]},
+                 'kafka': {'kafka1': [9092],
+                           'kafka2': [9093],
+                           'kafka3': [9094],
+                           'kafka4': [9095]},
+                 }
     def __init__(self,
                  sys_name,
                  data_dir,
                  start_time_ary,
                  duration_ary,
-                 fault_type_ary):
+                 fault_type_ary,
+                 exec_time,
+                 unique_benchmark,
+                 disable_port_check):
         # self.output_file=f"{os.path.expanduser('~')}/xinda/test_scripts/RQ1_1/commands.txt"
-        self.identifier = f"{sys_name}-{'-'.join(fault_type_ary)}-dur-{'-'.join([str(item) for item in duration_ary])}"
+        if unique_benchmark is not None:
+            self.identifier = f"{sys_name}-{'-'.join(fault_type_ary)}-dur-{'-'.join([str(item) for item in duration_ary])}-st-{'-'.join([str(item) for item in start_time_ary])}-{unique_benchmark}"
+        else:
+            self.identifier = f"{sys_name}-{'-'.join(fault_type_ary)}-dur-{'-'.join([str(item) for item in duration_ary])}-st-{'-'.join([str(item) for item in start_time_ary])}"
         self.output_file = self.identifier + ".sh"
         self.main_py=f"{os.path.expanduser('~')}/workdir/xinda/main.py"
         self.counter = 0
@@ -28,6 +57,8 @@ class GenerateTestScript():
         self.start_time_ary = start_time_ary
         self.duration_ary = duration_ary
         self.fault_type_ary = fault_type_ary
+        self.exec_time = exec_time
+        self.unique_benchmark = unique_benchmark
         # location
         self.location_dict = {
             'cassandra': ['cas1', 'cas2'],
@@ -107,8 +138,24 @@ class GenerateTestScript():
                 "perf_test": "perf_test"
                 }
         }
+        if not disable_port_check:
+            self.check_ports_of_current_system()
         # self.nw_severity = ['slow-low', 'slow-medium', 'slow-high', 'flaky-low', 'flaky-medium', 'flaky-high']
         # self.fs_severity = [1000, 10000, 100000, 1000000]
+    
+    def is_port_in_use(self, port):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            return s.connect_ex(('localhost', port)) == 0
+        
+    def check_ports_of_current_system(self):
+        for sys_name in self.sys_name_ary:
+            if sys_name == 'etcd':
+                next
+            else:
+                for container_name, port_list in self.port_info[sys_name].items():
+                    for port in port_list:
+                        if self.is_port_in_use(port):
+                            raise Exception(f"Port {port} is occupied by container {container_name} of system {sys_name}. Please check all docker-compose.yaml under ~/workdir/xinda/tools/docker-{sys_name}. Make sure you change the occupied port to a free one.")
     
     def generate(self):
         for sys_name in self.sys_name_ary:
@@ -131,53 +178,60 @@ class GenerateTestScript():
                                     f"--fault_duration {duration}",
                                     f"--fault_severity {severity}",
                                     f"--fault_start_time {start_time}",
-                                    f"--bench_exec_time 150"]
+                                    f"--bench_exec_time {self.exec_time}"]
                                 if sys_name in ['hbase', 'etcd', 'cassandra', 'crdb']:
                                     for wkl in self.benchmark_dict[sys_name]['ycsb']:
-                                        cmd = meta_cmd + [
-                                            f"--ycsb_wkl {wkl}",
-                                            f"--benchmark ycsb"]
-                                        self.append_to_file(msg=' '.join(cmd))
-                                    if sys_name == 'crdb':
-                                        # sysbench
-                                        for lua_scheme in self.sysbench_wkl:
+                                        if self.unique_benchmark is None or 'ycsb' == self.unique_benchmark:
                                             cmd = meta_cmd + [
-                                                f"--benchmark sysbench",
-                                                f"--sysbench_lua_scheme {lua_scheme}"
-                                            ]
+                                                f"--ycsb_wkl {wkl}",
+                                                f"--benchmark ycsb"]
                                             self.append_to_file(msg=' '.join(cmd))
+                                    if sys_name == 'crdb':
+                                        if self.unique_benchmark is None or 'sysbench' == self.unique_benchmark:
+                                            # sysbench
+                                            for lua_scheme in self.sysbench_wkl:
+                                                cmd = meta_cmd + [
+                                                    f"--benchmark sysbench",
+                                                    f"--sysbench_lua_scheme {lua_scheme}"
+                                                ]
+                                                self.append_to_file(msg=' '.join(cmd))
                                     if sys_name == 'etcd':
-                                        # etcd-official
-                                        for item in self.etcd_official:
-                                            for wkl_name, flag_list in item.items():
-                                                for flag in flag_list:
-                                                    cmd = meta_cmd + [
-                                                        f"--benchmark etcd-official",
-                                                        f"--etcd_official_wkl {wkl_name}",
-                                                        flag
-                                                    ]
-                                                    self.append_to_file(msg=' '.join(cmd))
+                                        if self.unique_benchmark is None or 'etcd-official' == self.unique_benchmark:
+                                            # etcd-official
+                                            for item in self.etcd_official:
+                                                for wkl_name, flag_list in item.items():
+                                                    for flag in flag_list:
+                                                        cmd = meta_cmd + [
+                                                            f"--benchmark etcd-official",
+                                                            f"--etcd_official_wkl {wkl_name}",
+                                                            flag
+                                                        ]
+                                                        self.append_to_file(msg=' '.join(cmd))
                                             
                                 elif sys_name == 'hadoop':
-                                    # mrbench
-                                    cmd = meta_cmd + ["--benchmark mrbench"]
-                                    self.append_to_file(msg=' '.join(cmd))
-                                    # terasort
-                                    cmd = meta_cmd + ["--benchmark terasort"]
-                                    self.append_to_file(msg=' '.join(cmd))
+                                    if self.unique_benchmark is None or 'mrbench' == self.unique_benchmark:
+                                        # mrbench
+                                        cmd = meta_cmd + ["--benchmark mrbench"]
+                                        self.append_to_file(msg=' '.join(cmd))
+                                    if self.unique_benchmark is None or 'terasort' == self.unique_benchmark:
+                                        # terasort
+                                        cmd = meta_cmd + ["--benchmark terasort"]
+                                        self.append_to_file(msg=' '.join(cmd))
                                 elif sys_name == 'kafka':
-                                    # perf_test
-                                    cmd = meta_cmd + ["--benchmark perf_test"]
-                                    self.append_to_file(msg=' '.join(cmd))
-                                    # openmsg
-                                    for driver in self.benchmark_dict['kafka']['openmsg']['driver']:
-                                        for workload in self.benchmark_dict['kafka']['openmsg']['workload']:
-                                            cmd = meta_cmd + [
-                                                f"--benchmark openmsg",
-                                                f"--openmsg_driver {driver}",
-                                                f"--openmsg_workload {workload}"
-                                            ]
-                                            self.append_to_file(msg=' '.join(cmd))
+                                    if self.unique_benchmark is None or 'perf_test' == self.unique_benchmark:
+                                        # perf_test
+                                        cmd = meta_cmd + ["--benchmark perf_test"]
+                                        self.append_to_file(msg=' '.join(cmd))
+                                    if self.unique_benchmark is None or 'openmsg' == self.unique_benchmark:
+                                        # openmsg
+                                        for driver in self.benchmark_dict['kafka']['openmsg']['driver']:
+                                            for workload in self.benchmark_dict['kafka']['openmsg']['workload']:
+                                                cmd = meta_cmd + [
+                                                    f"--benchmark openmsg",
+                                                    f"--openmsg_driver {driver}",
+                                                    f"--openmsg_workload {workload}"
+                                                ]
+                                                self.append_to_file(msg=' '.join(cmd))
                             if duration == -1:
                                 print("We dont care about different severities for duration=-1")
                                 break
@@ -241,6 +295,12 @@ parser.add_argument('--duration', type = int, required=True,
 parser.add_argument('--fault_type', type = str, required=True,
                     nargs='+', choices=['nw','fs'],
                     help='(A list of) Types of slow faults to be injected.')
+parser.add_argument('--bench_exec_time', type = str, required=False, default = '150',
+                    help='Benchmark execution time. Default: 150s')
+parser.add_argument('--unique_benchmark', type = str, required=False, default = None,
+                    help='Only run a specified benchmark. For example: --unique_benchmark ycsb')
+parser.add_argument('--disable_port_check', action='store_true', default=False,
+                    help='Disable port check')
 args = parser.parse_args()
 print(args.start_time)
 print(args.duration)
@@ -248,5 +308,8 @@ t = GenerateTestScript(sys_name = args.sys_name,
             data_dir = args.data_dir,
             start_time_ary = args.start_time,
             duration_ary = args.duration,
-            fault_type_ary = args.fault_type)
+            fault_type_ary = args.fault_type,
+            exec_time = args.bench_exec_time,
+            unique_benchmark = args.unique_benchmark,
+            disable_port_check = args.disable_port_check)
 t.generate()

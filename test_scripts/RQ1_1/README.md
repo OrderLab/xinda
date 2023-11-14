@@ -38,3 +38,24 @@ python3 generate_test_script.py --sys_name crdb --data_dir rq1_1 --start_time 60
 bash crdb-fs-nw-dur--1-30.sh
 ```
 
+## RQ 1-2
+
+mrbench
+```
+python3 generate_test_script.py --sys_name hadoop --data_dir rq1_2 --start_time 30 31 32 33 --duration 5 10 20 --fault_type nw fs --unique_benchmark mrbench
+python3 generate_test_script.py --sys_name hadoop --data_dir rq1_2 --start_time 34 35 36 37 --duration 5 10 20 --fault_type nw fs --unique_benchmark mrbench
+python3 generate_test_script.py --sys_name hadoop --data_dir rq1_2 --start_time 38 39 40 41 --duration 5 10 20 --fault_type nw fs --unique_benchmark mrbench
+python3 generate_test_script.py --sys_name hadoop --data_dir rq1_2 --start_time 42 43 44 45 --duration 5 10 20 --fault_type nw fs --unique_benchmark mrbench
+python3 generate_test_script.py --sys_name hadoop --data_dir rq1_2 --start_time 46 47 48 49 --duration 5 10 20 --fault_type nw fs --unique_benchmark mrbench
+```
+
+## RQ 1-4
+Test the slow-fault-tolerant limit
+```
+python3 generate_test_script.py --sys_name crdb --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1260 --fault_type nw fs
+python3 generate_test_script.py --sys_name cassandra --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1260 --fault_type nw fs
+python3 generate_test_script.py --sys_name hbase --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1260 --fault_type nw fs
+python3 generate_test_script.py --sys_name etcd --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1260 --fault_type nw fs --unique_benchmark ycsb
+python3 generate_test_script.py --sys_name hadoop --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1260 --fault_type nw fs
+python3 generate_test_script.py --sys_name kafka --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1260 --fault_type nw
+```
