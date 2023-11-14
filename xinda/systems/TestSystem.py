@@ -62,9 +62,10 @@ class TestSystem:
             charybdefs_dir = matching_processes[0]['cmdline'][2]
             cmd = f'./stop.sh {charybdefs_dir}'
             _ = subprocess.run(cmd, shell=True, cwd=self.tool.cfs_source)
-            cmd = f'rm -rf {self.tool.charybdefs_mount_dir}'
-            _ = subprocess.run(cmd, shell=True)
-            time.sleep(5)
+        self.info(f'Cleaning charybdefs mount directory.')
+        cmd = f'rm -rf {self.tool.charybdefs_mount_dir}'
+        _ = subprocess.run(cmd, shell=True)
+        time.sleep(5)
     
     def info(self,
              msg_ : str,
@@ -136,7 +137,11 @@ class TestSystem:
         # start cfs service
         cmd = f"./start.sh {self.tool.fuse_dir} {self.tool.dummy_dir}"
         print(cmd)
-        _ = subprocess.run(cmd, shell=True, cwd=self.tool.cfs_source)
+        p = subprocess.run(cmd, shell=True, cwd=self.tool.cfs_source, stdout=subprocess.PIPE)
+        p_output = p.stdout.decode('utf-8')
+        print(p_output)
+        if p_output is not None and 'Stop' in p_output:
+            raise Exception(f"CharybdeFS has already started. Stop it first.")
         self.info('charybdefs started')
         '''
         # docker-compose up

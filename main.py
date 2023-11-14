@@ -62,10 +62,12 @@ import datetime
 import time
 import yaml
 import docker
+import sys
 import argparse
 from xinda.systems import cassandra, crdb, etcd, hbase, mapred, kafka
 from xinda.configs import logging, slow_fault, tool
 from xinda.configs.benchmark import *
+import traceback
 
 
 parser = argparse.ArgumentParser(description="Gray failure study on six distributed systems")
@@ -109,6 +111,8 @@ parser.add_argument('--charybdefs_mount_dir', type = str, default = f"{os.path.e
                     help='[Init] The path where docker volume and charybdefs use to mount')
 parser.add_argument('--iter', type = str, default = '1',
                     help='[Init] Iteration of current experiment setup')
+parser.add_argument('--test_script_dir', type = str, default = f"{os.path.expanduser('~')}/workdir/xinda/test_scripts/RQ1_1",
+                    help='[Init] The path to test_scripts/RQ1_1')
 # YCSB - Benchmark
 parser.add_argument('--ycsb_wkl', type = str, default = 'mixed',
                     help='[Benchmark] YCSB workload type.')
@@ -207,8 +211,7 @@ parser.add_argument('--etcd_official_num_watchers', type = int, default = 100000
 
 
 
-def main():
-    args = parser.parse_args()
+def main(args):
     sys_name = args.sys_name
     if sys_name == 'etcd' and args.fault_location not in ['leader', 'follower']:
         print('Currently etcd only supports leader/follower faults')
@@ -236,7 +239,7 @@ def main():
                                     xinda_software_dir_ = args.xinda_software_dir,
                                     xinda_tools_dir_ = args.xinda_tools_dir,
                                     charybdefs_mount_dir_ = args.charybdefs_mount_dir)
-        sys.test()
+        # sys.test()
     elif sys_name == 'hbase':
         benchmark = YCSB_HBASE(exec_time_ = args.bench_exec_time,
                                 workload_ = args.ycsb_wkl,
@@ -254,7 +257,7 @@ def main():
                             xinda_software_dir_ = args.xinda_software_dir,
                             xinda_tools_dir_ = args.xinda_tools_dir,
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir)
-        sys.test()
+        # sys.test()
     elif sys_name == 'etcd':
         if args.benchmark == 'ycsb':
             benchmark = YCSB_ETCD(exec_time_ = args.bench_exec_time,
@@ -281,7 +284,7 @@ def main():
                         xinda_software_dir_ = args.xinda_software_dir,
                         xinda_tools_dir_ = args.xinda_tools_dir,
                         charybdefs_mount_dir_ = args.charybdefs_mount_dir)
-        sys.test()
+        # sys.test()
     elif sys_name == 'crdb':
         if args.benchmark is None or args.benchmark not in ['ycsb', 'sysbench']:
             print("Need to specify which benchmark to test crdb (--benchmark). Options: ycsb OR sysbench.")
@@ -322,7 +325,7 @@ def main():
                         xinda_software_dir_ = args.xinda_software_dir,
                         xinda_tools_dir_ = args.xinda_tools_dir,
                         charybdefs_mount_dir_ = args.charybdefs_mount_dir)
-        sys.test()
+        # sys.test()
     elif sys_name == 'hadoop':
         if args.benchmark is None or args.benchmark not in ['terasort', 'mrbench']:
             print("Need to specify which benchmark to test hadoop (--benchmark). Options: terasort OR mrbench.")
@@ -343,7 +346,7 @@ def main():
                             xinda_software_dir_ = args.xinda_software_dir,
                             xinda_tools_dir_ = args.xinda_tools_dir,
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir)
-        sys.test()    
+        # sys.test()    
     elif sys_name == 'kafka':
         if args.benchmark is None or args.benchmark not in ['perf_test', 'openmsg']:
             print("Need to specify which benchmark to test kafka (--benchmark). Options: perf_test OR openmsg.")
@@ -367,11 +370,28 @@ def main():
                           xinda_software_dir_ = args.xinda_software_dir,
                           xinda_tools_dir_ = args.xinda_tools_dir,
                           charybdefs_mount_dir_ = args.charybdefs_mount_dir)
-        sys.test()  
+        # sys.test()  
+    return(sys)
 
 if __name__ == "__main__":
-    main()
-
+    try:
+        args = parser.parse_args()
+        cur_command = ' '.join(sys.argv)
+        # raise ValueError("This is a test")
+        sys = main(args)
+        sys.info(f"Current command:\npython3 {cur_command}")
+        sys.test()
+    except KeyboardInterrupt:
+        pass
+    except Exception as e:
+        with open(f"./stderr.log", 'a') as log_file:
+            log_file.write('#'*30+'\n')
+            cur_ts = int(time.time()*1e9)
+            log_file.write(f"[{str(cur_ts)}, {datetime.datetime.now()}]\n")
+            log_file.write(f"{cur_command}\n")
+            traceback.print_exc(file=log_file)
+            log_file.write('#'*30+'\n\n\n')
+        
 # python3 main.py --sys_name cassandra --data_dir test1 --fault_type nw --fault_location cas1 --fault_duration 30 --fault_severity slow3 --fault_start_time 10 --bench_exec_time 60
 # python3 main.py --sys_name cassandra --data_dir writeonly --fault_type nw --fault_location cas1 --fault_duration 30 --fault_severity slow3 --fault_start_time 10 --bench_exec_time 60 --ycsb_wkl writeonly
 
