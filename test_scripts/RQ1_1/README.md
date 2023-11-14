@@ -52,10 +52,10 @@ python3 generate_test_script.py --sys_name hadoop --data_dir rq1_2 --start_time 
 ## RQ 1-4
 Test the slow-fault-tolerant limit
 ```
-python3 generate_test_script.py --sys_name crdb --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1260 --fault_type nw fs
-python3 generate_test_script.py --sys_name cassandra --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1260 --fault_type nw fs
-python3 generate_test_script.py --sys_name hbase --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1260 --fault_type nw fs
-python3 generate_test_script.py --sys_name etcd --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1260 --fault_type nw fs --unique_benchmark ycsb
-python3 generate_test_script.py --sys_name hadoop --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1260 --fault_type nw fs
-python3 generate_test_script.py --sys_name kafka --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1260 --fault_type nw
+python3 generate_test_script.py --sys_name crdb --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1500 --fault_type nw fs
+python3 generate_test_script.py --sys_name cassandra --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1500 --fault_type nw fs
+python3 generate_test_script.py --sys_name hbase --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1500 --fault_type nw fs
+python3 generate_test_script.py --sys_name etcd --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1500 --fault_type nw fs --unique_benchmark ycsb
+python3 generate_test_script.py --sys_name hadoop --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1500 --fault_type nw fs
+python3 generate_test_script.py --sys_name kafka --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1500 --fault_type nw
 ```
