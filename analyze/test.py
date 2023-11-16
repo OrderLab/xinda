@@ -24,6 +24,7 @@ def test_runtime_parser():
     path = "/home/yunchi/data/xinda/default/etcd/rq1_1/mixed/runtime-etcd1-nw-high-dur60-60-120-1.log"
     path = "/home/yunchi/data/xinda/default/hbase/rq1_1/readonly/runtime-hbase-regionserver-nw-low-dur40-60-100-1.log"
     path = "/home/yunchi/yuxuan/xinda/default/crdb/rq1_1/sysbench-oltp_delete/runtime-roach2-nw-flaky-high-dur30-60-90-1.log"
+    path = "/home/yunchi/yuxuan/xinda/default/etcd/rq1_1/official-stm-isolation_ss-locker_stm/runtime-leader-fs-1000000-dur50-60-110-1.log"
     parser = RuntimeParser()
     df = parser.parse(path)
     print(df)

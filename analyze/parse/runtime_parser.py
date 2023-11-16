@@ -1,3 +1,4 @@
+import logging
 import re
 import pandas as pd
 
@@ -16,23 +17,32 @@ class RuntimeParser:
 
     def parse(self, path):
         t = get_trial_setup_context_from_path(path)
-        if t.system == "hadoop":
+        if t.system in ["hadoop", "kafka"]:
             return None
+        
         wl = ""
         if t.workload.startswith("ycsb"):
             wl = "ycsb"
         elif t.workload.startswith("sysbench"):
             wl = "sysbench"
-        else: raise
+        elif t.workload.startswith("official"):
+            wl = "official"
+        else: raise NotImplementedError(t.workload)
+        
         db_parser_key = (t.system, wl)
         DB_PARSER = {
             ("cassandra", "ycsb"): _runtime_parser_cassandra_ycsb,
             ("crdb",  "ycsb"): _runtime_parser_crdb_ycsb,
             ("crdb",  "sysbench"): _runtime_parser_crdb_sysbench,
             ("etcd", "ycsb"): _runtime_parser_etcd_ycsb,
+            ("etcd", "official"): _runtime_parser_etcd_official,
             ("hbase", "ycsb"): _runtime_parser_hbase_ycsb,
         }
-        return DB_PARSER[db_parser_key](read_raw_logfile(path))
+        
+        df = DB_PARSER[db_parser_key](read_raw_logfile(path))
+        if df is None:
+            logging.warning(f"runtime log {path} is not parsed")
+        return df
 
 
 def _runtime_parser_cassandra_ycsb(log_raw):
@@ -81,6 +91,18 @@ def _runtime_parser_etcd_ycsb(log_raw):
         sec, count = _
         last = 0 if i == 0 else float(matches[i-1][1])
         data.append((int(float(sec)), float(count)-last))
+    df = pd.DataFrame(data, columns=[COLNAME_TIME, COLNAME_TP])
+    return df
+
+def _runtime_parser_etcd_official(log_raw):
+    pattern = r"(\d+),.*,.*,.*,(\d+)"
+    matches = re.findall(pattern, log_raw)
+    data = []
+    if len(matches) == 0:
+        return None
+    t0 = int(matches[0][0])
+    for t, tp in matches:
+        data.append((int(t)-t0, tp))
     df = pd.DataFrame(data, columns=[COLNAME_TIME, COLNAME_TP])
     return df
 
