@@ -27,7 +27,8 @@ class GenerateTestScript():
                  'kafka': {'kafka1': [9092],
                            'kafka2': [9093],
                            'kafka3': [9094],
-                           'kafka4': [9095]},
+                           'kafka4': [9095],
+                           'open-msg-client': [8082,8083,8084,8085]},
                  }
     def __init__(self,
                  sys_name,

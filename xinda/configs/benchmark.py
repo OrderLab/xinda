@@ -220,4 +220,4 @@ class OPENMSG_KAFKA(Benchmark):
         self.exec_time = int(exec_time_)
         self.driver = driver_
         self.workload_file = workload_file_
-        self.identifier = self.workload
+        self.identifier = f"{self.workload}/{self.driver}"

@@ -5,6 +5,7 @@ import time
 import yaml
 import docker
 import psutil
+import socket
 import threading
 from xinda.configs.logging import Logging
 from xinda.configs.slow_fault import SlowFault
@@ -38,6 +39,10 @@ class TestSystem:
         self.info(f"Current workload: {self.benchmark.workload}")
         self.cleanup()
     
+    def is_port_in_use(self, port):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            return s.connect_ex(('localhost', port)) == 0
+    
     def cleanup(self):
         client = docker.from_env()
         containers = client.containers.list(all=True)
@@ -65,6 +70,10 @@ class TestSystem:
         self.info(f'Cleaning charybdefs mount directory.')
         cmd = f'rm -rf {self.tool.charybdefs_mount_dir}'
         _ = subprocess.run(cmd, shell=True)
+        # if self.sys_name == 'kafka' and self.benchmark.benchmark == 'openmsg':
+        #     if self.is_port_in_use(8082) or self.is_port_in_use(8083) or self.is_port_in_use(8084) or self.is_port_in_use(8085):
+        #         self.info(f'Prior openmsg instance detected. Stopping now.')
+        #         keyword = "8082"
         time.sleep(5)
     
     def info(self,
