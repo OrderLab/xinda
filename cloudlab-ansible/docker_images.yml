@@ -6,6 +6,7 @@
   tasks:
     - name: Pre-pull
       shell: |
+        docker pull matt12313/xinda-etcd:3.5.10
         docker pull rmlu/etcd-benchmark:latest
         docker pull rmlu/sysbench:latest
         docker pull amazoncorretto:latest
