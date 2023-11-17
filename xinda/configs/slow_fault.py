@@ -7,7 +7,7 @@ class SlowFault:
                  duration_ : int,
                  severity_ : str, # "slow3" for nw; "10000" for fs
                  start_time_ : int,
-                 action_ = None):
+                 if_restart_: bool):
         self.type = type_
         self.location = location_
         self.duration = duration_
@@ -19,7 +19,10 @@ class SlowFault:
         elif duration_ == -1:
             self.info = type_ + '-' + severity_ + '-' + 'none'
         else:
-            self.info = type_ + '-' + severity_ + '-' + 'dur' + str(duration_) + '-' + str(start_time_) + '-' + str(self.end_time)
+            if if_restart_:
+                self.info = 'restart' + '-' + type_ + '-' + severity_ + '-' + 'dur' + str(duration_) + '-' + str(start_time_) + '-' + str(self.end_time)
+            else:
+                self.info = type_ + '-' + severity_ + '-' + 'dur' + str(duration_) + '-' + str(start_time_) + '-' + str(self.end_time)
     def get_info(self):
         spec = json.dumps(self.__dict__, indent=4)
         print(spec)

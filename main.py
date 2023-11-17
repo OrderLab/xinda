@@ -94,6 +94,8 @@ parser.add_argument('--unique_identifier', type = str, default = None,
                     help='A unique identifier of current experiment')
 parser.add_argument('--batch_test_log', type = str, default = None,
                     help='Path to the meta log file of batch test')
+parser.add_argument('--if_restart', action='store_true', default=False,
+                    help='If we need to restart the system after fault injection')
 # Init
 # parser.add_argument('--log_root_dir', type = str, default = '/data/ruiming/data/default',
 #                     help='[Init] The root directory to store logs (data)')
@@ -224,7 +226,8 @@ def main(args):
                         location_ = args.fault_location,
                         duration_ = args.fault_duration,
                         severity_ = args.fault_severity,
-                        start_time_ = args.fault_start_time)
+                        start_time_ = args.fault_start_time,
+                        if_restart_= args.if_restart)
     # benchmark = Benchmark()
     if sys_name == 'cassandra':
         benchmark = YCSB_CASSANDRA(exec_time_ = args.bench_exec_time,
@@ -242,7 +245,8 @@ def main(args):
                                     iter_ = args.iter,
                                     xinda_software_dir_ = args.xinda_software_dir,
                                     xinda_tools_dir_ = args.xinda_tools_dir,
-                                    charybdefs_mount_dir_ = args.charybdefs_mount_dir)
+                                    charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                                    if_restart_ = args.if_restart)
         # sys.test()
     elif sys_name == 'hbase':
         benchmark = YCSB_HBASE(exec_time_ = args.bench_exec_time,
@@ -260,7 +264,8 @@ def main(args):
                             iter_ = args.iter,
                             xinda_software_dir_ = args.xinda_software_dir,
                             xinda_tools_dir_ = args.xinda_tools_dir,
-                            charybdefs_mount_dir_ = args.charybdefs_mount_dir)
+                            charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                            if_restart_ = args.if_restart)
         # sys.test()
     elif sys_name == 'etcd':
         if args.benchmark == 'ycsb':
@@ -287,7 +292,8 @@ def main(args):
                         iter_ = args.iter,
                         xinda_software_dir_ = args.xinda_software_dir,
                         xinda_tools_dir_ = args.xinda_tools_dir,
-                        charybdefs_mount_dir_ = args.charybdefs_mount_dir)
+                        charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                        if_restart_ = args.if_restart)
         # sys.test()
     elif sys_name == 'crdb':
         if args.benchmark is None or args.benchmark not in ['ycsb', 'sysbench']:
@@ -328,7 +334,8 @@ def main(args):
                         iter_ = args.iter,
                         xinda_software_dir_ = args.xinda_software_dir,
                         xinda_tools_dir_ = args.xinda_tools_dir,
-                        charybdefs_mount_dir_ = args.charybdefs_mount_dir)
+                        charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                        if_restart_ = args.if_restart)
         # sys.test()
     elif sys_name == 'hadoop':
         if args.benchmark is None or args.benchmark not in ['terasort', 'mrbench']:
@@ -349,7 +356,8 @@ def main(args):
                             iter_ = args.iter,
                             xinda_software_dir_ = args.xinda_software_dir,
                             xinda_tools_dir_ = args.xinda_tools_dir,
-                            charybdefs_mount_dir_ = args.charybdefs_mount_dir)
+                            charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                            if_restart_ = args.if_restart)
         # sys.test()    
     elif sys_name == 'kafka':
         if args.benchmark is None or args.benchmark not in ['perf_test', 'openmsg']:
@@ -373,7 +381,8 @@ def main(args):
                           iter_ = args.iter,
                           xinda_software_dir_ = args.xinda_software_dir,
                           xinda_tools_dir_ = args.xinda_tools_dir,
-                          charybdefs_mount_dir_ = args.charybdefs_mount_dir)
+                          charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                          if_restart_ = args.if_restart)
         # sys.test()  
     return(sys)
 

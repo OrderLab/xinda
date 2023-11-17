@@ -38,7 +38,8 @@ class GenerateTestScript():
                  fault_type_ary,
                  exec_time,
                  unique_benchmark,
-                 disable_port_check):
+                 disable_port_check,
+                 if_restart):
         # self.output_file=f"{os.path.expanduser('~')}/xinda/test_scripts/RQ1_1/commands.txt"
         if unique_benchmark is not None:
             self.identifier = f"{sys_name}-{'-'.join(fault_type_ary)}-dur-{'-'.join([str(item) for item in duration_ary])}-st-{'-'.join([str(item) for item in start_time_ary])}-{unique_benchmark}"
@@ -60,6 +61,7 @@ class GenerateTestScript():
         self.fault_type_ary = fault_type_ary
         self.exec_time = exec_time
         self.unique_benchmark = unique_benchmark
+        self.if_restart = if_restart
         # location
         self.location_dict = {
             'cassandra': ['cas1', 'cas2'],
@@ -180,6 +182,8 @@ class GenerateTestScript():
                                     f"--fault_severity {severity}",
                                     f"--fault_start_time {start_time}",
                                     f"--bench_exec_time {self.exec_time}"]
+                                if self.if_restart:
+                                    meta_cmd.append("--if_restart")
                                 if sys_name in ['hbase', 'etcd', 'cassandra', 'crdb']:
                                     for wkl in self.benchmark_dict[sys_name]['ycsb']:
                                         if self.unique_benchmark is None or 'ycsb' == self.unique_benchmark:
@@ -302,6 +306,8 @@ parser.add_argument('--unique_benchmark', type = str, required=False, default = 
                     help='Only run a specified benchmark. For example: --unique_benchmark ycsb')
 parser.add_argument('--disable_port_check', action='store_true', default=False,
                     help='Disable port check')
+parser.add_argument('--if_restart', action='store_true', default=False,
+                    help='Disable port check')
 args = parser.parse_args()
 print(args.start_time)
 print(args.duration)
@@ -312,5 +318,6 @@ t = GenerateTestScript(sys_name = args.sys_name,
             fault_type_ary = args.fault_type,
             exec_time = args.bench_exec_time,
             unique_benchmark = args.unique_benchmark,
-            disable_port_check = args.disable_port_check)
+            disable_port_check = args.disable_port_check,
+            if_restart = args.if_restart)
 t.generate()

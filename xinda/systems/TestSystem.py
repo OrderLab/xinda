@@ -22,8 +22,10 @@ class TestSystem:
                  xinda_software_dir_, #= "/users/YXXinda/workdir/xinda-software",
                  xinda_tools_dir_, # = "/users/YXXinda/workdir/xinda/tools",
                  charybdefs_mount_dir_,
+                 if_restart_ = False,
                  iter_: int = 1):# = "/users/YXXinda/workdir/tmp"):
         self.sys_name = sys_name_
+        self.if_restart = if_restart_
         self.fault = fault_
         self.log = Logging(sys_name_, data_dir_, fault_, benchmark_, iter_, log_root_dir_)
         self.tool = Tool(sys_name_, xinda_software_dir_, xinda_tools_dir_, charybdefs_mount_dir_)
@@ -288,6 +290,29 @@ class TestSystem:
         self.info("fault command BEGINs", rela=self.start_time)
         p = subprocess.run(cmd_inject, cwd=work_dir)
         self.info("fault actually BEGINs", rela=self.start_time)
+        fault_actually_begin_time = self.get_current_ts()
+        # restart
+        if self.if_restart:
+            time.sleep(5)
+            cmd_restart = f'docker restart {self.fault.location}'
+            self.info("docker restart BEGINs", rela=self.start_time)
+            p = subprocess.run(cmd_restart, shell=True)
+            self.info("docker restart ENDs", rela=self.start_time)
+            # resume fault
+            cur_time = self.get_current_ts()
+            if cur_time - fault_actually_begin_time < self.fault.duration:
+                self.info("after restart: fault command BEGINs", rela=self.start_time)
+                p = subprocess.run(cmd_inject, cwd=work_dir)
+                self.info("after restart: fault actually BEGINs", rela=self.start_time)
+                cur_time = self.get_current_ts()
+                delta_time = self.fault.duration - (cur_time - fault_actually_begin_time)
+                if delta_time > 0:
+                    time.sleep(delta_time)
+            else:
+                self.info("after restart: fault duration is already over", rela=self.start_time)
+        else:
+            time.sleep(self.fault.duration)
+        
         # Using blockade to inject faults takes nonnegligible time
         # e.g., blockade slow <container_name> could potentially take ~2s
         # So, a fault can last:
@@ -301,7 +326,7 @@ class TestSystem:
         #     time.sleep(delta_time)
         
         ## Option 2:
-        time.sleep(self.fault.duration)
+        # time.sleep(self.fault.duration)
         
         # Faults end (clear)
         self.info("fault command ENDs", rela=self.start_time)
