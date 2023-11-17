@@ -47,6 +47,9 @@ class Etcd(TestSystem):
             self.blockade_down()
         elif self.fault.type == 'fs':
             self.charybdefs_down()
+            # Cleanning the compose process
+            cmd = "ps aux | grep 'docker-compose' | grep -e 'T' -e 'S' | awk '{print $2}' | xargs kill -9"
+            _ = subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         self.info("THE END")
     
     def docker_up_charybdefs_etcd(self):
