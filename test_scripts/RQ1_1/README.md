@@ -59,3 +59,21 @@ python3 generate_test_script.py --sys_name etcd --data_dir rq1_4 --start_time 60
 python3 generate_test_script.py --sys_name hadoop --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1500 --fault_type nw fs
 python3 generate_test_script.py --sys_name kafka --data_dir rq1_4 --start_time 60 --duration 1200 --bench_exec_time 1500 --fault_type nw
 ```
+
+## RQ 1-5 Actions + RQ 1-6 Residual Effects
+
+`--if_restart` flag to enable restart (right after 5s of slow fault)
+
+Corner cases:
+* For kafka, we only inject nw-related faults
+* For HBase, we only inject nw-related faults. This is because HBase use HDFS for storage and thus fs-related faults are injected to HDFS nodes only. In this case, we do not need to explore the same topic again.
+* For HDFS, we only restart the datanode. Restarting the namenode will result in service downtime. TODO => enable High Availability mode with a secondary namenode for HDFS + get the latest stable version.
+
+```
+python3 generate_test_script.py --sys_name cassandra --data_dir restart --start_time 60 --duration 5 10 20 30 40 --fault_type nw fs --bench_exec_time 300 --if_restart
+python3 generate_test_script.py --sys_name crdb --data_dir restart --start_time 60 --duration 5 10 20 30 40 --fault_type nw fs --bench_exec_time 300 --if_restart
+python3 generate_test_script.py --sys_name etcd --data_dir restart --start_time 60 --duration 5 10 20 30 40 --fault_type nw fs --bench_exec_time 300 --if_restart
+python3 generate_test_script.py --sys_name kafka --data_dir restart --start_time 60 --duration 5 10 20 30 40 --fault_type nw --bench_exec_time 300 --if_restart
+python3 generate_test_script.py --sys_name hbase --data_dir restart --start_time 60 --duration 5 10 20 30 40 --fault_type nw --bench_exec_time 300 --if_restart
+python3 generate_test_script.py --sys_name hadoop --data_dir restart --start_time 60 --duration 5 10 20 30 40 --fault_type nw fs --bench_exec_time 300 --if_restart
+```

@@ -99,6 +99,13 @@ class Mapred(TestSystem):
             while not check_mrbench_completion(runtime_log):
                 cmd = f"docker exec datanode2 yarn jar {self.tool.mapred_mrbench_on_container} mrbench -reduces {self.benchmark.num_reduces}"
                 self.info(f"{i} begins /{self.benchmark.num_iter}", rela=self.start_time)
+                # try:
+                #     _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"), timeout=60)
+                # except subprocess.TimeoutExpired:
+                #     self.info(f"TimeoutExpired, {i} FAILed !!!!!", rela=self.start_time)
+                # self.info(f"{i} ends /{self.benchmark.num_iter}", rela=self.start_time)
+                # if not check_mrbench_completion(runtime_log):
+                #     self.info(f"{i} FAILed !!!!!", rela=self.start_time)
                 _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"))
                 self.info(f"{i} ends /{self.benchmark.num_iter}", rela=self.start_time)
                 if not check_mrbench_completion(runtime_log):
@@ -108,12 +115,22 @@ class Mapred(TestSystem):
         raw_log = os.path.join(self.log.data_dir, 'raw-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-teragen" + ".log")
         runtime_log = os.path.join(self.log.data_dir, 'runtime-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-teragen" +  ".log")
         cmd = f"docker exec datanode2 yarn jar {self.tool.mapred_terasort_on_container} teragen {self.benchmark.num_of_100_byte_rows} {self.benchmark.input_dir}"
+        # try:
+        #     _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"), timeout=60)
+        # except subprocess.TimeoutExpired:
+        #     self.info(f"TimeoutExpired, teraGEN FAILed !!!!!", rela=self.start_time)
+        #     self._terasort_gen()
         _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"))
     
     def _terasort_sort(self):
         raw_log = os.path.join(self.log.data_dir, 'raw-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-terasort" + ".log")
         runtime_log = os.path.join(self.log.data_dir, 'runtime-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-terasort" +  ".log")
         cmd = f"docker exec datanode2 yarn jar {self.tool.mapred_terasort_on_container} terasort {self.benchmark.input_dir} {self.benchmark.output_dir}"
+        # try: 
+        #     _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"), timeout=180)
+        # except subprocess.TimeoutExpired:
+        #     self.info(f"TimeoutExpired, teraSORT FAILed !!!!!", rela=self.start_time)
+        #     self._terasort_sort()
         _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"))
     
     def _terasort(self):

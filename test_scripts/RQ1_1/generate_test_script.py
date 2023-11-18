@@ -45,6 +45,10 @@ class GenerateTestScript():
             self.identifier = f"{sys_name}-{'-'.join(fault_type_ary)}-dur-{'-'.join([str(item) for item in duration_ary])}-st-{'-'.join([str(item) for item in start_time_ary])}-{unique_benchmark}"
         else:
             self.identifier = f"{sys_name}-{'-'.join(fault_type_ary)}-dur-{'-'.join([str(item) for item in duration_ary])}-st-{'-'.join([str(item) for item in start_time_ary])}"
+        if if_restart:
+            self.identifier = f"restart-{self.identifier}"
+        else:
+            self.identifier = f"norestart-{self.identifier}"
         self.output_file = self.identifier + ".sh"
         self.main_py=f"{os.path.expanduser('~')}/workdir/xinda/main.py"
         self.counter = 0
@@ -63,15 +67,26 @@ class GenerateTestScript():
         self.unique_benchmark = unique_benchmark
         self.if_restart = if_restart
         # location
-        self.location_dict = {
-            'cassandra': ['cas1', 'cas2'],
-            'crdb': ['roach1', 'roach2'],
-            'etcd': ['leader', 'follower'],
-            'hadoop': ['datanode', 'namenode'],
-            'hbase-fs': ['datanode', 'namenode'],
-            'hbase-nw': ['datanode', 'namenode', 'hbase-master','hbase-regionserver'],
-            'kafka': ['kafka1', 'kafka2']
-        }
+        if if_restart:
+            self.location_dict = {
+                'cassandra': ['cas1', 'cas2'],
+                'crdb': ['roach1', 'roach2'],
+                'etcd': ['leader', 'follower'],
+                'hadoop': ['datanode', 'namenode'],
+                'hbase-fs': ['datanode', 'namenode'],
+                'hbase-nw': ['hbase-master','hbase-regionserver'],
+                'kafka': ['kafka1', 'kafka2']
+            }
+        else:
+            self.location_dict = {
+                'cassandra': ['cas1', 'cas2'],
+                'crdb': ['roach1', 'roach2'],
+                'etcd': ['leader', 'follower'],
+                'hadoop': ['datanode', 'namenode'],
+                'hbase-fs': ['datanode', 'namenode'],
+                'hbase-nw': ['datanode', 'namenode', 'hbase-master','hbase-regionserver'],
+                'kafka': ['kafka1', 'kafka2']
+            }
         # self.cassandra_location = ['cas1', 'cas2']
         # self.crdb_location = ['roach1', 'roach2']
         # self.etcd_location = ['etcd0', 'etcd1']
@@ -214,13 +229,16 @@ class GenerateTestScript():
                                                         self.append_to_file(msg=' '.join(cmd))
                                             
                                 elif sys_name == 'hadoop':
-                                    if self.unique_benchmark is None or 'mrbench' == self.unique_benchmark:
-                                        # mrbench
-                                        cmd = meta_cmd + ["--benchmark mrbench"]
-                                        self.append_to_file(msg=' '.join(cmd))
-                                    if self.unique_benchmark is None or 'terasort' == self.unique_benchmark:
-                                        # terasort
-                                        cmd = meta_cmd + ["--benchmark terasort"]
+                                    if self.if_restart and location == 'namenode':
+                                        pass
+                                    else:
+                                        if self.unique_benchmark is None or 'mrbench' == self.unique_benchmark:
+                                            # mrbench
+                                            cmd = meta_cmd + ["--benchmark mrbench"]
+                                            self.append_to_file(msg=' '.join(cmd))
+                                        if self.unique_benchmark is None or 'terasort' == self.unique_benchmark:
+                                            # terasort
+                                            cmd = meta_cmd + ["--benchmark terasort"]
                                         self.append_to_file(msg=' '.join(cmd))
                                 elif sys_name == 'kafka':
                                     if self.unique_benchmark is None or 'perf_test' == self.unique_benchmark:
