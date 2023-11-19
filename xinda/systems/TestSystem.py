@@ -42,8 +42,16 @@ class TestSystem:
         self.cleanup()
     
     def is_port_in_use(self, port):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            return s.connect_ex(('localhost', port)) == 0
+        def is_single_port_in_use(port):
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                return s.connect_ex(('localhost', port)) == 0
+        if isinstance(port, list):
+            for p in port:
+                if is_single_port_in_use(p):
+                    return True
+            return False
+        else:
+            return is_single_port_in_use(port)
     
     def cleanup(self):
         client = docker.from_env()

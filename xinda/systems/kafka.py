@@ -136,6 +136,11 @@ class Kafka(TestSystem):
         # self.driver_process.send_signal(signal.SIGINT)
         self.worker1_process.send_signal(signal.SIGINT)
         self.worker2_process.send_signal(signal.SIGINT)
+        if self.is_port_in_use([8082,8083,8084,8085]):
+            self.info("Kill all processes running on port 8082,8083,8084,8085", rela=self.start_time)
+            # cmd = "ps aux | grep -e ':8082' -e ':8084' -e 'port 8082' -e 'port 8084' | awk '{print $2}' | xargs kill -9"
+            cmd = 'lsof -i :8082 -i :8083 -i :8084 -i :8085 -t | xargs -r kill -9'
+            _ = subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         self.info("Benchmark safely ends", rela=self.start_time)
     
     def _openmsg_run_driver(self):
