@@ -1,0 +1,23 @@
+java -javaagent:/jacoco/lib/jacocoagent.jar=destfile=/jacoco/data/out.exec,includes=com.dbc.* -Djacoco-agent.attach=true
+
+java -javaagent:/jacoco/lib/jacocoagent.jar=destfile=/jacoco/data/mapred.exec -jar /opt/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.2.1-tests.jar
+
+java -jar /opt/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.2.1-tests.jar
+
+yarn jar /opt/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.2.1-tests.jar mrbench
+
+
+
+java -jar /jacoco/lib/jacococli.jar report /jacoco/data/out.exec --classfiles /path/to/your/classes --html report
+
+/home/yunchi/hadoop-3.2.1/hadoop-common-project/hadoop-common/src/main/bin/hadoop
+/home/yunchi/hadoop-3.2.1/hadoop-common-project/hadoop-common/src/main/bin/hadoop.cmd
+
+/home/yunchi/hadoop-3.2.1/hadoop-hdfs-project/hadoop-hdfs/src/main/bin/hdfs
+/home/yunchi/hadoop-3.2.1/hadoop-hdfs-project/hadoop-hdfs/src/main/bin/hdfs.cmd
+
+/home/yunchi/hadoop-3.2.1/hadoop-mapreduce-project/bin/mapred
+/home/yunchi/hadoop-3.2.1/hadoop-mapreduce-project/bin/mapred.cmd
+
+/home/yunchi/hadoop-3.2.1/hadoop-yarn-project/hadoop-yarn/bin/yarn
+/home/yunchi/hadoop-3.2.1/hadoop-yarn-project/hadoop-yarn/bin/yarn.cmd
