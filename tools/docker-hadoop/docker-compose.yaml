@@ -9,7 +9,7 @@ services:
       - 9869:9870
       - 9001:9000
     volumes:
-    - hadoop_namenode:/hadoop/dfs/name
+      - hadoop_namenode:/hadoop/dfs/name
     environment:
       - CLUSTER_NAME=test
     env_file:
@@ -21,6 +21,7 @@ services:
     restart: always
     volumes:
       - hadoop_datanode:/hadoop/dfs/data
+      - jacoco:/jacoco
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
@@ -82,7 +83,7 @@ services:
     environment:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
     env_file:
-     - ./hadoop.env
+      - ./hadoop.env
 
   historyserver:
     image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
@@ -93,7 +94,7 @@ services:
     volumes:
       - hadoop_historyserver:/hadoop/yarn/timeline
     env_file:
-    - ./hadoop.env
+      - ./hadoop.env
 
 volumes:
   hadoop_namenode:

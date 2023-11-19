@@ -13,4 +13,6 @@ RUN chmod a+x /run.sh
 
 EXPOSE 9864
 
+COPY jacoco-bins/* $HADOOP_HOME/bin/
+
 CMD ["/run.sh"]
