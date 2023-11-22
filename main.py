@@ -119,6 +119,8 @@ parser.add_argument('--iter', type = str, default = '1',
                     help='[Init] Iteration of current experiment setup')
 parser.add_argument('--test_script_dir', type = str, default = f"{os.path.expanduser('~')}/workdir/xinda/test_scripts/RQ1_1",
                     help='[Init] The path to test_scripts/RQ1_1')
+parser.add_argument('--version', type = str, default = None,
+                    help='[Init] Version of the system to be tested')
 # YCSB - Benchmark
 parser.add_argument('--ycsb_wkl', type = str, default = 'mixed',
                     help='[Benchmark] YCSB workload type.')
@@ -246,6 +248,7 @@ def main(args):
                                     xinda_software_dir_ = args.xinda_software_dir,
                                     xinda_tools_dir_ = args.xinda_tools_dir,
                                     charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                                    version_=args.version,
                                     if_restart_ = args.if_restart)
         # sys.test()
     elif sys_name == 'hbase':
@@ -265,6 +268,7 @@ def main(args):
                             xinda_software_dir_ = args.xinda_software_dir,
                             xinda_tools_dir_ = args.xinda_tools_dir,
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                            version_=args.version,
                             if_restart_ = args.if_restart)
         # sys.test()
     elif sys_name == 'etcd':
@@ -293,6 +297,7 @@ def main(args):
                         xinda_software_dir_ = args.xinda_software_dir,
                         xinda_tools_dir_ = args.xinda_tools_dir,
                         charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                        version_=args.version,
                         if_restart_ = args.if_restart)
         # sys.test()
     elif sys_name == 'crdb':
@@ -335,6 +340,7 @@ def main(args):
                         xinda_software_dir_ = args.xinda_software_dir,
                         xinda_tools_dir_ = args.xinda_tools_dir,
                         charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                        version_=args.version,
                         if_restart_ = args.if_restart)
         # sys.test()
     elif sys_name == 'hadoop':
@@ -348,6 +354,12 @@ def main(args):
             benchmark = TERASORT_MAPRED(num_of_100_byte_rows_ = args.terasort_num_of_100_byte_rows,
                                         input_dir_ = args.terasort_input_dir,
                                         output_dir_ = args.terasort_output_dir)
+        if args.version is None:
+            version = '3.3.6'
+        elif args.version not in ['3.3.6', '3.2.1']:
+            raise ValueError(f"Version {args.version} not supported for hadoop")
+        else:
+            version = args.version
         sys = mapred.Mapred(sys_name_ = sys_name,
                             fault_ = fault,
                             benchmark_ = benchmark,
@@ -357,6 +369,7 @@ def main(args):
                             xinda_software_dir_ = args.xinda_software_dir,
                             xinda_tools_dir_ = args.xinda_tools_dir,
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                            version_= version,
                             if_restart_ = args.if_restart)
         # sys.test()    
     elif sys_name == 'kafka':
@@ -382,6 +395,7 @@ def main(args):
                           xinda_software_dir_ = args.xinda_software_dir,
                           xinda_tools_dir_ = args.xinda_tools_dir,
                           charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                          version_=args.version,
                           if_restart_ = args.if_restart)
         # sys.test()  
     return(sys)

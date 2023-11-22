@@ -34,6 +34,8 @@ python3 generate_test_script.py \
 # For example
 python3 generate_test_script.py --sys_name crdb --data_dir rq1_1 --start_time 60 --duration -1 30  --fault_type fs nw
 
+# python3 generate_test_script.py --sys_name hadoop --data_dir newv --start_time 10 --duration 50  --fault_type nw
+
 # A new bash script will be generated under this folder. To run the test script
 bash crdb-fs-nw-dur--1-30.sh
 ```
