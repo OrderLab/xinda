@@ -121,6 +121,9 @@ parser.add_argument('--test_script_dir', type = str, default = f"{os.path.expand
                     help='[Init] The path to test_scripts/RQ1_1')
 parser.add_argument('--version', type = str, default = None,
                     help='[Init] Version of the system to be tested')
+parser.add_argument('--coverage', action='store_true', default=False,
+                    help="[Init] Whether to run coverage study, supported systems: hadoop and etcd")
+
 # YCSB - Benchmark
 parser.add_argument('--ycsb_wkl', type = str, default = 'mixed',
                     help='[Benchmark] YCSB workload type.')
@@ -219,11 +222,21 @@ parser.add_argument('--etcd_official_num_watchers', type = int, default = 100000
 
 
 
+
+
 def main(args):
     sys_name = args.sys_name
     if sys_name == 'etcd' and args.fault_location not in ['leader', 'follower']:
         print('Currently etcd only supports leader/follower faults')
         exit(1)
+
+    if args.coverage != False and sys_name not in ['hadoop', 'etcd']:
+        print('Currently coverage study only supports hadoop and etcd')
+        exit(1)
+    if args.version is not None and sys_name not in ['hadoop', 'etcd']:
+        print('Currently version study only supports hadoop and etcd')
+        exit(1)
+
     fault = slow_fault.SlowFault(type_ = args.fault_type,
                         location_ = args.fault_location,
                         duration_ = args.fault_duration,
@@ -272,6 +285,10 @@ def main(args):
                             if_restart_ = args.if_restart)
         # sys.test()
     elif sys_name == 'etcd':
+        version = args.version if args.version is not None else '3.5.10'
+        if version not in ['3.0.0', '3.4.0', '3.5.10']:
+            raise ValueError(f"Version {version} not supported for etcd")
+
         if args.benchmark == 'ycsb':
             benchmark = YCSB_ETCD(exec_time_ = args.bench_exec_time,
                                     workload_ = args.ycsb_wkl,
@@ -297,8 +314,10 @@ def main(args):
                         xinda_software_dir_ = args.xinda_software_dir,
                         xinda_tools_dir_ = args.xinda_tools_dir,
                         charybdefs_mount_dir_ = args.charybdefs_mount_dir,
-                        version_=args.version,
-                        if_restart_ = args.if_restart)
+                        version_=version,
+                        if_restart_ = args.if_restart,
+                        coverage_ = args.coverage,
+                        )
         # sys.test()
     elif sys_name == 'crdb':
         if args.benchmark is None or args.benchmark not in ['ycsb', 'sysbench']:
@@ -370,7 +389,9 @@ def main(args):
                             xinda_tools_dir_ = args.xinda_tools_dir,
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir,
                             version_= version,
-                            if_restart_ = args.if_restart)
+                            if_restart_ = args.if_restart,
+                            coverage_ = args.coverage, # TODO: implement logic for this 
+                            )
         # sys.test()    
     elif sys_name == 'kafka':
         if args.benchmark is None or args.benchmark not in ['perf_test', 'openmsg']:

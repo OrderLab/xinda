@@ -21,20 +21,22 @@ class Logging:
         iter_ = str(iter_)
         self.iter = iter_
 
-        self.compose = os.path.join(path2, 'compose-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        self.info = os.path.join(path2, 'info-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        self.runtime = os.path.join(path2, 'runtime-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        self.raw = os.path.join(path2, 'raw-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.description = fault_.location + '-' + fault_.info + '-' + iter_
+
+        self.compose = os.path.join(path2, 'compose-' + self.description + ".log")
+        self.info = os.path.join(path2, 'info-' + self.description + ".log")
+        self.runtime = os.path.join(path2, 'runtime-' + self.description + ".log")
+        self.raw = os.path.join(path2, 'raw-' + self.description + ".log")
 
         # For Cassandra/HBase/etcd (using YCSB)
-        self.time_series = os.path.join(path2, 'ts-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        self.summary = os.path.join(path2, 'sum-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.time_series = os.path.join(path2, 'ts-' + self.description + ".log")
+        self.summary = os.path.join(path2, 'sum-' + self.description + ".log")
 
         # For crdb
-        self.crdb_log = os.path.join(path2, 'crlog-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        self.crdb_health_log = os.path.join(path2, 'health-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        self.crdb_pebble_log = os.path.join(path2, 'pebble-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        self.crdb_stderr_log = os.path.join(path2, 'stderr-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.crdb_log = os.path.join(path2, 'crlog-' + self.description + ".log")
+        self.crdb_health_log = os.path.join(path2, 'health-' + self.description + ".log")
+        self.crdb_pebble_log = os.path.join(path2, 'pebble-' + self.description + ".log")
+        self.crdb_stderr_log = os.path.join(path2, 'stderr-' + self.description + ".log")
 
         # For HBase
         self.raw_container = f"/tmp/raw-{fault_.location}-{fault_.info}-{iter_}.log"
@@ -56,26 +58,26 @@ class Logging:
             self.runtime_load_container.append(f"/tmp/runtime-load{i}-{fault_.location}-{fault_.info}-{iter_}.log")
             self.raw_run_container.append(f"/tmp/raw-run{i}-{fault_.location}-{fault_.info}-{iter_}.log")
             self.runtime_run_container.append(f"/tmp/runtime-run{i}-{fault_.location}-{fault_.info}-{iter_}.log")
-            self.raw_load.append(os.path.join(path2, 'raw-load' + str(i) + "-" + fault_.location + '-' + fault_.info + '-' + iter_ + ".log"))
-            self.runtime_load.append(os.path.join(path2, 'runtime-load' + str(i) + "-" + fault_.location + '-' + fault_.info + '-' + iter_ + ".log"))
-            self.ts_load.append(os.path.join(path2, 'ts-load' + str(i) + "-" + fault_.location + '-' + fault_.info + '-' + iter_ + ".log"))
-            self.sum_load.append(os.path.join(path2, 'sum-load' + str(i) + "-" + fault_.location + '-' + fault_.info + '-' + iter_ + ".log"))
-            self.raw_run.append(os.path.join(path2, 'raw-run' + str(i) + "-" + fault_.location + '-' + fault_.info + '-' + iter_ + ".log"))
-            self.runtime_run.append(os.path.join(path2, 'runtime-run' + str(i) + "-" + fault_.location + '-' + fault_.info + '-' + iter_ + ".log"))
-            self.ts_run.append(os.path.join(path2, 'ts-run' + str(i) + "-" + fault_.location + '-' + fault_.info + '-' + iter_ + ".log"))
-            self.sum_run.append(os.path.join(path2, 'sum-run' + str(i) + "-" + fault_.location + '-' + fault_.info + '-' + iter_ + ".log"))
+            self.raw_load.append(os.path.join(path2, 'raw-load' + str(i) + "-" + self.description + ".log"))
+            self.runtime_load.append(os.path.join(path2, 'runtime-load' + str(i) + "-" + self.description + ".log"))
+            self.ts_load.append(os.path.join(path2, 'ts-load' + str(i) + "-" + self.description + ".log"))
+            self.sum_load.append(os.path.join(path2, 'sum-load' + str(i) + "-" + self.description + ".log"))
+            self.raw_run.append(os.path.join(path2, 'raw-run' + str(i) + "-" + self.description + ".log"))
+            self.runtime_run.append(os.path.join(path2, 'runtime-run' + str(i) + "-" + self.description + ".log"))
+            self.ts_run.append(os.path.join(path2, 'ts-run' + str(i) + "-" + self.description + ".log"))
+            self.sum_run.append(os.path.join(path2, 'sum-run' + str(i) + "-" + self.description + ".log"))
         # self.raw_container = f"/tmp/raw-{fault_.info}-{iter_}.log"
         # self.runtime_container = f"/tmp/runtime-{fault_.info}-{iter_}.log"
 
         # For Kafka
-        self.kafka_producer = os.path.join(path2, 'producer-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        self.kafka_consumer = os.path.join(path2, 'consumer-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        self.openmsg_driver = os.path.join(path2, 'driver-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        self.openmsg_worker1 = os.path.join(path2, 'worker1-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        self.openmsg_worker2 = os.path.join(path2, 'worker2-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        # self.openmsg_driver_stderr = os.path.join(path2, 'err-driver-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        # self.openmsg_worker1_stderr = os.path.join(path2, 'err-worker1-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
-        # self.openmsg_worker2_stderr = os.path.join(path2, 'err-worker2-' + fault_.location + '-' + fault_.info + '-' + iter_ + ".log")
+        self.kafka_producer = os.path.join(path2, 'producer-' + self.description + ".log")
+        self.kafka_consumer = os.path.join(path2, 'consumer-' + self.description + ".log")
+        self.openmsg_driver = os.path.join(path2, 'driver-' + self.description + ".log")
+        self.openmsg_worker1 = os.path.join(path2, 'worker1-' + self.description + ".log")
+        self.openmsg_worker2 = os.path.join(path2, 'worker2-' + self.description + ".log")
+        # self.openmsg_driver_stderr = os.path.join(path2, 'err-driver-' + self.description + ".log")
+        # self.openmsg_worker1_stderr = os.path.join(path2, 'err-worker1-' + self.description + ".log")
+        # self.openmsg_worker2_stderr = os.path.join(path2, 'err-worker2-' + self.description + ".log")
         
     
     def create_dir_if_not_exist(self, path_):

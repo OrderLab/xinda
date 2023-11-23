@@ -5,16 +5,36 @@ class Tool:
                  xinda_software_dir_ : str, #= "/data/ruiming/xinda/xinda-software",
                  xinda_tools_dir_ : str, #= "/data/ruiming/xinda/tools",
                  charybdefs_mount_dir_ : str,
-                 version_): #= "/data/ruiming/tmp1"):
+                 version_: str = None,
+                 coverage_: bool = False,
+                 coverage_dir_: str = None
+                 ):
         self.version = version_
         self.xinda_software_dir = xinda_software_dir_
         self.xinda_tools_dir = xinda_tools_dir_
         self.charybdefs_mount_dir = charybdefs_mount_dir_
         # Scripts
-        if sys_name_ == 'hadoop':
+
+        if version_ != None:
             self.compose = os.path.join(xinda_tools_dir_, ("docker-" + sys_name_), version_)
         else:
             self.compose = os.path.join(xinda_tools_dir_, ("docker-" + sys_name_))
+
+        if coverage_:
+            self.compose = os.path.join(self.compose, "coverage")
+        self.coverage_dir_ = coverage_dir_
+
+        if coverage_:
+            # create coverage folder
+            os.makedirs(self.coverage_dir_, mode=0o777, exist_ok=True)
+        else:
+            print("Coverage is not enabled, ignore coverage folder creation")
+
+        print("Using compose files inside: ", self.compose)
+        # test if the compose folder exists
+        if not os.path.exists(self.compose):
+            raise FileNotFoundError(f"Compose folder {self.compose} does not exist, check your version and coverage arguments")
+
         self.blockade = os.path.join(xinda_tools_dir_, "blockade")
         # Tools/Softwares
         self.ycsb = os.path.join(xinda_software_dir_, "ycsb-0.17.0")
@@ -77,6 +97,10 @@ class Tool:
                'CONTAINER_DIR_etcd=/data.etcd',
                f'LOCAL_DIR_etcd1={self.fuse_dir}/etcd1',
                f'LOCAL_DIR_etcd2={self.fuse_dir}/etcd2',
+               f'COVER_DIR_ETCD0={self.coverage_dir_}/etcd0',
+               f'COVER_DIR_ETCD1={self.coverage_dir_}/etcd1',
+               f'COVER_DIR_ETCD2={self.coverage_dir_}/etcd2',
+
                # hadoop
                f'LOCAL_DIR_datanode={self.fuse_dir}/datanode',
                'CONTAINER_DIR_datanode=/hadoop/dfs/data',

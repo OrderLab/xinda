@@ -1,0 +1,105 @@
+version: '3.8'
+
+services:
+  etcd0:
+    image: matt12313/xinda-etcd:3.0.0-cover # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd0
+    container_name: etcd0
+    # user: "${UID}:${GID}"
+    command:
+      - etcd
+      - --name=etcd0
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd0:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd0:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    environment:
+      - GOCOVERDIR=/cov-profile
+    volumes:
+      - ${LOCAL_DIR_etcd0}:${CONTAINER_DIR_etcd}
+      - ${COVER_DIR_etcd0}:/cov-profile
+    networks:
+      - etcd
+    restart: always
+    env_file:
+      - .env
+
+  etcd1:
+    image: matt12313/xinda-etcd:3.0.0-cover # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd1
+    container_name: etcd1
+    command:
+      - etcd
+      - --name=etcd1
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd1:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd1:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    environment:
+      - GOCOVERDIR=/cov-profile
+    volumes:
+      - ${LOCAL_DIR_etcd1}:${CONTAINER_DIR_etcd}
+      - ${COVER_DIR_etcd1}:/cov-profile
+    networks:
+      - etcd
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      etcd0:
+        condition: service_started
+
+  etcd2:
+    image: matt12313/xinda-etcd:3.0.0-cover # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd2
+    container_name: etcd2
+    command:
+      - etcd
+      - --name=etcd2
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd2:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd2:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    environment:
+      - GOCOVERDIR=/cov-profile
+    volumes:
+      - ${LOCAL_DIR_etcd2}:${CONTAINER_DIR_etcd}
+      - ${COVER_DIR_etcd2}:/cov-profile
+    networks:
+      - etcd
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      etcd0:
+        condition: service_started
+      etcd1:
+        condition: service_started
+
+  etcd-benchmark:
+    image: rmlu/etcd-benchmark:latest
+    container_name: etcd-benchmark
+    privileged: true
+    depends_on:
+      - etcd0
+      - etcd1
+      - etcd2
+    command: tail -f /dev/null
+    networks:
+      - etcd
+
+networks:
+  etcd:
+    driver: bridge
