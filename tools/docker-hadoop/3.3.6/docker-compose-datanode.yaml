@@ -42,6 +42,8 @@ services:
     image: rmlu/hadoop-datanode:3.3.6
     container_name: datanode2
     restart: always
+    volumes:
+      - ../jacoco:/jacoco
  #   volumes:
  #     - hadoop_datanode2:/hadoop/dfs/data
     environment:

@@ -2,6 +2,9 @@ from xinda.systems.TestSystem import *
 
 class Mapred(TestSystem):
     def test(self):
+        self.if_coverage = True
+        self.log.create_dir_if_not_exist('~/workdir/temp/jacoco/{self.benchmark.benchmark}')
+        self.jacoco_report_dir = f'~/workdir/temp/jacoco/{self.benchmark.benchmark}/{self.fault.location}-{self.fault.info}-{self.log.iter}-{self.benchmark.benchmark}'
         # init
         self.info(f"Current version: {self.version}")
         self.info(self.fault.get_info(), if_time=False)
@@ -21,6 +24,9 @@ class Mapred(TestSystem):
         else:
             raise ValueError(f"Fault type:{self.fault.type} is not one of {{nw, fs}}")
         self._copy_file_to_container()
+        if self.if_coverage:
+            self._jacoco_export_hadoop_opts()
+            self._jacoco_restart_datanode2()
         # run the mrbench benchmark in background
         self.start_time = int(time.time()*1e9)
         if self.benchmark.benchmark == 'mrbench':
@@ -149,7 +155,33 @@ class Mapred(TestSystem):
     
     def _post_process(self):
         p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
-
+        if self.if_coverage:
+            self._jacoco_get_report()
+            # chmod_cmd = "docker exec -it datanode2 chmod -R 777 /jacoco/data /jacoco/reports"
+            # _ = subprocess.run(chmod_cmd, shell=True)
+            copylogs_cmd = f"docker cp datanode2:/jacoco/reports/ {self.jacoco_report_dir}"
+            _ = subprocess.run(copylogs_cmd, shell=True)
+            self.info('jacoco reports retrieved')
+            cleanup_cmd = "docker exec -it datanode2 rm -rf /jacoco/data /jacoco/reports"
+            _ = subprocess.run(cleanup_cmd, shell=True)
+    
+    def _jacoco_export_hadoop_opts(self):
+        export_cmd = "docker exec -it datanode2 sh -c 'echo export HADOOP_OPTS=\"-javaagent:/jacoco/lib/jacocoagent.jar=destfile=/jacoco/data/out.exec,classdumpdir=/jacoco/data/dump -Djacoco-agent.attach=true \$HADOOP_OPTS\" >> /etc/hadoop/hadoop-env.sh'"
+        _ = subprocess.run(export_cmd, shell=True)
+        # self.info("export HADOOP_OPTS=\"-javaagent:/jacoco/lib/jacocoagent.jar=destfile=/jacoco/data/out.exec,classdumpdir=/jacoco/data/dump -Djacoco-agent.attach=true \$HADOOP_OPTS\" >> /etc/hadoop/hadoop-env.sh")
+        tail_cmd = "docker exec datanode2 tail /etc/hadoop/hadoop-env.sh -n 1"
+        p = subprocess.run(tail_cmd, shell=True, stdout=subprocess.PIPE)
+        self.info(p.stdout.decode('utf-8').strip())
+    
+    def _jacoco_restart_datanode2(self):
+        cmd = "docker restart datanode2"
+        _ = subprocess.run(cmd, shell=True)
+        self._docker_status_checker()
+    
+    def _jacoco_get_report(self):
+        cmd = f"docker exec -it datanode2 java -jar /jacoco/lib/jacococli.jar report /jacoco/data/out.exec --classfiles /opt/hadoop-{self.version}/share/hadoop/mapreduce --html /jacoco/reports/mapreduce"
+        _ = subprocess.run(cmd, shell=True)
+        self.info('jacoco reports generated')
 # nw_fault = SlowFault(
 #     type_="nw", # nw or fs
 #     location_ = "datanode", # e.g., datanode
@@ -169,3 +201,7 @@ class Mapred(TestSystem):
 #                fault_ = nw_fault,
 #                benchmark_= b,
 #                data_dir_= "xixi1")
+
+# python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir newv --fault_type nw --fault_location datanode --fault_duration 50 --fault_severity slow-low --fault_start_time 10 --bench_exec_time 150 --benchmark mrbench
+# python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir newv --fault_type fs --fault_location datanode --fault_duration 50 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 150 --benchmark mrbench
+# python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir newv --fault_type fs --fault_location namenode --fault_duration 50 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 150 --benchmark mrbench

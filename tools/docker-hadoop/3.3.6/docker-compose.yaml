@@ -44,6 +44,7 @@ services:
     restart: always
     volumes:
       - hadoop_datanode2:/hadoop/dfs/data
+      - ../jacoco:/jacoco
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
