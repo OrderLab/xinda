@@ -22,15 +22,17 @@ class TestSystem:
                  xinda_software_dir_, #= "/users/YXXinda/workdir/xinda-software",
                  xinda_tools_dir_, # = "/users/YXXinda/workdir/xinda/tools",
                  charybdefs_mount_dir_,
+                 version_,
                  if_restart_ = False,
                  iter_: int = 1):# = "/users/YXXinda/workdir/tmp"):
         self.sys_name = sys_name_
         self.if_restart = if_restart_
         self.fault = fault_
         self.log = Logging(sys_name_, data_dir_, fault_, benchmark_, iter_, log_root_dir_)
-        self.tool = Tool(sys_name_, xinda_software_dir_, xinda_tools_dir_, charybdefs_mount_dir_)
+        self.tool = Tool(sys_name_, xinda_software_dir_, xinda_tools_dir_, charybdefs_mount_dir_, version_)
         self.benchmark = benchmark_
         self.start_time = None
+        self.version = version_
         ct_yaml = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                'container.yaml')
         with open(ct_yaml, "r") as config_file:

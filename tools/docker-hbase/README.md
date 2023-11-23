@@ -1,6 +1,7 @@
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/big-data-europe/Lobby)
 
 # misc (by ruiming)
+Check [docker-hbase](https://github.com/OrderLab/docker-hbase) for how we build HBase v2.5.6 images.
 ```
 # Check zookeeper connection status
 docker exec -it zoo sh -c "echo srvr | nc zoo 2181"

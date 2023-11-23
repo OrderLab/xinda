@@ -3,6 +3,7 @@ from xinda.systems.TestSystem import *
 class Mapred(TestSystem):
     def test(self):
         # init
+        self.info(f"Current version: {self.version}")
         self.info(self.fault.get_info(), if_time=False)
         if self.fault.type == 'nw':
             self.docker_up()
@@ -66,17 +67,17 @@ class Mapred(TestSystem):
     def _copy_file_to_container(self):
         cmd = ['docker',
                'cp',
-               'hadoop-mapreduce-client-jobclient-3.2.1-tests.jar',
+               f'hadoop-mapreduce-client-jobclient-{self.version}-tests.jar',
                f"datanode2:/{self.tool.mapred_hadoop_container}"]
         p = subprocess.run(cmd, cwd=self.tool.hadoop_mapreduce_client_local)
         cmd = ['docker',
                'cp',
-               'hadoop-mapreduce-client-jobclient-3.2.1.jar',
+               f'hadoop-mapreduce-client-jobclient-{self.version}.jar',
                f"datanode2:/{self.tool.mapred_hadoop_container}"]
         p = subprocess.run(cmd, cwd=self.tool.hadoop_mapreduce_client_local)
         cmd = ['docker',
                'cp',
-               'hadoop-mapreduce-examples-3.2.1.jar',
+               f'hadoop-mapreduce-examples-{self.version}.jar',
                f"datanode2:/{self.tool.mapred_hadoop_container}"]
         p = subprocess.run(cmd, cwd=self.tool.hadoop_mapreduce_examples_local)
     

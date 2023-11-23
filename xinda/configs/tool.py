@@ -4,13 +4,17 @@ class Tool:
                  sys_name_ : str,
                  xinda_software_dir_ : str, #= "/data/ruiming/xinda/xinda-software",
                  xinda_tools_dir_ : str, #= "/data/ruiming/xinda/tools",
-                 charybdefs_mount_dir_ : str): #= "/data/ruiming/tmp1"):
-        
+                 charybdefs_mount_dir_ : str,
+                 version_): #= "/data/ruiming/tmp1"):
+        self.version = version_
         self.xinda_software_dir = xinda_software_dir_
         self.xinda_tools_dir = xinda_tools_dir_
         self.charybdefs_mount_dir = charybdefs_mount_dir_
         # Scripts
-        self.compose = os.path.join(xinda_tools_dir_, ("docker-" + sys_name_))
+        if sys_name_ == 'hadoop':
+            self.compose = os.path.join(xinda_tools_dir_, ("docker-" + sys_name_), version_)
+        else:
+            self.compose = os.path.join(xinda_tools_dir_, ("docker-" + sys_name_))
         self.blockade = os.path.join(xinda_tools_dir_, "blockade")
         # Tools/Softwares
         self.ycsb = os.path.join(xinda_software_dir_, "ycsb-0.17.0")
@@ -39,12 +43,12 @@ class Tool:
         self.hbase_ycsb_wkl="/tmp/ycsb-workloads/ycsb"
 
         # MapReduce
-        self.hadoop_mapreduce_client_local=os.path.join(xinda_software_dir_, "hadoop-3.2.1/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient/target")
-        self.mapred_hadoop_container="/opt/hadoop-3.2.1/share/hadoop/mapreduce/"
-        self.mapred_mrbench_on_container="/opt/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.2.1-tests.jar"
+        self.hadoop_mapreduce_client_local=os.path.join(xinda_software_dir_, f"hadoop-{version_}/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-jobclient/target")
+        self.mapred_hadoop_container=f"/opt/hadoop-{version_}/share/hadoop/mapreduce/"
+        self.mapred_mrbench_on_container=f"/opt/hadoop-{version_}/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-{version_}-tests.jar"
         
-        self.hadoop_mapreduce_examples_local=os.path.join(xinda_software_dir_, "hadoop-3.2.1/hadoop-mapreduce-project/hadoop-mapreduce-examples/target")
-        self.mapred_terasort_on_container="/opt/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.2.1.jar"
+        self.hadoop_mapreduce_examples_local=os.path.join(xinda_software_dir_, f"hadoop-{version_}/hadoop-mapreduce-project/hadoop-mapreduce-examples/target")
+        self.mapred_terasort_on_container=f"/opt/hadoop-{version_}/share/hadoop/mapreduce/hadoop-mapreduce-examples-{version_}.jar"
 
         # Kafka
         self.kafka_compiled_source = os.path.join(xinda_software_dir_, 'kafka')
@@ -81,7 +85,7 @@ class Tool:
                f'LOCAL_DIR_historyserver={self.fuse_dir}/historyserver',
                'CONTAINER_DIR_historyserver=/hadoop/yarn/timeline',
                f'LOCAL_DIR_nodemanager={self.fuse_dir}/nodemanager',
-               'CONTAINER_DIR_nodemanager=/opt/hadoop-3.2.1/logs',
+               f'CONTAINER_DIR_nodemanager=/opt/hadoop-{self.version}/logs',
                # hbase
                f'LOCAL_DIR_datanode_hbase={self.fuse_dir}/datanode',
                f'LOCAL_DIR_namenode_hbase={self.fuse_dir}/namenode',

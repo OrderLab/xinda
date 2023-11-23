@@ -2,7 +2,7 @@ version: "3"
 
 services:
   namenode:
-    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    image: rmlu/hadoop-namenode:3.3.6
     container_name: namenode
     restart: always
     ports:
@@ -17,7 +17,7 @@ services:
       - .env
 
   datanode:
-    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    image: rmlu/hadoop-datanode:3.3.6
     container_name: datanode
     restart: always
 #    volumes:
@@ -28,7 +28,7 @@ services:
       - ./hadoop.env
 
   datanode1:
-    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    image: rmlu/hadoop-datanode:3.3.6
     container_name: datanode1
     restart: always
 #    volumes:
@@ -39,7 +39,7 @@ services:
       - ./hadoop.env
 
   datanode2:
-    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    image: rmlu/hadoop-datanode:3.3.6
     container_name: datanode2
     restart: always
  #   volumes:
@@ -50,7 +50,7 @@ services:
       - ./hadoop.env
 
   resourcemanager:
-    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+    image: rmlu/hadoop-resourcemanager:3.3.6
     container_name: resourcemanager
     restart: always
     environment:
@@ -59,7 +59,7 @@ services:
       - ./hadoop.env
 
   nodemanager1:
-    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    image: rmlu/hadoop-nodemanager:3.3.6
     container_name: nodemanager
     restart: always
     environment:
@@ -68,7 +68,7 @@ services:
       - ./hadoop.env
 
   nodemanager2:
-    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    image: rmlu/hadoop-nodemanager:3.3.6
     container_name: nodemanager2
     restart: always
     environment:
@@ -77,7 +77,7 @@ services:
       - ./hadoop.env
 
   nodemanager3:
-    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    image: rmlu/hadoop-nodemanager:3.3.6
     container_name: nodemanager3
     restart: always
     environment:
@@ -86,7 +86,7 @@ services:
      - ./hadoop.env
 
   historyserver:
-    image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
+    image: rmlu/hadoop-historyserver:3.3.6
     container_name: historyserver
     restart: always
     environment:

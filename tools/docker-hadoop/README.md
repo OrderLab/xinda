@@ -1,14 +1,7 @@
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/big-data-europe/Lobby)
 
-# TODO
-1. Find the working dirs for nodemanager and resourcemanager
-```
-docker exec -it namenode ls -la /opt/hadoop-3.2.1/etc/hadoop/
-```
-2. Add more benchmarks
-   * mrbench
-   * wordcount?
-   * ...
+# Misc (by Ruiming)
+Check [docker-hadoop](https://github.com/OrderLab/docker-hadoop) for how we build Hadoop v3.3.6 images.
 
 # Changes
 
