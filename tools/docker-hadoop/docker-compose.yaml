@@ -16,12 +16,13 @@ services:
       - ./hadoop.env
 
   datanode:
+    # image: hadoop-datanode-jacoco:2.0.0-hadoop3.2.1-java8
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
     container_name: datanode
     restart: always
     volumes:
       - hadoop_datanode:/hadoop/dfs/data
-      - jacoco:/jacoco
+      - ./jacoco:/jacoco
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
