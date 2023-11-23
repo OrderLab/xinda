@@ -20,13 +20,13 @@ class Tool:
         else:
             self.compose = os.path.join(xinda_tools_dir_, ("docker-" + sys_name_))
 
-        if coverage_:
+        if coverage_ and sys_name_ == 'etcd':
             self.compose = os.path.join(self.compose, "coverage")
-        self.coverage_dir_ = coverage_dir_
+        self.coverage_dir = coverage_dir_
 
         if coverage_:
             # create coverage folder
-            os.makedirs(self.coverage_dir_, mode=0o777, exist_ok=True)
+            os.makedirs(self.coverage_dir, mode=0o777, exist_ok=True)
         else:
             print("Coverage is not enabled, ignore coverage folder creation")
 
@@ -97,9 +97,9 @@ class Tool:
                'CONTAINER_DIR_etcd=/data.etcd',
                f'LOCAL_DIR_etcd1={self.fuse_dir}/etcd1',
                f'LOCAL_DIR_etcd2={self.fuse_dir}/etcd2',
-               f'COVER_DIR_ETCD0={self.coverage_dir_}/etcd0',
-               f'COVER_DIR_ETCD1={self.coverage_dir_}/etcd1',
-               f'COVER_DIR_ETCD2={self.coverage_dir_}/etcd2',
+               f'COVER_DIR_ETCD0={self.coverage_dir}/etcd0',
+               f'COVER_DIR_ETCD1={self.coverage_dir}/etcd1',
+               f'COVER_DIR_ETCD2={self.coverage_dir}/etcd2',
 
                # hadoop
                f'LOCAL_DIR_datanode={self.fuse_dir}/datanode',
