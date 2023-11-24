@@ -7,6 +7,11 @@
     - name: Pre-pull
       shell: |
         docker pull matt12313/xinda-etcd:3.5.10
+        docker pull matt12313/xinda-etcd:3.5.10-cover
+        docker pull matt12313/xinda-etcd:3.4.0
+        docker pull matt12313/xinda-etcd:3.4.0-cover
+        docker pull matt12313/xinda-etcd:3.0.0
+        docker pull matt12313/xinda-etcd:3.0.0-cover
         docker pull rmlu/etcd-benchmark:latest
         docker pull rmlu/sysbench:latest
         docker pull amazoncorretto:latest
