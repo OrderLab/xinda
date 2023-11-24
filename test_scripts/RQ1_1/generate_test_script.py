@@ -39,7 +39,9 @@ class GenerateTestScript():
                  exec_time,
                  unique_benchmark,
                  disable_port_check,
-                 if_restart):
+                 if_restart,
+                 version = None,
+                 coverage_enabled: bool = False):
         # self.output_file=f"{os.path.expanduser('~')}/xinda/test_scripts/RQ1_1/commands.txt"
         if unique_benchmark is not None:
             self.identifier = f"{sys_name}-{'-'.join(fault_type_ary)}-dur-{'-'.join([str(item) for item in duration_ary])}-st-{'-'.join([str(item) for item in start_time_ary])}-{unique_benchmark}"
@@ -66,6 +68,8 @@ class GenerateTestScript():
         self.exec_time = exec_time
         self.unique_benchmark = unique_benchmark
         self.if_restart = if_restart
+        self.version = version
+        self.coverage_enabled = coverage_enabled
         # location
         if if_restart:
             self.location_dict = {
@@ -197,6 +201,10 @@ class GenerateTestScript():
                                     f"--fault_severity {severity}",
                                     f"--fault_start_time {start_time}",
                                     f"--bench_exec_time {self.exec_time}"]
+                                if self.version is not None:
+                                    meta_cmd.append(f"--version {self.version}")
+                                if self.coverage_enabled:
+                                    meta_cmd.append("--coverage")
                                 if self.if_restart:
                                     meta_cmd.append("--if_restart")
                                 if sys_name in ['hbase', 'etcd', 'cassandra', 'crdb']:
@@ -326,6 +334,9 @@ parser.add_argument('--disable_port_check', action='store_true', default=False,
                     help='Disable port check')
 parser.add_argument('--if_restart', action='store_true', default=False,
                     help='Disable port check')
+parser.add_argument('--version', "-v", type = str, required=False, default = None)
+parser.add_argument('--coverage', action='store_true', default=False)
+
 args = parser.parse_args()
 print(args.start_time)
 print(args.duration)
@@ -337,5 +348,7 @@ t = GenerateTestScript(sys_name = args.sys_name,
             exec_time = args.bench_exec_time,
             unique_benchmark = args.unique_benchmark,
             disable_port_check = args.disable_port_check,
-            if_restart = args.if_restart)
+            if_restart = args.if_restart,
+            version = args.version,
+            coverage_enabled = args.coverage)
 t.generate()
