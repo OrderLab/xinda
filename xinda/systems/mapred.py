@@ -2,10 +2,10 @@ from xinda.systems.TestSystem import *
 
 class Mapred(TestSystem):
     def test(self):
-        # self.log.create_dir_if_not_exist('~/workdir/temp/jacoco/{self.benchmark.benchmark}')
-        # self.jacoco_report_dir = f'~/workdir/temp/jacoco/{self.benchmark.benchmark}/{self.fault.location}-{self.fault.info}-{self.log.iter}-{self.benchmark.benchmark}'
-        self.jacoco_report_dir = self.tool.coverage_dir
         # init
+        self.jacoco_loc = 'datanode2'
+        self.jacoco_report_dir = self.tool.coverage_dir
+        self._jacoco_cleanup()
         self.info(f"Current version: {self.version}")
         self.info(self.fault.get_info(), if_time=False)
         if self.fault.type == 'nw':
@@ -26,7 +26,7 @@ class Mapred(TestSystem):
         self._copy_file_to_container()
         if self.coverage:
             self._jacoco_export_hadoop_opts()
-            self._jacoco_restart_datanode2()
+            self._jacoco_restart()
         # run the mrbench benchmark in background
         self.start_time = int(time.time()*1e9)
         if self.benchmark.benchmark == 'mrbench':
@@ -159,30 +159,54 @@ class Mapred(TestSystem):
             self._jacoco_get_report()
             # chmod_cmd = "docker exec -it datanode2 chmod -R 777 /jacoco/data /jacoco/reports"
             # _ = subprocess.run(chmod_cmd, shell=True)
-            copylogs_cmd = f"docker cp datanode2:/jacoco/reports/ {self.jacoco_report_dir}"
+            copylogs_cmd = f"docker cp {self.jacoco_loc}:/jacoco/reports/ {self.jacoco_report_dir}"
             _ = subprocess.run(copylogs_cmd, shell=True)
             self.info('jacoco reports retrieved')
-            cleanup_cmd = "docker exec -it datanode2 rm -rf /jacoco/data /jacoco/reports"
-            _ = subprocess.run(cleanup_cmd, shell=True)
+            self._jacoco_cleanup()
+    
+    def _jacoco_cleanup(self):
+        cleanup_cmd = f"sudo rm -rf {self.tool.jacoco}/data {self.tool.jacoco}/reports"
+        _ = subprocess.run(cleanup_cmd, shell=True)
     
     def _jacoco_export_hadoop_opts(self):
-        export_cmd = "docker exec -it datanode2 sh -c 'echo export HADOOP_OPTS=\"-javaagent:/jacoco/lib/jacocoagent.jar=destfile=/jacoco/data/out.exec,classdumpdir=/jacoco/data/dump -Djacoco-agent.attach=true \$HADOOP_OPTS\" >> /etc/hadoop/hadoop-env.sh'"
+        export_cmd = f"docker exec -it {self.jacoco_loc} sh -c 'echo export HADOOP_OPTS=\"-javaagent:/jacoco/lib/jacocoagent.jar=destfile=/jacoco/data/out.exec,classdumpdir=/jacoco/data/dump -Djacoco-agent.attach=true \$HADOOP_OPTS\" >> /etc/hadoop/hadoop-env.sh'"
         _ = subprocess.run(export_cmd, shell=True)
         # self.info("export HADOOP_OPTS=\"-javaagent:/jacoco/lib/jacocoagent.jar=destfile=/jacoco/data/out.exec,classdumpdir=/jacoco/data/dump -Djacoco-agent.attach=true \$HADOOP_OPTS\" >> /etc/hadoop/hadoop-env.sh")
-        tail_cmd = "docker exec datanode2 tail /etc/hadoop/hadoop-env.sh -n 1"
+        tail_cmd = f"docker exec {self.jacoco_loc} tail /etc/hadoop/hadoop-env.sh -n 1"
         p = subprocess.run(tail_cmd, shell=True, stdout=subprocess.PIPE)
         self.info(p.stdout.decode('utf-8').strip())
     
-    def _jacoco_restart_datanode2(self):
-        cmd = "docker restart datanode2"
+    def _jacoco_restart(self):
+        cmd = f"docker restart {self.jacoco_loc}"
         _ = subprocess.run(cmd, shell=True)
         self._docker_status_checker()
     
     def _jacoco_get_report(self):
+        if self.version == '3.3.6':
+            '''
+            The following files have classes with redundant names. In this case, JaCoCo will throw an exception like this: 
+                Caused by: java.lang.IllegalStateException: Can't add different class with same name,
+            causing some modules to fail to generate reports.
+            Removing them will solve the problem.
+            For 3.2.1, there will be no exceptions though.
+            Most of the files are not critical, despite `client/hadoop-client-runtime-3.3.6.jar`. But all of them have zero coverage in 3.2.1, so we remove them in 3.3.6 as well.
+            '''
+            file_paths = [
+                "/opt/hadoop-3.3.6/share/hadoop/yarn/lib/bcprov-jdk15on-1.68.jar",
+                "/opt/hadoop-3.3.6/share/hadoop/yarn/lib/jakarta.xml.bind-api-2.3.2.jar",
+                "/opt/hadoop-3.3.6/share/hadoop/yarn/lib/snakeyaml-2.0.jar",
+                "/opt/hadoop-3.3.6/share/hadoop/yarn/hadoop-yarn-applications-catalog-webapp-3.3.6.war",
+                "/opt/hadoop-3.3.6/share/hadoop/client/hadoop-client-runtime-3.3.6.jar"]
+            for file in file_paths:
+                mv_cmd = f"docker exec -it {self.jacoco_loc} mv {file} /"
+                _ = subprocess.run(mv_cmd, shell=True)
+            self.info(f"version:{self.version}: Removed files with redundant classes on {self.jacoco_loc} for generating jacoco reports.")
         for module in ['client', 'common', 'hdfs', 'mapreduce', 'tools', 'yarn']:
-            cmd = f"docker exec -it datanode2 java -jar /jacoco/lib/jacococli.jar report /jacoco/data/out.exec --classfiles /opt/hadoop-{self.version}/share/hadoop/{module} --html /jacoco/reports/{module}"
+            cmd = f"docker exec -it {self.jacoco_loc} java -jar /jacoco/lib/jacococli.jar report /jacoco/data/out.exec --classfiles /opt/hadoop-{self.version}/share/hadoop/{module} --html /jacoco/reports/{module}"
             _ = subprocess.run(cmd, shell=True)
             self.info(f'Module:{module}: jacoco reports generated', rela=self.start_time)
+        # cmd = f"docker exec -it {self.jacoco_loc} java -jar /jacoco/lib/jacococli.jar report /jacoco/data/out.exec --classfiles /opt/hadoop-{self.version}/share/hadoop --html /jacoco/reports/hadoop"
+        # _ = subprocess.run(cmd, shell=True)
 # nw_fault = SlowFault(
 #     type_="nw", # nw or fs
 #     location_ = "datanode", # e.g., datanode

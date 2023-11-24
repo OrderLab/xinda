@@ -9,13 +9,19 @@ class Logging:
                  fault_ : SlowFault,
                  benchmark_ : Benchmark,
                  iter_ : int,
-                 log_root_dir_ : str):
+                 log_root_dir_ : str,
+                 version_ : str):
         self.create_dir_if_not_exist(log_root_dir_)
-        path0 = os.path.join(log_root_dir_, sys_name_)
+        if version_ is None:
+            path0 = os.path.join(log_root_dir_, sys_name_)
+        else:
+            path0 = os.path.join(log_root_dir_, sys_name_+'-'+version_)
         self.create_dir_if_not_exist(path0)
-        path1 = os.path.join(log_root_dir_, sys_name_, data_dir_)
+        # path1 = os.path.join(log_root_dir_, sys_name_, data_dir_)
+        path1 = os.path.join(path0, data_dir_)
         self.create_dir_if_not_exist(path1)
-        path2 = os.path.join(log_root_dir_, sys_name_, data_dir_, benchmark_.identifier)
+        # path2 = os.path.join(log_root_dir_, sys_name_, data_dir_, benchmark_.identifier)
+        path2 = os.path.join(path1, benchmark_.identifier)
         self.data_dir = path2
         self.create_dir_if_not_exist(path2)
         iter_ = str(iter_)

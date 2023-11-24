@@ -29,7 +29,7 @@ class TestSystem:
         self.sys_name = sys_name_
         self.if_restart = if_restart_
         self.fault = fault_
-        self.log = Logging(sys_name_, data_dir_, fault_, benchmark_, iter_, log_root_dir_)
+        self.log = Logging(sys_name_, data_dir_, fault_, benchmark_, iter_, log_root_dir_, version_)
         self.tool = Tool(sys_name_, xinda_software_dir_, xinda_tools_dir_, charybdefs_mount_dir_, version_, coverage_, os.path.join(self.log.data_dir, f"coverage-{self.log.description}"))        
         
         self.benchmark = benchmark_

@@ -14,7 +14,7 @@ class Tool:
         self.xinda_tools_dir = xinda_tools_dir_
         self.charybdefs_mount_dir = charybdefs_mount_dir_
         # Scripts
-
+        self.jacoco = os.path.join(xinda_tools_dir_, 'docker-hadoop', 'jacoco')
         if version_ != None:
             self.compose = os.path.join(xinda_tools_dir_, ("docker-" + sys_name_), version_)
         else:
