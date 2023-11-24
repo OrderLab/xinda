@@ -276,6 +276,19 @@ class TestSystem:
     def inject(self, cfs_pattern = None):
         if self.start_time is None:
             raise ValueError(f"Exception: self.start_time is None. Either the benchmark has not started yet, or we fail/forget to set this parameter")
+        if self.fault.duration == -1 and self.if_restart:
+            self.info(f"Baseline for restart. Will restart after 5s of fault.start_time:{self.fault.start_time}", rela=self.start_time)
+            cur_time = self.get_current_ts()
+            delta_time = self.fault.start_time - cur_time
+            self.info(f"Sleep {delta_time} until next command", rela=self.start_time)
+            if delta_time > 0:
+                time.sleep(delta_time)
+            time.sleep(5)
+            cmd_restart = f'docker restart {self.fault.location}'
+            self.info("docker restart BEGINs", rela=self.start_time)
+            p = subprocess.run(cmd_restart, shell=True)
+            self.info("docker restart ENDs", rela=self.start_time)
+            return None
         if self.fault.duration == -1:
             self.info("Fault duration == -1, no faults shall be injected")
             return None

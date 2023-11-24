@@ -79,6 +79,7 @@ class Crdb(TestSystem):
         # time.sleep(30)
     
     def _wait_till_benchmark_ends(self):
+        self.info("Wait until benchmark ends", rela=self.start_time)
         self.benchmark_process.wait()
         self.info("Benchmark safely ends", rela=self.start_time)
     
