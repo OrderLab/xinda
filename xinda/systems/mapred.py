@@ -201,6 +201,14 @@ class Mapred(TestSystem):
                 mv_cmd = f"docker exec -it {self.jacoco_loc} mv {file} /"
                 _ = subprocess.run(mv_cmd, shell=True)
             self.info(f"version:{self.version}: Removed files with redundant classes on {self.jacoco_loc} for generating jacoco reports.")
+        elif self.version == '3.0.0':
+            file_paths = ['/opt/hadoop-3.0.0/share/hadoop/common/lib/hamcrest-core-1.3.jar',
+                          'opt/hadoop-3.0.0/share/hadoop/yarn/lib/jasper-compiler-5.5.23.jar',
+                          '/opt/hadoop-3.0.0/share/hadoop/yarn/lib/jasper-runtime-5.5.23.jar']
+            for file in file_paths:
+                mv_cmd = f"docker exec -it {self.jacoco_loc} mv {file} /"
+                _ = subprocess.run(mv_cmd, shell=True)
+            self.info(f"version:{self.version}: Removed files with redundant classes on {self.jacoco_loc} for generating jacoco reports.")
         for module in ['client', 'common', 'hdfs', 'mapreduce', 'tools', 'yarn']:
             cmd = f"docker exec -it {self.jacoco_loc} java -jar /jacoco/lib/jacococli.jar report /jacoco/data/out.exec --classfiles /opt/hadoop-{self.version}/share/hadoop/{module} --html /jacoco/reports/{module}"
             _ = subprocess.run(cmd, shell=True)
@@ -227,6 +235,6 @@ class Mapred(TestSystem):
 #                benchmark_= b,
 #                data_dir_= "xixi1")
 
-# python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir newv --fault_type nw --fault_location datanode --fault_duration 50 --fault_severity slow-low --fault_start_time 10 --bench_exec_time 150 --benchmark mrbench --coverage
-# python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir newv --fault_type fs --fault_location datanode --fault_duration 50 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 150 --benchmark mrbench --coverage
-# python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir newv --fault_type fs --fault_location namenode --fault_duration 50 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 150 --benchmark mrbench --coverage
+# python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir newv --fault_type nw --fault_location datanode --fault_duration 10 --fault_severity slow-low --fault_start_time 10 --bench_exec_time 150 --benchmark mrbench --coverage --version 3.0.0
+# python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir newv --fault_type fs --fault_location datanode --fault_duration 10 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 150 --benchmark mrbench --coverage --version 3.0.0
+# python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir newv --fault_type fs --fault_location namenode --fault_duration 10 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 150 --benchmark mrbench --coverage --version 3.0.0

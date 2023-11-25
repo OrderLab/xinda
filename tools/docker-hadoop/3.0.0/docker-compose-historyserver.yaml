@@ -1,0 +1,103 @@
+version: "3"
+
+services:
+  namenode:
+    image: rmlu/hadoop-namenode:3.0.0
+    container_name: namenode
+    restart: always
+    ports:
+      - 9869:9870
+      - 9001:9000
+    environment:
+      - CLUSTER_NAME=test
+    env_file:
+      - ./hadoop.env
+
+  datanode:
+    image: rmlu/hadoop-datanode:3.0.0
+    container_name: datanode
+    restart: always
+#    volumes:
+#      - hadoop_datanode:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+
+  datanode1:
+    image: rmlu/hadoop-datanode:3.0.0
+    container_name: datanode1
+    restart: always
+#    volumes:
+#      - hadoop_datanode1:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+
+  datanode2:
+    image: rmlu/hadoop-datanode:3.0.0
+    container_name: datanode2
+    restart: always
+ #   volumes:
+ #     - hadoop_datanode2:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+
+  resourcemanager:
+    image: rmlu/hadoop-resourcemanager:3.0.0
+    container_name: resourcemanager
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864"
+    env_file:
+      - ./hadoop.env
+
+  nodemanager1:
+    image: rmlu/hadoop-nodemanager:3.0.0
+    container_name: nodemanager
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+
+  nodemanager2:
+    image: rmlu/hadoop-nodemanager:3.0.0
+    container_name: nodemanager2
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+
+  nodemanager3:
+    image: rmlu/hadoop-nodemanager:3.0.0
+    container_name: nodemanager3
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    env_file:
+     - ./hadoop.env
+
+  historyserver:
+    image: rmlu/hadoop-historyserver:3.0.0
+    container_name: historyserver
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    volumes:
+    - ${LOCAL_DIR_historyserver}:${CONTAINER_DIR_historyserver}
+  #  volumes:
+  #    - hadoop_historyserver:/hadoop/yarn/timeline
+    env_file:
+    - ./hadoop.env
+    - .env
+
+#volumes:
+#  hadoop_datanode:
+#  hadoop_datanode1:
+#  hadoop_datanode2:
+#  hadoop_historyserver:

@@ -375,7 +375,7 @@ def main(args):
                                         output_dir_ = args.terasort_output_dir)
         if args.version is None:
             version = '3.3.6'
-        elif args.version not in ['3.3.6', '3.2.1']:
+        elif args.version not in ['3.3.6', '3.2.1', '3.0.0']:
             raise ValueError(f"Version {args.version} not supported for hadoop")
         else:
             version = args.version
