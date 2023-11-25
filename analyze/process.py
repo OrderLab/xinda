@@ -3,6 +3,7 @@ import os
 import logging
 import json
 import pandas as pd
+from tqdm import tqdm
 
 from config import DATA_DIR, OUTPUT_DIR
 from typing import List, Tuple, Dict
@@ -53,13 +54,11 @@ def parse_batch(data_dir, output_dir) -> None:
         psrname = ctx.log_type
         if psrname not in PARSERS:
             continue
-        
         ext = ".json" if psrname == "info" else ".csv"
         outpath = os.path.splitext(path.replace(data_dir, output_dir))[0] + ext
         if os.path.exists(outpath):
             continue
         os.makedirs(os.path.dirname(outpath), exist_ok=True)
-        
         parse_single(path, outpath, PARSERS[psrname]())
 
 
@@ -70,7 +69,7 @@ def hash_tsctx(ctx: TrialSetupContext) -> Tuple:
 
 
 def gen_meta(data_dir, output_dir) -> None:
-    parsed_data_files = get_all_files(data_dir, exts=[".csv"])
+    parsed_data_files = get_all_files(data_dir, exts=[".csv", ".json"])
     outpath = os.path.join(output_dir, "meta.csv")
     if outpath in parsed_data_files:
         parsed_data_files.remove(outpath)
@@ -81,7 +80,13 @@ def gen_meta(data_dir, output_dir) -> None:
         key = hash_tsctx(ctx)
         if key not in genmeta_tasks:
             genmeta_tasks[key] = GenMetaContext(ctx)
-            
+        # info
+        if ctx.log_type == "info":
+            genmeta_tasks[key].info_json = p
+        # runtime
+        if ctx.system != "hadoop" and  ctx.log_type == "runtime":
+            genmeta_tasks[key].runtime_csv = p
+        # raw 
         if ctx.system == "hadoop" and ctx.log_type == "raw":
             if ctx.workload == "mrbench":
                 genmeta_tasks[key].raw_mrbench_csv = p
@@ -92,20 +97,21 @@ def gen_meta(data_dir, output_dir) -> None:
                     genmeta_tasks[key].raw_terasort_csv = p
                 else: raise
             else: raise
-                
-        if ctx.system != "hadoop" and  ctx.log_type == "runtime":
-            genmeta_tasks[key].runtime_csv = p
     
     meta = []
     meta_colnames = ["rq", "system", "workload", "fault_type", "fault_location", \
         "fault_duration", "fault_start", "fault_severity", "iter_flag", \
-        "metric", "value"]
-    for _, gmctx in genmeta_tasks.items():
-        metric, value = gmctx.evaluate()
+        "metric", "value", "val_slow", "ERROR"]
+    for key, gmctx in tqdm(genmeta_tasks.items()):
+        metric, value, val_slow, err = "N/A", "N/A", "N/A", ""
+        try:
+            metric, value, val_slow = gmctx.evaluate()
+        except Exception as e:
+            err = f"{type(e).__name__}:{e}"
         meta.append((gmctx.ctx.question, gmctx.ctx.system, gmctx.ctx.workload, \
             gmctx.ctx.injection_type, gmctx.ctx.injection_location, \
             gmctx.ctx.duration, gmctx.ctx.start, gmctx.ctx.severity, gmctx.ctx.iter, \
-            metric, value))
+            metric, value, val_slow, err))
     df = pd.DataFrame(sorted(meta), columns=meta_colnames)
     df.to_csv(outpath, index=False)
         

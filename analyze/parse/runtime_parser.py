@@ -38,11 +38,7 @@ class RuntimeParser:
             ("etcd", "official"): _runtime_parser_etcd_official,
             ("hbase", "ycsb"): _runtime_parser_hbase_ycsb,
         }
-        
-        df = DB_PARSER[db_parser_key](read_raw_logfile(path))
-        if df is None:
-            logging.warning(f"runtime log {path} is not parsed")
-        return df
+        return DB_PARSER[db_parser_key](read_raw_logfile(path))
 
 
 def _runtime_parser_cassandra_ycsb(log_raw):
@@ -98,11 +94,10 @@ def _runtime_parser_etcd_official(log_raw):
     pattern = r"(\d+),.*,.*,.*,(\d+)"
     matches = re.findall(pattern, log_raw)
     data = []
-    if len(matches) == 0:
-        return None
-    t0 = int(matches[0][0])
-    for t, tp in matches:
-        data.append((int(t)-t0, tp))
+    if matches:
+        t0 = int(matches[0][0])
+        for t, tp in matches:
+            data.append((int(t)-t0, tp))
     df = pd.DataFrame(data, columns=[COLNAME_TIME, COLNAME_TP])
     return df
 

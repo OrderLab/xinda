@@ -3,6 +3,8 @@ from parse.tools import get_fname, get_dir
 
 class TrialSetupContext:
     def __init__(self) -> None:
+        self.path = ""
+        
         self.action = ""
         self.system = ""
         self.question = ""
@@ -26,6 +28,7 @@ class TrialSetupContext:
         
 def get_trial_setup_context_from_path(path) -> TrialSetupContext:
     t = TrialSetupContext()
+    t.path = path
 
     dir_folders = get_dir(path).split("/")
     assert len(dir_folders) >= 4, dir_folders
