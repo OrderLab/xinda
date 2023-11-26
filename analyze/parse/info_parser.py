@@ -4,7 +4,7 @@ from typing import Dict
 from collections import defaultdict
 
 from parse.tools import read_raw_logfile
-from parse.context import get_trial_setup_context_from_path
+from parse.context import get_trial_setup_context_from_path, TrialSetupContext
 
 
 class InfoParser:
@@ -12,13 +12,13 @@ class InfoParser:
         self.name = "InfoParser"
 
     def parse(self, path):
-        t = get_trial_setup_context_from_path(path)
-        return _info_parser(read_raw_logfile(path), system=t.system)
+        ctx = get_trial_setup_context_from_path(path)
+        return _info_parser(read_raw_logfile(path), ctx)
 
 
-def _info_parser(log_raw, system) -> Dict:
+def _info_parser(log_raw, ctx: TrialSetupContext) -> Dict:
     pattern_ctx = r"(\{[\s\S]*?\})"
-    ctx = json.loads("".join(list(re.findall(pattern_ctx, log_raw)[0])))
+    info_ctx = json.loads("".join(list(re.findall(pattern_ctx, log_raw)[0])))
 
     pattern_dcup = r", (\S*)\] Containers IP addr retrieved"
     dcup = re.findall(pattern_dcup, log_raw)
@@ -49,7 +49,7 @@ def _info_parser(log_raw, system) -> Dict:
     dcdown = dcdown[0] if len(dcdown) > 0 else None
     
     info = {
-        "ctx": ctx,
+        "ctx": info_ctx,
         "runtime": {
             "system_up": dcup,
             "testbench_start": tbstart,
@@ -61,7 +61,7 @@ def _info_parser(log_raw, system) -> Dict:
         }
     }
     
-    if system == "hadoop":
+    if ctx.system == "hadoop" and ctx.workload == "mrbench":
         tasks_unixtime = defaultdict(dict)
         tasks_alignedtime = defaultdict(dict)
         patern_task = r"\[(\d*), .*, (\S+?)\] (\d*) (\S*) \/"
@@ -70,7 +70,7 @@ def _info_parser(log_raw, system) -> Dict:
             tasks_unixtime[task_id][action] = unixtime
             tasks_alignedtime[task_id][action] = float(alignedtime)
         info["tasks"] = {
-            "unix_time":tasks_unixtime,
+            "unix_time": tasks_unixtime,
             "aligned_time": tasks_alignedtime,
         }
         
