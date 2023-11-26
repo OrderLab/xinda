@@ -16,14 +16,14 @@ class RawParser:
         self.name = "RawParser"
 
     def parse(self, path):
-        t = get_trial_setup_context_from_path(path)
-        if t.system not in DB_PARSER:
-            return None
-        
         DB_PARSER = {
             "hadoop": _raw_parser_hadoop,
             "terasort": _raw_parser_hadoop,
         }
+        
+        t = get_trial_setup_context_from_path(path)
+        if t.system not in DB_PARSER:
+            return None
         return DB_PARSER[t.system](read_raw_logfile(path))
 
 

@@ -1,8 +1,10 @@
 import re
 import json
 from typing import Dict
+from collections import defaultdict
 
 from parse.tools import read_raw_logfile
+from parse.context import get_trial_setup_context_from_path
 
 
 class InfoParser:
@@ -10,10 +12,11 @@ class InfoParser:
         self.name = "InfoParser"
 
     def parse(self, path):
-        return _info_parser(read_raw_logfile(path))
+        t = get_trial_setup_context_from_path(path)
+        return _info_parser(read_raw_logfile(path), system=t.system)
 
 
-def _info_parser(log_raw) -> Dict:
+def _info_parser(log_raw, system) -> Dict:
     pattern_ctx = r"(\{[\s\S]*?\})"
     ctx = json.loads("".join(list(re.findall(pattern_ctx, log_raw)[0])))
 
@@ -44,8 +47,8 @@ def _info_parser(log_raw) -> Dict:
     pattern_dcdown = r", (\S*)\] Docker-compose destroyed"
     dcdown = re.findall(pattern_dcdown, log_raw)
     dcdown = dcdown[0] if len(dcdown) > 0 else None
-
-    return {
+    
+    info = {
         "ctx": ctx,
         "runtime": {
             "system_up": dcup,
@@ -57,3 +60,18 @@ def _info_parser(log_raw) -> Dict:
             "system_down": dcdown,
         }
     }
+    
+    if system == "hadoop":
+        tasks_unixtime = defaultdict(dict)
+        tasks_alignedtime = defaultdict(dict)
+        patern_task = r"\[(\d*), .*, (\S+?)\] (\d*) (\S*) \/"
+        tasklines = re.findall(patern_task, log_raw)
+        for unixtime, alignedtime, task_id, action in tasklines:
+            tasks_unixtime[task_id][action] = unixtime
+            tasks_alignedtime[task_id][action] = float(alignedtime)
+        info["tasks"] = {
+            "unix_time":tasks_unixtime,
+            "aligned_time": tasks_alignedtime,
+        }
+        
+    return info

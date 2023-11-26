@@ -1,4 +1,3 @@
-import logging
 import re
 import pandas as pd
 
@@ -16,6 +15,15 @@ class RuntimeParser:
         self.name = "RuntimeParser"
 
     def parse(self, path):
+        DB_PARSER = {
+            ("cassandra", "ycsb"): _runtime_parser_cassandra_ycsb,
+            ("crdb",  "ycsb"): _runtime_parser_crdb_ycsb,
+            ("crdb",  "sysbench"): _runtime_parser_crdb_sysbench,
+            ("etcd", "ycsb"): _runtime_parser_etcd_ycsb,
+            ("etcd", "official"): _runtime_parser_etcd_official,
+            ("hbase", "ycsb"): _runtime_parser_hbase_ycsb,
+        }
+        
         t = get_trial_setup_context_from_path(path)
         if t.system in ["hadoop", "kafka"]:
             return None
@@ -28,17 +36,7 @@ class RuntimeParser:
         elif t.workload.startswith("official"):
             wl = "official"
         else: raise NotImplementedError(t.workload)
-        
-        db_parser_key = (t.system, wl)
-        DB_PARSER = {
-            ("cassandra", "ycsb"): _runtime_parser_cassandra_ycsb,
-            ("crdb",  "ycsb"): _runtime_parser_crdb_ycsb,
-            ("crdb",  "sysbench"): _runtime_parser_crdb_sysbench,
-            ("etcd", "ycsb"): _runtime_parser_etcd_ycsb,
-            ("etcd", "official"): _runtime_parser_etcd_official,
-            ("hbase", "ycsb"): _runtime_parser_hbase_ycsb,
-        }
-        return DB_PARSER[db_parser_key](read_raw_logfile(path))
+        return DB_PARSER[(t.system, wl)](read_raw_logfile(path))
 
 
 def _runtime_parser_cassandra_ycsb(log_raw):

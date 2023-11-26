@@ -42,7 +42,7 @@ def parse_single(log_path, output_path, parser) -> None:
         data.to_csv(output_path, index=False)
 
 
-def parse_batch(data_dir, output_dir) -> None:
+def parse_batch(data_dir, output_dir, redo_exists) -> None:
     log_ctx = {}
     for p in get_all_files(data_dir):
         try:
@@ -50,13 +50,13 @@ def parse_batch(data_dir, output_dir) -> None:
         except:
             logging.info(f"Skip {p}. Cannot parse context from filename.")
 
-    for path, ctx in log_ctx.items():
+    for path, ctx in tqdm(log_ctx.items()):
         psrname = ctx.log_type
         if psrname not in PARSERS:
             continue
         ext = ".json" if psrname == "info" else ".csv"
         outpath = os.path.splitext(path.replace(data_dir, output_dir))[0] + ext
-        if os.path.exists(outpath):
+        if psrname not in redo_exists and os.path.exists(outpath):
             continue
         os.makedirs(os.path.dirname(outpath), exist_ok=True)
         parse_single(path, outpath, PARSERS[psrname]())
@@ -122,6 +122,8 @@ if __name__ == "__main__":
                         help="Specify root of data directory containing all logs")
     parser.add_argument("-o", "--output_dir", default=OUTPUT_DIR,
                         help="Specify root of output directory for outputing all logs")
+    parser.add_argument("-r", "--redo", default="",
+                        help="Redo tasks")
 
     args = parser.parse_args()
 
@@ -129,6 +131,7 @@ if __name__ == "__main__":
     parse_batch(
         data_dir=os.path.abspath(args.data_dir),
         output_dir=os.path.abspath(args.output_dir),
+        redo_exists=args.redo.split(",")
     )
     
     gen_meta(
