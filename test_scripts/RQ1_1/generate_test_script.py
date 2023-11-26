@@ -85,8 +85,10 @@ class GenerateTestScript():
             }
         else:
             self.location_dict = {
-                'cassandra': ['cas1', 'cas2'],
-                'crdb': ['roach1', 'roach2'],
+                # 'cassandra': ['cas1', 'cas2'],
+                # 'crdb': ['roach1', 'roach2'],
+                'cassandra': ['cas1'],
+                'crdb': ['roach1'],
                 'etcd': ['leader', 'follower'],
                 'hadoop': ['datanode', 'namenode'],
                 'hbase-fs': ['datanode', 'namenode'],
