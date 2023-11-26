@@ -130,7 +130,8 @@ class GenerateTestScript():
         ]
         # severity
         self.severity_dict = {
-            'nw': ['slow-low', 'slow-medium', 'slow-high', 'flaky-low', 'flaky-medium', 'flaky-high'],
+            # 'nw': ['slow-low', 'slow-medium', 'slow-high', 'flaky-low', 'flaky-medium', 'flaky-high'],
+            'nw': ['slow-100us', 'slow-1ms', 'slow-10ms', 'slow-100ms', 'flaky-p10', 'flaky-p40', 'flaky-p70'],
             'fs': [1000, 10000, 100000, 1000000]
         }
         # benchmark
