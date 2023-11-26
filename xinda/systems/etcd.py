@@ -153,6 +153,16 @@ class Etcd(TestSystem):
     
     def _post_process(self):
         p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
+        cmd = 'docker exec etcd0 etcdctl --write-out=table --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 endpoint status'
+        awk_cmd = "awk '/true/ {print $2}'"
+        p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+        cmd_output = p.stdout.read()
+        self.info(cmd_output.decode('utf-8'))
+        awk_process = subprocess.Popen(awk_cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        cur_leader_name, _ = awk_process.communicate(input=cmd_output)
+        p.stdout.close()
+        cur_leader_name = cur_leader_name.decode('utf-8').strip()[:5]
+        self.info(f"Current leader: {cur_leader_name}; Previous leader: {self.leader_name}; Leader changed: {cur_leader_name != self.leader_name}")
 
 
 
