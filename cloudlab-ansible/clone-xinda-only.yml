@@ -1,23 +1,34 @@
 ---
-- name: Install Xinda only
+- name: update xinda
   hosts: all
+  become: false
 
   tasks:
-    - name: Get the home directory
-      become: false
-      command: echo $HOME
-      register: home
+    - name: check if xinda exists
+      stat:
+        path: $HOME/workdir/xinda
+      register: xinda_exists
+
+    - name: update xinda
+      shell: |
+        cd $HOME/workdir/xinda
+        git pull
+      args:
+        executable: /bin/bash
+      when: xinda_exists.stat.exists
 
     - name: create Xinda dir
       become: false
       ansible.builtin.file:
-        path: "{{ home.stdout }}/workdir/xinda"
+        path: "$HOME/workdir/xinda"
         state: directory
+      when: xinda_exists.stat.exists == False
 
     - name: clone Xinda repo
       become: false
       ansible.builtin.git:
-        dest: "{{ home.stdout }}/workdir/xinda"
+        dest: "$HOME/workdir/xinda"
         repo: git@github.com:OrderLab/xinda.git
         version: master
         accept_hostkey: yes
+      when: xinda_exists.stat.exists == False
