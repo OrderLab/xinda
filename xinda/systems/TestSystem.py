@@ -226,8 +226,11 @@ class TestSystem:
     
     def blockade_up(self):
         # Create blockade
-        cmd = f'blockade --config blockade-{self.fault.severity}.yaml up'
-        p = subprocess.run(cmd, cwd=self.tool.blockade, stderr=subprocess.PIPE, shell=True)
+        cp_cmd = f'cp blockade-{self.fault.severity}.yaml blockade.yaml'
+        p = subprocess.run(cp_cmd, cwd=self.tool.blockade, shell=True)
+        up_cmd = f'blockade up'
+        # cmd = f'blockade --config blockade-{self.fault.severity}.yaml up'
+        p = subprocess.run(up_cmd, cwd=self.tool.blockade, stderr=subprocess.PIPE, shell=True)
         # check return code
         if p.returncode != 0:
             err_msg = p.stderr.decode('utf-8')
@@ -255,6 +258,9 @@ class TestSystem:
         #     else:
         #         raise subprocess.CalledProcessError("Unknown error during blockade initialization. Abort.")
         
+    def check_blockade_slowness(self):
+        p = subprocess.run('tc qdisc | grep netem', shell=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        self.info(p.stdout.decode('utf-8').strip(), if_time=True)
     
     def blockade_down(self):
         cmd = ['blockade',
@@ -296,7 +302,12 @@ class TestSystem:
         cmd_clear=[]
         work_dir=''
         if self.fault.type == 'nw':
-            cmd_inject = ['blockade', 'slow', self.fault.location]
+            if 'flaky' in self.fault.severity:
+                cmd_inject = ['blockade', 'flaky', self.fault.location]
+            elif 'slow' in self.fault.severity:
+                cmd_inject = ['blockade', 'slow', self.fault.location]
+            else:
+                raise ValueError(f"Exception: Slow fault severity:{self.fault.severity} is not a member of {{flaky, slow}}")
             cmd_clear = ['blockade', 'fast', self.fault.location]
             work_dir = self.tool.blockade
         else:
@@ -315,6 +326,8 @@ class TestSystem:
         # Faults begin (inject)
         self.info("fault command BEGINs", rela=self.start_time)
         p = subprocess.run(cmd_inject, cwd=work_dir)
+        if self.fault.type == 'nw':
+            self.check_blockade_slowness()
         self.info("fault actually BEGINs", rela=self.start_time)
         fault_actually_begin_time = self.get_current_ts()
         # restart
