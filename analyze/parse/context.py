@@ -32,10 +32,26 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
 
     dir_folders = get_dir(path).split("/")
     assert len(dir_folders) >= 4, dir_folders
-    t.action = dir_folders[-4]
-    t.system = dir_folders[-3]
-    t.question = dir_folders[-2]
-    t.workload = dir_folders[-1]
+    # handle kafka
+    if "kafka" in dir_folders:
+        if dir_folders[-4] == "kafka":
+            t.action = dir_folders[-5]
+            t.system = dir_folders[-4]
+            t.question = dir_folders[-3]  
+            t.workload = dir_folders[-2] + "|" + dir_folders[-1]
+        elif dir_folders[-3] == "kafka" and dir_folders[-1] == "perf_test":
+            t.action = dir_folders[-4]
+            t.system = dir_folders[-3]
+            t.question = dir_folders[-2]
+            t.workload = dir_folders[-1]
+        else:
+            assert False, f"ignore {path}"
+            
+    else:
+        t.action = dir_folders[-4]
+        t.system = dir_folders[-3]
+        t.question = dir_folders[-2]
+        t.workload = dir_folders[-1]
 
     # handle severity: {slow, flaky}-{low, medium,high}
     # handle container: hbase-*

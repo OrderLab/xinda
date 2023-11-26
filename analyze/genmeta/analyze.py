@@ -45,8 +45,12 @@ def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
             # slow value
             _, _, fault_actual_begin, fault_actual_end = get_slow_period(gmctx)
             if fault_actual_begin and fault_actual_end: # deal with non-injection
-                fault_actual_begin = time_obj(fault_actual_begin) + timedelta(hours=6)
-                fault_actual_end = time_obj(fault_actual_end) + timedelta(hours=6)
+                fault_actual_begin = time_obj(fault_actual_begin) 
+                fault_actual_end = time_obj(fault_actual_end)
+                td_begin = 6 if  fault_actual_begin.hour < 18 else -18
+                td_end = 6 if  fault_actual_end.hour < 18 else -18
+                fault_actual_begin += timedelta(hours=td_begin)
+                fault_actual_end += timedelta(hours=td_end)
                 slow_jobs = []
                 for _, row in df_terasort.iterrows():
                     _, _, s, e, dur = row
@@ -56,6 +60,43 @@ def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
                 if cnt_slow_jobs:
                     val_slow = sum(slow_jobs) / cnt_slow_jobs
         else: raise
+    elif gmctx.ctx.system == "kafka":
+        if gmctx.ctx.workload == "perftest":
+            if not gmctx.producer_csv: raise MissingParsedLogError("producer")
+            if not gmctx.consumer_csv: raise MissingParsedLogError("terasort")
+            df_prod = pd.read_csv(gmctx.raw_teragen_csv)
+            if len(df_prod) == 0: raise EmptyParsedDataError(gmctx.producer_csv)
+            df_cons = pd.read_csv(gmctx.consumer_csv)
+            if len(df_cons) == 0: raise EmptyParsedDataError(gmctx.consumer_csv)
+            
+            metric = "average MB.sec"
+            value = (df_prod["tp(MB.sec)"].sum()+df_cons["tp(MB.sec)"].sum()) / (len(df_prod)+len(df_cons))
+            # slow value
+            slow_start, slow_end, _, _ = get_slow_period(gmctx)
+            slow_prod = df_prod[(df_prod["time(sec)"]>=slow_start)&(df_prod["time(sec)"]<=slow_end)]
+            slow_cons = df_prod[(df_cons["time(sec)"]>=slow_start)&(df_cons["time(sec)"]<=slow_end)]
+            val_slow = (slow_prod["tp(MB.sec)"].sum()+slow_cons["tp(MB.sec)"].sum()) / (len(slow_prod)+len(slow_cons))
+        else:
+            if not gmctx.driver_csv: raise MissingParsedLogError("driver")
+            df = pd.read_csv(gmctx.driver_csv)
+            if len(df) == 0: raise EmptyParsedDataError(gmctx.driver_csv)
+            
+            metric = "average MB.sec"
+            value = df[["pub_tp(MB.sec)", "cons_tp(MB.sec)"]].mean().sum() 
+            # slow value
+            _, _, fault_actual_begin, fault_actual_end = get_slow_period(gmctx)
+            if fault_actual_begin and fault_actual_end: # deal with non-injection
+                tp = []
+                fault_actual_begin = time_obj(fault_actual_begin)
+                fault_actual_end = time_obj(fault_actual_end)
+                for _, row in df.iterrows():
+                    t = time_obj(row["time(sec)"])
+                    td = 1 if t.hour < 23 else -23
+                    t += timedelta(hours=td)
+                    if fault_actual_begin <= t <= fault_actual_end:
+                        tp.append((row["pub_tp(MB.sec)"] + row["cons_tp(MB.sec)"]) / 2)
+                if tp:
+                    val_slow = sum(tp) / len(tp)
     else:
         if not gmctx.runtime_csv: raise MissingParsedLogError("runtime")
         df = pd.read_csv(gmctx.runtime_csv)

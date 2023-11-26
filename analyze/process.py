@@ -11,6 +11,7 @@ from parse.runtime_parser import RuntimeParser
 from parse.raw_parser import RawParser
 from parse.info_parser import InfoParser
 from parse.context import get_trial_setup_context_from_path, TrialSetupContext
+from parse.kafka_parser import PerfConsumerParser, PerfProducerParser, OpenMsgDriverParser
 from genmeta.context import GenMetaContext
 from genmeta.analyze import gen_stats, EmptyParsedDataError, MissingParsedLogError, UnexpectedInfoFaultNullError
 
@@ -19,6 +20,9 @@ PARSERS = {
     "runtime": RuntimeParser,
     "raw": RawParser,
     "info": InfoParser,
+    "producer": PerfProducerParser,
+    "consumer": PerfConsumerParser,
+    "driver": OpenMsgDriverParser
 }
 
 
@@ -98,11 +102,19 @@ def gen_meta_batch(data_dir, output_dir) -> None:
                     genmeta_tasks[key].raw_terasort_csv = p
                 else: raise
             else: raise
+        # kafka
+        if ctx.system == "kafka":
+            if ctx.log_type == "producer":
+                genmeta_tasks[key].producer_csv = p
+            elif ctx.log_type == "consumer":
+                genmeta_tasks[key].consumer_csv = p
+            elif ctx.log_type == "driver":
+                genmeta_tasks[key].driver_csv = p
     
     meta = []
     meta_colnames = ["rq", "system", "workload", "fault_type", "fault_location", \
         "fault_duration", "fault_start", "fault_severity", "iter_flag", \
-        "metric", "value", "val_slow", "cnt_slow_jobs", "ERROR", "INFO", "RUNTIME", "RAW"]
+        "metric", "value", "val_slow", "cnt_slow_jobs", "ERROR", "INFO", "RUNTIME", "RAW", "KAFKA"]
     for key, gmctx in tqdm(genmeta_tasks.items()):
         metric, value, val_slow, cnt_slow_jobs, err = "N/A", "N/A", "N/A", "", ""
         try:
@@ -113,7 +125,8 @@ def gen_meta_batch(data_dir, output_dir) -> None:
             gmctx.ctx.injection_type, gmctx.ctx.injection_location, \
             gmctx.ctx.duration, gmctx.ctx.start, gmctx.ctx.severity, gmctx.ctx.iter, \
             metric, value, val_slow, cnt_slow_jobs, err, \
-            gmctx.info_json, gmctx.runtime_csv, f"{gmctx.raw_mrbench_csv+gmctx.raw_terasort_csv}"))
+            gmctx.info_json, gmctx.runtime_csv, f"{gmctx.raw_mrbench_csv},{gmctx.raw_terasort_csv}",\
+            f"{gmctx.producer_csv},{gmctx.producer_csv},{gmctx.driver_csv}"))
     df = pd.DataFrame(sorted(meta), columns=meta_colnames)
     df.to_csv(outpath, index=False)
         
