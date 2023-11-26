@@ -6,7 +6,7 @@ from genmeta.context import GenMetaContext
 from genmeta.tools import read_json
 
 def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
-    metric, value, val_slow, cnt_slow_jobs = "", "", "", ""
+    metric, value, val_slow, cnt_slow_jobs, leader_change = "", "", "", "", ""
     if gmctx.ctx.system == "hadoop":
         if gmctx.ctx.workload == "mrbench":
             if not gmctx.info_json: raise MissingParsedLogError("info")
@@ -108,7 +108,13 @@ def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
         slow_start, slow_end, _, _ = get_slow_period(gmctx)
         # slow value
         val_slow = df[(df["time(sec)"]>=slow_start)&(df["time(sec)"]<=slow_end)]["throughput(ops/sec)"].mean()
-    return metric, str(value), str(val_slow), str(cnt_slow_jobs)
+        
+        if gmctx.ctx.system == "etcd":
+            if not gmctx.info_json: raise MissingParsedLogError("info")
+            info = read_json(gmctx.info_json)
+            leader_change = info["leader_change"]
+            
+    return metric, str(value), str(val_slow), str(cnt_slow_jobs), leader_change
 
 
 def get_slow_period(gmctx: GenMetaContext) -> Tuple[int, int, str, str]:

@@ -73,5 +73,10 @@ def _info_parser(log_raw, ctx: TrialSetupContext) -> Dict:
             "unix_time": tasks_unixtime,
             "aligned_time": tasks_alignedtime,
         }
-        
+    
+    if ctx.system == "etcd":
+        pattern = r"Leader changed: (\S*)"
+        matches = re.findall(pattern, log_raw)
+        change = "N/A" if not matches else matches[0][0]
+        info["leader_change"] = change
     return info
