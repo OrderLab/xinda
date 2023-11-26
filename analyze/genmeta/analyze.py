@@ -35,9 +35,9 @@ def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
         elif gmctx.ctx.workload == "terasort":
             if not gmctx.raw_teragen_csv: raise MissingParsedLogError("teragen")
             if not gmctx.raw_terasort_csv: raise MissingParsedLogError("terasort")
-            df_teragen = pd.read_csv(gmctx.raw_teragen_csv)
+            df_teragen = pd.read_csv(gmctx.raw_teragen_csv).iloc[30:]
             if len(df_teragen) == 0: raise EmptyParsedDataError(gmctx.raw_teragen_csv)
-            df_terasort = pd.read_csv(gmctx.raw_terasort_csv)
+            df_terasort = pd.read_csv(gmctx.raw_terasort_csv).iloc[30:]
             if len(df_terasort) == 0: raise EmptyParsedDataError(gmctx.raw_terasort_csv)
             
             metric = "total_execution_time(s)"
@@ -61,12 +61,12 @@ def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
                     val_slow = sum(slow_jobs) / cnt_slow_jobs
         else: raise
     elif gmctx.ctx.system == "kafka":
-        if gmctx.ctx.workload == "perftest":
+        if gmctx.ctx.workload == "perf_test":
             if not gmctx.producer_csv: raise MissingParsedLogError("producer")
-            if not gmctx.consumer_csv: raise MissingParsedLogError("terasort")
-            df_prod = pd.read_csv(gmctx.raw_teragen_csv)
+            if not gmctx.consumer_csv: raise MissingParsedLogError("consumer")
+            df_prod = pd.read_csv(gmctx.producer_csv).iloc[30:]
             if len(df_prod) == 0: raise EmptyParsedDataError(gmctx.producer_csv)
-            df_cons = pd.read_csv(gmctx.consumer_csv)
+            df_cons = pd.read_csv(gmctx.consumer_csv).iloc[30:]
             if len(df_cons) == 0: raise EmptyParsedDataError(gmctx.consumer_csv)
             
             metric = "average MB.sec"
@@ -74,8 +74,9 @@ def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
             # slow value
             slow_start, slow_end, _, _ = get_slow_period(gmctx)
             slow_prod = df_prod[(df_prod["time(sec)"]>=slow_start)&(df_prod["time(sec)"]<=slow_end)]
-            slow_cons = df_prod[(df_cons["time(sec)"]>=slow_start)&(df_cons["time(sec)"]<=slow_end)]
-            val_slow = (slow_prod["tp(MB.sec)"].sum()+slow_cons["tp(MB.sec)"].sum()) / (len(slow_prod)+len(slow_cons))
+            slow_cons = df_cons[(df_cons["time(sec)"]>=slow_start)&(df_cons["time(sec)"]<=slow_end)]
+            if (len(slow_prod)+len(slow_cons)):
+                val_slow = (slow_prod["tp(MB.sec)"].sum()+slow_cons["tp(MB.sec)"].sum()) / (len(slow_prod)+len(slow_cons))
         else:
             if not gmctx.driver_csv: raise MissingParsedLogError("driver")
             df = pd.read_csv(gmctx.driver_csv)
@@ -114,9 +115,10 @@ def get_slow_period(gmctx: GenMetaContext) -> Tuple[int, int, str, str]:
     if not gmctx.info_json: raise MissingParsedLogError("info")
     info = read_json(gmctx.info_json)
         
-    start, end, fault_actual_begin, fault_actual_end = 0, 0, "", ""
+    start, end, fault_actual_begin, fault_actual_end, fault_cmd_end = 0, 0, "", "", ""
     ctx_start_time = info["ctx"]["start_time"]
     ctx_end_time = info["ctx"]["end_time"]
+    ctx_duration = info["ctx"]["duration"]
     if ctx_start_time < ctx_end_time:
         try:
             fault_cmd_begin = info["runtime"]["fault_cmd_begin"]
@@ -124,10 +126,12 @@ def get_slow_period(gmctx: GenMetaContext) -> Tuple[int, int, str, str]:
             fault_cmd_end = info["runtime"]["fault_cmd_end"]
             fault_actual_end = info["runtime"]["fault_actual_end"]
             start = ctx_start_time + (time_obj(fault_actual_begin)-time_obj(fault_cmd_begin)).total_seconds()
-            end = ctx_end_time + (time_obj(fault_actual_end)-time_obj(fault_cmd_end)).total_seconds()
+            end = start + ctx_duration + (time_obj(fault_actual_end)-time_obj(fault_cmd_end)).total_seconds()
         except:
             raise UnexpectedInfoFaultNullError(gmctx.info_json)
-    return start, end, fault_actual_begin, fault_actual_end
+    # return ctx_start_time, ctx_end_time, fault_actual_begin, fault_actual_end
+    # return start, end, fault_actual_begin, fault_actual_end
+    return start, ctx_end_time, fault_actual_begin, fault_cmd_end
 
 def time_overlap(t1_start, t1_end, t2_start, t2_end) -> bool:
     return (t1_start <= t2_end) and (t1_end >= t2_start)
