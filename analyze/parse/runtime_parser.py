@@ -40,7 +40,7 @@ class RuntimeParser:
 
 
 def _runtime_parser_cassandra_ycsb(log_raw):
-    pattern = r"(\d*) sec:.*; (.*) current ops\/sec;.*, average latency\(us\): \d*\.\d*"
+    pattern = r"(\d*) sec:.*; (\S*) current ops\/sec; est completion"
     matches = re.findall(pattern, log_raw)
     data_raw = {}
     for sec, tp in matches:

@@ -28,19 +28,19 @@ def _info_parser(log_raw, ctx: TrialSetupContext) -> Dict:
     tbstart = re.findall(pattern_tbstart, log_raw)
     tbstart = tbstart[0] if len(tbstart) > 0 else None
 
-    pattern_fcmdbegin = r", (\S*),.* fault command BEGINs"
+    pattern_fcmdbegin = r", (\S*), (\S*)\] fault command BEGINs"
     fcmdbegin = re.findall(pattern_fcmdbegin, log_raw)
     fcmdbegin = fcmdbegin[0] if len(fcmdbegin) > 0 else None
 
-    pattern_factualbegin = r", (\S*),.* fault actually BEGINs"
+    pattern_factualbegin = r", (\S*), (\S*)\] fault actually BEGINs"
     factualbegin = re.findall(pattern_factualbegin, log_raw)
     factualbegin = factualbegin[0] if len(factualbegin) > 0 else None
 
-    pattern_fcmdend = r", (\S*),.* fault command ENDs"
+    pattern_fcmdend = r", (\S*), (\S*)\] fault command ENDs"
     fcmdend = re.findall(pattern_fcmdend, log_raw)
     fcmdend = fcmdend[0] if len(fcmdend) > 0 else None
 
-    pattern_factualend = r", (\S*),.* fault actually ENDs"
+    pattern_factualend = r", (\S*), (\S*)\] fault actually ENDs"
     factualend = re.findall(pattern_factualend, log_raw)
     factualend = factualend[0] if len(factualend) > 0 else None
 

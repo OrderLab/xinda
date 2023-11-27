@@ -13,7 +13,7 @@ from parse.info_parser import InfoParser
 from parse.context import get_trial_setup_context_from_path, TrialSetupContext
 from parse.kafka_parser import PerfConsumerParser, PerfProducerParser, OpenMsgDriverParser
 from genmeta.context import GenMetaContext
-from genmeta.analyze import gen_stats, EmptyParsedDataError, MissingParsedLogError, UnexpectedInfoFaultNullError
+from genmeta.analyze import gen_stats, EmptyParsedDataError, MissingParsedLogError, UnexpectedInfoFaultNullError, EmptySlowFaultDataError
 
 
 PARSERS = {
@@ -114,17 +114,18 @@ def gen_meta_batch(data_dir, output_dir) -> None:
     meta = []
     meta_colnames = ["rq", "system", "workload", "fault_type", "fault_location", \
         "fault_duration", "fault_start", "fault_severity", "iter_flag", \
-        "metric", "value", "val_slow", "cnt_slow_jobs", "leader_changed", "ERROR", "INFO", "RUNTIME", "RAW", "KAFKA"]
+        "metric", "value", "val_bf_slow", "val_slow", "val_af_slow", "cnt_slow_jobs", "leader_changed", "recover", \
+        "ERROR", "INFO", "RUNTIME", "RAW", "KAFKA"]
     for key, gmctx in tqdm(genmeta_tasks.items()):
-        metric, value, val_slow, cnt_slow_jobs, err = "N/A", "N/A", "N/A", "", ""
+        metric, value, val_bf_slow, val_slow, val_af_slow, cnt_slow_jobs, leader_changed, recover, err = "N/A", "N/A", "N/A","N/A", "N/A", "N/A", "N/A", "N/A", ""
         try:
-            metric, value, val_slow, cnt_slow_jobs, leader_changed = gen_stats(gmctx)
-        except (EmptyParsedDataError, MissingParsedLogError, UnexpectedInfoFaultNullError) as e:
+            metric, value, val_bf_slow, val_slow, val_af_slow, cnt_slow_jobs, leader_changed, recover = gen_stats(gmctx)
+        except (EmptyParsedDataError, MissingParsedLogError, UnexpectedInfoFaultNullError, EmptySlowFaultDataError) as e:
             err = f"{type(e).__name__}:{e}"
         meta.append((gmctx.ctx.question, gmctx.ctx.system, gmctx.ctx.workload, \
             gmctx.ctx.injection_type, gmctx.ctx.injection_location, \
             gmctx.ctx.duration, gmctx.ctx.start, gmctx.ctx.severity, gmctx.ctx.iter, \
-            metric, value, val_slow, cnt_slow_jobs, leader_changed, \
+            metric, value, val_bf_slow, val_slow, val_af_slow, cnt_slow_jobs, leader_changed, recover,\
             err, gmctx.info_json, gmctx.runtime_csv, \
             f"{gmctx.raw_mrbench_csv},{gmctx.raw_terasort_csv}",\
             f"{gmctx.producer_csv},{gmctx.producer_csv},{gmctx.driver_csv}"))
