@@ -85,6 +85,10 @@ class TestSystem:
         prune_volume_cmd = 'docker volume prune -f'
         _ = subprocess.run(prune_volume_cmd, shell=True)
         self.info(f'docker volume pruned.')
+        prune_network_cmd = 'docker network prune -f'
+        _ = subprocess.run(prune_network_cmd, shell=True)
+        self.info(f'docker network pruned.')
+
         self.info(f'Cleaning charybdefs mount directory.')
         cmd = f'rm -rf {self.tool.charybdefs_mount_dir}'
         _ = subprocess.run(cmd, shell=True)
