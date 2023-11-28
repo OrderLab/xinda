@@ -143,9 +143,9 @@ class GenerateTestScript():
         }
         if severity is not None:
             if severity == 'nw':
-                self.severity_dict = self.severity_dict['nw']
+                self.severity_dict = {'nw': self.severity_dict['nw']}
             elif severity == 'fs':
-                self.severity_dict = self.severity_dict['fs']
+                self.severity_dict = {'fs': self.severity_dict['fs']}
             elif severity == 'nw-flaky':
                 self.severity_dict = {'nw': ['flaky-p10', 'flaky-p40', 'flaky-p70']}
             elif severity == 'nw-slow':
