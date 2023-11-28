@@ -82,6 +82,9 @@ class TestSystem:
             charybdefs_dir = matching_processes[0]['cmdline'][2]
             cmd = f'./stop.sh {charybdefs_dir}'
             _ = subprocess.run(cmd, shell=True, cwd=self.tool.cfs_source)
+        prune_volume_cmd = 'docker volume prune -f'
+        _ = subprocess.run(prune_volume_cmd, shell=True)
+        self.info(f'docker volume pruned.')
         self.info(f'Cleaning charybdefs mount directory.')
         cmd = f'rm -rf {self.tool.charybdefs_mount_dir}'
         _ = subprocess.run(cmd, shell=True)
