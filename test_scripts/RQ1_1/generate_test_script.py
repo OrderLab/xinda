@@ -47,9 +47,9 @@ class GenerateTestScript():
         self.iter = iter
         # self.output_file=f"{os.path.expanduser('~')}/xinda/test_scripts/RQ1_1/commands.txt"
         if unique_benchmark is not None:
-            self.identifier = f"{sys_name}-{'-'.join(fault_type_ary)}-dur-{'-'.join([str(item) for item in duration_ary])}-st-{'-'.join([str(item) for item in start_time_ary])}-{unique_benchmark}"
+            self.identifier = f"{sys_name}-{'-'.join(fault_type_ary)}-dur-{'-'.join([str(item) for item in duration_ary])}-st-{'-'.join([str(item) for item in start_time_ary])}-{unique_benchmark}-{iter}iter"
         else:
-            self.identifier = f"{sys_name}-{'-'.join(fault_type_ary)}-dur-{'-'.join([str(item) for item in duration_ary])}-st-{'-'.join([str(item) for item in start_time_ary])}"
+            self.identifier = f"{sys_name}-{'-'.join(fault_type_ary)}-dur-{'-'.join([str(item) for item in duration_ary])}-st-{'-'.join([str(item) for item in start_time_ary])}-{iter}iter"
         if if_restart:
             self.identifier = f"restart-{self.identifier}"
         else:
