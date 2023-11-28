@@ -40,8 +40,11 @@ class GenerateTestScript():
                  unique_benchmark,
                  disable_port_check,
                  if_restart,
+                 severity, 
+                 iter,
                  version = None,
-                 coverage_enabled: bool = False):
+                 coverage_enabled: bool = False,):
+        self.iter = iter
         # self.output_file=f"{os.path.expanduser('~')}/xinda/test_scripts/RQ1_1/commands.txt"
         if unique_benchmark is not None:
             self.identifier = f"{sys_name}-{'-'.join(fault_type_ary)}-dur-{'-'.join([str(item) for item in duration_ary])}-st-{'-'.join([str(item) for item in start_time_ary])}-{unique_benchmark}"
@@ -138,6 +141,15 @@ class GenerateTestScript():
             'nw': ['slow-100us', 'slow-1ms', 'slow-10ms', 'slow-100ms', 'flaky-p10', 'flaky-p40', 'flaky-p70'],
             'fs': [1000, 10000, 100000, 1000000]
         }
+        if severity is not None:
+            if severity == 'nw':
+                self.severity_dict = self.severity_dict['nw']
+            elif severity == 'fs':
+                self.severity_dict = self.severity_dict['fs']
+            elif severity == 'nw-flaky':
+                self.severity_dict = {'nw': ['flaky-p10', 'flaky-p40', 'flaky-p70']}
+            elif severity == 'nw-slow':
+                self.severity_dict = {'nw': ['slow-100us', 'slow-1ms', 'slow-10ms', 'slow-100ms']}
         # benchmark
         self.benchmark_dict = {
             "hbase": {"ycsb": self.ycsb_wkl},
@@ -305,17 +317,18 @@ class GenerateTestScript():
     def append_to_file(self, 
                        msg, 
                        filename = None):
-        if filename is None:
-            filename = self.output_file
-        self.counter = self.counter + 1
-        begin_line = f"echo \"## [$(date +%s%N), $(date +\"%Y-%m-%d %H:%M:%S %Z utc%z\"), BEGIN] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
-        end_line = f"echo \"## [$(date +%s%N), $(date +\"%Y-%m-%d %H:%M:%S %Z utc%z\"), END] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
-        with open(filename, 'a') as fp:
-            fp.write("%s\n" % begin_line)
-            fp.write(f"{msg} --unique_identifier {self.counter} --batch_test_log {self.meta_log_loc}\n")
-            fp.write("%s\n" % end_line)
-            fp.write(f"echo -e '\\n' >> {self.meta_log_loc}")
-            fp.write('\n\n')
+        for i in range(1, self.iter+1):
+            if filename is None:
+                filename = self.output_file
+            self.counter = self.counter + 1
+            begin_line = f"echo \"## [$(date +%s%N), $(date +\"%Y-%m-%d %H:%M:%S %Z utc%z\"), BEGIN] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
+            end_line = f"echo \"## [$(date +%s%N), $(date +\"%Y-%m-%d %H:%M:%S %Z utc%z\"), END] {self.counter} / REPLACE_WITH_TOTAL_NUM\" >> {self.meta_log_loc}"
+            with open(filename, 'a') as fp:
+                fp.write("%s\n" % begin_line)
+                fp.write(f"{msg} --iter {i} --unique_identifier {self.counter} --batch_test_log {self.meta_log_loc}\n")
+                fp.write("%s\n" % end_line)
+                fp.write(f"echo -e '\\n' >> {self.meta_log_loc}")
+                fp.write('\n\n')
 
 # def __main__():
 parser = argparse.ArgumentParser(description="TEST \o/")
@@ -333,6 +346,11 @@ parser.add_argument('--fault_type', type = str, required=True,
                     help='(A list of) Types of slow faults to be injected.')
 parser.add_argument('--bench_exec_time', type = str, required=False, default = '150',
                     help='Benchmark execution time. Default: 150s')
+parser.add_argument('--severity', type = str, required=False, default = None,
+                    choices=['nw', 'fs', 'nw-flaky', 'nw-slow'],
+                    help='Run specific severity. For example: --severity slow-low')
+parser.add_argument('--iter', type = int, required=False, default = 1,
+                    help='Number of iterations. Default: 1')
 parser.add_argument('--unique_benchmark', type = str, required=False, default = None,
                     help='Only run a specified benchmark. For example: --unique_benchmark ycsb')
 parser.add_argument('--disable_port_check', action='store_true', default=False,
@@ -354,6 +372,8 @@ t = GenerateTestScript(sys_name = args.sys_name,
             unique_benchmark = args.unique_benchmark,
             disable_port_check = args.disable_port_check,
             if_restart = args.if_restart,
+            severity = args.severity,
+            iter = args.iter,
             version = args.version,
-            coverage_enabled = args.coverage)
+            coverage_enabled = args.coverage,)
 t.generate()
