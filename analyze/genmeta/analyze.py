@@ -117,15 +117,19 @@ def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
             value = df[[PUB_TP, CONS_PT]].mean().sum() 
             if slow_start < slow_end:
                 mask_bf_slow = df.apply(lambda row: total_start <= \
-                    sec_from_start(row[TS], t0) < sec_from_start(fault_actual_begin, t0), axis=1)
-                mask_slow = df.apply(lambda row: sec_from_start(fault_actual_begin, t0) < \
-                    sec_from_start(row[TS], t0) < sec_from_start(fault_actual_end, t0), axis=1)
-                mask_af_slow = df.apply(lambda row: sec_from_start(fault_actual_end, t0) < \
-                    sec_from_start(row[TS], t0) < total_end, axis=1)
+                    sec_from_start(row[TS], t0) < sec_from_start(fault_actual_begin, t0, -1), axis=1)
+                
+                mask_slow = df.apply(lambda row: sec_from_start(fault_actual_begin, t0, -1) < \
+                    sec_from_start(row[TS], t0) < sec_from_start(fault_actual_end, t0, -1), axis=1)
+                
+                mask_af_slow = df.apply(lambda row: sec_from_start(fault_actual_end, t0, -1) < \
+                    sec_from_start(row[TS], t0) <= total_end, axis=1)
                 df_bf_slow = df[mask_bf_slow]
                 df_slow = df[mask_slow]
                 df_af_slow = df[mask_af_slow]
                 if len(df_bf_slow)*len(df_slow)*len(df_af_slow) == 0: 
+                    # print(len(df),len(df_bf_slow),len(df_slow),len(df_af_slow),sec_from_start(fault_actual_begin, t0, -1),sec_from_start(fault_actual_end, t0, -1) )
+                    # raise NotImplementedError(gmctx.driver_csv)
                     raise EmptySlowFaultDataError(gmctx.driver_csv)
                 val_bf_slow = df_bf_slow[[PUB_TP, CONS_PT]].mean().sum()
                 val_slow = df_slow[[PUB_TP, CONS_PT]].mean().sum()
@@ -137,7 +141,7 @@ def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
                 for i, row in df_af_slow.iterrows():
                     v = df_af_slow.at[i, PUB_TP] + df_af_slow.at[i, CONS_PT]
                     if v >= recov_bar:
-                        recover = sec_from_start(df_af_slow.at[i, TS], fault_actual_end)
+                        recover = sec_from_start(df_af_slow.at[i, TS], fault_actual_end, 1)
                         break
                     
     else:
@@ -200,15 +204,15 @@ def time_obj(t: str):
     time_format = "%H:%M:%S"
     return datetime.strptime(t, time_format)
 
-def sec_from_start(t: str, t0: str) -> float:
+def sec_from_start(t: str, t0: str, t_hdelta: int = 0) -> float:
     t0_obj = time_obj(t0)
-    t_obj = time_obj(t)
+    t_obj = shifted_time_obj(t, t_hdelta)
     d = t_obj - t0_obj
     if d.total_seconds() < 0:
         d += timedelta(hours=24)
     return d.total_seconds()
 
-def shifted_time_obj(t: str, hdelta):
+def shifted_time_obj(t: str, hdelta: int):
     tobj = time_obj(t)
     if tobj.hour + hdelta >= 24:
         hdelta -= 24
