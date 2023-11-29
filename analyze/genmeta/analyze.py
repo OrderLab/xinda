@@ -12,7 +12,7 @@ def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
         "rq1_1":150,
         "rq1_2":150,
         "rq1_4":1500,
-        "rq1_5":300
+        "restart":300
     }
     total_start = 30
     total_end = DUR_MAP[gmctx.ctx.question]
