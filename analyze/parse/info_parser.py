@@ -13,7 +13,12 @@ class InfoParser:
 
     def parse(self, path):
         ctx = get_trial_setup_context_from_path(path)
-        return _info_parser(read_raw_logfile(path), ctx)
+        data = None
+        try:
+            data = _info_parser(read_raw_logfile(path), ctx)
+        except:
+            pass
+        return data
 
 
 def _info_parser(log_raw, ctx: TrialSetupContext) -> Dict:

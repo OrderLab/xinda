@@ -31,11 +31,12 @@ def test_runtime_parser():
 
 
 def test_context_parser():
-    path = "/home/yunchi/data/xinda/default/hbase/rq_1/readonly/ts-hbase-regionserver-nw-flaky-medium-dur40-60-100-1.log"
+    path = "/data/yuxuan/hadoop_rq_all_fs/default/hadoop-3.3.6/restart/mrbench/runtime-datanode-restart-fs-10000-dur10-60-70-1-mrbench1.log. Cannot parse context from filename"
     t = get_trial_setup_context_from_path(path)
     print(t)
 
 
 # test_info_parser()
 # test_raw_parser()
-test_runtime_parser()
+# test_runtime_parser()
+test_context_parser()
