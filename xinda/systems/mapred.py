@@ -127,9 +127,9 @@ class Mapred(TestSystem):
         # except subprocess.TimeoutExpired:
         #     self.info(f"TimeoutExpired, teraGEN FAILed !!!!!", rela=self.start_time)
         #     self._terasort_gen()
-        self.info("teragen BEGINs")
+        self.info("teragen BEGINs", rela=self.start_time)
         _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"))
-        self.info("teragen ENDs")
+        self.info("teragen ENDs", rela=self.start_time)
     
     def _terasort_sort(self):
         raw_log = os.path.join(self.log.data_dir, 'raw-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-terasort" + ".log")
@@ -140,9 +140,9 @@ class Mapred(TestSystem):
         # except subprocess.TimeoutExpired:
         #     self.info(f"TimeoutExpired, teraSORT FAILed !!!!!", rela=self.start_time)
         #     self._terasort_sort()
-        self.info("terasort BEGINs")
+        self.info("terasort BEGINs", rela=self.start_time)
         _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"))
-        self.info("terasort ENDs")
+        self.info("terasort ENDs", rela=self.start_time)
     
     def _terasort(self):
         self._terasort_gen()
