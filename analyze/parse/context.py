@@ -65,6 +65,10 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
             i = tokens.index(s)
             tokens[i] += "-" + tokens[i+1]
             tokens = tokens[:i+1] + tokens[i+2:]
+    for s in ["restart"]:
+        if s in tokens:
+            i = tokens.index(s)
+            tokens = tokens[:i] + tokens[i+1:]
     assert len(tokens) in [6,8], f"{path} -> {tokens}"
     t.log_type = tokens[0]
     t.injection_location = tokens[1]

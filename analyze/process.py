@@ -53,7 +53,7 @@ def parse_batch(data_dir, output_dir, redo_exists) -> None:
         try:
             log_ctx[p] = get_trial_setup_context_from_path(p)
         except:
-            logging.info(f"Skip {p}. Cannot parse context from filename.")
+            logging.warn(f"Skip {p}. Cannot parse context from filename.")
 
     for path, ctx in tqdm(log_ctx.items()):
         psrname = ctx.log_type
