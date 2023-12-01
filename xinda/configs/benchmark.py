@@ -47,7 +47,7 @@ class YCSB_ETCD(Benchmark):
                  exec_time_ : str,
                  workload_ : str, # a b c d e f
                  recordcount_ = '10000',
-                 operationcount_ = '10000000',
+                 operationcount_ = '500000000',
                  measurementtype_ = 'raw',
                  status_interval_ = '1',
                  threadcount_ = 1,
@@ -126,7 +126,7 @@ class YCSB_CRDB(Benchmark):
     def __init__(self, 
                  exec_time_ : str, # in seconds
                  workload_ : str, # a b c d e f
-                 operationcount_ = '10000000',
+                 operationcount_ = '500000000',
                  benchmark_ = 'ycsb',
                  max_rate_ = '0',
                  concurrency_ = '8',
