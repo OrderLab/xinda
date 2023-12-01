@@ -129,7 +129,7 @@ parser.add_argument('--ycsb_wkl', type = str, default = 'mixed',
                     help='[Benchmark] YCSB workload type.')
 parser.add_argument('--ycsb_recordcount', type = str, default = '10000',
                     help='[Benchmark] Number of records during ycsb-load phase')
-parser.add_argument('--ycsb_operationcount', type = str, default = '10000000',
+parser.add_argument('--ycsb_operationcount', type = str, default = '500000000',
                     help='[Benchmark] Number of operations during ycsb-run phase')
 parser.add_argument('--ycsb_measurementtype', type = str, default = 'raw',
                     help='[Benchmark] YCSB measurement type.')
