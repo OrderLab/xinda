@@ -225,6 +225,9 @@ class TestSystem:
         
     
     def docker_down(self) -> subprocess.CompletedProcess:
+        cmd = 'docker ps -a'
+        p = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
+        self.info(p.stdout.decode('utf-8'))
         cmd = ['docker-compose',
                'down',
                '-v']
@@ -311,11 +314,15 @@ class TestSystem:
         if self.fault.type == 'nw':
             if 'flaky' in self.fault.severity:
                 cmd_inject = ['blockade', 'flaky', self.fault.location]
+                cmd_clear = ['blockade', 'fast', self.fault.location]
             elif 'slow' in self.fault.severity:
                 cmd_inject = ['blockade', 'slow', self.fault.location]
+                cmd_clear = ['blockade', 'fast', self.fault.location]
+            elif 'partition' in self.fault.severity:
+                cmd_inject = ['blockade', 'partition', self.fault.location]
+                cmd_clear = ['blockade', 'join']
             else:
-                raise ValueError(f"Exception: Slow fault severity:{self.fault.severity} is not a member of {{flaky, slow}}")
-            cmd_clear = ['blockade', 'fast', self.fault.location]
+                raise ValueError(f"Exception: Slow fault severity:{self.fault.severity} is not a member of {{flaky, slow, partition}}")
             work_dir = self.tool.blockade
         else:
             if cfs_pattern is None:
