@@ -52,8 +52,14 @@ def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
             df_terasort = pd.read_csv(gmctx.raw_terasort_csv)
             if len(df_terasort) == 0: raise EmptyParsedDataError(gmctx.raw_terasort_csv)
             
+            if not gmctx.info_json: raise MissingParsedLogError("info")
+            data = read_json(gmctx.info_json)
+            
             metric = "total_execution_time(s)"
-            value = (time_obj(df_terasort.iloc[-1]["end"])-time_obj(df_teragen.iloc[-1]["end"])).total_seconds()
+            try:
+                value = float(data["tera"]["end"][1]) - float(data["tera"]["begin"][1])
+            except:
+                value = (time_obj(df_terasort.iloc[-1]["end"])-time_obj(df_teragen.iloc[-1]["end"])).total_seconds()
             # slow value
             if slow_start < slow_end: 
                 fault_actual_begin = time_obj(fault_actual_begin) 

@@ -84,4 +84,16 @@ def _info_parser(log_raw, ctx: TrialSetupContext) -> Dict:
         matches = re.findall(pattern, log_raw)
         change = "N/A" if not matches else matches[0][0]
         info["leader_change"] = change
+    
+    if ctx.system == "hadoop" and ctx.workload == "terasort":
+        pattern_start = r", (\S*), (\S*)\] terasort BEGINs"
+        terastart = re.findall(pattern_start, log_raw)
+        terastart = terastart[0] if len(terastart) > 0 else None
+        pattern_end = r", (\S*), (\S*)\] terasort ENDs"
+        teraend = re.findall(pattern_end, log_raw)
+        teraend = teraend[0] if len(teraend) > 0 else None
+        info["tera"] = {
+            "begin": terastart,
+            "end": teraend
+        }
     return info

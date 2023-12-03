@@ -5,7 +5,7 @@ from parse.info_parser import *
 
 
 def test_info_parser():
-    path = "/data/yuxuan/xinda/default/crdb/rq1_1/ycsb-a/info-roach1-fs-1000-dur50-60-110-1.log"
+    path = "/home/yunchi/yuxuan/sensitivity/default/hadoop-3.3.6/rq1_1/terasort/info-namenode-nw-flaky-p40-dur30-30-60-14.log"
     parser = InfoParser()
     df = parser.parse(path)
     print(df)
@@ -36,7 +36,7 @@ def test_context_parser():
     print(t)
 
 
-# test_info_parser()
+test_info_parser()
 # test_raw_parser()
 # test_runtime_parser()
-test_context_parser()
+# test_context_parser()
