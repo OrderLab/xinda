@@ -94,7 +94,8 @@ class Tool:
                'CONTAINER_DIR_roach2=/cockroach/cockroach-data',
                # etcd
                f'LOCAL_DIR_etcd0={self.fuse_dir}/etcd0',
-               'CONTAINER_DIR_etcd=/data.etcd/data1',
+            #    'CONTAINER_DIR_etcd=/data.etcd/data1',
+               'CONTAINER_DIR_etcd=/data.etcd',
                f'LOCAL_DIR_etcd1={self.fuse_dir}/etcd1',
                f'LOCAL_DIR_etcd2={self.fuse_dir}/etcd2',
                f'COVER_DIR_etcd0={self.coverage_dir}/etcd0',
