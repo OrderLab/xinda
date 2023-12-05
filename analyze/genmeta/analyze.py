@@ -181,19 +181,19 @@ def gen_stats(gmctx: GenMetaContext):
                     recover = df.at[i, TS] - slow_end
                     break
         
-        if gmctx.ctx.system == "etcd":
-            if not gmctx.info_json: raise MissingParsedLogError("info")
-            info = read_json(gmctx.info_json)
-            leader_change = info["leader_change"]
+    if gmctx.ctx.system == "etcd":
+        if not gmctx.info_json: raise MissingParsedLogError("info")
+        info = read_json(gmctx.info_json)
+        leader_change = info["leader_change"]
         
-        if gmctx.ctx.system != "crdb":
-            if not gmctx.compose_json: raise MissingParsedLogError("compose")
-            info = read_json(gmctx.compose_json)
-            nlog = info["#log"]
-            nkwlog = info["#kwlog"]
-            ninfo = info["#info"]
-            nwarn = info["#warn"]
-            nerr = info["#error"]
+    if gmctx.ctx.system != "crdb":
+        if not gmctx.compose_json: raise MissingParsedLogError("compose")
+        info = read_json(gmctx.compose_json)
+        nlog = info["#log"]
+        nkwlog = info["#kwlog"]
+        ninfo = info["#info"]
+        nwarn = info["#warn"]
+        nerr = info["#error"]
             
     return metric, str(value), str(val_bf_slow), str(val_slow), str(val_af_slow), str(cnt_slow_jobs), leader_change, recover, nlog, nkwlog, ninfo, nwarn, nerr
 

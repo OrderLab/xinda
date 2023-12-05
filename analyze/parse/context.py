@@ -1,3 +1,4 @@
+import os
 from parse.tools import get_fname, get_dir
 
 
@@ -32,6 +33,7 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
 
     dir_folders = get_dir(path).split("/")
     assert len(dir_folders) >= 4, dir_folders
+    tokens = get_fname(path).split("-")
     # handle kafka
     if "kafka" in dir_folders:
         if dir_folders[-4] == "kafka":
@@ -47,6 +49,9 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
         else:
             assert False, f"ignore {path}"   
     else:
+        if os.path.split(path)[1] == "cockroach.log":
+            tokens = get_fname(dir_folders[-1]).split("-")
+            dir_folders = dir_folders[:-1]
         t.action = dir_folders[-4]
         t.system = dir_folders[-3]
         t.question = dir_folders[-2]
@@ -55,7 +60,6 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
 
     # handle severity: {slow, flaky}-{low, medium,high}
     # handle container: hbase-*
-    tokens = get_fname(path).split("-")
     if t.system == "hadoop":
         if tokens[-1] in ["terasort", "teragen"] or tokens[-1].startswith("mrbench"):
             t.suffix = tokens[-1]
@@ -81,4 +85,6 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
         t.start = int(tokens[5])
         t.end = int(tokens[6])
         t.iter = int(tokens[7])
+    if t.log_type == "crlog":
+        t.log_type = "compose"
     return t

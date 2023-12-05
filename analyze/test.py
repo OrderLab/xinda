@@ -9,6 +9,8 @@ def test_compose_parser():
     path = "/home/yunchi/yuxuan/sensitivity/default/etcd-3.5.10/rq1_1/ycsb-mixed/compose-follower-nw-flaky-p70-dur30-60-90-46.log"
     path = "/data/yuxuan/sensitivity/default/cassandra/rq1_1/ycsb-mixed/compose-cas1-nw-flaky-p70-dur30-60-90-49.log"
     path = "/data/yuxuan/sensitivity/default/hbase/rq1_1/ycsb-mixed/compose-hbase-regionserver-nw-flaky-p70-dur30-60-90-10.log"
+    path = "/home/yunchi/yuxuan/sensitivity/default/crdb/rq1_1/ycsb-a/crlog-roach1-fs-100000-dur30-60-90-32.log/cockroach.log"
+    path = "/home/yunchi/yuxuan/sensitivity/default/crdb/rq1_1/ycsb-a/crlog-roach1-nw-flaky-p70-dur30-60-90-47.log"
     parser = ComposeParser()
     df = parser.parse(path)
     print(df)
@@ -42,6 +44,8 @@ def test_runtime_parser():
 
 def test_context_parser():
     path = "/data/yuxuan/hadoop_rq_all_fs/default/hadoop-3.3.6/restart/mrbench/runtime-datanode-restart-fs-10000-dur10-60-70-1-mrbench1.log. Cannot parse context from filename"
+    path = "/home/yunchi/yuxuan/sensitivity/default/crdb/rq1_1/ycsb-a/crlog-roach1-fs-100000-dur30-60-90-32.log/cockroach.log"
+    path = "/home/yunchi/yuxuan/sensitivity/default/crdb/rq1_1/ycsb-a/crlog-roach1-nw-flaky-p70-dur30-60-90-47.log"
     t = get_trial_setup_context_from_path(path)
     print(t)
 
