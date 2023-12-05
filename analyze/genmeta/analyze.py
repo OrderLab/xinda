@@ -7,7 +7,7 @@ from genmeta.tools import read_json
 
 TS = "time(sec)"
 
-def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
+def gen_stats(gmctx: GenMetaContext):
     DUR_MAP = {
         "rq1_1":150,
         "rq1_2":150,
@@ -20,6 +20,8 @@ def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
     slow_start, slow_end, fault_actual_begin, fault_actual_end = get_slow_period(gmctx)
     
     metric, value, val_bf_slow, val_slow, val_af_slow, cnt_slow_jobs, leader_change, recover = "", "", "", "", "", "", "", ""
+    nlog, nkwlog, ninfo, nwarn, nerr = "", "", "", "", ""
+    
     if gmctx.ctx.system == "hadoop":
         if gmctx.ctx.workload == "mrbench":
             if not gmctx.info_json: raise MissingParsedLogError("info")
@@ -183,8 +185,17 @@ def gen_stats(gmctx: GenMetaContext) -> Tuple[str, str, str, str]:
             if not gmctx.info_json: raise MissingParsedLogError("info")
             info = read_json(gmctx.info_json)
             leader_change = info["leader_change"]
+        
+        if gmctx.ctx.system != "crdb":
+            if not gmctx.compose_json: raise MissingParsedLogError("compose")
+            info = read_json(gmctx.compose_json)
+            nlog = info["#log"]
+            nkwlog = info["#kwlog"]
+            ninfo = info["#info"]
+            nwarn = info["#warn"]
+            nerr = info["#error"]
             
-    return metric, str(value), str(val_bf_slow), str(val_slow), str(val_af_slow), str(cnt_slow_jobs), leader_change, recover
+    return metric, str(value), str(val_bf_slow), str(val_slow), str(val_af_slow), str(cnt_slow_jobs), leader_change, recover, nlog, nkwlog, ninfo, nwarn, nerr
 
 
 

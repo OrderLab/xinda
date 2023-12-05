@@ -2,8 +2,18 @@ from parse.context import *
 from parse.runtime_parser import *
 from parse.raw_parser import *
 from parse.info_parser import *
+from parse.compose_parser import *
 
-
+def test_compose_parser():
+    path = "/data/yuxuan/sensitivity/default/kafka/rq1_1/openmsg-1-topic-1-partition-1kb/kafka-throughput/compose-kafka1-nw-flaky-p70-dur30-60-90-16.log"
+    path = "/home/yunchi/yuxuan/sensitivity/default/etcd-3.5.10/rq1_1/ycsb-mixed/compose-follower-nw-flaky-p70-dur30-60-90-46.log"
+    path = "/data/yuxuan/sensitivity/default/cassandra/rq1_1/ycsb-mixed/compose-cas1-nw-flaky-p70-dur30-60-90-49.log"
+    path = "/data/yuxuan/sensitivity/default/hbase/rq1_1/ycsb-mixed/compose-hbase-regionserver-nw-flaky-p70-dur30-60-90-10.log"
+    parser = ComposeParser()
+    df = parser.parse(path)
+    print(df)
+    
+    
 def test_info_parser():
     path = "/home/yunchi/yuxuan/sensitivity/default/hadoop-3.3.6/rq1_1/terasort/info-namenode-nw-flaky-p40-dur30-30-60-14.log"
     parser = InfoParser()
@@ -36,7 +46,8 @@ def test_context_parser():
     print(t)
 
 
-test_info_parser()
+test_compose_parser()
+# test_info_parser()
 # test_raw_parser()
 # test_runtime_parser()
 # test_context_parser()

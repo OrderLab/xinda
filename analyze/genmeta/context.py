@@ -9,6 +9,7 @@ class GenMetaContext:
         self.raw_teragen_csv: str = ""
         self.raw_terasort_csv: str = ""
         self.info_json: str = ""
+        self.compose_json: str = ""
         
         self.producer_csv: str = ""
         self.consumer_csv: str = ""
