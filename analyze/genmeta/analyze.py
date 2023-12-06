@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 from genmeta.context import GenMetaContext
 from genmeta.tools import read_json
+from parse.tools import read_raw_logfile
 
 TS = "time(sec)"
 
@@ -20,7 +21,7 @@ def gen_stats(gmctx: GenMetaContext):
     slow_start, slow_end, fault_actual_begin, fault_actual_end = get_slow_period(gmctx)
     
     metric, value, val_bf_slow, val_slow, val_af_slow, cnt_slow_jobs, leader_change, recover = "", "", "", "", "", "", "", ""
-    nlog, nkwlog, ninfo, nwarn, nerr = "", "", "", "", ""
+    nlog, nkwlog, ninfo, nwarn, nerr, flt = "", "", "", "", "", "not found in slow"
     
     if gmctx.ctx.system == "hadoop":
         if gmctx.ctx.workload == "mrbench":
@@ -64,16 +65,16 @@ def gen_stats(gmctx: GenMetaContext):
                 value = (time_obj(df_terasort.iloc[-1]["end"])-time_obj(df_teragen.iloc[-1]["end"])).total_seconds()
             # slow value
             if slow_start < slow_end: 
-                fault_actual_begin = time_obj(fault_actual_begin) 
-                fault_actual_end = time_obj(fault_actual_end)
-                td_begin = 6 if  fault_actual_begin.hour < 18 else -18
-                td_end = 6 if  fault_actual_end.hour < 18 else -18
-                fault_actual_begin += timedelta(hours=td_begin)
-                fault_actual_end += timedelta(hours=td_end)
+                fault_actual_begin_tobj = time_obj(fault_actual_begin) 
+                fault_actual_end_tobj = time_obj(fault_actual_end)
+                td_begin = 6 if  fault_actual_begin_tobj.hour < 18 else -18
+                td_end = 6 if  fault_actual_end_tobj.hour < 18 else -18
+                fault_actual_begin_tobj += timedelta(hours=td_begin)
+                fault_actual_end_tobj += timedelta(hours=td_end)
                 slow_jobs = []
                 for _, row in df_terasort.iterrows():
                     _, _, s, e, dur = row
-                    if time_overlap(fault_actual_begin, fault_actual_end, time_obj(s), time_obj(e)):
+                    if time_overlap(fault_actual_begin_tobj, fault_actual_end_tobj, time_obj(s), time_obj(e)):
                         slow_jobs.append(dur)
                 cnt_slow_jobs = len(slow_jobs)
                 if cnt_slow_jobs:
@@ -194,8 +195,16 @@ def gen_stats(gmctx: GenMetaContext):
         ninfo = info["#info"]
         nwarn = info["#warn"]
         nerr = info["#error"]
+        if slow_start < slow_end:
+            raw = read_raw_logfile(info["path"])
+            ts_begin = time_obj("00"+fault_actual_begin[2:])
+            for td in range(90):
+                tstr = (ts_begin + timedelta(seconds=td)).strftime("%H:%M:%S")[2:]
+                if tstr in raw:
+                    flt = td
+                    break
             
-    return metric, str(value), str(val_bf_slow), str(val_slow), str(val_af_slow), str(cnt_slow_jobs), leader_change, recover, nlog, nkwlog, ninfo, nwarn, nerr
+    return metric, str(value), str(val_bf_slow), str(val_slow), str(val_af_slow), str(cnt_slow_jobs), leader_change, recover, nlog, nkwlog, ninfo, nwarn, nerr, flt
 
 
 

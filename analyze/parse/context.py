@@ -49,7 +49,7 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
         else:
             assert False, f"ignore {path}"   
     else:
-        if os.path.split(path)[1] == "cockroach.log":
+        if os.path.split(path)[1] in ["cockroach.log", "cockroach.json"]:
             tokens = get_fname(dir_folders[-1]).split("-")
             dir_folders = dir_folders[:-1]
         t.action = dir_folders[-4]

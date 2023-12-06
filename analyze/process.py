@@ -58,6 +58,7 @@ def parse_batch(data_dir, output_dir, redo_exists) -> None:
             logging.warn(f"Skip {p}. Cannot parse context from filename.")
 
     for path, ctx in tqdm(log_ctx.items()):
+        # print(path)
         psrname = ctx.log_type
         if psrname not in PARSERS:
             continue
@@ -88,7 +89,7 @@ def gen_meta_batch(data_dir, output_dir) -> None:
         if key not in genmeta_tasks:
             genmeta_tasks[key] = GenMetaContext(ctx)
         # compose
-        if ctx.system != "crdb" and  ctx.log_type == "compose":
+        if ctx.log_type == "compose":
             genmeta_tasks[key].compose_json = p
         # info
         if ctx.log_type == "info":
@@ -120,22 +121,22 @@ def gen_meta_batch(data_dir, output_dir) -> None:
     meta_colnames = ["rq", "system", "workload", "fault_type", "fault_location", \
         "fault_duration", "fault_start", "fault_severity", "iter_flag", \
         "metric", "value", "val_bf_slow", "val_slow", "val_af_slow", "cnt_slow_jobs", "leader_changed", "recover", \
-        "#log", "#kwlog", "#INFO", "#WARN", "#ERROR", \
+        "#log", "#kwlog", "#INFO", "#WARN", "#ERROR", "first_log_t", \
         "ERROR", "INFO", "RUNTIME", "RAW", "KAFKA"]
     for key, gmctx in tqdm(genmeta_tasks.items()):
         metric, value, val_bf_slow, val_slow, val_af_slow = "N/A", "N/A", "N/A","N/A", "N/A"
         cnt_slow_jobs, leader_changed, recover = "N/A", "N/A", "N/A"
-        nlog, nkwlog, ninfo, nwarn, nerr = "N/A", "N/A", "N/A", "N/A", "N/A"
+        nlog, nkwlog, ninfo, nwarn, nerr, flt = "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"
         err = ""
         try:
-            metric, value, val_bf_slow, val_slow, val_af_slow, cnt_slow_jobs, leader_changed, recover, nlog, nkwlog, ninfo, nwarn, nerr = gen_stats(gmctx)
+            metric, value, val_bf_slow, val_slow, val_af_slow, cnt_slow_jobs, leader_changed, recover, nlog, nkwlog, ninfo, nwarn, nerr, flt = gen_stats(gmctx)
         except (EmptyParsedDataError, MissingParsedLogError, UnexpectedInfoFaultNullError, EmptySlowFaultDataError) as e:
             err = f"{type(e).__name__}:{e}"
         meta.append((gmctx.ctx.question, gmctx.ctx.system, gmctx.ctx.workload, \
             gmctx.ctx.injection_type, gmctx.ctx.injection_location, \
             gmctx.ctx.duration, gmctx.ctx.start, gmctx.ctx.severity, gmctx.ctx.iter, \
             metric, value, val_bf_slow, val_slow, val_af_slow, cnt_slow_jobs, leader_changed, recover,\
-            nlog, nkwlog, ninfo, nwarn, nerr, \
+            nlog, nkwlog, ninfo, nwarn, nerr, flt, \
             err, gmctx.info_json, gmctx.runtime_csv, \
             f"{gmctx.raw_mrbench_csv},{gmctx.raw_terasort_csv}",\
             f"{gmctx.producer_csv},{gmctx.producer_csv},{gmctx.driver_csv}"))

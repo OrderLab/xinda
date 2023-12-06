@@ -32,9 +32,11 @@ class ComposeParser:
             "hadoop": ["INFO", "WARN", "ERROR"],
             "crdb": ["I23", "W23", "E23", "F23"],
         }
+    
         
         s = get_trial_setup_context_from_path(path).system
-        return _compose_basic(read_raw_logfile(path), kws=kws[s], levels=levels[s])
+        # print(path)
+        return _compose_basic(read_raw_logfile(path), kws=kws[s], levels=levels[s], path=path)
 
 
 DATA = {
@@ -43,13 +45,16 @@ DATA = {
     "#info": 0,
     "#warn": 0,
     "#error": 0,
+    "path": []
 }
 
-def _compose_basic(log_raw, kws, levels):
+def _compose_basic(log_raw, kws, levels, path):
     data = copy.deepcopy(DATA)
     lines = log_raw.split("\n")
     data["#log"] = len(lines)
-    for l in lines:
+    data["path"] = path
+    for i, l in enumerate(lines):
+        # print(i, len(lines))
         is_slow_log = False
         for kw in kws:
             if kw in l:
