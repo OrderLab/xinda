@@ -15,6 +15,7 @@ def gen_stats(gmctx: GenMetaContext):
         "rq1_4":1500,
         "restart":300,
         "coverage":150,
+        "test":150,
     }
     total_start = 30
     total_end = DUR_MAP[gmctx.ctx.question]
@@ -187,22 +188,21 @@ def gen_stats(gmctx: GenMetaContext):
         info = read_json(gmctx.info_json)
         leader_change = info["leader_change"]
         
-    if gmctx.ctx.system != "crdb":
-        if not gmctx.compose_json: raise MissingParsedLogError("compose")
-        info = read_json(gmctx.compose_json)
-        nlog = info["#log"]
-        nkwlog = info["#kwlog"]
-        ninfo = info["#info"]
-        nwarn = info["#warn"]
-        nerr = info["#error"]
-        if slow_start < slow_end:
-            raw = read_raw_logfile(info["path"])
-            ts_begin = time_obj("00"+fault_actual_begin[2:])
-            for td in range(90):
-                tstr = (ts_begin + timedelta(seconds=td)).strftime("%H:%M:%S")[2:]
-                if tstr in raw:
-                    flt = td
-                    break
+    # if not gmctx.compose_json: raise MissingParsedLogError("compose")
+    # info = read_json(gmctx.compose_json)
+    # nlog = info["#log"]
+    # nkwlog = info["#kwlog"]
+    # ninfo = info["#info"]
+    # nwarn = info["#warn"]
+    # nerr = info["#error"]
+    # if slow_start < slow_end:
+    #     raw = read_raw_logfile(info["path"])
+    #     ts_begin = time_obj("00"+fault_actual_begin[2:])
+    #     for td in range(90):
+    #         tstr = (ts_begin + timedelta(seconds=td)).strftime("%H:%M:%S")[2:]
+    #         if tstr in raw:
+    #             flt = td
+    #             break
             
     return metric, str(value), str(val_bf_slow), str(val_slow), str(val_af_slow), str(cnt_slow_jobs), leader_change, recover, nlog, nkwlog, ninfo, nwarn, nerr, flt
 

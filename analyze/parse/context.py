@@ -22,9 +22,11 @@ class TrialSetupContext:
 
         self.iter: int = 0
         self.suffix: str = ""
+        
+        self.version = ""
     
     def __str__(self) -> str:
-        return f"{self.action}, {self.system}, {self.question}, {self.workload}, {self.log_type}, {self.injection_location}, {self.injection_type}, {self.severity}, {self.duration}, {self.start}, {self.end}, {self.iter}, {self.suffix}"
+        return f"{self.action}, {self.system}, {self.version}, {self.question}, {self.workload}, {self.log_type}, {self.injection_location}, {self.injection_type}, {self.severity}, {self.duration}, {self.start}, {self.end}, {self.iter}, {self.suffix}"
 
         
 def get_trial_setup_context_from_path(path) -> TrialSetupContext:
@@ -56,7 +58,7 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
         t.system = dir_folders[-3]
         t.question = dir_folders[-2]
         t.workload = dir_folders[-1]
-    t.system = t.system.split("-")[0]
+    t.system, t.version = (t.system.split("-") + [""])[:2]
 
     # handle severity: {slow, flaky}-{low, medium,high}
     # handle container: hbase-*

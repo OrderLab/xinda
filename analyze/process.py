@@ -24,7 +24,7 @@ PARSERS = {
     "producer": PerfProducerParser,
     "consumer": PerfConsumerParser,
     "driver": OpenMsgDriverParser,
-    "compose": ComposeParser
+    # "compose": ComposeParser
 }
 
 
@@ -71,7 +71,7 @@ def parse_batch(data_dir, output_dir, redo_exists) -> None:
 
 
 def hash_tsctx(ctx: TrialSetupContext) -> Tuple:
-    return (ctx.action, ctx.system, ctx.question, ctx.workload, \
+    return (ctx.action, ctx.system, ctx.version, ctx.question, ctx.workload, \
         ctx.injection_location, ctx.injection_type, ctx.severity, \
         ctx.start, ctx.duration, ctx.iter)
 
@@ -132,7 +132,7 @@ def gen_meta_batch(data_dir, output_dir) -> None:
             metric, value, val_bf_slow, val_slow, val_af_slow, cnt_slow_jobs, leader_changed, recover, nlog, nkwlog, ninfo, nwarn, nerr, flt = gen_stats(gmctx)
         except (EmptyParsedDataError, MissingParsedLogError, UnexpectedInfoFaultNullError, EmptySlowFaultDataError) as e:
             err = f"{type(e).__name__}:{e}"
-        meta.append((gmctx.ctx.question, gmctx.ctx.system, gmctx.ctx.workload, \
+        meta.append((gmctx.ctx.question, gmctx.ctx.system+gmctx.ctx.version, gmctx.ctx.workload, \
             gmctx.ctx.injection_type, gmctx.ctx.injection_location, \
             gmctx.ctx.duration, gmctx.ctx.start, gmctx.ctx.severity, gmctx.ctx.iter, \
             metric, value, val_bf_slow, val_slow, val_af_slow, cnt_slow_jobs, leader_changed, recover,\
