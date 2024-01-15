@@ -4,6 +4,7 @@ import logging
 import json
 import pandas as pd
 from tqdm import tqdm
+from collections import OrderedDict
 
 from config import DATA_DIR, OUTPUT_DIR
 from typing import List, Tuple, Dict
@@ -15,6 +16,7 @@ from parse.context import get_trial_setup_context_from_path, TrialSetupContext
 from parse.kafka_parser import PerfConsumerParser, PerfProducerParser, OpenMsgDriverParser
 from genmeta.context import GenMetaContext
 from genmeta.analyze import gen_stats, EmptyParsedDataError, MissingParsedLogError, UnexpectedInfoFaultNullError, EmptySlowFaultDataError
+from genmeta.fields import STATS_COLNAMES, FIELD_PARSE_ERROR, FIELD_SRC_INFO, FIELD_SRC_RUNTIME, FIELD_SRC_RAW, FIELD_SRC_KAFKA
 
 
 PARSERS = {
@@ -118,29 +120,49 @@ def gen_meta_batch(data_dir, output_dir) -> None:
                 genmeta_tasks[key].driver_csv = p
     
     meta = []
-    meta_colnames = ["rq", "system", "workload", "fault_type", "fault_location", \
-        "fault_duration", "fault_start", "fault_severity", "iter_flag", \
-        "metric", "value", "val_bf_slow", "val_slow", "val_af_slow", "cnt_slow_jobs", "leader_changed", "recover", \
-        "#log", "#kwlog", "#INFO", "#WARN", "#ERROR", "first_log_t", \
-        "ERROR", "INFO", "RUNTIME", "RAW", "KAFKA"]
+    colnames = [
+        "rq", 
+        "system", 
+        "workload", 
+        "fault_type", 
+        "fault_location", 
+        "fault_duration", 
+        "fault_start", 
+        "fault_severity", 
+        "iter_flag"] + STATS_COLNAMES
     for key, gmctx in tqdm(genmeta_tasks.items()):
-        metric, value, val_bf_slow, val_slow, val_af_slow = "N/A", "N/A", "N/A","N/A", "N/A"
-        cnt_slow_jobs, leader_changed, recover = "N/A", "N/A", "N/A"
-        nlog, nkwlog, ninfo, nwarn, nerr, flt = "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"
+        full_stats = OrderedDict({k:"" for k in STATS_COLNAMES})
         err = ""
         try:
-            metric, value, val_bf_slow, val_slow, val_af_slow, cnt_slow_jobs, leader_changed, recover, nlog, nkwlog, ninfo, nwarn, nerr, flt = gen_stats(gmctx)
-        except (EmptyParsedDataError, MissingParsedLogError, UnexpectedInfoFaultNullError, EmptySlowFaultDataError) as e:
+            stats = gen_stats(gmctx)
+        except (EmptyParsedDataError, 
+                MissingParsedLogError, 
+                UnexpectedInfoFaultNullError, 
+                EmptySlowFaultDataError) as e:
             err = f"{type(e).__name__}:{e}"
-        meta.append((gmctx.ctx.question, gmctx.ctx.system+gmctx.ctx.version, gmctx.ctx.workload, \
-            gmctx.ctx.injection_type, gmctx.ctx.injection_location, \
-            gmctx.ctx.duration, gmctx.ctx.start, gmctx.ctx.severity, gmctx.ctx.iter, \
-            metric, value, val_bf_slow, val_slow, val_af_slow, cnt_slow_jobs, leader_changed, recover,\
-            nlog, nkwlog, ninfo, nwarn, nerr, flt, \
-            err, gmctx.info_json, gmctx.runtime_csv, \
-            f"{gmctx.raw_mrbench_csv},{gmctx.raw_terasort_csv}",\
-            f"{gmctx.producer_csv},{gmctx.producer_csv},{gmctx.driver_csv}"))
-    df = pd.DataFrame(sorted(meta), columns=meta_colnames)
+            
+        for k in stats.keys():
+            assert k in STATS_COLNAMES, k
+        full_stats.update(stats)
+        
+        full_stats[FIELD_PARSE_ERROR] = err
+        full_stats[FIELD_SRC_INFO] = gmctx.info_json
+        full_stats[FIELD_SRC_RUNTIME] = gmctx.runtime_csv
+        full_stats[FIELD_SRC_RAW] = f"{gmctx.raw_mrbench_csv},{gmctx.raw_terasort_csv}"
+        full_stats[FIELD_SRC_KAFKA] = f"{gmctx.producer_csv},{gmctx.producer_csv},{gmctx.driver_csv}"
+        row = [
+            gmctx.ctx.question,
+            gmctx.ctx.system + gmctx.ctx.version,
+            gmctx.ctx.workload,
+            gmctx.ctx.injection_type,
+            gmctx.ctx.injection_location,
+            gmctx.ctx.duration,
+            gmctx.ctx.start,
+            gmctx.ctx.severity,
+            gmctx.ctx.iter] + list(full_stats.values())
+        meta.append(row)
+
+    df = pd.DataFrame(sorted(meta), columns=colnames)
     df.to_csv(outpath, index=False)
         
 
