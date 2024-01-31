@@ -1,0 +1,19 @@
+---
+- name: Pull Xinda
+  hosts: all
+
+  tasks:
+    - name: Get the home directory
+      become: false
+      command: echo $HOME
+      register: home
+
+    - name: pull Xinda repo
+      become: false
+      ansible.buitin.git:
+        dest: "{{ home.stdout }}/workdir/xinda"
+        repo: git@github.com:OrderLab/xinda.git
+        version: master
+        accept_hostkey: yes
+        update: yes
+        clone: no
