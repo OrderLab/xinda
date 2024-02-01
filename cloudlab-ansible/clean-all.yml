@@ -12,7 +12,7 @@
       failed_when: false
 
     - name: Remove logs
-      become: true
+      become: false
       shell: |
         rm -rf $HOME/workdir/xinda/test_scripts/RQ1_1/*log
         rm -rf stdout.log
@@ -20,7 +20,7 @@
         executable: /bin/bash
 
     - name: Remove data
-      become: true
+      become: false
       shell: |
         rm -rf $HOME/workdir/data
       args:
@@ -49,6 +49,6 @@
     - name: Delete charybdefs mount folders
       become: true
       ansible.builtin.file:
-        path: "$HOME/workdir/tmp"
+        path: "/users/rmlu/workdir/tmp"
         state: absent
 
