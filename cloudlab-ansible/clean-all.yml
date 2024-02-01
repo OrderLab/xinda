@@ -14,7 +14,7 @@
     - name: Remove logs
       become: true
       shell: |
-        rm -rf /users/YXXinda/workdir/xinda/test_scripts/RQ1_1/*log
+        rm -rf $HOME/workdir/xinda/test_scripts/RQ1_1/*log
         rm -rf stdout.log
       args:
         executable: /bin/bash
@@ -22,7 +22,7 @@
     - name: Remove data
       become: true
       shell: |
-        rm -rf /users/YXXinda/workdir/data
+        rm -rf $HOME/workdir/data
       args:
         executable: /bin/bash
 
@@ -49,6 +49,6 @@
     - name: Delete charybdefs mount folders
       become: true
       ansible.builtin.file:
-        path: "/users/YXXinda/workdir/tmp"
+        path: "$HOME/workdir/tmp"
         state: absent
 
