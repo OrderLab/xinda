@@ -1,0 +1,8 @@
+- hosts: all
+  vars:
+      task_name: "{{ task }}"
+  tasks:
+    - name: Compress experiment data into a tarball
+      shell: >
+        tar cf $HOME/workdir/data/default_$(hostname -i)_{{ task_name }}.tar $HOME/workdir/data/default
+# ansible-playbook compress_exp_data.yml -i ansible_host --extra-vars "task=inflection_cas_hbase"
