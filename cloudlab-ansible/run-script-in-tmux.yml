@@ -19,7 +19,7 @@
     
     - name: Run script inside tmux session
       shell: >
-        tmux new-session -d -s xinda_exp 'bash -c "echo 123; read"'
+        tmux new-session -d -s xinda_exp 'bash -c "source ~/miniconda3/bin/activate py36; /users/rmlu/workdir/xinda/test_scripts/{{ script_name }}; read"'
     
     - name: Tail meta log
       shell: >
