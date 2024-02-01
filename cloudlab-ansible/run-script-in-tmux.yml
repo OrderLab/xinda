@@ -13,6 +13,14 @@
         path: "/users/rmlu/workdir/xinda/test_scripts/{{ script_name }}"
         mode: 0755
 
+    # - name: Run script inside tmux session
+    #   shell: >
+    #     tmux new-session -d -s xinda_exp 'bash -c "source ~/miniconda3/bin/activate py36; /users/rmlu/workdir/xinda/test_scripts/{{ script_name }}; read"'
+    
     - name: Run script inside tmux session
       shell: >
-        tmux new-session -d -s xinda_exp 'bash -c "source ~/miniconda3/bin/activate py36; /users/rmlu/workdir/xinda/test_scripts/{{ script_name }}; read"'
+        tmux new-session -d -s xinda_exp 'bash -c "echo 123; read"'
+    
+    - name: Tail meta log
+      shell: >
+        tmux split-window -t xinda_exp:0 'bash -c "tail -f ~/workdir/xinda/test_scripts/RQ1_1/*.log"'

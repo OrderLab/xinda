@@ -55,10 +55,11 @@ class GenerateTestScript():
         else:
             self.identifier = f"norestart-{self.identifier}"
         self.output_file = self.identifier + ".sh"
-        self.main_py=f"{os.path.expanduser('~')}/workdir/xinda/main.py"
+        # self.main_py=f"{os.path.expanduser('~')}/workdir/xinda/main.py"
+        self.main_py=f"/users/rmlu/workdir/xinda/main.py"
         self.counter = 0
         # self.meta_log_loc=f"{os.path.expanduser('~')}/workdir/xinda/test_scripts/RQ1_1/meta.{datetime.datetime.now().strftime('%m.%d.%H.%M.%S')}.log"
-        self.meta_log_loc=f"{os.path.expanduser('~')}/workdir/xinda/test_scripts/RQ1_1/meta-{self.identifier}.log"
+        self.meta_log_loc=f"/users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-{self.identifier}.log"
         if sys_name == 'all':
             sys_name = ['crdb', 'cassandra', 'hbase', 'kafka', 'etcd', 'hadoop']
         else:
@@ -155,11 +156,12 @@ class GenerateTestScript():
         self.benchmark_dict = {
             "hbase": {"ycsb": self.ycsb_wkl},
             "etcd": {"ycsb": self.ycsb_wkl,
-                     "etcd-official": self.etcd_official},
+                    #  "etcd-official": self.etcd_official
+                     },
             "cassandra": {"ycsb": self.ycsb_wkl},
             "crdb": {
                 "ycsb": self.ycsb_wkl_crdb,
-                "sysbench": self.sysbench_wkl
+                # "sysbench": self.sysbench_wkl
                 },
             "hadoop": {
                 "mrbench": "mrbench",
