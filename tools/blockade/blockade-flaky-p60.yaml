@@ -1,0 +1,7 @@
+containers:
+  dummy:
+    image: "luca3m/sleep"
+    container_name: "dummy"
+
+network:
+  flaky: random 60%
