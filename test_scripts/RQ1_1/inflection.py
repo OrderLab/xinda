@@ -141,7 +141,8 @@ class GenerateTestScript():
         # severity
         self.severity_dict = {
             # 'nw': ['slow-200us', 'slow-300us', 'slow-400us', 'slow-500us', 'slow-600us', 'slow-700us', 'slow-800us', 'slow-900us', 'slow-1.5ms', 'slow-2ms','slow-2.5ms', 'slow-3ms', 'slow-3.5ms', 'slow-4ms', 'slow-4.5ms', 'slow-5ms', 'slow-5.5ms', 'slow-6ms', 'slow-6.5ms', 'slow-7ms', 'slow-7.5ms', 'slow-8ms', 'slow-8.5ms', 'slow-9ms', 'slow-9.5ms'],
-            'nw': ['slow-100us', 'slow-200us', 'slow-300us', 'slow-400us', 'slow-500us', 'slow-600us', 'slow-700us', 'slow-800us', 'slow-900us',  'slow-1ms', 'slow-2ms', 'slow-3ms', 'slow-4ms', 'slow-5ms', 'slow-6ms', 'slow-7ms', 'slow-8ms', 'slow-9ms', 'slow-10ms'],
+            # 'nw': ['slow-100us', 'slow-200us', 'slow-300us', 'slow-400us', 'slow-500us', 'slow-600us', 'slow-700us', 'slow-800us', 'slow-900us',  'slow-1ms', 'slow-2ms', 'slow-3ms', 'slow-4ms', 'slow-5ms', 'slow-6ms', 'slow-7ms', 'slow-8ms', 'slow-9ms', 'slow-10ms'],
+            'nw': ['flaky-p1', 'flaky-p2', 'flaky-p3', 'flaky-p4', 'flaky-p5', 'flaky-p6', 'flaky-p7', 'flaky-p8', 'flaky-p9', 'flaky-p10', 'flaky-p20', 'flaky-p30', 'flaky-p40', 'flaky-p50', 'flaky-p60', 'flaky-p70'],  
         }
         if severity is not None:
             if severity == 'nw':
@@ -170,10 +171,11 @@ class GenerateTestScript():
                 "openmsg": {
                     "driver": ["kafka-throughput",
                                "kafka-big-batches-gzip",
-                               "kafka-sync"],
+                            #    "kafka-sync"
+                               ],
                     "workload": ["1-topic-1-partition-1kb",
-                                 "1-topic-16-partitions-1kb",
-                                 "1-topic-100-partitions-1kb"
+                                #  "1-topic-16-partitions-1kb",
+                                #  "1-topic-100-partitions-1kb"
                                  ]},
                 }
             # "kafka": {
