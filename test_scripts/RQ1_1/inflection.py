@@ -142,7 +142,8 @@ class GenerateTestScript():
         self.severity_dict = {
             # 'nw': ['slow-200us', 'slow-300us', 'slow-400us', 'slow-500us', 'slow-600us', 'slow-700us', 'slow-800us', 'slow-900us', 'slow-1.5ms', 'slow-2ms','slow-2.5ms', 'slow-3ms', 'slow-3.5ms', 'slow-4ms', 'slow-4.5ms', 'slow-5ms', 'slow-5.5ms', 'slow-6ms', 'slow-6.5ms', 'slow-7ms', 'slow-7.5ms', 'slow-8ms', 'slow-8.5ms', 'slow-9ms', 'slow-9.5ms'],
             # 'nw': ['slow-100us', 'slow-200us', 'slow-300us', 'slow-400us', 'slow-500us', 'slow-600us', 'slow-700us', 'slow-800us', 'slow-900us',  'slow-1ms', 'slow-2ms', 'slow-3ms', 'slow-4ms', 'slow-5ms', 'slow-6ms', 'slow-7ms', 'slow-8ms', 'slow-9ms', 'slow-10ms'],
-            'nw': ['flaky-p1', 'flaky-p2', 'flaky-p3', 'flaky-p4', 'flaky-p5', 'flaky-p6', 'flaky-p7', 'flaky-p8', 'flaky-p9', 'flaky-p10', 'flaky-p20', 'flaky-p30', 'flaky-p40', 'flaky-p50', 'flaky-p60', 'flaky-p70'],  
+            'nw': ['flaky-p0.1', 'flaky-p0.2', 'flaky-p0.3', 'flaky-p0.4', 'flaky-p0.5', 'flaky-p0.6', 'flaky-p0.7', 'flaky-p0.8', 'flaky-p0.9', 'flaky-p80', 'flaky-p90', 'flaky-p100',
+                   'slow-20ms','slow-30ms','slow-40ms','slow-50ms','slow-60ms','slow-70ms','slow-80ms','slow-90ms','slow-100ms', 'slow-200ms', 'slow-300ms', 'slow-400ms', 'slow-500ms', 'slow-600ms', 'slow-700ms', 'slow-800ms', 'slow-900ms', 'slow-1s'],  
         }
         if severity is not None:
             if severity == 'nw':
