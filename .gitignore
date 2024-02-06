@@ -1,14 +1,14 @@
 test_scripts/inflection-flaky/
 test_scripts/inflection2/
-cloudlab-ansible/hosts
 test_scripts/sensitivity_1s_p1/
 test_scripts/inflection/
+test_scripts/RQ1_1/*.sh
+test_scripts/simple_test.log
+cloudlab-ansible/hosts
 exp/
 cloudlab-ansible/ansible_host
-test_scripts/RQ1_1/*.sh
 # Byte-compiled / optimized / DLL files
 .env
-test_scripts/simple_test.log
 __pycache__/
 .DS_STORE
 softwares
@@ -19,6 +19,5 @@ tools/docker-hbase-master.zip
 razor-scripts/node_restart/archive-m5-enumerate-all-combinations
 .log
 analyze/out.txt
-.gitignore
 tools/jacoco/data
 tools/jacoco/reports
