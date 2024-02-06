@@ -18,6 +18,13 @@
         rm -rf stdout.log
       args:
         executable: /bin/bash
+    
+    - name: Remove jobs
+      become: false
+      shell: |
+        rm -rf $HOME/workdir/xinda/test_scripts/*.job
+      args:
+        executable: /bin/bash
 
     - name: Remove data
       become: false
