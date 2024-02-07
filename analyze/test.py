@@ -3,6 +3,7 @@ from parse.runtime_parser import *
 from parse.raw_parser import *
 from parse.info_parser import *
 from parse.compose_parser import *
+from parse.cassum_parser import *
 
 def test_compose_parser():
     path = "/data/yuxuan/sensitivity/default/kafka/rq1_1/openmsg-1-topic-1-partition-1kb/kafka-throughput/compose-kafka1-nw-flaky-p70-dur30-60-90-16.log"
@@ -48,10 +49,17 @@ def test_context_parser():
     # path = "/home/yunchi/yuxuan/sensitivity/default/crdb/rq1_1/ycsb-a/crlog-roach1-nw-flaky-p70-dur30-60-90-47.log"
     t = get_trial_setup_context_from_path(path)
     print(t)
+    
+def test_cassum_parser():
+    path = "/home/yunchi/data/ruiming/inflection-flaky/cassandra/rq1_1/ycsb-mixed/sum-cas1-nw-flaky-p1-dur30-60-90-1.log"
+    parser = CassandraSummaryParser()
+    df = parser.parse(path)
+    print(df)
 
 
 # test_compose_parser()
 # test_info_parser()
 # test_raw_parser()
 # test_runtime_parser()
-test_context_parser()
+# test_context_parser()
+test_cassum_parser()

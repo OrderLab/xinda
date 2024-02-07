@@ -12,6 +12,7 @@ from parse.runtime_parser import RuntimeParser
 from parse.raw_parser import RawParser
 from parse.info_parser import InfoParser
 from parse.compose_parser import ComposeParser
+from parse.cassum_parser import CassandraSummaryParser
 from parse.context import get_trial_setup_context_from_path, TrialSetupContext
 from parse.kafka_parser import PerfConsumerParser, PerfProducerParser, OpenMsgDriverParser
 from genmeta.context import GenMetaContext
@@ -26,6 +27,7 @@ PARSERS = {
     "producer": PerfProducerParser,
     "consumer": PerfConsumerParser,
     "driver": OpenMsgDriverParser,
+    "sum": CassandraSummaryParser,
     # "compose": ComposeParser
 }
 
@@ -64,7 +66,7 @@ def parse_batch(data_dir, output_dir, redo_exists) -> None:
         psrname = ctx.log_type
         if psrname not in PARSERS:
             continue
-        ext = ".json" if psrname in ["info", "compose"] else ".csv"
+        ext = ".json" if psrname in ["info", "compose", "sum"] else ".csv"
         outpath = os.path.splitext(path.replace(data_dir, output_dir))[0] + ext
         if psrname not in redo_exists and os.path.exists(outpath):
             continue
@@ -118,7 +120,10 @@ def gen_meta_batch(data_dir, output_dir) -> None:
                 genmeta_tasks[key].consumer_csv = p
             elif ctx.log_type == "driver":
                 genmeta_tasks[key].driver_csv = p
-    
+        # sum
+        if ctx.log_type == "sum":
+            genmeta_tasks[key].sum_json = p
+            
     meta = []
     colnames = [
         "rq", 
