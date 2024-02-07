@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# IMPORTANT: set local path to xinda
+# xinda_path=
+
+# List of all hosts
+hosts=( $(cat ./hosts | awk '{print $1}') )
+username="rmlu"
+# List of all scripts
+scripts=( $(ls ${xinda_path}/test_scripts/inflection-both-ends/*.job | sort) )
+# print number of scripts and hosts
+num_scripts=${#scripts[@]}
+num_hosts=${#hosts[@]}
+echo "Number of scripts: $num_scripts"
+echo "Number of hosts: $num_hosts"
+
+echo "Do you want to proceed? (y/n)"
+read ifcontinue
+if [ "$ifcontinue" != "y" ]; then
+  echo "Abort!"
+  exit 0
+fi
+
+# if num_scripts does not equal to num_hosts, print error message and exit
+if [ $num_scripts -ne $num_hosts ]; then
+  echo "Are you sure? $num_scripts != $num_hosts (y/n)"
+  read ifcontinue
+  if [ "$ifcontinue" != "y" ]; then
+    echo "Abort!"
+    exit 0
+  fi
+fi
+
+
+
+# Loop through each host and script
+for i in "${!scripts[@]}"; do
+  host=${hosts[$i]}
+  script=${scripts[$i]}
+
+  # Skip if there are no more scripts
+  if [ -z "$script" ]; then
+    echo "No script for $host"
+    continue
+  fi
+
+  # Set environment variable for script name
+  export SCRIPT_NAME=$script
+
+#  ansible_connection=ssh ansible_user=YXXinda ansible_port=22
+  echo $host ansible_connection=ssh ansible_user=$username ansible_port=22 > ./tmp_host
+  # Run ansible playbook for this host and script
+  ansible-playbook -i ./tmp_host ${xinda_path}/cloudlab-ansible/run-script-in-tmux.yml
+  echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z")] $script, $host" >> jobs_mapping.log
+done
