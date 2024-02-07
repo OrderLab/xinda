@@ -16,5 +16,5 @@ for i in "${!hosts[@]}"; do
         echo -n " [OK]"
     fi
     num_lines=$(cat logs/${host}.log | wc -l)
-    echo " [Done: $(($num_lines/3))]"
+    echo " [Done: $(($num_lines/4))]"
 done
