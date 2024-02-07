@@ -143,8 +143,8 @@ def gen_stats(gmctx: GenMetaContext):
                 stats[FIELD_VAL_IN_SLOW] = ""
                 stats[FIELD_VAL_AF_SLOW] = ""
                 stats[FIELD_RECOVER_TIME] = ""
-        else:
-            if not gmctx.driver_csv: raise MissingParsedLogError("driver")
+        elif gmctx.ctx.workload.startswith("openmsg"):
+            if not gmctx.driver_csv: raise MissingParsedLogError("openmsg")
             df = pd.read_csv(gmctx.driver_csv)
             if len(df) == 0: raise EmptyParsedDataError(gmctx.driver_csv)
             
@@ -187,7 +187,7 @@ def gen_stats(gmctx: GenMetaContext):
                 stats[FIELD_VAL_AF_SLOW] = ""
                 stats[FIELD_RECOVER_TIME] = ""
                     
-    else:
+    else: # Cassandra, Crdb, Etcd, HBase
         stats[FIELD_METRIC] = "throughput(ops/sec)"
         stats[FIELD_VALUE] = SHOULD_FILL
         stats[FIELD_VAL_BF_SLOW] = SHOULD_FILL
@@ -195,7 +195,7 @@ def gen_stats(gmctx: GenMetaContext):
         stats[FIELD_VAL_AF_SLOW] = SHOULD_FILL
         stats[FIELD_RECOVER_TIME] = SHOULD_FILL
         
-        if not gmctx.runtime_csv: raise MissingParsedLogError("runtime")
+        if not gmctx.runtime_csv: raise MissingParsedLogError("runtime_csv")
         df = pd.read_csv(gmctx.runtime_csv)
         if len(df) == 0: raise EmptyParsedDataError(gmctx.runtime_csv)
         
@@ -228,12 +228,64 @@ def gen_stats(gmctx: GenMetaContext):
             stats[FIELD_VAL_AF_SLOW] = ""
             stats[FIELD_RECOVER_TIME] = ""
         
+        
     if gmctx.ctx.system == "etcd":
         stats[FIELD_LEADER_CHANGED] = SHOULD_FILL
         
         if not gmctx.info_json: raise MissingParsedLogError("info")
         info = read_json(gmctx.info_json)
         stats[FIELD_LEADER_CHANGED] = info["leader_change"]
+    
+        
+    # latency
+    stats[FIELD_LAT_R_95] = SHOULD_FILL
+    stats[FIELD_LAT_R_99] = SHOULD_FILL
+    stats[FIELD_LAT_W_95] = SHOULD_FILL
+    stats[FIELD_LAT_W_99] = SHOULD_FILL
+    stats[FIELD_LAT_UNIT] = SHOULD_FILL
+    
+    if gmctx.ctx.system == "cassandra":
+        if not gmctx.sum_json: raise MissingParsedLogError("sum")
+        lats = read_json(gmctx.sum_json)
+        stats[FIELD_LAT_R_95] = lats.get("READ", {}).get("p95", "")
+        stats[FIELD_LAT_R_99] = lats.get("READ", {}).get("p99", "")
+        stats[FIELD_LAT_W_95] = lats.get("UPDATE", {}).get("p95", "")
+        stats[FIELD_LAT_W_99] = lats.get("UPDATE", {}).get("p99", "")
+        stats[FIELD_LAT_UNIT] = lats["unit"]
+    elif gmctx.ctx.system == "crdb":
+        if gmctx.ctx.workload.startswith("ycsb"):
+            if not gmctx.runtime_json: raise MissingParsedLogError("runtime_json")
+            lats = read_json(gmctx.runtime_json)
+            stats[FIELD_LAT_R_95] = lats.get("read", {}).get("p95", "")
+            stats[FIELD_LAT_R_99] = lats.get("read", {}).get("p99", "")
+            stats[FIELD_LAT_W_95] = lats.get("update", {}).get("p95", "")
+            stats[FIELD_LAT_W_99] = lats.get("update", {}).get("p99", "")
+            stats[FIELD_LAT_UNIT] = lats["unit"]
+        elif gmctx.ctx.workload.startswith("sysbench"):
+            pass
+    elif gmctx.ctx.system == "etcd":
+        if gmctx.ctx.workload.startswith("ycsb"):
+            if not gmctx.runtime_json: raise MissingParsedLogError("runtime_json")
+            lats = read_json(gmctx.runtime_json)
+            stats[FIELD_LAT_R_95] = lats.get("READ", {}).get("p95", "")
+            stats[FIELD_LAT_R_99] = lats.get("READ", {}).get("p99", "")
+            stats[FIELD_LAT_W_95] = lats.get("UPDATE", {}).get("p95", "")
+            stats[FIELD_LAT_W_99] = lats.get("UPDATE", {}).get("p99", "")
+            stats[FIELD_LAT_UNIT] = lats["unit"]
+        elif gmctx.ctx.workload.startswith("official"):
+            pass
+    elif gmctx.ctx.system == "hbase":
+        if not gmctx.sum_json: raise MissingParsedLogError("sum")
+        lats = read_json(gmctx.sum_json)
+        stats[FIELD_LAT_R_95] = lats.get("READ", {}).get("p95", "")
+        stats[FIELD_LAT_R_99] = lats.get("READ", {}).get("p99", "")
+        stats[FIELD_LAT_W_95] = lats.get("UPDATE", {}).get("p95", "")
+        stats[FIELD_LAT_W_99] = lats.get("UPDATE", {}).get("p99", "")
+        stats[FIELD_LAT_UNIT] = lats["unit"]
+    elif gmctx.ctx.system == "hadoop":
+        pass
+    elif gmctx.ctx.system == "kafka":
+        pass
         
     
     # stats[FIELD_NUM_LOG] = SHOULD_FILL

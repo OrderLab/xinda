@@ -3,6 +3,7 @@ import os
 import logging
 import json
 import pandas as pd
+from pandas import DataFrame
 from tqdm import tqdm
 from collections import OrderedDict
 
@@ -12,7 +13,7 @@ from parse.runtime_parser import RuntimeParser
 from parse.raw_parser import RawParser
 from parse.info_parser import InfoParser
 from parse.compose_parser import ComposeParser
-from parse.cassum_parser import CassandraSummaryParser
+from parse.sum_parser import SummaryParser
 from parse.context import get_trial_setup_context_from_path, TrialSetupContext
 from parse.kafka_parser import PerfConsumerParser, PerfProducerParser, OpenMsgDriverParser
 from genmeta.context import GenMetaContext
@@ -21,14 +22,14 @@ from genmeta.fields import STATS_COLNAMES, FIELD_PARSE_ERROR, FIELD_SRC_INFO, FI
 
 
 PARSERS = {
-    "runtime": RuntimeParser,
-    "raw": RawParser,
-    "info": InfoParser,
-    "producer": PerfProducerParser,
-    "consumer": PerfConsumerParser,
-    "driver": OpenMsgDriverParser,
-    "sum": CassandraSummaryParser,
-    # "compose": ComposeParser
+    "runtime":(RuntimeParser, ["csv", "json"]),
+    "raw":(RawParser, ["csv"]),
+    "info":(InfoParser, ["json"]),
+    "producer":(PerfProducerParser, ["csv"]),
+    "consumer":(PerfConsumerParser, ["csv"]),
+    "driver":(OpenMsgDriverParser, ["csv"]),
+    "sum":(SummaryParser, ["json"]),
+    # "compose": (ComposeParser, ["json"])
 }
 
 
@@ -40,17 +41,27 @@ def get_all_files(data_dir, exts=[".log"]) -> List[str]:
     return [p for p in paths if os.path.splitext(p)[-1] in exts]
 
 
-def parse_single(log_path, output_path, parser) -> None:
+def parse_single(log_path, output_path_woext, parser) -> None:
     ctx = get_trial_setup_context_from_path(log_path)
     data = parser.parse(log_path)
     if data is None:
         logging.info(
             f"Unimplemented {ctx.system} {parser.name} for {log_path}. ")
-    elif isinstance(data, dict):
-        with open(output_path, 'w') as fp:
-            json.dump(data, fp, indent=4)
     else:
-        data.to_csv(output_path, index=False)
+        if isinstance(data, dict) or isinstance(data, DataFrame):
+            data = [data]
+        for d in data:
+            if isinstance(d, dict):
+                p = output_path_woext + ".json"
+                with open(p, 'w') as fp:
+                    json.dump(d, fp, indent=4)
+            else:
+                try:
+                    p = output_path_woext + ".csv"
+                    d.to_csv(p, index=False)
+                except:
+                    print(d)
+                    raise
 
 
 def parse_batch(data_dir, output_dir, redo_exists) -> None:
@@ -62,16 +73,19 @@ def parse_batch(data_dir, output_dir, redo_exists) -> None:
             logging.warn(f"Skip {p}. Cannot parse context from filename.")
 
     for path, ctx in tqdm(log_ctx.items()):
-        # print(path)
         psrname = ctx.log_type
         if psrname not in PARSERS:
             continue
-        ext = ".json" if psrname in ["info", "compose", "sum"] else ".csv"
-        outpath = os.path.splitext(path.replace(data_dir, output_dir))[0] + ext
-        if psrname not in redo_exists and os.path.exists(outpath):
-            continue
-        os.makedirs(os.path.dirname(outpath), exist_ok=True)
-        parse_single(path, outpath, PARSERS[psrname]())
+        parser, exts = PARSERS[psrname]
+        outpath_woext = os.path.splitext(path.replace(data_dir, output_dir))[0]
+        if psrname not in redo_exists:
+            all_exists = True
+            for ext in exts:
+                all_exists = all_exists and os.path.exists(outpath_woext + f".{ext}")
+            if all_exists:
+                continue
+        os.makedirs(os.path.dirname(outpath_woext), exist_ok=True)
+        parse_single(path, outpath_woext, parser())
 
 
 def hash_tsctx(ctx: TrialSetupContext) -> Tuple:
@@ -100,7 +114,10 @@ def gen_meta_batch(data_dir, output_dir) -> None:
             genmeta_tasks[key].info_json = p
         # runtime
         if ctx.system != "hadoop" and  ctx.log_type == "runtime":
-            genmeta_tasks[key].runtime_csv = p
+            if p.endswith(".csv"):
+                genmeta_tasks[key].runtime_csv = p
+            elif p.endswith(".json"):
+                genmeta_tasks[key].runtime_json = p
         # raw 
         if ctx.system == "hadoop" and ctx.log_type == "raw":
             if ctx.workload == "mrbench":

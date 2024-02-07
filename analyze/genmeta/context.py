@@ -5,6 +5,7 @@ class GenMetaContext:
         self.ctx = ctx
         
         self.runtime_csv: str = ""
+        self.runtime_json: str = ""
         self.raw_mrbench_csv: str = ""
         self.raw_teragen_csv: str = ""
         self.raw_terasort_csv: str = ""

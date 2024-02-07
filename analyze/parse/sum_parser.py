@@ -6,13 +6,14 @@ from parse.context import get_trial_setup_context_from_path
 from parse.tools import read_raw_logfile
 
 
-class CassandraSummaryParser:
+class SummaryParser:
     def __init__(self) -> None:
-        self.name = "CassandraSummaryParser"
+        self.name = "SummaryParser"
 
     def parse(self, path):
         DB_PARSER = {
-            "cassandra": _sum_parser_cassandra,
+            "cassandra": _sum_parser,
+            "hbase": _sum_parser,
         }
         
         t = get_trial_setup_context_from_path(path)
@@ -21,7 +22,7 @@ class CassandraSummaryParser:
         return DB_PARSER[t.system](read_raw_logfile(path))
 
 
-def _sum_parser_cassandra(log_raw):
+def _sum_parser(log_raw):
     actions = ["READ", "UPDATE"]
     pctgs = ["p90", "p95", "p99", "p99.9", "p99.99", "Average"]
     data = defaultdict(dict)
@@ -29,6 +30,6 @@ def _sum_parser_cassandra(log_raw):
         for p in pctgs:
             pattern = r"\[" + a + r"\], " + p + r", (\S*)"
             matches = re.findall(pattern, log_raw)
-            data["unit"] = "microsecond"
+            data["unit"] = "us"
             data[a][p] = matches[0] if matches else None
     return dict(data)

@@ -37,7 +37,9 @@ class RuntimeParser:
         elif t.workload.startswith("official"):
             wl = "official"
         else: raise NotImplementedError(t.workload)
-        return DB_PARSER[(t.system, wl)](read_raw_logfile(path))
+        result = DB_PARSER[(t.system, wl)](read_raw_logfile(path))
+        return result if isinstance(result, tuple) else (result, {})
+            
 
 
 def _runtime_parser_cassandra_ycsb(log_raw):
@@ -54,8 +56,8 @@ def _runtime_parser_cassandra_ycsb(log_raw):
 def _runtime_parser_crdb_ycsb(log_raw):
     lines = log_raw.split("\n")
     data_raw = {}
-    jsn = defaultdict(dict)
-    jsn["unit"] = "ms"
+    lats = defaultdict(dict)
+    lats["unit"] = "ms"
     for line in lines:
         row = line.split()
         try:
@@ -71,7 +73,7 @@ def _runtime_parser_crdb_ycsb(log_raw):
                 data_raw[sec][1] += er
             elif len(row) == 10:
                 pavg, _, p95, p99, _, action = row[4:]
-                jsn[action].update({
+                lats[action].update({
                     "Average": pavg,
                     "p95": p95,
                     "p99": p99
@@ -81,7 +83,7 @@ def _runtime_parser_crdb_ycsb(log_raw):
             pass
     data = [[x]+y for x, y in sorted(data_raw.items())]
     df = pd.DataFrame(data, columns=[COLNAME_TIME, COLNAME_TP, COLNAME_ERR])
-    return df
+    return (df, dict(lats))
 
 def _runtime_parser_crdb_sysbench(log_raw):
     pattern = r"\[ (\d*)s \].* tps: ([\S]*).* err\/s: ([\S]*)"
@@ -94,12 +96,28 @@ def _runtime_parser_etcd_ycsb(log_raw):
     pattern = r"TOTAL  - Takes\(s\): ([^\s]*), Count: ([^\s]*),"
     matches = re.findall(pattern, log_raw)
     data = []
+    
     for i, _ in enumerate(matches):
         sec, count = _
         last = 0 if i == 0 else float(matches[i-1][1])
         data.append((int(float(sec)), float(count)-last))
+    data = data[:-1]
+    
+    lats = defaultdict(dict)
+    lats["unit"] = "us"
+    summary = re.findall(r"(Run finished[\s\S]*)", log_raw)[0]
+    lines = re.findall(r"([\S]*)\s*-.*Avg\(us\): (\d*).* 90th\(us\): (\d*).* 95th\(us\): (\d*).* 99th\(us\): (\d*).* 99.9th\(us\): (\d*).* 99.99th\(us\): (\d*)", summary)
+    for action, pavg, p90, p95, p99, p999, p9999 in lines:
+        lats[action] = {
+            "Average": pavg,
+            "p90": p90,
+            "p95": p95,
+            "p99": p99,
+            "p999": p999,
+            "p9999": p9999
+        }
     df = pd.DataFrame(data, columns=[COLNAME_TIME, COLNAME_TP])
-    return df
+    return (df, lats)
 
 def _runtime_parser_etcd_official(log_raw):
     pattern = r"(\d+),.*,.*,.*,(\d+)"
