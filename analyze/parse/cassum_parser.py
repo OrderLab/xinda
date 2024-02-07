@@ -23,11 +23,11 @@ class CassandraSummaryParser:
 
 def _sum_parser_cassandra(log_raw):
     actions = ["READ", "UPDATE"]
-    pctgs = ["p90", "p95", "p99", "p99.9", "p99.99"]
+    pctgs = ["p90", "p95", "p99", "p99.9", "p99.99", "Average"]
     data = defaultdict(dict)
     for a in actions:
         for p in pctgs:
-            pattern = r"\[" + a + r"\], " + p + r", (\d*)"
+            pattern = r"\[" + a + r"\], " + p + r", (\S*)"
             matches = re.findall(pattern, log_raw)
             data["unit"] = "microsecond"
             data[a][p] = matches[0] if matches else None

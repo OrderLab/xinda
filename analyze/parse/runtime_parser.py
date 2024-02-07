@@ -1,5 +1,6 @@
 import re
 import pandas as pd
+from collections import defaultdict
 
 from parse.context import get_trial_setup_context_from_path
 from parse.tools import read_raw_logfile
@@ -53,17 +54,29 @@ def _runtime_parser_cassandra_ycsb(log_raw):
 def _runtime_parser_crdb_ycsb(log_raw):
     lines = log_raw.split("\n")
     data_raw = {}
+    jsn = defaultdict(dict)
+    jsn["unit"] = "ms"
     for line in lines:
         row = line.split()
         try:
-            assert len(row) == 9 and row[-1].isalpha()
-            sec = int(float(row[0][:-1]))
-            if sec not in data_raw:
-                data_raw[sec] = [0, 0]
-            er = float(row[1])
-            tp = float(row[2])
-            data_raw[sec][0] += tp
-            data_raw[sec][1] += er
+            assert row[-1].isalpha()
+            if len(row) == 9:
+                # time series
+                sec = int(float(row[0][:-1]))
+                if sec not in data_raw:
+                    data_raw[sec] = [0, 0]
+                er = float(row[1])
+                tp = float(row[2])
+                data_raw[sec][0] += tp
+                data_raw[sec][1] += er
+            elif len(row) == 10:
+                pavg, _, p95, p99, _, action = row[4:]
+                jsn[action].update({
+                    "Average": pavg,
+                    "p95": p95,
+                    "p99": p99
+                })
+            assert False
         except:
             pass
     data = [[x]+y for x, y in sorted(data_raw.items())]
