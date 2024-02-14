@@ -235,10 +235,11 @@ class TestSystem:
         self.info('Containers IP addr retrieved')
         for container_name, ip_address in container_info.items():
             self.info(f"Container Name: {container_name}, IP Address: {ip_address}", if_time=False)
-        cmd = 'docker stats --no-stream'
-        p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
-        cmd_output = p.stdout.read()
-        self.info(cmd_output.decode('utf-8'))
+        if self.if_reslim:
+            cmd = 'docker stats --no-stream'
+            p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+            cmd_output = p.stdout.read()
+            self.info(cmd_output.decode('utf-8'))
         
     
     def docker_down(self) -> subprocess.CompletedProcess:
