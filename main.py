@@ -1,61 +1,3 @@
-'''
-TestSystem:
-    sys_name_: str, 
-    fault_: SlowFault, 
-    benchmark_: Benchmark,
-    data_dir_: str, 
-    iter_: int = 1
-
-SlowFault:
-    type_ : str, # nw or fs
-    location_ : str, # e.g., datanode
-    duration_ : int,
-    severity_ : str, # "slow3" for nw; "10000" for fs
-    start_time_ : int,
-    action_ = None
-
-Benchmark:
-YCSB_CASSANDRA:
-    exec_time_ : str,
-    workload_ : str, # a b c d e f
-    recordcount_ = '10000',
-    operationcount_ = '10000000',
-    measurementtype_ = 'ra
-
-YCSB_HBASE:
-    exec_time_ : str,
-    workload_ : str, # a b c d e f
-    recordcount_ = '10000',
-    operationcount_ = '10000000',
-    measurementtype_ = 'raw',
-    status_interval_ = '1',
-    columnfamily_ = 'family',
-
-YCSB_ETCD:
-    exec_time_ : str,
-    workload_ : str, # a b c d e f
-    recordcount_ = '10000',
-    operationcount_ = '10000000',
-    measurementtype_ = 'raw',
-    status_interval_ = '1',
-    threadcount_ = 1,
-    etcd_endpoints_ = 'http://0.0.0.0:2379'
-
-YCSB_CRDB:
-    exec_time_ : str, # in seconds
-    workload_ : str, # a b c d e f
-    operationcount_ = '10000000',
-    max_rate_ = '0',
-    concurrency_ = '8',
-    status_interval_ = '1s',
-    load_connection_string_ = 'postgresql://root@roach3:26257?sslmode=disable',
-    run_connection_string_ = 'postgresql://root@roach3:26257,roach2:26257,roach1:26257?sslmode=disable'
-
-MRBENCH_MAPRED:
-    num_reduces_ = '3',
-    num_iter_ = 10
-'''
-
 import os
 import subprocess
 import datetime
@@ -96,6 +38,12 @@ parser.add_argument('--batch_test_log', type = str, default = None,
                     help='Path to the meta log file of batch test')
 parser.add_argument('--if_restart', action='store_true', default=False,
                     help='If we need to restart the system after fault injection')
+parser.add_argument('--if_reslim', action='store_true', default=False,
+                    help='If we need to set resource limits on CPU and memory')
+parser.add_argument('--cpu_limit', type=str, default=None,
+                    help='The number of CPU cores that each container can get at most (e.g., 0.5 or 1 or 5)')
+parser.add_argument('--mem_limit', type=str, default=None,
+                    help='The size of memory that each container can get at most (e.g., 512M or 1GB or 2GB) ')
 # Init
 # parser.add_argument('--log_root_dir', type = str, default = '/data/ruiming/data/default',
 #                     help='[Init] The root directory to store logs (data)')
@@ -229,13 +177,16 @@ def main(args):
     if sys_name == 'etcd' and args.fault_location not in ['leader', 'follower']:
         print('Currently etcd only supports leader/follower faults')
         exit(1)
-
     if args.coverage != False and sys_name not in ['hadoop', 'etcd']:
         print('Currently coverage study only supports hadoop and etcd')
         exit(1)
     if args.version is not None and sys_name not in ['hadoop', 'etcd']:
         print('Currently version study only supports hadoop and etcd')
         exit(1)
+    if args.if_reslim == True:
+        if args.cpu_limit is None or args.mem_limit is None:
+            print(f'Resource limits enabled (if_reslim={args.if_reslim}), but at least one of cpu_limit ({args.cpu_limit}) or mem_limit ({args.mem_limit}) is None')
+            exit(1)
 
     fault = slow_fault.SlowFault(type_ = args.fault_type,
                         location_ = args.fault_location,
@@ -262,7 +213,10 @@ def main(args):
                                     xinda_tools_dir_ = args.xinda_tools_dir,
                                     charybdefs_mount_dir_ = args.charybdefs_mount_dir,
                                     version_=args.version,
-                                    if_restart_ = args.if_restart)
+                                    if_restart_ = args.if_restart,
+                                    if_reslim_ = args.if_reslim,
+                                    cpu_limit_ = args.cpu_limit,
+                                    mem_limit_ = args.mem_limit)
         # sys.test()
     elif sys_name == 'hbase':
         benchmark = YCSB_HBASE(exec_time_ = args.bench_exec_time,
@@ -282,7 +236,10 @@ def main(args):
                             xinda_tools_dir_ = args.xinda_tools_dir,
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir,
                             version_=args.version,
-                            if_restart_ = args.if_restart)
+                            if_restart_ = args.if_restart,
+                            if_reslim_ = args.if_reslim,
+                            cpu_limit_ = args.cpu_limit,
+                            mem_limit_ = args.mem_limit)
         # sys.test()
     elif sys_name == 'etcd':
         version = args.version if args.version is not None else '3.5.10'
@@ -317,6 +274,9 @@ def main(args):
                         version_=version,
                         if_restart_ = args.if_restart,
                         coverage_ = args.coverage,
+                        if_reslim_ = args.if_reslim,
+                        cpu_limit_ = args.cpu_limit,
+                        mem_limit_ = args.mem_limit
                         )
         # sys.test()
     elif sys_name == 'crdb':
@@ -360,7 +320,10 @@ def main(args):
                         xinda_tools_dir_ = args.xinda_tools_dir,
                         charybdefs_mount_dir_ = args.charybdefs_mount_dir,
                         version_=args.version,
-                        if_restart_ = args.if_restart)
+                        if_restart_ = args.if_restart,
+                        if_reslim_ = args.if_reslim,
+                        cpu_limit_ = args.cpu_limit,
+                        mem_limit_ = args.mem_limit)
         # sys.test()
     elif sys_name == 'hadoop':
         if args.benchmark is None or args.benchmark not in ['terasort', 'mrbench']:
@@ -390,7 +353,10 @@ def main(args):
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir,
                             version_= version,
                             if_restart_ = args.if_restart,
-                            coverage_ = args.coverage, # TODO: implement logic for this 
+                            coverage_ = args.coverage, # TODO: implement logic for this
+                            if_reslim_ = args.if_reslim,
+                            cpu_limit_ = args.cpu_limit,
+                            mem_limit_ = args.mem_limit 
                             )
         # sys.test()    
     elif sys_name == 'kafka':
@@ -407,17 +373,21 @@ def main(args):
             benchmark = OPENMSG_KAFKA(driver_=args.openmsg_driver,
                                       workload_file_=args.openmsg_workload,
                                       exec_time_ = args.bench_exec_time)
-        sys = kafka.Kafka(sys_name_ = sys_name,
-                          fault_ = fault,
-                          benchmark_ = benchmark,
-                          data_dir_ = args.data_dir,
-                          log_root_dir_ = args.log_root_dir,
-                          iter_ = args.iter,
-                          xinda_software_dir_ = args.xinda_software_dir,
-                          xinda_tools_dir_ = args.xinda_tools_dir,
-                          charybdefs_mount_dir_ = args.charybdefs_mount_dir,
-                          version_=args.version,
-                          if_restart_ = args.if_restart)
+        sys = kafka.Kafka(  sys_name_ = sys_name,
+                            fault_ = fault,
+                            benchmark_ = benchmark,
+                            data_dir_ = args.data_dir,
+                            log_root_dir_ = args.log_root_dir,
+                            iter_ = args.iter,
+                            xinda_software_dir_ = args.xinda_software_dir,
+                            xinda_tools_dir_ = args.xinda_tools_dir,
+                            charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                            version_=args.version,
+                            if_restart_ = args.if_restart,
+                            if_reslim_ = args.if_reslim,
+                            cpu_limit_ = args.cpu_limit,
+                            mem_limit_ = args.mem_limit
+                          )
         # sys.test()  
     return(sys)
 

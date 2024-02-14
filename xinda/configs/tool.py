@@ -7,12 +7,16 @@ class Tool:
                  charybdefs_mount_dir_ : str,
                  version_: str = None,
                  coverage_: bool = False,
-                 coverage_dir_: str = None
+                 coverage_dir_: str = None,
+                 cpu_limit_: str = None,
+                 mem_limit_: str = None,
                  ):
         self.version = version_
         self.xinda_software_dir = xinda_software_dir_
         self.xinda_tools_dir = xinda_tools_dir_
         self.charybdefs_mount_dir = charybdefs_mount_dir_
+        self.cpu_limit = cpu_limit_
+        self.mem_limit = mem_limit_
         # Scripts
         self.jacoco = os.path.join(xinda_tools_dir_, 'docker-hadoop', 'jacoco')
         if version_ != None:
@@ -119,7 +123,11 @@ class Tool:
                f'LOCAL_DIR_kafka2={self.fuse_dir}/kafka2',
                f'LOCAL_DIR_kafka3={self.fuse_dir}/kafka3',
                f'LOCAL_DIR_kafka4={self.fuse_dir}/kafka4',
-               'CONTAINER_DIR_kafka=/bitnami']
+               'CONTAINER_DIR_kafka=/bitnami',
+               # resource limits
+               f'CPU_LIMIT={self.cpu_limit}',
+               f'MEM_LIMIT={self.mem_limit}',
+               ]
         with open(env_path, "w") as file:
             for line in msg:
                 file.write(line + "\n")

@@ -49,6 +49,9 @@ class Cassandra(TestSystem):
                 counter = counter + 10
                 print(f"Still waiting for cluster to set up. Sleep 10s / Elapsed {counter}s / Need ~210s)")
                 time.sleep(10)
+            if counter > 600:
+                self.info("FATAL: Cassandra cluster failed to set up")
+                exit(1)
         self.docker_get_status()
     
     def _init_cql(self):

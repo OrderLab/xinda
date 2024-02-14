@@ -53,8 +53,12 @@ class Etcd(TestSystem):
         self.info("THE END")
     
     def docker_up_charybdefs_etcd(self):
+        if self.if_reslim:
+            reslim_identifier = '-reslim'
+        else:
+            reslim_identifier = ''
         cmd = ['docker-compose',
-                '-f', f'docker-compose-all.yaml',
+                '-f', f'docker-compose{reslim_identifier}-all.yaml',
                 'up',
                 '-d']
         cmd = ' '.join(cmd)

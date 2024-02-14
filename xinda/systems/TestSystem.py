@@ -25,12 +25,18 @@ class TestSystem:
                  version_: str = None,
                  coverage_: bool = False,
                  if_restart_: bool = False,
+                 if_reslim_: bool = False,
+                 cpu_limit_: str = None,
+                 mem_limit_: str = None,
                  iter_: int = 1):# = "/users/YXXinda/workdir/tmp"):
         self.sys_name = sys_name_
         self.if_restart = if_restart_
+        self.if_reslim = if_reslim_
+        self.cpu_limit = cpu_limit_
+        self.mem_limit = mem_limit_
         self.fault = fault_
         self.log = Logging(sys_name_, data_dir_, fault_, benchmark_, iter_, log_root_dir_, version_)
-        self.tool = Tool(sys_name_, xinda_software_dir_, xinda_tools_dir_, charybdefs_mount_dir_, version_, coverage_, os.path.join(self.log.data_dir, f"coverage-{self.log.description}"))        
+        self.tool = Tool(sys_name_, xinda_software_dir_, xinda_tools_dir_, charybdefs_mount_dir_, version_, coverage_, os.path.join(self.log.data_dir, f"coverage-{self.log.description}"), cpu_limit_, mem_limit_)        
         
         self.benchmark = benchmark_
         self.start_time = None
@@ -44,6 +50,8 @@ class TestSystem:
             if sys_name_ != 'etcd':
                 raise ValueError(f"Exception: {fault_.location} is not a member of {sys_name_}:{self.container_config[sys_name_]}")
         self.info(f"Current workload: {self.benchmark.workload}")
+        if self.if_reslim:
+            self.info(f"reslim enabled: CPU_LIMIT={self.cpu_limit} MEM_LIMIT={self.mem_limit}")
         self.cleanup()
     
     def is_port_in_use(self, port):
@@ -117,14 +125,19 @@ class TestSystem:
             fp.write("%s\n" % msg_)
     
     def docker_up(self):
-        cmd = []
+        cmd = [1]
+        if self.if_reslim:
+            reslim_identifier = '-reslim'
+        else:
+            reslim_identifier = ''
         if self.fault.type == 'nw' or self.fault.type == 'none':
-            cmd = ['docker-compose',
+            cmd = [f'docker-compose',
+                   '-f', f'docker-compose{reslim_identifier}.yaml',
                    'up',
                    '-d']
         elif self.fault.type == 'fs':
             cmd = ['docker-compose',
-                   '-f', f'docker-compose-{self.fault.location}.yaml',
+                   '-f', f'docker-compose{reslim_identifier}-{self.fault.location}.yaml',
                    'up',
                    '-d']
         else:
@@ -222,6 +235,10 @@ class TestSystem:
         self.info('Containers IP addr retrieved')
         for container_name, ip_address in container_info.items():
             self.info(f"Container Name: {container_name}, IP Address: {ip_address}", if_time=False)
+        cmd = 'docker stats --no-stream'
+        p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+        cmd_output = p.stdout.read()
+        self.info(cmd_output.decode('utf-8'))
         
     
     def docker_down(self) -> subprocess.CompletedProcess:
