@@ -1,6 +1,7 @@
 from xinda.systems.TestSystem import *
 import signal
 import psutil
+import math
 
 class Kafka(TestSystem):
     def test(self):
@@ -36,9 +37,11 @@ class Kafka(TestSystem):
             # wrap-up and end
             self._wait_till_perftest_ends()
         elif self.benchmark.benchmark == 'openmsg':
+            self._openmsg_change_test_duration()
             self._openmsg_run_worker1()
             self._openmsg_run_worker2()
             self._openmsg_run_driver()
+            self._openmsg_check_if_warmup_ends()
             self.start_time = int(time.time()*1e9)
             self.inject()
             # wrap-up and end
@@ -119,11 +122,23 @@ class Kafka(TestSystem):
         self.driver_process.poll()
         self.worker1_process.poll()
         self.worker2_process.poll()
-        return_code = self.driver_process.returncode and self.worker1_process.returncode and self.worker2_process.returncode
-        cur_time = self.get_current_ts()
-        if cur_time < self.benchmark.exec_time and return_code != 0:
-            self.info(f"Sleep {self.benchmark.exec_time - cur_time}s till the end", rela=self.start_time)
-            time.sleep(self.benchmark.exec_time - cur_time)
+        # return_code = self.driver_process.returncode and self.worker1_process.returncode and self.worker2_process.returncode
+        # cur_time = self.get_current_ts()
+        # if cur_time < self.benchmark.exec_time + 30 and return_code != 0:
+        #     self.info(f"Sleep {self.benchmark.exec_time + 30 - cur_time}s till the end", rela=self.start_time)
+        #     time.sleep(self.benchmark.exec_time + 30 - cur_time)
+        counter = 0
+        while True:
+            if self.check_string_in_file(file_path=self.log.openmsg_driver, target_string="Writing test result"):
+                # self.info("Benchmark ends!")
+                break
+            time.sleep(10) # check every 0.2s 
+            counter = counter + 10
+            cur_time = self.get_current_ts()
+            self.info(f"Waiting for benchmark to end. Sleep 10s / Elapsed {counter}s / Need at most ~{self.benchmark.exec_time - cur_time}s)", rela=self.start_time)
+            if counter >= self.benchmark.exec_time + 300:
+                self.info(f"FATAL: benchmark does not end even after {self.benchmark.exec_time}+300={self.benchmark.exec_time + 30}s")
+                exit(1)
         # process = psutil.Process(self.worker1_process.pid)
         # print(process.children(recursive=True))
         # process = psutil.Process(self.worker2_process.pid)
@@ -143,11 +158,25 @@ class Kafka(TestSystem):
             _ = subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         self.info("Benchmark safely ends", rela=self.start_time)
     
+    def _openmsg_change_test_duration(self):
+        # change the testDurationMinutes field in the openmsg workload file
+        with open(os.path.join(self.tool.openmsg_compiled_source, f"workloads/{self.benchmark.workload_file}.yaml"), 'r') as file:
+            data = yaml.safe_load(file)
+        new_exec_time = math.ceil(self.benchmark.exec_time/60)
+        self.info(f"Execution time will be rounded: {self.benchmark.exec_time}s -> {new_exec_time}min*60={new_exec_time*60}s")
+        self.benchmark.change_exec_time(new_exec_time*60)
+        data['testDurationMinutes'] = new_exec_time
+        with open(os.path.join(self.tool.openmsg_compiled_source, "workloads/this.yaml"), 'w') as file:
+            yaml.dump(data, file, default_flow_style=False)
+        self.info(f"{self.tool.openmsg_compiled_source}/workloads/this.yaml created")
+        
+    
     def _openmsg_run_driver(self):
         cmd = ['bin/benchmark',
         f'--drivers driver-kafka/{self.benchmark.driver}.yaml',
         '--workers http://0.0.0.0:8082,http://0.0.0.0:8084',
-        f'workloads/{self.benchmark.workload_file}.yaml']
+        # f'workloads/{self.benchmark.workload_file}.yaml']
+        f'workloads/this.yaml']
         # kafka-latency.yaml has (nearly) the same configs as kafka.yaml in previous commits. kafka.yaml is said to be the standard configs.
         # https://github.com/openmessaging/benchmark/blob/211cbcd436b022d1734d8d1d9e760b34a05f4488/driver-kafka/kafka.yaml
         cmd = ' '.join(cmd)
@@ -166,8 +195,32 @@ class Kafka(TestSystem):
         '--stats-port 8085']
         cmd = ' '.join(cmd)
         self.worker2_process = subprocess.Popen('exec ' + cmd, shell=True, stdout=open(self.log.openmsg_worker2, 'a'), cwd=self.tool.openmsg_compiled_source)
+    
+    def check_string_in_file(self, file_path, target_string):
+        with open(file_path, 'r') as file:
+            if target_string in file.read():
+                return True
+            else:
+                return False
+    
+    def _openmsg_check_if_warmup_ends(self):
+        self.info("Waiting for warm-up period to end")
+        counter = 0
+        time.sleep(50)
+        while True:
+            if self.check_string_in_file(file_path=self.log.openmsg_driver, target_string="Starting benchmark traffic"):
+                self.info("Warm-up period ends!")
+                return True
+            time.sleep(0.2) # check every 0.2s 
+            counter = counter + 0.2
+            if counter >= 120:
+                self.info("Warm-up period does not end in 120s. Abort.")
+                exit(1)
+    
     def _post_process(self):
         p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
+        p = subprocess.run(f'mv *.json {self.log.openmsg_summary}', shell=True, stdout=open(self.log.openmsg_worker1, 'a'), cwd=self.tool.openmsg_compiled_source)
+
 
 # nw_fault = SlowFault(
 #     type_="nw", # nw or fs

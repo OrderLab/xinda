@@ -221,3 +221,6 @@ class OPENMSG_KAFKA(Benchmark):
         self.driver = driver_
         self.workload_file = workload_file_
         self.identifier = f"{self.workload}/{self.driver}"
+    
+    def change_exec_time(self, new_exec_time):
+        self.exec_time = int(new_exec_time)

@@ -79,6 +79,7 @@ class Logging:
         self.kafka_producer = os.path.join(path2, 'producer-' + self.description + ".log")
         self.kafka_consumer = os.path.join(path2, 'consumer-' + self.description + ".log")
         self.openmsg_driver = os.path.join(path2, 'driver-' + self.description + ".log")
+        self.openmsg_summary = os.path.join(path2, 'sum-' + self.description + ".json")
         self.openmsg_worker1 = os.path.join(path2, 'worker1-' + self.description + ".log")
         self.openmsg_worker2 = os.path.join(path2, 'worker2-' + self.description + ".log")
         # self.openmsg_driver_stderr = os.path.join(path2, 'err-driver-' + self.description + ".log")
