@@ -10,11 +10,9 @@ for i in "${!hosts[@]}"; do
     host=${hosts[$i]}
     echo -n "$host [$(($i+1))/${#hosts[@]}]"
     ssh ${username}@$host cat "~/workdir/xinda/test_scripts/RQ1_1/*.log" > logs/${host}.log
-    if grep -iq "exception" "logs/${host}.log"; then
-        echo -n " [EXCEPTION]"
-    else
+    if ! grep -ie "error" -ie "exception" "logs/${host}.log"; then
         echo -n " [OK]"
     fi
-    num_lines=$(cat logs/${host}.log | wc -l)
-    echo " [Done: $(($num_lines/4))]"
+    num_end=$(cat logs/${host}.log | grep END | wc -l)
+    echo " [Done: "$num_end"]"
 done
