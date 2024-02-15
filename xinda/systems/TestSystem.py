@@ -49,6 +49,9 @@ class TestSystem:
         self.info(f"Current workload: {self.benchmark.workload}")
         if self.reslim.if_reslim:
             self.info(f"reslim enabled: CPU_LIMIT={self.reslim.cpu_limit} MEM_LIMIT={self.reslim.mem_limit}")
+        cmd = 'git rev-parse --short HEAD'
+        p = subprocess.run(cmd, shell=True, cwd=f"{os.path.expanduser('~')}/workdir/xinda", stdout = subprocess.PIPE)
+        self.info(f"commit: {p.stdout.decode('utf-8').strip()}")
         self.cleanup()
     
     def is_port_in_use(self, port):
