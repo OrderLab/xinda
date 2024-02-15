@@ -1,6 +1,7 @@
 import os
 from xinda.configs.slow_fault import SlowFault
 from xinda.configs.benchmark import *
+from xinda.configs.reslim import *
 
 class Logging:
     def __init__(self, 
@@ -10,7 +11,8 @@ class Logging:
                  benchmark_ : Benchmark,
                  iter_ : int,
                  log_root_dir_ : str,
-                 version_ : str):
+                 version_ : str,
+                 reslim_ : ResourceLimit):
         self.create_dir_if_not_exist(log_root_dir_)
         if version_ is None:
             path0 = os.path.join(log_root_dir_, sys_name_)
@@ -22,6 +24,8 @@ class Logging:
         self.create_dir_if_not_exist(path1)
         # path2 = os.path.join(log_root_dir_, sys_name_, data_dir_, benchmark_.identifier)
         path2 = os.path.join(path1, benchmark_.identifier)
+        if reslim_.if_reslim:
+            path2 = os.path.join(path2, f"cpu_{reslim_.cpu_limit}", f"mem_{reslim_.mem_limit}")
         self.data_dir = path2
         self.create_dir_if_not_exist(path2)
         iter_ = str(iter_)

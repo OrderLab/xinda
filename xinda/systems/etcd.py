@@ -53,7 +53,7 @@ class Etcd(TestSystem):
         self.info("THE END")
     
     def docker_up_charybdefs_etcd(self):
-        if self.if_reslim:
+        if self.reslim.if_reslim:
             reslim_identifier = '-reslim'
         else:
             reslim_identifier = ''

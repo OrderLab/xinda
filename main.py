@@ -9,6 +9,7 @@ import argparse
 from xinda.systems import cassandra, crdb, etcd, hbase, mapred, kafka
 from xinda.configs import logging, slow_fault, tool
 from xinda.configs.benchmark import *
+from xinda.configs.reslim import *
 import traceback
 
 
@@ -187,6 +188,9 @@ def main(args):
         if args.cpu_limit is None or args.mem_limit is None:
             print(f'Resource limits enabled (if_reslim={args.if_reslim}), but at least one of cpu_limit ({args.cpu_limit}) or mem_limit ({args.mem_limit}) is None')
             exit(1)
+    reslim = ResourceLimit(if_reslim_ = args.if_reslim,
+                           cpu_limit_ = args.cpu_limit,
+                           mem_limit_ = args.mem_limit)
 
     fault = slow_fault.SlowFault(type_ = args.fault_type,
                         location_ = args.fault_location,
@@ -212,11 +216,9 @@ def main(args):
                                     xinda_software_dir_ = args.xinda_software_dir,
                                     xinda_tools_dir_ = args.xinda_tools_dir,
                                     charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                                    reslim_ = reslim,
                                     version_=args.version,
-                                    if_restart_ = args.if_restart,
-                                    if_reslim_ = args.if_reslim,
-                                    cpu_limit_ = args.cpu_limit,
-                                    mem_limit_ = args.mem_limit)
+                                    if_restart_ = args.if_restart,)
         # sys.test()
     elif sys_name == 'hbase':
         benchmark = YCSB_HBASE(exec_time_ = args.bench_exec_time,
@@ -235,11 +237,9 @@ def main(args):
                             xinda_software_dir_ = args.xinda_software_dir,
                             xinda_tools_dir_ = args.xinda_tools_dir,
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                            reslim_ = reslim,
                             version_=args.version,
-                            if_restart_ = args.if_restart,
-                            if_reslim_ = args.if_reslim,
-                            cpu_limit_ = args.cpu_limit,
-                            mem_limit_ = args.mem_limit)
+                            if_restart_ = args.if_restart)
         # sys.test()
     elif sys_name == 'etcd':
         version = args.version if args.version is not None else '3.5.10'
@@ -271,12 +271,10 @@ def main(args):
                         xinda_software_dir_ = args.xinda_software_dir,
                         xinda_tools_dir_ = args.xinda_tools_dir,
                         charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                        reslim_ = reslim,
                         version_=version,
                         if_restart_ = args.if_restart,
                         coverage_ = args.coverage,
-                        if_reslim_ = args.if_reslim,
-                        cpu_limit_ = args.cpu_limit,
-                        mem_limit_ = args.mem_limit
                         )
         # sys.test()
     elif sys_name == 'crdb':
@@ -319,11 +317,9 @@ def main(args):
                         xinda_software_dir_ = args.xinda_software_dir,
                         xinda_tools_dir_ = args.xinda_tools_dir,
                         charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                        reslim_ = reslim,
                         version_=args.version,
-                        if_restart_ = args.if_restart,
-                        if_reslim_ = args.if_reslim,
-                        cpu_limit_ = args.cpu_limit,
-                        mem_limit_ = args.mem_limit)
+                        if_restart_ = args.if_restart)
         # sys.test()
     elif sys_name == 'hadoop':
         if args.benchmark is None or args.benchmark not in ['terasort', 'mrbench']:
@@ -351,12 +347,10 @@ def main(args):
                             xinda_software_dir_ = args.xinda_software_dir,
                             xinda_tools_dir_ = args.xinda_tools_dir,
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                            reslim_ = reslim,
                             version_= version,
                             if_restart_ = args.if_restart,
                             coverage_ = args.coverage, # TODO: implement logic for this
-                            if_reslim_ = args.if_reslim,
-                            cpu_limit_ = args.cpu_limit,
-                            mem_limit_ = args.mem_limit 
                             )
         # sys.test()    
     elif sys_name == 'kafka':
@@ -382,11 +376,9 @@ def main(args):
                             xinda_software_dir_ = args.xinda_software_dir,
                             xinda_tools_dir_ = args.xinda_tools_dir,
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                            reslim_ = reslim,
                             version_=args.version,
-                            if_restart_ = args.if_restart,
-                            if_reslim_ = args.if_reslim,
-                            cpu_limit_ = args.cpu_limit,
-                            mem_limit_ = args.mem_limit
+                            if_restart_ = args.if_restart
                           )
         # sys.test()  
     return(sys)
