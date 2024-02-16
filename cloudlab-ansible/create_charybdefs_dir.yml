@@ -1,0 +1,41 @@
+---
+- name: Create charybdefs mount directory on SSD
+  hosts: all
+  become: false
+
+  tasks:
+    - name: Get user name
+      shell: "id -un"
+      register: user_name
+        
+    - name: Get group name
+      shell: "id -gn"
+      register: group_name
+
+    - name: check if cfs_mount exists
+      stat:
+        path: /var/lib/docker/cfs_mount
+      register: cfs_mount_exists
+      become: true
+
+    - name: Create cfs_mount directory
+      shell: mkdir /var/lib/docker/cfs_mount
+      args:
+        executable: /bin/bash
+      when: cfs_mount_exists.stat.exists == False
+      become: true
+    
+    - name: Change ownership of cfs_mount directory
+      shell: chown -R {{ user_name.stdout }}:{{ group_name.stdout }} /var/lib/docker/cfs_mount
+      args:
+        executable: /bin/bash
+      become: true
+
+    - name: check cfs_mount directory
+      shell: "ls -la /var/lib/docker/cfs_mount"
+      register: check_output
+
+    - name: Show output of cfs_mount check
+      debug:
+        msg: "{{ check_output.stdout }}"
+      

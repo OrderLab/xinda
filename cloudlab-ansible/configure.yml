@@ -52,3 +52,6 @@
 - name: pip3 install
   import_playbook: pip3_install.yml
 
+- name: Create cfs_mount
+  import_playbook: create_charybdefs_dir.yml
+
