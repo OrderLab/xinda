@@ -62,7 +62,7 @@ parser.add_argument('--xinda_software_dir', type = str, default = f"{os.path.exp
                     help='[Init] The path to xinda-software')
 parser.add_argument('--xinda_tools_dir', type = str, default = f"{os.path.expanduser('~')}/workdir/xinda/tools",
                     help='[Init] The path to xinda/tools')
-parser.add_argument('--charybdefs_mount_dir', type = str, default = f"{os.path.expanduser('~')}/workdir/tmp",
+parser.add_argument('--charybdefs_mount_dir', type = str, default = "/var/lib/docker/cfs_mount",
                     help='[Init] The path where docker volume and charybdefs use to mount')
 parser.add_argument('--iter', type = str, default = '1',
                     help='[Init] Iteration of current experiment setup')
