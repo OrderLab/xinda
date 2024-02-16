@@ -56,6 +56,6 @@
     - name: Delete charybdefs mount folders
       become: true
       ansible.builtin.file:
-        path: "/users/rmlu/workdir/tmp"
+        path: "/var/lib/docker/cfs_mount/tmp"
         state: absent
 
