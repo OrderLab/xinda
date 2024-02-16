@@ -12,7 +12,7 @@
     - name: update xinda
       shell: |
         cd $HOME/workdir/xinda
-        git pull
+        git pull --rebase
       args:
         executable: /bin/bash
       when: xinda_exists.stat.exists
@@ -32,3 +32,13 @@
         version: master
         accept_hostkey: yes
       when: xinda_exists.stat.exists == False
+    
+    - name: check the latest git commit id
+      shell: |
+        cd $HOME/workdir/xinda
+        git rev-parse --short HEAD
+      register: check_output
+
+    - name: Show output of git check
+      debug:
+        msg: "commit ID: {{ check_output.stdout }}"
