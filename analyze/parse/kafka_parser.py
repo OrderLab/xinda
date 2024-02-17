@@ -1,5 +1,6 @@
 import re
 import pandas as pd
+from collections import defaultdict
 
 from parse.tools import read_raw_logfile
 
@@ -49,11 +50,25 @@ class OpenMsgDriverParser:
         self.name = "OpenMsgDriverParser"
 
     def parse(self, path):
+        # timeseries
         log_raw = read_raw_logfile(path)
         log_after_warmup = re.findall(r"----- Starting benchmark traffic \(1m\)------([\s\S]*)", log_raw)[0]
-        
+
         pattern = r"(\S*)\..* Pub rate\s*(\S*) msg\/s \/\s*(\S*) MB\/s .* (\S*) err\/s \| Cons rate\s*(\S*) msg\/s \/\s*(\S*) MB\/s"
         matches = re.findall(pattern, log_after_warmup)
         
         df = pd.DataFrame(matches, columns=[COLNAME_TIME, COLNAME_OM_PUB_TP_MSG, COLNAME_OM_PUB_TP_SIZE, COLNAME_OM_PUB_ERR, COLNAME_OM_CONS_TP_MSG, COLNAME_OM_CONS_TP_SIZE])
-        return df
+        
+        # lat summary
+        lats = defaultdict(dict)
+        lats["unit"] = "ms"
+        publat_summary = re.findall(r"Aggregated Pub Latency \(ms\) avg: (\S*) .* 95%: (\S*) .* 99%: (\S*) .* 99.9%: (\S*) .* 99.99%: (\S*) .* Pub Delay", log_after_warmup)
+        pavg, p95, p99, p999, p9999 = publat_summary[0]
+        lats["Pub"] = {
+            "Average": pavg,
+            "p95": p95,
+            "p99": p99,
+            "p999": p999,
+            "p9999": p9999
+        }
+        return (df, lats)
