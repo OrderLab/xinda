@@ -36,8 +36,12 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
     t.path = path
 
     dir_folders = get_dir(path).split("/")
-    assert len(dir_folders) >= 6, dir_folders
+    assert len(dir_folders) >= 4, dir_folders
     tokens = get_fname(path).split("-")
+    
+    # backward compatibility of cpu and mem limit
+    if not (dir_folders[-2].startswith("cpu") and  dir_folders[-1].startswith("mem")):
+        dir_folders += ["cpu_unbounded", "mem_unbounded"]
     
     if "kafka" in dir_folders:  # handle kafka
         if dir_folders[-6] == "kafka":
@@ -48,7 +52,7 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
             t.workload = dir_folders[-4] + "|" + dir_folders[-3]
             t.cpu = dir_folders[-2]
             t.mem = dir_folders[-1]
-        elif dir_folders[-3] == "kafka" and dir_folders[-1] == "perf_test":
+        elif dir_folders[-5] == "kafka" and dir_folders[-4] == "perf_test":
             t.action = dir_folders[-6]
             t.system = dir_folders[-5]
             t.question = dir_folders[-4]
