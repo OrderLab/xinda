@@ -50,7 +50,10 @@ class OpenMsgDriverParser:
 
     def parse(self, path):
         log_raw = read_raw_logfile(path)
+        log_after_warmup = re.findall(r"----- Starting benchmark traffic \(1m\)------([\s\S]*)", log_raw)[0]
+        
         pattern = r"(\S*)\..* Pub rate\s*(\S*) msg\/s \/\s*(\S*) MB\/s .* (\S*) err\/s \| Cons rate\s*(\S*) msg\/s \/\s*(\S*) MB\/s"
-        matches = re.findall(pattern, log_raw)
+        matches = re.findall(pattern, log_after_warmup)
+        
         df = pd.DataFrame(matches, columns=[COLNAME_TIME, COLNAME_OM_PUB_TP_MSG, COLNAME_OM_PUB_TP_SIZE, COLNAME_OM_PUB_ERR, COLNAME_OM_CONS_TP_MSG, COLNAME_OM_CONS_TP_SIZE])
         return df
