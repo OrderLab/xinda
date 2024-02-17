@@ -15,6 +15,7 @@ class GenMetaContext:
         self.producer_csv: str = ""
         self.consumer_csv: str = ""
         self.driver_csv: str = ""
+        self.driver_json: str = ""
         
         self.sum_json: str = ""
     

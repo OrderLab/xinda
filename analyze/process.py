@@ -136,7 +136,10 @@ def gen_meta_batch(data_dir, output_dir) -> None:
             elif ctx.log_type == "consumer":
                 genmeta_tasks[key].consumer_csv = p
             elif ctx.log_type == "driver":
-                genmeta_tasks[key].driver_csv = p
+                if p.endswith(".csv"):
+                    genmeta_tasks[key].driver_csv = p
+                elif p.endswith(".json"):
+                    genmeta_tasks[key].driver_json = p
         # sum
         if ctx.log_type == "sum":
             genmeta_tasks[key].sum_json = p

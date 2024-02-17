@@ -285,7 +285,16 @@ def gen_stats(gmctx: GenMetaContext):
     elif gmctx.ctx.system == "hadoop":
         pass
     elif gmctx.ctx.system == "kafka":
-        pass
+        if gmctx.ctx.workload.startswith("openmsg"):
+            if not gmctx.driver_json: raise MissingParsedLogError("driver_json")
+            lats = read_json(gmctx.driver_json)
+            stats[FIELD_LAT_R_95] = ""
+            stats[FIELD_LAT_R_99] = ""
+            stats[FIELD_LAT_W_95] = lats.get("Pub", {}).get("p95", "")
+            stats[FIELD_LAT_W_99] = lats.get("Pub", {}).get("p99", "")
+            stats[FIELD_LAT_UNIT] = lats["unit"]
+        elif gmctx.ctx.workload == "perf_test":
+            pass
         
     
     # stats[FIELD_NUM_LOG] = SHOULD_FILL
