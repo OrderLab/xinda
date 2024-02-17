@@ -10,6 +10,8 @@ class TrialSetupContext:
         self.system = ""
         self.question = ""
         self.workload = ""
+        self.cpu = ""
+        self.mem = ""
 
         self.log_type = ""
         self.injection_location = ""
@@ -26,7 +28,7 @@ class TrialSetupContext:
         self.version = ""
     
     def __str__(self) -> str:
-        return f"{self.action}, {self.system}, {self.version}, {self.question}, {self.workload}, {self.log_type}, {self.injection_location}, {self.injection_type}, {self.severity}, {self.duration}, {self.start}, {self.end}, {self.iter}, {self.suffix}"
+        return f"{self.action}, {self.system}, {self.version}, {self.question}, {self.workload}, {self.cpu}, {self.mem}, {self.log_type}, {self.injection_location}, {self.injection_type}, {self.severity}, {self.duration}, {self.start}, {self.end}, {self.iter}, {self.suffix}"
 
         
 def get_trial_setup_context_from_path(path) -> TrialSetupContext:
@@ -34,30 +36,37 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
     t.path = path
 
     dir_folders = get_dir(path).split("/")
-    assert len(dir_folders) >= 4, dir_folders
+    assert len(dir_folders) >= 6, dir_folders
     tokens = get_fname(path).split("-")
-    # handle kafka
-    if "kafka" in dir_folders:
-        if dir_folders[-4] == "kafka":
-            t.action = dir_folders[-5]
-            t.system = dir_folders[-4]
-            t.question = dir_folders[-3]  
-            t.workload = dir_folders[-2] + "|" + dir_folders[-1]
+    
+    if "kafka" in dir_folders:  # handle kafka
+        if dir_folders[-6] == "kafka":
+            # .../sensitivity_1s_p1/kafka/rq1_1/openmsg-1-topic-1-partition-1kb/cpu_3/mem_512M/kafka-throughput/compose-kafka1-nw-flaky-p1-dur30-60-90-1.log
+            t.action = dir_folders[-7]
+            t.system = dir_folders[-6]
+            t.question = dir_folders[-5]  
+            t.workload = dir_folders[-4] + "|" + dir_folders[-3]
+            t.cpu = dir_folders[-2]
+            t.mem = dir_folders[-1]
         elif dir_folders[-3] == "kafka" and dir_folders[-1] == "perf_test":
-            t.action = dir_folders[-4]
-            t.system = dir_folders[-3]
-            t.question = dir_folders[-2]
-            t.workload = dir_folders[-1]
+            t.action = dir_folders[-6]
+            t.system = dir_folders[-5]
+            t.question = dir_folders[-4]
+            t.workload = dir_folders[-3]
+            t.cpu = dir_folders[-2]
+            t.mem = dir_folders[-1]
         else:
             assert False, f"ignore {path}"   
-    else:
+    else:   # all other systems
         if os.path.split(path)[1] in ["cockroach.log", "cockroach.json"]:
             tokens = get_fname(dir_folders[-1]).split("-")
             dir_folders = dir_folders[:-1]
-        t.action = dir_folders[-4]
-        t.system = dir_folders[-3]
-        t.question = dir_folders[-2]
-        t.workload = dir_folders[-1]
+        t.action = dir_folders[-6]
+        t.system = dir_folders[-5]
+        t.question = dir_folders[-4]
+        t.workload = dir_folders[-3]
+        t.cpu = dir_folders[-2]
+        t.mem = dir_folders[-1]
     t.system, t.version = (t.system.split("-") + [""])[:2]
 
     # handle severity: {slow, flaky}-{low, medium,high}
