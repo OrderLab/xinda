@@ -41,7 +41,7 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
     
     if "kafka" in dir_folders:  # handle kafka
         if dir_folders[-6] == "kafka":
-            # .../sensitivity_1s_p1/kafka/rq1_1/openmsg-1-topic-1-partition-1kb/cpu_3/mem_512M/kafka-throughput/compose-kafka1-nw-flaky-p1-dur30-60-90-1.log
+            # .../sensitivity_1s_p1/kafka/rq1_1/openmsg-1-topic-1-partition-1kb/kafka-throughput/cpu_3/mem_512M/compose-kafka1-nw-flaky-p1-dur30-60-90-1.log
             t.action = dir_folders[-7]
             t.system = dir_folders[-6]
             t.question = dir_folders[-5]  
