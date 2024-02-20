@@ -12,6 +12,12 @@ services:
       - CLUSTER_NAME=test
     env_file:
       - ./hadoop.env
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
 
   datanode:
     image: rmlu/hadoop-datanode:3.3.6
@@ -23,6 +29,12 @@ services:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
       - ./hadoop.env
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
 
   datanode1:
     image: rmlu/hadoop-datanode:3.3.6
@@ -34,6 +46,12 @@ services:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
       - ./hadoop.env
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
 
   datanode2:
     image: rmlu/hadoop-datanode:3.3.6
@@ -45,6 +63,12 @@ services:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
       - ./hadoop.env
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
 
   resourcemanager:
     image: rmlu/hadoop-resourcemanager:3.3.6

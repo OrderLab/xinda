@@ -101,10 +101,16 @@ services:
     hostname: hbase-master
     env_file:
       - ./hbase-distributed-local.env
+      - .env
     environment:
       SERVICE_PRECONDITION: "namenode:9870 datanode:9864 zoo:2181 zoo1:2181 zoo2:2181"
     ports:
       - 16010:16010
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
 
   hbase-regionserver:
     image: rmlu/hbase-regionserver:2.5.6
@@ -112,11 +118,17 @@ services:
     hostname: hbase-regionserver
     env_file:
       - ./hbase-distributed-local.env
+      - .env
     environment:
       HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver
       SERVICE_PRECONDITION: "namenode:9870 datanode:9864 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
     ports:
       - 16030:16030
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
   
   hbase-regionserver1:
     image: rmlu/hbase-regionserver:2.5.6
@@ -124,11 +136,17 @@ services:
     hostname: hbase-regionserver1
     env_file:
       - ./hbase-distributed-local.env
+      - .env
     environment:
       HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver1
       SERVICE_PRECONDITION: "namenode:9870 datanode:9864 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
     ports:
       - 16031:16030
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
   
   hbase-regionserver2:
     image: rmlu/hbase-regionserver:2.5.6
@@ -136,11 +154,17 @@ services:
     hostname: hbase-regionserver2
     env_file:
       - ./hbase-distributed-local.env
+      - .env
     environment:
       HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver2
       SERVICE_PRECONDITION: "namenode:9870 datanode:9864 zoo:2181 zoo1:2181 zoo2:2181 hbase-master:16010"
     ports:
       - 16032:16030
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
 
 # volumes:
 #   hadoop_namenode:
