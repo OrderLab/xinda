@@ -25,6 +25,11 @@ services:
     depends_on:
       roach2:
         condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
 
   roach2:
     image: cockroachdb/cockroach:v23.1.11
@@ -41,6 +46,11 @@ services:
     networks:
       - roachnet
     command: start --advertise-addr=roach2:26357 --http-addr=roach2:8080 --listen-addr=roach2:26357 --sql-addr=roach2:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
 
   roach3:
     image: cockroachdb/cockroach:v23.1.11
@@ -55,6 +65,11 @@ services:
     depends_on:
       roach2:
         condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
 
 networks:
   roachnet:

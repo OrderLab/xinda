@@ -24,8 +24,8 @@ class Logging:
         self.create_dir_if_not_exist(path1)
         # path2 = os.path.join(log_root_dir_, sys_name_, data_dir_, benchmark_.identifier)
         path2 = os.path.join(path1, benchmark_.identifier)
-        if reslim_.if_reslim:
-            path2 = os.path.join(path2, f"cpu_{reslim_.cpu_limit}", f"mem_{reslim_.mem_limit}")
+        # if reslim_.if_reslim:
+        path2 = os.path.join(path2, f"cpu_{reslim_.cpu_limit}", f"mem_{reslim_.mem_limit}")
         self.data_dir = path2
         self.create_dir_if_not_exist(path2)
         iter_ = str(iter_)

@@ -40,7 +40,7 @@ parser.add_argument('--batch_test_log', type = str, default = None,
 parser.add_argument('--if_restart', action='store_true', default=False,
                     help='If we need to restart the system after fault injection')
 parser.add_argument('--if_reslim', action='store_true', default=False,
-                    help='If we need to set resource limits on CPU and memory')
+                    help='[Deprecated] If we need to set resource limits on CPU and memory')
 parser.add_argument('--cpu_limit', type=str, default=None,
                     help='The number of CPU cores that each container can get at most (e.g., 0.5 or 1 or 5)')
 parser.add_argument('--mem_limit', type=str, default=None,
@@ -184,12 +184,13 @@ def main(args):
     if args.version is not None and sys_name not in ['hadoop', 'etcd']:
         print('Currently version study only supports hadoop and etcd')
         exit(1)
-    if args.if_reslim == True:
-        if args.cpu_limit is None or args.mem_limit is None:
-            print(f'Resource limits enabled (if_reslim={args.if_reslim}), but at least one of cpu_limit ({args.cpu_limit}) or mem_limit ({args.mem_limit}) is None')
-            exit(1)
-    reslim = ResourceLimit(if_reslim_ = args.if_reslim,
-                           cpu_limit_ = args.cpu_limit,
+    if args.cpu_limit is None and args.mem_limit is None:
+        args.cpu_limit = "4" # 20 cores in total
+        args.mem_limit = "32G" # 128G in total
+    elif args.cpu_limit is None or args.mem_limit is None:
+        print(f'At least one of cpu_limit ({args.cpu_limit}) or mem_limit ({args.mem_limit}) is None')
+        exit(1)
+    reslim = ResourceLimit(cpu_limit_ = args.cpu_limit,
                            mem_limit_ = args.mem_limit)
 
     fault = slow_fault.SlowFault(type_ = args.fault_type,

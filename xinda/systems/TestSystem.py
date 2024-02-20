@@ -47,8 +47,7 @@ class TestSystem:
             if sys_name_ != 'etcd':
                 raise ValueError(f"Exception: {fault_.location} is not a member of {sys_name_}:{self.container_config[sys_name_]}")
         self.info(f"Current workload: {self.benchmark.workload}")
-        if self.reslim.if_reslim:
-            self.info(f"reslim enabled: CPU_LIMIT={self.reslim.cpu_limit} MEM_LIMIT={self.reslim.mem_limit}")
+        self.info(f"reslim enabled: CPU_LIMIT={self.reslim.cpu_limit} MEM_LIMIT={self.reslim.mem_limit}")
         cmd = 'git rev-parse --short HEAD'
         p = subprocess.run(cmd, shell=True, cwd=f"{os.path.expanduser('~')}/workdir/xinda", stdout = subprocess.PIPE)
         self.info(f"commit: {p.stdout.decode('utf-8').strip()}")
@@ -126,18 +125,14 @@ class TestSystem:
     
     def docker_up(self):
         cmd = [1]
-        if self.reslim.if_reslim:
-            reslim_identifier = '-reslim'
-        else:
-            reslim_identifier = ''
         if self.fault.type == 'nw' or self.fault.type == 'none':
             cmd = [f'docker-compose',
-                   '-f', f'docker-compose{reslim_identifier}.yaml',
+                   '-f', 'docker-compose.yaml',
                    'up',
                    '-d']
         elif self.fault.type == 'fs':
             cmd = ['docker-compose',
-                   '-f', f'docker-compose{reslim_identifier}-{self.fault.location}.yaml',
+                   '-f', f'docker-compose-{self.fault.location}.yaml',
                    'up',
                    '-d']
         else:
@@ -235,11 +230,11 @@ class TestSystem:
         self.info('Containers IP addr retrieved')
         for container_name, ip_address in container_info.items():
             self.info(f"Container Name: {container_name}, IP Address: {ip_address}", if_time=False)
-        if self.reslim.if_reslim:
-            cmd = 'docker stats --no-stream'
-            p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
-            cmd_output = p.stdout.read()
-            self.info(cmd_output.decode('utf-8'))
+        # if self.reslim.if_reslim:
+        cmd = 'docker stats --no-stream'
+        p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+        cmd_output = p.stdout.read()
+        self.info(cmd_output.decode('utf-8'))
         
     
     def docker_down(self) -> subprocess.CompletedProcess:

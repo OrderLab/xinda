@@ -15,6 +15,9 @@ services:
 #      - /data/ruiming/tmp/cfs_mount/cassandra/cas1:/var/lib/cassandra/data
 #    user: ${GID}:${UID}
 #    env_file: .env
+    env_file: .env
+    cpus: ${CPU_LIMIT}
+    mem_limit: ${MEM_LIMIT}
 
   cas2:
     image: "cassandra:4.0.10"
@@ -36,6 +39,8 @@ services:
       - "cas1"
     user: ${UID}:${GID}
     env_file: .env
+    cpus: ${CPU_LIMIT}
+    mem_limit: ${MEM_LIMIT}
  
   cas3:
     image: "cassandra:4.0.10"
@@ -46,3 +51,6 @@ services:
     depends_on:
       cas2:
         condition: service_healthy
+    env_file: .env
+    cpus: ${CPU_LIMIT}
+    mem_limit: ${MEM_LIMIT}
