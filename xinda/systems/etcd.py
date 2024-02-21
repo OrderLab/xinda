@@ -25,6 +25,7 @@ class Etcd(TestSystem):
             # load and run benchmark
             self._load_ycsb()
             self._run_ycsb()
+            # self._run_ycsb_double_wrapper()
             # inject slow faults
             if self.fault.type != 'none':
                 self.inject(cfs_pattern=f".*{self.fault.location}.*")
@@ -119,6 +120,50 @@ class Etcd(TestSystem):
         self.info("Benchmark:ycsb starts. We should inject faults after 30s till the cluster performance is stable", rela=self.start_time)
         # self.info("Benchmark:ycsb starts. Now wait 30s before cluster performance is stable", rela=self.start_time)
         # time.sleep(30)
+    
+    def _run_ycsb_double_wrapper(self):
+        self.start_time = int(time.time()*1e9)
+        double_run_thread = threading.Thread(target=self._run_ycsb_double)
+        double_run_thread.start()
+    
+    def _run_ycsb_double(self):
+        def _wait_till_process_ends(self, p, end_time):
+            cur_time = self.get_current_ts()
+            if cur_time < int(end_time):
+                delta_time = int(end_time) - cur_time
+                self.info(f"Sleep {delta_time}s till current benchmark ends")
+                time.sleep(delta_time)
+            p.terminate()
+            # self.info("Benchmark safely ends", rela=self.start_time)
+        
+        wkl = 'readonly'
+        cmd = [self.tool.go_ycsb_bin,
+               'run', 'etcd',
+               '-P', os.path.join(self.tool.go_ycsb_wkl, ('workload' + wkl)),
+               '-p', f'operationcount={self.benchmark.operationcount}',
+               '-p', f"etcd.endpoints=http://{self.container_info['etcd0']}:2379",
+               '--interval', self.benchmark.status_interval,
+               '-p', f'threadcount={self.benchmark.threadcount}'
+        ]
+        cmd = [str(item) for item in cmd]
+        log1 = os.path.join(self.log.data_dir, 'runtime-' + self.log.description + f"-{wkl}.log")
+        p1 = subprocess.Popen(cmd, stdout=open(log1,"w"), stderr=subprocess.DEVNULL)
+        self.info(f"Benchmark:ycsb-{wkl} starts.", rela=self.start_time)
+        _wait_till_process_ends(self, p=p1, end_time=90)
+        
+        wkl = 'writeonly'
+        cmd = [self.tool.go_ycsb_bin,
+               'run', 'etcd',
+               '-P', os.path.join(self.tool.go_ycsb_wkl, ('workload' + wkl)),
+               '-p', f'operationcount={self.benchmark.operationcount}',
+               '-p', f"etcd.endpoints=http://{self.container_info['etcd0']}:2379",
+               '--interval', self.benchmark.status_interval,
+               '-p', f'threadcount={self.benchmark.threadcount}'
+        ]
+        cmd = [str(item) for item in cmd]
+        log2 = os.path.join(self.log.data_dir, 'runtime-' + self.log.description + f"-{wkl}.log")
+        self.ycsb_process = subprocess.Popen(cmd, stdout=open(log2,"w"), stderr=subprocess.DEVNULL)
+        self.info(f"Benchmark:ycsb-{wkl} starts", rela=self.start_time)
     
     def run_official(self):
         cmd = f'docker exec -it etcd-benchmark benchmark {self.benchmark.workload} --endpoints={self.benchmark.official_endpoints} {self.benchmark.official_flags}'
