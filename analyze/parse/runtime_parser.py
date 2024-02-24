@@ -50,7 +50,7 @@ def _runtime_parser_cassandra_ycsb(log_raw):
     for sec, tp in matches:
         data_raw[int(sec)] = data_raw.get(sec, float(tp))
     data = sorted(data_raw.items())
-    df = pd.DataFrame(data, columns=[COLNAME_TIME, COLNAME_TP])
+    df = pd.DataFrame(data, columns=[COLNAME_TS, COLNAME_TIME, COLNAME_TP])
     return df
 
 
@@ -82,9 +82,19 @@ def _runtime_parser_crdb_ycsb(log_raw):
             assert False
         except:
             pass
-    data = [[x]+y for x, y in sorted(data_raw.items())]
-    df = pd.DataFrame(data, columns=[COLNAME_TIME, COLNAME_TP, COLNAME_ERR])
+    # 06:01:41.349634 -> 06:01:41
+    time_base = re.findall(r"\S* (\S*) .*creating load generator... done", log_raw)[-1][0].split(".")[0]
+    data = [[timestr_add(time_base, x), x]+y for x, y in sorted(data_raw.items())]
+    df = pd.DataFrame(data, columns=[COLNAME_TS, COLNAME_TIME, COLNAME_TP, COLNAME_ERR])
     return (df, dict(lats))
+
+
+def timestr_add(base: str, secs: int) -> str:
+    time_format = "%H:%M:%S"
+    t_obj = datetime.strptime(base, time_format)
+    t_obj_new = t_obj + timedelta(seconds=secs)
+    return t_obj_new.strftime(time_format)
+
 
 def _runtime_parser_crdb_sysbench(log_raw):
     pattern = r"\[ (\d*)s \].* tps: ([\S]*).* err\/s: ([\S]*)"
