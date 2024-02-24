@@ -9,6 +9,7 @@ from parse.tools import read_raw_logfile
 COLNAME_TIME = "time(sec)"
 COLNAME_TP = "throughput(ops/sec)"
 COLNAME_ERR = "errors"
+COLNAME_TS = "ts"
 
 
 class RuntimeParser:
@@ -43,7 +44,7 @@ class RuntimeParser:
 
 
 def _runtime_parser_cassandra_ycsb(log_raw):
-    pattern = r"(\d*) sec:.*; (\S*) current ops\/sec; est completion"
+    pattern = r"(\S* \S*) (\d*) sec:.*; (\S*) current ops\/sec; est completion"
     matches = re.findall(pattern, log_raw)
     data_raw = {}
     for sec, tp in matches:

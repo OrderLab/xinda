@@ -7,7 +7,7 @@ from genmeta.tools import read_json
 from genmeta.fields import *
 from parse.tools import read_raw_logfile
 
-TS = "time(sec)"
+TIME_SEC = "time(sec)"
 
 SHOULD_FILL = "SHOULD_FILL_ERROR"
 
@@ -115,18 +115,18 @@ def gen_stats(gmctx: GenMetaContext):
             if len(df_prod) == 0: raise EmptyParsedDataError(gmctx.producer_csv)
             if len(df_cons) == 0: raise EmptyParsedDataError(gmctx.consumer_csv)
             
-            df_prod = df_prod[(df_prod[TS]>=total_start)&(df_prod[TS]<=total_end)]
-            df_cons = df_cons[(df_cons[TS]>=total_start)&(df_cons[TS]<=total_end)]
+            df_prod = df_prod[(df_prod[TIME_SEC]>=total_start)&(df_prod[TIME_SEC]<=total_end)]
+            df_cons = df_cons[(df_cons[TIME_SEC]>=total_start)&(df_cons[TIME_SEC]<=total_end)]
             
             TP = "tp(MB.sec)"
             stats[FIELD_VALUE] = (df_prod[TP].sum()+df_cons[TP].sum()) / (len(df_prod)+len(df_cons))
             if slow_start < slow_end:
-                bf_slow_prod = df_prod[df_prod[TS]<slow_start]
-                bf_slow_cons = df_cons[df_cons[TS]<slow_start]
-                slow_prod = df_prod[(df_prod[TS]>slow_start)&(df_prod[TS]<slow_end)]
-                slow_cons = df_cons[(df_cons[TS]>slow_start)&(df_cons[TS]<slow_end)]
-                af_slow_prod = df_prod[df_prod[TS]>slow_end]
-                af_slow_cons = df_cons[df_cons[TS]>slow_end]
+                bf_slow_prod = df_prod[df_prod[TIME_SEC]<slow_start]
+                bf_slow_cons = df_cons[df_cons[TIME_SEC]<slow_start]
+                slow_prod = df_prod[(df_prod[TIME_SEC]>slow_start)&(df_prod[TIME_SEC]<slow_end)]
+                slow_cons = df_cons[(df_cons[TIME_SEC]>slow_start)&(df_cons[TIME_SEC]<slow_end)]
+                af_slow_prod = df_prod[df_prod[TIME_SEC]>slow_end]
+                af_slow_cons = df_cons[df_cons[TIME_SEC]>slow_end]
                 if len(bf_slow_prod)*len(slow_prod)*len(af_slow_prod) == 0: 
                     raise EmptySlowFaultDataError(gmctx.producer_csv)
                 if len(bf_slow_cons)*len(slow_cons)*len(af_slow_cons) == 0: 
@@ -148,21 +148,21 @@ def gen_stats(gmctx: GenMetaContext):
             df = pd.read_csv(gmctx.driver_csv)
             if len(df) == 0: raise EmptyParsedDataError(gmctx.driver_csv)
             
-            t0 = df[TS].iloc[0]
-            mask_within_total = df.apply(lambda row: total_start <= sec_from_start(row[TS], t0) <= total_end, axis=1)
+            t0 = df[TIME_SEC].iloc[0]
+            mask_within_total = df.apply(lambda row: total_start <= sec_from_start(row[TIME_SEC], t0) <= total_end, axis=1)
             df = df[mask_within_total]
             
             PUB_TP, CONS_PT = "pub_tp(MB.sec)", "cons_tp(MB.sec)"
             stats[FIELD_VALUE] = df[[PUB_TP, CONS_PT]].mean().sum() 
             if slow_start < slow_end:
                 mask_bf_slow = df.apply(lambda row: total_start <= \
-                    sec_from_start(row[TS], t0) < sec_from_start(fault_actual_begin, t0, -1), axis=1)
+                    sec_from_start(row[TIME_SEC], t0) < sec_from_start(fault_actual_begin, t0, -1), axis=1)
                 
                 mask_slow = df.apply(lambda row: sec_from_start(fault_actual_begin, t0, -1) < \
-                    sec_from_start(row[TS], t0) < sec_from_start(fault_actual_end, t0, -1), axis=1)
+                    sec_from_start(row[TIME_SEC], t0) < sec_from_start(fault_actual_end, t0, -1), axis=1)
                 
                 mask_af_slow = df.apply(lambda row: sec_from_start(fault_actual_end, t0, -1) < \
-                    sec_from_start(row[TS], t0) <= total_end, axis=1)
+                    sec_from_start(row[TIME_SEC], t0) <= total_end, axis=1)
                 df_bf_slow = df[mask_bf_slow]
                 df_slow = df[mask_slow]
                 df_af_slow = df[mask_af_slow]
@@ -178,7 +178,7 @@ def gen_stats(gmctx: GenMetaContext):
                 for i, row in df_af_slow.iterrows():
                     v = df_af_slow.at[i, PUB_TP] + df_af_slow.at[i, CONS_PT]
                     if v >= recov_bar:
-                        recover = sec_from_start(df_af_slow.at[i, TS], fault_actual_end, 1)
+                        recover = sec_from_start(df_af_slow.at[i, TIME_SEC], fault_actual_end, 1)
                         break
                 stats[FIELD_RECOVER_TIME] = recover
             else:
@@ -199,15 +199,15 @@ def gen_stats(gmctx: GenMetaContext):
         df = pd.read_csv(gmctx.runtime_csv)
         if len(df) == 0: raise EmptyParsedDataError(gmctx.runtime_csv)
         
-        df = df[(df[TS]>=total_start)&(df[TS]<=total_end)]
+        df = df[(df[TIME_SEC]>=total_start)&(df[TIME_SEC]<=total_end)]
 
         TP = "throughput(ops/sec)"
         stats[FIELD_VALUE] = df[TP].mean()
         
         if slow_start < slow_end:
-            df_bf_slow = df[df[TS]<slow_start]
-            df_slow = df[(df[TS]>slow_start)&(df[TS]<slow_end)]
-            df_af_slow = df[df[TS]>slow_end]
+            df_bf_slow = df[df[TIME_SEC]<slow_start]
+            df_slow = df[(df[TIME_SEC]>slow_start)&(df[TIME_SEC]<slow_end)]
+            df_af_slow = df[df[TIME_SEC]>slow_end]
             if len(df_bf_slow)*len(df_slow)*len(df_af_slow) == 0: 
                     raise EmptySlowFaultDataError(gmctx.runtime_csv)
             stats[FIELD_VAL_BF_SLOW] = df_bf_slow[TP].mean()
@@ -219,7 +219,7 @@ def gen_stats(gmctx: GenMetaContext):
             for i, row in df_af_slow.iterrows():
                 v = df.at[i, TP]
                 if v >= recov_bar:
-                    recover = df.at[i, TS] - slow_end
+                    recover = df.at[i, TIME_SEC] - slow_end
                     break
             stats[FIELD_RECOVER_TIME] = recover
         else:
