@@ -90,6 +90,7 @@ def parse_batch(data_dir, output_dir, redo_exists) -> None:
 
 def hash_tsctx(ctx: TrialSetupContext) -> Tuple:
     return (ctx.action, ctx.system, ctx.version, ctx.question, ctx.workload, \
+        ctx.cpu, ctx.mem, \
         ctx.injection_location, ctx.injection_type, ctx.severity, \
         ctx.start, ctx.duration, ctx.iter)
 
@@ -154,7 +155,9 @@ def gen_meta_batch(data_dir, output_dir) -> None:
         "fault_duration", 
         "fault_start", 
         "fault_severity", 
-        "iter_flag"] + STATS_COLNAMES
+        "iter_flag",
+        "cpu",
+        "mem"] + STATS_COLNAMES
     for key, gmctx in tqdm(genmeta_tasks.items()):
         full_stats = OrderedDict({k:"" for k in STATS_COLNAMES})
         err = ""
@@ -184,7 +187,9 @@ def gen_meta_batch(data_dir, output_dir) -> None:
             gmctx.ctx.duration,
             gmctx.ctx.start,
             gmctx.ctx.severity,
-            gmctx.ctx.iter] + list(full_stats.values())
+            gmctx.ctx.iter,
+            gmctx.ctx.cpu,
+            gmctx.ctx.mem] + list(full_stats.values())
         meta.append(row)
 
     df = pd.DataFrame(sorted(meta), columns=colnames)

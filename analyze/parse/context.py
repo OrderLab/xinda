@@ -50,15 +50,15 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
             t.system = dir_folders[-6]
             t.question = dir_folders[-5]  
             t.workload = dir_folders[-4] + "|" + dir_folders[-3]
-            t.cpu = dir_folders[-2]
-            t.mem = dir_folders[-1]
+            t.cpu = dir_folders[-2].split("_")[-1]
+            t.mem = dir_folders[-1].split("_")[-1]
         elif dir_folders[-5] == "kafka" and dir_folders[-4] == "perf_test":
             t.action = dir_folders[-6]
             t.system = dir_folders[-5]
             t.question = dir_folders[-4]
             t.workload = dir_folders[-3]
-            t.cpu = dir_folders[-2]
-            t.mem = dir_folders[-1]
+            t.cpu = dir_folders[-2].split("_")[-1]
+            t.mem = dir_folders[-1].split("_")[-1]
         else:
             assert False, f"ignore {path}"   
     else:   # all other systems
@@ -69,8 +69,8 @@ def get_trial_setup_context_from_path(path) -> TrialSetupContext:
         t.system = dir_folders[-5]
         t.question = dir_folders[-4]
         t.workload = dir_folders[-3]
-        t.cpu = dir_folders[-2]
-        t.mem = dir_folders[-1]
+        t.cpu = dir_folders[-2].split("_")[-1]
+        t.mem = dir_folders[-1].split("_")[-1]
     t.system, t.version = (t.system.split("-") + [""])[:2]
 
     # handle severity: {slow, flaky}-{low, medium,high}
