@@ -297,18 +297,18 @@ def gen_stats(gmctx: GenMetaContext):
             pass
         
     # log response
-    stats[FIELD_FIRST_LOG_TIME] = SHOULD_FILL
+    stats[FIELD_LOG_RESPONSE_TIME] = SHOULD_FILL
     
     if not gmctx.compose_json: raise MissingParsedLogError("compose")
     tss = read_json(gmctx.compose_json)["timestamps"]
     if slow_start < slow_end:
-        stats[FIELD_FIRST_LOG_TIME] = "MTTD detection failed"
+        stats[FIELD_LOG_RESPONSE_TIME] = "MTTD detection failed"
         for ts in tss:
             td = sec_from_start(ts, fault_actual_begin, t_hdelta=18)
             # find the first log ts that happens after fault actual begin
             # cap by 10min (600s) to deal with day-boundary-crossing
             if 0 <= td < 600:
-                stats[FIELD_FIRST_LOG_TIME] = td
+                stats[FIELD_LOG_RESPONSE_TIME] = td
                 break
     
     # stats[FIELD_NUM_LOG] = SHOULD_FILL
