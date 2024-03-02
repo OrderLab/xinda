@@ -37,38 +37,48 @@ class ComposeParser:
         return _compose_basic(read_raw_logfile(path), kws=KWS[s], levels=levels[s], path=path)
 
 
-DATA = {
+KWSTATS = {
     "#log": 0,
     "#kwlog": 0,
     "#info": 0,
     "#warn": 0,
     "#error": 0,
-    "path": []
+    "path": "",
+    "timestamps": []
 }
 
 def _compose_basic(log_raw, kws, levels, path):
-    data = copy.deepcopy(DATA)
+    kwstats = copy.deepcopy(KWSTATS)
     lines = log_raw.split("\n")
-    data["#log"] = len(lines)
-    data["path"] = path
+    kwstats["#log"] = len(lines)
+    kwstats["path"] = path
     for i, l in enumerate(lines):
         # print(i, len(lines))
         is_slow_log = False
+        
+        # check whether contains kw
         for kw in kws:
             if kw in l:
                 is_slow_log = True
                 break
+        
+        # count logs by taxonomy
         if is_slow_log:
-            data["#kwlog"] += 1
+            kwstats["#kwlog"] += 1
             if levels[0] in l:
-                data["#info"] += 1
+                kwstats["#info"] += 1
             elif levels[1] in l:
-                data["#warn"] += 1
+                kwstats["#warn"] += 1
             else:
                 for lvl in levels[2:]:
                     if lvl in l:
-                        data["#error"] += 1
+                        kwstats["#error"] += 1
                         break
-    return data
+        
+            # record timestamps
+            matches = re.findall(r"(\d\d:\d\d:\d\d)", l)
+            if matches:
+                kwstats["timestamps"].append(matches[0])
+    return kwstats
 
 

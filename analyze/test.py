@@ -12,6 +12,7 @@ def test_compose_parser():
     path = "/data/yuxuan/sensitivity/default/hbase/rq1_1/ycsb-mixed/compose-hbase-regionserver-nw-flaky-p70-dur30-60-90-10.log"
     path = "/home/yunchi/yuxuan/sensitivity/default/crdb/rq1_1/ycsb-a/crlog-roach1-fs-100000-dur30-60-90-32.log/cockroach.log"
     path = "/home/yunchi/yuxuan/sensitivity/default/crdb/rq1_1/ycsb-a/crlog-roach1-nw-flaky-p70-dur30-60-90-47.log"
+    path = "/home/yunchi/data/ruiming/cloudlab/reslim-etcd-trial/etcd-3.5.10/rq1_1/ycsb-readonly/cpu_0.5/mem_1G/compose-follower-nw-flaky-p1-dur30-60-90-1.log"
     parser = ComposeParser()
     df = parser.parse(path)
     print(df)
@@ -57,9 +58,9 @@ def test_cassum_parser():
     print(df)
 
 
-# test_compose_parser()
+test_compose_parser()
 # test_info_parser()
 # test_raw_parser()
 # test_runtime_parser()
-test_context_parser()
+# test_context_parser()
 # test_cassum_parser()

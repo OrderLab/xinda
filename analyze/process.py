@@ -3,12 +3,13 @@ import os
 import logging
 import json
 import pandas as pd
+from multiprocessing import Pool
 from pandas import DataFrame
 from tqdm import tqdm
 from collections import OrderedDict
 
 from config import DATA_DIR
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Optional
 from parse.runtime_parser import RuntimeParser
 from parse.raw_parser import RawParser
 from parse.info_parser import InfoParser
@@ -29,7 +30,7 @@ PARSERS = {
     "consumer":(PerfConsumerParser, ["csv"]),
     "driver":(OpenMsgDriverParser, ["csv"]),
     "sum":(SummaryParser, ["json"]),
-    # "compose": (ComposeParser, ["json"])
+    "compose": (ComposeParser, ["json"])
 }
 
 
@@ -41,12 +42,13 @@ def get_all_files(data_dir, exts=[".log"]) -> List[str]:
     return [p for p in paths if os.path.splitext(p)[-1] in exts]
 
 
-def parse_single(log_path, output_path_woext, parser) -> None:
+def parse_single(log_path, output_path_woext, parser) -> Optional[str]:
     ctx = get_trial_setup_context_from_path(log_path)
     data = parser.parse(log_path)
     if data is None:
-        logging.info(
-            f"Unimplemented {ctx.system} {parser.name} for {log_path}. ")
+        msg = f"Unimplemented {ctx.system} {parser.name} for {log_path}."
+        logging.info(msg)
+        return msg
     else:
         if isinstance(data, dict) or isinstance(data, DataFrame):
             data = [data]
@@ -61,7 +63,7 @@ def parse_single(log_path, output_path_woext, parser) -> None:
                     d.to_csv(p, index=False)
                 except:
                     print(d)
-                    raise
+                    return d
 
 
 def parse_batch(data_dir, output_dir, redo_exists) -> None:
@@ -72,6 +74,7 @@ def parse_batch(data_dir, output_dir, redo_exists) -> None:
         except:
             logging.warn(f"Skip {p}. Cannot parse context from filename.")
 
+    worker_agrs = []
     for path, ctx in tqdm(log_ctx.items()):
         psrname = ctx.log_type
         if psrname not in PARSERS:
@@ -85,7 +88,22 @@ def parse_batch(data_dir, output_dir, redo_exists) -> None:
             if all_exists:
                 continue
         os.makedirs(os.path.dirname(outpath_woext), exist_ok=True)
-        parse_single(path, outpath_woext, parser())
+        # parse_single(path, outpath_woext, parser())
+        worker_agrs.append((path, outpath_woext, parser()))
+        
+    def callback(result):
+        if result:
+            print(result)
+        
+    with Pool(processes=24) as pool:
+        for arg in worker_agrs:
+            pool.apply_async(parse_single, arg, callback=callback)
+        pool.close()
+        pool.join()
+            
+        # for progress in tqdm(pool.starmap(parse_single, worker_agrs), total=len(worker_agrs)):
+        #     print(progress)
+    
 
 
 def hash_tsctx(ctx: TrialSetupContext) -> Tuple:
@@ -161,6 +179,7 @@ def gen_meta_batch(data_dir, output_dir) -> None:
     for key, gmctx in tqdm(genmeta_tasks.items()):
         full_stats = OrderedDict({k:"" for k in STATS_COLNAMES})
         err = ""
+        stats = {}
         try:
             stats = gen_stats(gmctx)
         except (EmptyParsedDataError, 
@@ -214,7 +233,7 @@ if __name__ == "__main__":
         output_dir=output_dir,
         redo_exists=args.redo.split(",")
     )
-    
+    print("finish parsing, start summarizing")
     gen_meta_batch(
         data_dir=output_dir,
         output_dir=output_dir,
