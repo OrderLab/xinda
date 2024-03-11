@@ -1,0 +1,49 @@
+---
+- name: Configure test pipeline (adaptivetool) in HBase
+  hosts: all
+  become: false
+
+  tasks:
+    - name: check if hbase-2.5.6 exists
+      stat:
+        path: $HOME/workdir/hbase-2.5.6
+      register: hbase_exists
+    
+    - name: check if hbase-2.5.6-source exists
+      stat:
+        path: $HOME/workdir/hbase-2.5.6-source
+      register: source_exists
+    
+    - name: check if docker-hbase exists
+      stat:
+        path: $HOME/workdir/docker-hbase
+      register: hbase_docker_exists
+
+    - name: Get hbase-2.5.6
+      shell: |
+        cd ~/workdir
+        curl -fSL "http://archive.apache.org/dist/hbase/2.5.6/hbase-2.5.6-bin.tar.gz" -o hbase-2.5.6-bin.tar.gz
+        tar xf hbase-2.5.6-bin.tar.gz
+      when: hbase_exists.stat.exists == False
+
+    - name: Clone hbase-2.5.6-source
+      shell: |
+        cd ~/workdir
+        git clone git@github.com:OrderLab/hbase-2.5.6-source.git
+      when: source_exists.stat.exists == False
+    
+    - name: Clone docker-hbase
+      shell: |
+        cd ~/workdir
+        git clone -b testing git@github.com:OrderLab/docker-hbase.git
+      when: hbase_docker_exists.stat.exists == False
+    
+    - name: Copy makefile to workdir
+      copy:
+        src: ./hbase-test-pipeline.makefile
+        dest: $HOME/workdir/Makefile
+    
+    - name: Copy extract.py to workdir
+      copy:
+        src: ./hbase-test-pipeline-extract-sync-cost
+        dest: $HOME/workdir/extract.py

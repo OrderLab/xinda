@@ -1,0 +1,29 @@
+import re
+import sys
+
+# Taking log_file_path as input from the command line
+if len(sys.argv) != 2:
+    print("Usage: script.py <log_file_path>")
+    sys.exit(1)
+
+log_file_path = sys.argv[1]
+
+# Read the log file
+with open(log_file_path, 'r') as file:
+    log_data = file.read()
+
+# Extracting numbers followed by " ms"
+pattern = r"This sync cost: (\d+) ms"
+matches = re.findall(pattern, log_data)
+
+# Preparing CSV content
+csv_content = "Sync Time (ms)\n" + "\n".join(matches)
+
+# Specify the path to save the CSV file
+csv_file_path = 'output.csv'
+
+# Writing to the CSV file
+with open(csv_file_path, 'w') as csv_file:
+    csv_file.write(csv_content)
+
+print(f"Sync times extracted to {csv_file_path}")
