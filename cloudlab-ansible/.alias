@@ -7,6 +7,11 @@ dip() {
 fps(){
     ps aux | grep "$1"
 }
+
+# docker stop and remove
+dsm(){
+    docker stop $1 && docker rm $1
+}
 alias lx='ll -haXtr'
 alias xinda='cd ~/workdir/xinda'
 alias xindata='cd ~/workdir/data'
