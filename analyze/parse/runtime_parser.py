@@ -47,9 +47,11 @@ def _runtime_parser_cassandra_ycsb(log_raw):
     pattern = r"(\S* \S*) (\d*) sec:.*; (\S*) current ops\/sec; est completion"
     matches = re.findall(pattern, log_raw)
     data_raw = {}
-    for sec, tp in matches:
-        data_raw[int(sec)] = data_raw.get(sec, float(tp))
-    data = sorted(data_raw.items())
+    for real_time, sec, tp in matches:
+        data_raw[int(sec)] = data_raw.get(int(sec), (real_time, int(sec), float(tp)))
+    data = []
+    for sec in sorted(data_raw):
+        data.append(data_raw[sec])
     df = pd.DataFrame(data, columns=[COLNAME_TS, COLNAME_TIME, COLNAME_TP])
     return df
 

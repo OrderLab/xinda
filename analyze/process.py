@@ -62,7 +62,7 @@ def parse_single(log_path, output_path_woext, parser) -> Optional[str]:
                     p = output_path_woext + ".csv"
                     d.to_csv(p, index=False)
                 except:
-                    print(d)
+                    print("Outputing df to csv error", d)
                     return d
 
 
@@ -88,18 +88,20 @@ def parse_batch(data_dir, output_dir, redo_exists) -> None:
             if all_exists:
                 continue
         os.makedirs(os.path.dirname(outpath_woext), exist_ok=True)
-        # parse_single(path, outpath_woext, parser())
-        worker_agrs.append((path, outpath_woext, parser()))
+        parse_single(path, outpath_woext, parser()) # mute this if multiprocessing is unmuted
+""" MULTIPORC STARTS """
+        # worker_agrs.append((path, outpath_woext, parser()))
         
-    def callback(result):
-        if result:
-            print(result)
+    # def callback(result):
+    #     if result:
+    #         print(result)
         
-    with Pool(processes=24) as pool:
-        for arg in worker_agrs:
-            pool.apply_async(parse_single, arg, callback=callback)
-        pool.close()
-        pool.join()
+    # with Pool(processes=24) as pool:
+    #     for arg in worker_agrs:
+    #         pool.apply_async(parse_single, arg, callback=callback)
+    #     pool.close()
+    #     pool.join()
+""" MULTIPORC ENDS """
             
         # for progress in tqdm(pool.starmap(parse_single, worker_agrs), total=len(worker_agrs)):
         #     print(progress)
