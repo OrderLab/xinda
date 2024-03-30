@@ -40,6 +40,17 @@ python3 generate_test_script.py --sys_name crdb --data_dir rq1_1 --start_time 60
 bash crdb-fs-nw-dur--1-30.sh
 ```
 
+## RQ 1-1
+
+```shell
+python3 rq1_1.py --sys_name crdb --data_dir rq1_1 --start_time 60 --duration 30  --fault_type fs nw --unique_benchmark ycsb --iter 50
+python3 rq1_1.py --sys_name etcd --data_dir rq1_1 --start_time 60 --duration 30  --fault_type fs nw --unique_benchmark ycsb --iter 50
+python3 rq1_1.py --sys_name hadoop --data_dir rq1_1 --start_time 60 --duration 30  --fault_type fs nw --iter 50 --unique_benchmark terasort
+python3 rq1_1.py --sys_name cassandra --data_dir rq1_1 --start_time 60 --duration 30  --fault_type nw --unique_benchmark ycsb --iter 50
+python3 rq1_1.py --sys_name kafka --data_dir rq1_1 --start_time 60 --duration 30  --fault_type nw --unique_benchmark openmsg --iter 50
+python3 rq1_1.py --sys_name hbase --data_dir rq1_1 --start_time 60 --duration 30  --fault_type nw --unique_benchmark ycsb --iter 50
+```
+
 ## RQ 1-2
 
 mrbench
