@@ -65,10 +65,10 @@ args = parser.parse_args()
 tasks = {
     'cass': {'time': 7, 'count': 450},
     'crdb': {'time': 3.5, 'count': 650},
-    'etcd': {'time': 3, 'count': 1300},
-    'hadoop': {'time': 5, 'count': 1300},
-    'hbase': {'time': 4.5, 'count': 1800},
-    'kafka': {'time': 3.3, 'count': 450}
+    'etcd': {'time': 3.5, 'count': 1300},
+    'hadoop': {'time': 3.6, 'count': 1300},
+    'hbase': {'time': 4.8, 'count': 1800},
+    'kafka': {'time': 5.2, 'count': 450}
 }
 num_nodes = 10
 # Reassign tasks with a preference for keeping each node's tasks from the same system
