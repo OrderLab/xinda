@@ -11,7 +11,7 @@ TIME_SEC = "time(sec)"
 
 SHOULD_FILL = "SHOULD_FILL_ERROR"
 
-def gen_stats(gmctx: GenMetaContext):
+def gen_stats(gmctx: GenMetaContext, stats: dict):
     # global values
     DUR_MAP = {
         "rq1_1":150,
@@ -20,13 +20,11 @@ def gen_stats(gmctx: GenMetaContext):
         "restart":300,
         "coverage":150,
         "test":150,
+        "tool":300,
     }
     total_start = 30
     total_end = DUR_MAP[gmctx.ctx.question]
     slow_start, slow_end, fault_actual_begin, fault_actual_end = get_slow_period(gmctx)
-    
-    # stats
-    stats = {}
     
     # parse stats
     if gmctx.ctx.system == "hadoop":
@@ -296,35 +294,22 @@ def gen_stats(gmctx: GenMetaContext):
         elif gmctx.ctx.workload == "perf_test":
             pass
         
-    # log response
-    stats[FIELD_LOG_RESPONSE_TIME] = SHOULD_FILL
+    # log level stats
     
-    if not gmctx.compose_json: raise MissingParsedLogError("compose")
-    tss = read_json(gmctx.compose_json)["timestamps"]
-    if slow_start < slow_end:
-        stats[FIELD_LOG_RESPONSE_TIME] = "MTTD detection failed"
-        for ts in tss:
-            td = sec_from_start(ts, fault_actual_begin, t_hdelta=18)
-            # find the first log ts that happens after fault actual begin
-            # cap by 10min (600s) to deal with day-boundary-crossing
-            if 0 <= td < 600:
-                stats[FIELD_LOG_RESPONSE_TIME] = td
-                break
-    
-    # stats[FIELD_NUM_LOG] = SHOULD_FILL
-    # stats[FIELD_NUM_KWLOG] = SHOULD_FILL
-    # stats[FIELD_NUM_INFOLOG] = SHOULD_FILL
-    # stats[FIELD_NUM_WARNLOG] = SHOULD_FILL
-    # stats[FIELD_NUM_ERRORLOG] = SHOULD_FILL
+    stats[FIELD_NUM_LOG] = SHOULD_FILL
+    stats[FIELD_NUM_KWLOG] = SHOULD_FILL
+    stats[FIELD_NUM_INFOLOG] = SHOULD_FILL
+    stats[FIELD_NUM_WARNLOG] = SHOULD_FILL
+    stats[FIELD_NUM_ERRORLOG] = SHOULD_FILL
     # stats[FIELD_FIRST_LOG_TIME] = SHOULD_FILL
     # flt = "not found in slow"
-    # if not gmctx.compose_json: raise MissingParsedLogError("compose")
-    # info = read_json(gmctx.compose_json)
-    # stats[FIELD_NUM_LOG] = info["#log"]
-    # stats[FIELD_NUM_KWLOG] = info["#kwlog"]
-    # stats[FIELD_NUM_INFOLOG] = info["#info"]
-    # stats[FIELD_NUM_WARNLOG] = info["#warn"]
-    # stats[FIELD_NUM_ERRORLOG] = info["#error"]
+    if not gmctx.compose_json: raise MissingParsedLogError("compose")
+    info = read_json(gmctx.compose_json)
+    stats[FIELD_NUM_LOG] = info["#log"]
+    stats[FIELD_NUM_KWLOG] = info["#kwlog"]
+    stats[FIELD_NUM_INFOLOG] = info["#info"]
+    stats[FIELD_NUM_WARNLOG] = info["#warn"]
+    stats[FIELD_NUM_ERRORLOG] = info["#error"]
     # if slow_start < slow_end:
     #     raw = read_raw_logfile(info["path"])
     #     ts_begin = time_obj("00"+fault_actual_begin[2:])
@@ -335,7 +320,23 @@ def gen_stats(gmctx: GenMetaContext):
     #             break
     # stats[FIELD_FIRST_LOG_TIME] = flt
     
-    return stats
+    # log response
+    stats[FIELD_LOG_RESPONSE_TIME] = SHOULD_FILL
+    
+    if not gmctx.compose_json: raise MissingParsedLogError("compose")
+    tss = read_json(gmctx.compose_json)["timestamps"]
+    if slow_start < slow_end:
+        stats[FIELD_LOG_RESPONSE_TIME] = "MTTD detection failed"
+        for ts in tss:
+            td = sec_from_start(ts, fault_actual_begin, t_hdelta=19)
+            # find the first log ts that happens after fault actual begin
+            # cap by 10min (600s) to deal with day-boundary-crossing
+            if 0 <= td < 600:
+                stats[FIELD_LOG_RESPONSE_TIME] = td
+                break
+        print(stats[FIELD_LOG_RESPONSE_TIME])
+    
+    return
 
 
 def get_slow_period(gmctx: GenMetaContext) -> Tuple[int, int, str, str]:

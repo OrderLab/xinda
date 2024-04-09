@@ -1,6 +1,7 @@
 import re
 import pandas as pd
 from collections import defaultdict
+from datetime import datetime, timedelta
 
 from parse.context import get_trial_setup_context_from_path
 from parse.tools import read_raw_logfile
@@ -85,7 +86,7 @@ def _runtime_parser_crdb_ycsb(log_raw):
         except:
             pass
     # 06:01:41.349634 -> 06:01:41
-    time_base = re.findall(r"\S* (\S*) .*creating load generator... done", log_raw)[-1][0].split(".")[0]
+    time_base = re.findall(r"\S* (\S*) .*creating load generator... done", log_raw)[-1].split(".")[0]
     data = [[timestr_add(time_base, x), x]+y for x, y in sorted(data_raw.items())]
     df = pd.DataFrame(data, columns=[COLNAME_TS, COLNAME_TIME, COLNAME_TP, COLNAME_ERR])
     return (df, dict(lats))
