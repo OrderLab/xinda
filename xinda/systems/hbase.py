@@ -109,6 +109,7 @@ class HBase(TestSystem):
                f"-p maxexecutiontime={self.benchmark.exec_time}",
                f"-p status.interval={self.benchmark.status_interval}",
                f"-p columnfamily={self.benchmark.columnfamily}",
+               f"-p threadcount=8",
                f"> {self.log.raw_container}",
                f"2> {self.log.runtime_container}\""]
         cmd = ' '.join(cmd)
