@@ -3,6 +3,9 @@ from xinda.systems.TestSystem import *
 class HBase(TestSystem):
     def test(self):
         # init
+        self.jacoco_loc = 'hbase-regionserver'
+        self.jacoco_report_dir = self.tool.coverage_dir
+        self._jacoco_cleanup()
         self.dest = 'hbase-regionserver2'
         self.info(self.fault.get_info(), if_time=False)
         if self.fault.type == 'nw':
@@ -25,6 +28,9 @@ class HBase(TestSystem):
         else:
             raise ValueError(f"Fault type:{self.fault.type} is not one of {{nw, fs}}")
         self._copy_file_to_container()
+        if self.coverage:
+            self._jacoco_export_hbase_opts()
+            self._jacoco_restart()
         self._init_hbase()
         self._load_ycsb()
         self.start_time = int(time.time()*1e9)
@@ -161,26 +167,36 @@ class HBase(TestSystem):
             p = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         '''
         self.info("Convert raw to ts/sum")
+        if self.coverage:
+            self._jacoco_get_report()
+            copylogs_cmd = f"docker cp {self.jacoco_loc}:/jacoco/reports/ {self.jacoco_report_dir}"
+            _ = subprocess.run(copylogs_cmd, shell=True)
+            self.info('jacoco reports retrieved')
+            self._jacoco_cleanup()
 
-# nw_fault = SlowFault(
-#     type_="nw", # nw or fs
-#     location_ = "hbase-master", 
-#     duration_ = 30,
-#     severity_ = "slow3",
-#     start_time_ = 35)
-# fs_fault = SlowFault(
-#     type_="fs", # nw or fs
-#     location_ = "datanode", # e.g., datanode
-#     duration_ = 30,
-#     severity_ = "10000",
-#     start_time_ = 35)
-# b = YCSB_HBASE(#run_exec_time_='20',
-#                #load_exec_time_='10',
-#                exec_time_ = '150',
-#                workload_='a', 
-#                recordcount_='10000')
-
-# t = HBase(sys_name_= "hbase",
-#                fault_ = fs_fault,
-#                benchmark_= b,
-#                data_dir_= "xixi1")
+    def _jacoco_cleanup(self):
+        cleanup_cmd = f"sudo rm -rf {self.tool.jacoco}/data {self.tool.jacoco}/reports"
+        _ = subprocess.run(cleanup_cmd, shell=True)
+    
+    def _jacoco_export_hbase_opts(self):
+        # export_cmd = f"docker exec -it {self.jacoco_loc} sh -c 'echo export HBASE_OPTS=\"-javaagent:/jacoco/lib/jacocoagent.jar=destfile=/jacoco/data/out.exec,classdumpdir=/jacoco/data/dump,append=true \$HBASE_OPTS\" >> /etc/hbase/hbase-env.sh'"
+        export_cmd = f"docker exec -it {self.jacoco_loc} sh -c 'echo export HBASE_OPTS=\"-javaagent:/jacoco/lib/jacocoagent.jar=address=*,port=36320,destfile=/jacoco/data/out.exec,output=tcpserver \$HBASE_OPTS\" >> /etc/hbase/hbase-env.sh'"
+        _ = subprocess.run(export_cmd, shell=True)
+        tail_cmd = f"docker exec {self.jacoco_loc} tail /etc/hbase/hbase-env.sh -n 1"
+        p = subprocess.run(tail_cmd, shell=True, stdout=subprocess.PIPE)
+        self.info(p.stdout.decode('utf-8').strip())
+    
+    def _jacoco_restart(self):
+        cmd = f"docker restart {self.jacoco_loc}"
+        _ = subprocess.run(cmd, shell=True)
+        time.sleep(60)
+    
+    def _jacoco_get_report(self):
+        module_list = ['hbase-annotations', 'hbase-archetypes', 'hbase-assembly', 'hbase-asyncfs', 'hbase-build-configuration', 'hbase-checkstyle', 'hbase-client', 'hbase-common', 'hbase-compression', 'hbase-endpoint', 'hbase-examples', 'hbase-external-blockcache', 'hbase-hadoop2-compat', 'hbase-hadoop-compat', 'hbase-hbtop', 'hbase-http', 'hbase-it', 'hbase-logging', 'hbase-mapreduce', 'hbase-metrics', 'hbase-metrics-api', 'hbase-procedure', 'hbase-protocol', 'hbase-protocol-shaded', 'hbase-replication', 'hbase-resource-bundle', 'hbase-rest', 'hbase-rsgroup', 'hbase-server', 'hbase-shaded', 'hbase-shell', 'hbase-testing-util', 'hbase-thrift', 'hbase-zookeeper']
+        for module in module_list:
+            cmd = f"docker exec -it {self.jacoco_loc} java -jar /jacoco/lib/jacococli.jar dump --address localhost --port 36320 --destfile /jacoco/data/out.exec"
+            _ = subprocess.run(cmd, shell=True)
+            self.info(f'Module:{module}: jacoco out.exec dumped', rela=self.start_time)
+            cmd = f"docker exec -it {self.jacoco_loc} java -jar /jacoco/lib/jacococli.jar report /jacoco/data/out.exec --classfiles /opt/hbase-2.5.6/lib/{module}-2.5.6.jar --html /jacoco/reports/{module}"
+            _ = subprocess.run(cmd, shell=True)
+            self.info(f'Module:{module}: jacoco reports generated', rela=self.start_time)

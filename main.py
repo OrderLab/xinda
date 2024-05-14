@@ -178,8 +178,8 @@ def main(args):
     if sys_name == 'etcd' and args.fault_location not in ['leader', 'follower']:
         print('Currently etcd only supports leader/follower faults')
         exit(1)
-    if args.coverage != False and sys_name not in ['hadoop', 'etcd']:
-        print('Currently coverage study only supports hadoop and etcd')
+    if args.coverage != False and sys_name not in ['hadoop', 'etcd', 'hbase']:
+        print('Currently coverage study only supports hadoop, etcd, and hbase')
         exit(1)
     if args.version is not None and sys_name not in ['hadoop', 'etcd']:
         print('Currently version study only supports hadoop and etcd')
@@ -240,7 +240,8 @@ def main(args):
                             charybdefs_mount_dir_ = args.charybdefs_mount_dir,
                             reslim_ = reslim,
                             version_=args.version,
-                            if_restart_ = args.if_restart)
+                            if_restart_ = args.if_restart,
+                            coverage_ = args.coverage,)
         # sys.test()
     elif sys_name == 'etcd':
         version = args.version if args.version is not None else '3.5.10'
