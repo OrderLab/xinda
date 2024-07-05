@@ -93,7 +93,8 @@ class GenerateTestScript():
                 # 'crdb': ['roach1', 'roach2'],
                 'cassandra': ['cas1'],
                 'crdb': ['roach1'],
-                'etcd': ['leader', 'follower'],
+                # 'etcd': ['leader', 'follower'],
+                'etcd': ['leader'],
                 'hadoop': ['datanode', 'namenode'],
                 'hbase-fs': ['datanode', 'namenode'],
                 'hbase-nw': ['datanode', 'namenode', 'hbase-master','hbase-regionserver'],
@@ -109,7 +110,8 @@ class GenerateTestScript():
         # ycsb
         # self.ycsb_wkl = ['readonly', 'writeonly', 'mixed', 'b', 'd', 'e', 'f']
         # self.ycsb_wkl_crdb = ['a', 'b', 'c', 'd', 'e', 'f']
-        self.ycsb_wkl = ['readonly', 'writeonly', 'mixed']
+        # self.ycsb_wkl = ['readonly', 'writeonly', 'mixed']
+        self.ycsb_wkl = ['readonly']
         self.ycsb_wkl_crdb = ['a', 'c']
         self.sysbench_wkl = ['oltp_delete', 
                              'oltp_insert', 
@@ -178,8 +180,10 @@ class GenerateTestScript():
                 "perf_test": "perf_test"
                 }
         }
-        self.cpu_limit_ary = ['0.5', '2', '5']
-        self.mem_limit_ary = ['512M', '1G', '2G', '4G']
+        # self.cpu_limit_ary = ['0.5', '2', '5']
+        self.cpu_limit_ary = ['1','2','5']
+        # self.mem_limit_ary = ['512M', '1G', '2G', '4G']
+        self.mem_limit_ary = ['8G', '16G', '32G']
         if not disable_port_check:
             self.check_ports_of_current_system()
         # self.nw_severity = ['slow-low', 'slow-medium', 'slow-high', 'flaky-low', 'flaky-medium', 'flaky-high']
