@@ -1,0 +1,29 @@
+---
+- name: checkout branch
+  hosts: all
+  become: false
+
+  tasks:
+    - name: check if xinda exists
+      stat:
+        path: $HOME/workdir/xinda
+      register: xinda_exists
+
+    - name: checkout xinda
+      shell: |
+        cd $HOME/workdir/xinda
+        git pull
+        git checkout five-node
+      args:
+        executable: /bin/bash
+      when: xinda_exists.stat.exists
+    
+    - name: check the latest git commit id
+      shell: |
+        cd $HOME/workdir/xinda
+        git branch
+      register: check_output
+
+    - name: Show output of git check
+      debug:
+        msg: "commit ID: {{ check_output.stdout }}"
