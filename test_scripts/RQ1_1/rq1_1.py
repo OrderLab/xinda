@@ -97,7 +97,8 @@ class GenerateTestScript():
                 'etcd': ['leader', 'follower'],
                 'hadoop': ['datanode', 'namenode'],
                 'hbase-fs': ['datanode', 'namenode'],
-                'hbase-nw': ['datanode', 'namenode', 'hbase-master','hbase-regionserver'],
+                # 'hbase-nw': ['datanode', 'namenode', 'hbase-master','hbase-regionserver'],
+                'hbase-nw': ['hbase-regionserver'],
                 # 'kafka': ['kafka1', 'kafka2']
                 'kafka': ['kafka1']
             }
