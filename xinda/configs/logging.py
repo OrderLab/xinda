@@ -90,6 +90,13 @@ class Logging:
         # self.openmsg_worker1_stderr = os.path.join(path2, 'err-worker1-' + self.description + ".log")
         # self.openmsg_worker2_stderr = os.path.join(path2, 'err-worker2-' + self.description + ".log")
         
+        # For Depfast
+        self.depfast_filename = f"raw-{self.description}"
+        self.depfast_tarname = f"{self.depfast_filename}.tar"
+        self.depfast_tarpath = f"/root/code/depfast/{self.depfast_tarname}"
+        self.depfast_misc = 'misc-' + self.description
+        self.depfast_summary = 'sum-' + self.description + '.yaml'
+        
     
     def create_dir_if_not_exist(self, path_):
         is_exsit = os.path.exists(path_)

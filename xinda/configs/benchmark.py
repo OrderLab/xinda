@@ -224,3 +224,15 @@ class OPENMSG_KAFKA(Benchmark):
     
     def change_exec_time(self, new_exec_time):
         self.exec_time = int(new_exec_time)
+
+class DEFAULT_DEPFAST(Benchmark):
+    def __init__(self, 
+                 exec_time_ : str,
+                 concurrency_ : int, 
+                 workload_  = 'depfast',):
+        self.benchmark = 'depfast'
+        self.exec_time = exec_time_
+        self.workload = workload_
+        self.identifier = workload_
+        self.concurrency = concurrency_
+        

@@ -6,7 +6,7 @@ import yaml
 import docker
 import sys
 import argparse
-from xinda.systems import cassandra, crdb, etcd, hbase, mapred, kafka
+from xinda.systems import cassandra, crdb, etcd, hbase, mapred, kafka, depfast
 from xinda.configs import logging, slow_fault, tool
 from xinda.configs.benchmark import *
 from xinda.configs.reslim import *
@@ -15,7 +15,7 @@ import traceback
 
 parser = argparse.ArgumentParser(description="Gray failure study on six distributed systems")
 parser.add_argument('--sys_name', type = str, required=True,
-                    choices=['cassandra', 'hbase', 'hadoop', 'etcd', 'crdb', 'kafka'],
+                    choices=['cassandra', 'hbase', 'hadoop', 'etcd', 'crdb', 'kafka', 'depfast'],
                     help='Name of the distributed systems to be tested.')
 parser.add_argument('--data_dir', type = str, required=True,
                     help='Name of data directory to store all the logs')
@@ -101,7 +101,7 @@ parser.add_argument('--ycsb_crdb_run_conn_string', type = str, default = 'postgr
 # hadoop - Benchmark
 parser.add_argument('--benchmark', type = str, required=True,
                     help='[Benchmark] Specify which benchmark to test the system',
-                    choices=['ycsb','mrbench', 'terasort', 'perf_test', 'openmsg', 'ycsb', 'sysbench', 'etcd-official'])
+                    choices=['ycsb','mrbench', 'terasort', 'perf_test', 'openmsg', 'ycsb', 'sysbench', 'etcd-official', 'depfast'])
 # parser.add_argument('--hadoop_wkl', type = str,
 #                     help='[Benchmark] Specify which benchmark to test mapreduce',
 #                     choices=['mrbench', 'terasort'])
@@ -167,10 +167,9 @@ parser.add_argument('--etcd_official_locker', type = str, default = 'stm',
                     help='[Benchmark] The locking scheme of transactions in official:stm benchmark')
 parser.add_argument('--etcd_official_num_watchers', type = int, default = 1000000,
                     help='[Benchmark] Number of watchers in benchmark:official-watch-get')
-
-
-
-
+# depfast
+parser.add_argument('--depfast_concurrency', type = int, default = 100,
+                    help='[Benchmark] The number of concurrent threads in depfast')
 
 
 def main(args):
@@ -383,6 +382,22 @@ def main(args):
                             if_restart_ = args.if_restart
                           )
         # sys.test()  
+    elif sys_name == 'depfast':
+        benchmark = DEFAULT_DEPFAST(exec_time_ = args.bench_exec_time,
+                                    concurrency_ = args.depfast_concurrency)
+        sys = depfast.Depfast(sys_name_ = sys_name,
+                              fault_ = fault,
+                              benchmark_ = benchmark,
+                              data_dir_ = args.data_dir,
+                              log_root_dir_ = args.log_root_dir,
+                              iter_ = args.iter,
+                              xinda_software_dir_ = args.xinda_software_dir,
+                              xinda_tools_dir_ = args.xinda_tools_dir,
+                              charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                              reslim_ = reslim,
+                              version_=args.version,
+                              if_restart_ = args.if_restart
+                              )
     return(sys)
 
 if __name__ == "__main__":
