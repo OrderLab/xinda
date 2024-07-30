@@ -1,0 +1,89 @@
+version: '3.0'
+
+services:
+  server1:
+    image: depfast:latest
+    hostname: server1
+    container_name: server1
+    # volumes:
+    networks:
+      - depfast
+    restart: always
+    ports:
+      - 31234:22
+      - 5556:5556
+      - 10000:10000
+    command: tail -f /dev/null
+  
+  server2:
+    image: depfast:latest
+    hostname: server2
+    container_name: server2
+    # volumes:
+    networks:
+      - depfast
+    restart: always
+    ports:
+      - 5557:5557
+      - 10001:10001
+      - 31235:22
+    command: tail -f /dev/null
+  
+  server3:
+    image: depfast:latest
+    hostname: server3
+    container_name: server3
+    # volumes:
+    networks:
+      - depfast
+    restart: always
+    ports:
+      - 5558:5558
+      - 31236:22
+      - 10002:10002
+    command: tail -f /dev/null
+  
+  server4:
+    image: depfast:latest
+    hostname: server4
+    container_name: server4
+    # volumes:
+    networks:
+      - depfast
+    restart: always
+    ports:
+      - 5559:5559
+      - 31237:22
+      - 10003:10003
+    command: tail -f /dev/null
+  
+  server5:
+    image: depfast:latest
+    hostname: server5
+    container_name: server5
+    # volumes:
+    networks:
+      - depfast
+    restart: always
+    ports:
+      - 5560:5560
+      - 31238:22
+      - 10004:10004
+    command: tail -f /dev/null
+  
+  client:
+    image: depfast:latest
+    hostname: client
+    container_name: client
+    # volumes:
+    networks:
+      - depfast
+    restart: always
+    ports:
+      - 31239:22
+      - 5555:5555
+    command: tail -f /dev/null
+
+networks:
+  depfast:
+    driver: bridge
