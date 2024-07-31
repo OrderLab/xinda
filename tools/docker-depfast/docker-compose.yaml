@@ -2,7 +2,7 @@ version: '3.0'
 
 services:
   server1:
-    image: depfast:latest
+    image: rmlu/depfast:latest
     hostname: server1
     container_name: server1
     # volumes:
@@ -16,7 +16,7 @@ services:
     command: tail -f /dev/null
   
   server2:
-    image: depfast:latest
+    image: rmlu/depfast:latest
     hostname: server2
     container_name: server2
     # volumes:
@@ -30,7 +30,7 @@ services:
     command: tail -f /dev/null
   
   server3:
-    image: depfast:latest
+    image: rmlu/depfast:latest
     hostname: server3
     container_name: server3
     # volumes:
@@ -44,7 +44,7 @@ services:
     command: tail -f /dev/null
   
   server4:
-    image: depfast:latest
+    image: rmlu/depfast:latest
     hostname: server4
     container_name: server4
     # volumes:
@@ -58,7 +58,7 @@ services:
     command: tail -f /dev/null
   
   server5:
-    image: depfast:latest
+    image: rmlu/depfast:latest
     hostname: server5
     container_name: server5
     # volumes:
@@ -72,7 +72,7 @@ services:
     command: tail -f /dev/null
   
   client:
-    image: depfast:latest
+    image: rmlu/depfast:latest
     hostname: client
     container_name: client
     # volumes:
