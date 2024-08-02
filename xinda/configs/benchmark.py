@@ -229,8 +229,10 @@ class DEFAULT_DEPFAST(Benchmark):
     def __init__(self, 
                  exec_time_ : str,
                  concurrency_ : int, 
+                 scheme_ : str,
                  workload_  = 'depfast',):
         self.benchmark = 'depfast'
+        self.scheme = scheme_
         self.exec_time = exec_time_
         self.workload = workload_
         self.identifier = workload_

@@ -48,9 +48,10 @@ class Depfast(TestSystem):
         cmd = ["./config.sh"]
         p = subprocess.run(cmd, shell=True, cwd=self.tool.compose)
         self.info("depfast initiated.")
+        self.info(f'depfast_scheme: {self.benchmark.scheme}')
     
     def _run_depfast(self):
-        cmd = f"docker exec -it {self.client} bash start-exp.sh testname {self.benchmark.exec_time} 0 3 follower 1 {self.benchmark.concurrency} fpga_raft nonlocal"
+        cmd = f"docker exec -it {self.client} bash start-exp.sh testname {self.benchmark.exec_time} 0 3 follower 1 {self.benchmark.concurrency} {self.benchmark.scheme} nonlocal"
         self.depfast_process = subprocess.Popen(cmd, shell=True, stdout=open(self.log.runtime,"w"))
         self.start_time = int(time.time()*1e9)
         self.info("Benchmark:depfast starts.", rela=self.start_time)
