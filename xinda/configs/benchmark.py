@@ -230,6 +230,7 @@ class DEFAULT_DEPFAST(Benchmark):
                  exec_time_ : str,
                  concurrency_ : int, 
                  scheme_ : str,
+                 nclient_ : int,
                  workload_  = 'depfast',):
         self.benchmark = 'depfast'
         self.scheme = scheme_
@@ -237,4 +238,5 @@ class DEFAULT_DEPFAST(Benchmark):
         self.workload = workload_
         self.identifier = workload_
         self.concurrency = concurrency_
+        self.nclient = nclient_
         

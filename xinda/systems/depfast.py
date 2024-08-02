@@ -49,9 +49,19 @@ class Depfast(TestSystem):
         p = subprocess.run(cmd, shell=True, cwd=self.tool.compose)
         self.info("depfast initiated.")
         self.info(f'depfast_scheme: {self.benchmark.scheme}')
+        self.info(f'depfast_nclient: {self.benchmark.nclient}')
+        self.info(f'depfast_concurrency: {self.benchmark.concurrency}')
     
     def _run_depfast(self):
-        cmd = f"docker exec -it {self.client} bash start-exp.sh testname {self.benchmark.exec_time} 0 3 follower 1 {self.benchmark.concurrency} {self.benchmark.scheme} nonlocal"
+        # depfast_slow_location = ''
+        # if self.fault.location == 'server1':
+        #     depfast_slow_location = 'leader'
+        # elif self.fault.location == 'server3':
+        #     depfast_slow_location = 'follower'
+        # else:
+        #     raise ValueError(f"Exception: fault physical location ({self.fault.location}) does not match depfast topology (not {depfast_slow_location})")
+        # self.info(f"fault_physical_location: {self.fault.location}, which is {depfast_slow_location} in depfast\'s toplogy ")
+        cmd = f"docker exec -it {self.client} bash start-exp.sh testname {self.benchmark.exec_time} 0 3 follower {self.benchmark.nclient} {self.benchmark.concurrency} {self.benchmark.scheme} nonlocal"
         self.depfast_process = subprocess.Popen(cmd, shell=True, stdout=open(self.log.runtime,"w"))
         self.start_time = int(time.time()*1e9)
         self.info("Benchmark:depfast starts.", rela=self.start_time)
@@ -83,3 +93,5 @@ class Depfast(TestSystem):
 # nw-slow
 # python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir test --fault_type nw --fault_location server1 --fault_duration 60 --fault_severity slow-100ms --fault_start_time 10 --bench_exec_time 60 --benchmark depfast --depfast_concurrency 100 --iter 1 --log_root_dir /users/rmlu/workdir/data/depfast_nwslow_$(date "+%m%d_%H%M")
 # python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir test --fault_type nw --fault_location server1 --fault_duration 60 --fault_severity slow-10ms --fault_start_time 10 --bench_exec_time 60 --benchmark depfast --depfast_concurrency 100 --iter 1 --log_root_dir /users/rmlu/workdir/data/depfast_nwslow_$(date "+%m%d_%H%M")
+
+# python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir test --fault_type nw --fault_location server1 --fault_duration 60 --fault_severity slow-40ms --fault_start_time 10 --bench_exec_time 60 --benchmark depfast --depfast_concurrency 1 --iter 1 --log_root_dir /users/rmlu/workdir/data/depfast_nwslow_$(date "+%m%d_%H%M") --depfast_scheme copilot

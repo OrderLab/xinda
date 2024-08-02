@@ -173,6 +173,8 @@ parser.add_argument('--depfast_concurrency', type = int, default = 100,
 parser.add_argument('--depfast_scheme', type = str, default = "fpga_raft",
                     choices=['fpga_raft', 'copilot'],
                     help='[Benchmark] Depfast scheme')
+parser.add_argument('--depfast_nclient', type = int, default = 1,
+                    help='[Benchmark] Number of clients')
 
 
 def main(args):
@@ -388,7 +390,8 @@ def main(args):
     elif sys_name == 'depfast':
         benchmark = DEFAULT_DEPFAST(exec_time_ = args.bench_exec_time,
                                     concurrency_ = args.depfast_concurrency,
-                                    scheme_ = args.depfast_scheme)
+                                    scheme_ = args.depfast_scheme,
+                                    nclient_ = args.depfast_nclient)
         sys = depfast.Depfast(sys_name_ = sys_name,
                               fault_ = fault,
                               benchmark_ = benchmark,
