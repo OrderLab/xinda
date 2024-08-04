@@ -239,4 +239,21 @@ class DEFAULT_DEPFAST(Benchmark):
         self.identifier = workload_
         self.concurrency = concurrency_
         self.nclient = nclient_
+
+class DEFAULT_COPILOT(Benchmark):
+    def __init__(self, 
+                 exec_time_ : str,
+                 concurrency_ : int, 
+                 scheme_ : str,
+                 nclient_ : int,
+                 trim_ratio_,
+                 workload_  = 'copilot',):
+        self.benchmark = 'copilot'
+        self.scheme = scheme_
+        self.exec_time = exec_time_
+        self.workload = workload_
+        self.identifier = workload_
+        self.concurrency = concurrency_
+        self.nclient = nclient_
+        self.trim_ratio = trim_ratio_
         

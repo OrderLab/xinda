@@ -6,7 +6,7 @@ import yaml
 import docker
 import sys
 import argparse
-from xinda.systems import cassandra, crdb, etcd, hbase, mapred, kafka, depfast
+from xinda.systems import cassandra, crdb, etcd, hbase, mapred, kafka, depfast, copilot
 from xinda.configs import logging, slow_fault, tool
 from xinda.configs.benchmark import *
 from xinda.configs.reslim import *
@@ -15,7 +15,7 @@ import traceback
 
 parser = argparse.ArgumentParser(description="Gray failure study on six distributed systems")
 parser.add_argument('--sys_name', type = str, required=True,
-                    choices=['cassandra', 'hbase', 'hadoop', 'etcd', 'crdb', 'kafka', 'depfast'],
+                    choices=['cassandra', 'hbase', 'hadoop', 'etcd', 'crdb', 'kafka', 'depfast', 'copilot'],
                     help='Name of the distributed systems to be tested.')
 parser.add_argument('--data_dir', type = str, required=True,
                     help='Name of data directory to store all the logs')
@@ -101,7 +101,7 @@ parser.add_argument('--ycsb_crdb_run_conn_string', type = str, default = 'postgr
 # hadoop - Benchmark
 parser.add_argument('--benchmark', type = str, required=True,
                     help='[Benchmark] Specify which benchmark to test the system',
-                    choices=['ycsb','mrbench', 'terasort', 'perf_test', 'openmsg', 'ycsb', 'sysbench', 'etcd-official', 'depfast'])
+                    choices=['ycsb','mrbench', 'terasort', 'perf_test', 'openmsg', 'ycsb', 'sysbench', 'etcd-official', 'depfast', 'copilot'])
 # parser.add_argument('--hadoop_wkl', type = str,
 #                     help='[Benchmark] Specify which benchmark to test mapreduce',
 #                     choices=['mrbench', 'terasort'])
@@ -169,12 +169,23 @@ parser.add_argument('--etcd_official_num_watchers', type = int, default = 100000
                     help='[Benchmark] Number of watchers in benchmark:official-watch-get')
 # depfast
 parser.add_argument('--depfast_concurrency', type = int, default = 100,
-                    help='[Benchmark] The number of concurrent threads in depfast')
+                    help='[Benchmark] The number of client threads in depfast')
 parser.add_argument('--depfast_scheme', type = str, default = "fpga_raft",
                     choices=['fpga_raft', 'copilot'],
                     help='[Benchmark] Depfast scheme')
 parser.add_argument('--depfast_nclient', type = int, default = 1,
-                    help='[Benchmark] Number of clients')
+                    help='[Benchmark] Number of client machines')
+
+# copilot
+parser.add_argument('--copilot_concurrency', type = int, default = 10,
+                    help='[Benchmark] The number of client threads in copilot')
+parser.add_argument('--copilot_scheme', type = str, default = "copilot",
+                    choices=['latentcopilot', 'epaxos', 'multipaxos', 'copilot'],
+                    help='[Benchmark] The tested scheme')
+parser.add_argument('--copilot_nclient', type = int, default = 1,
+                    help='[Benchmark] Number of client machines')
+parser.add_argument('--copilot_trim_ratio', type = str, default = "0",
+                    help='[Benchmark] The porportion of data points to be trimmed as noise')
 
 
 def main(args):
@@ -393,6 +404,25 @@ def main(args):
                                     scheme_ = args.depfast_scheme,
                                     nclient_ = args.depfast_nclient)
         sys = depfast.Depfast(sys_name_ = sys_name,
+                              fault_ = fault,
+                              benchmark_ = benchmark,
+                              data_dir_ = args.data_dir,
+                              log_root_dir_ = args.log_root_dir,
+                              iter_ = args.iter,
+                              xinda_software_dir_ = args.xinda_software_dir,
+                              xinda_tools_dir_ = args.xinda_tools_dir,
+                              charybdefs_mount_dir_ = args.charybdefs_mount_dir,
+                              reslim_ = reslim,
+                              version_=args.version,
+                              if_restart_ = args.if_restart
+                              )
+    elif sys_name == 'copilot':
+        benchmark = DEFAULT_COPILOT(exec_time_ = args.bench_exec_time,
+                                    concurrency_ = args.copilot_concurrency,
+                                    scheme_ = args.copilot_scheme,
+                                    nclient_ = args.copilot_nclient,
+                                    trim_ratio_ = args.copilot_trim_ratio)
+        sys = copilot.Copilot(sys_name_ = sys_name,
                               fault_ = fault,
                               benchmark_ = benchmark,
                               data_dir_ = args.data_dir,

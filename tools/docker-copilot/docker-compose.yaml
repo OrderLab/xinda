@@ -1,0 +1,96 @@
+version: '3.0'
+
+services:
+  control:
+    image: rmlu/copilot:latest
+    hostname: control
+    container_name: control
+    networks:
+      - copilot
+    restart: always
+    ports:
+      - 31234:22
+      - 7088:7087
+      - 7070:7070
+    command: tail -f /dev/null
+    cap_add:
+      - NET_ADMIN
+  
+  master:
+    image: rmlu/copilot:latest
+    hostname: master
+    container_name: master
+    networks:
+      - copilot
+    restart: always
+    ports:
+      - 31235:22
+      - 7089:7087
+      - 7071:7070
+    command: tail -f /dev/null
+    cap_add:
+      - NET_ADMIN
+  
+  replica1:
+    image: rmlu/copilot:latest
+    hostname: replica1
+    container_name: replica1
+    networks:
+      - copilot
+    restart: always
+    ports:
+      - 31236:22
+      - 7090:7087
+      - 7072:7070
+    command: tail -f /dev/null
+    cap_add:
+      - NET_ADMIN
+  
+  replica2:
+    image: rmlu/copilot:latest
+    hostname: replica2
+    container_name: replica2
+    networks:
+      - copilot
+    restart: always
+    ports:
+      - 31237:22
+      - 7091:7087
+      - 7073:7070
+    command: tail -f /dev/null
+    cap_add:
+      - NET_ADMIN
+  
+  replica3:
+    image: rmlu/copilot:latest
+    hostname: replica3
+    container_name: replica3
+    networks:
+      - copilot
+    restart: always
+    ports:
+      - 31238:22
+      - 7092:7087
+      - 7074:7070
+    command: tail -f /dev/null
+    cap_add:
+      - NET_ADMIN
+  
+  client:
+    image: rmlu/copilot:latest
+    hostname: client
+    container_name: client
+    networks:
+      - copilot
+    restart: always
+    ports:
+      - 31239:22
+      - 7093:7087
+      - 7075:7070
+    command: tail -f /dev/null
+    cap_add:
+      - NET_ADMIN
+
+networks:
+  copilot:
+    driver: bridge

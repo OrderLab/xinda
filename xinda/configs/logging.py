@@ -97,6 +97,12 @@ class Logging:
         self.depfast_misc = 'misc-' + self.description
         self.depfast_summary = 'sum-' + self.description + '.yaml'
         
+        # For Copilot
+        self.copilot_latency_percentage = self.summary
+        self.copilot_aggregated_throughput = self.runtime
+        self.copilot_misc = f"misc-{self.description}"
+        # self.copilot_misc_
+        
     
     def create_dir_if_not_exist(self, path_):
         is_exsit = os.path.exists(path_)
