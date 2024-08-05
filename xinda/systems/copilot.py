@@ -33,7 +33,7 @@ class Copilot(TestSystem):
             We need to sleep for approximately 20s since it takes some time for copilot's internal activities like master/replica set up.
             However, I do think this can be fixed: maybe we can emit some signal in copilot/startexpt.sh to indicate that the benchmark is running and then we inject the slow faults. Or, we separate copilot/startexpt.sh as two
             '''
-            self.sleep(20)
+            time.sleep(5)
             self.inject()
         else:
             self.info("Fault type == none, no faults shall be injected")
@@ -62,6 +62,23 @@ class Copilot(TestSystem):
         self.copilot_process = subprocess.Popen(cmd, shell=True, stdout=open(self.log.compose,"w"))
         self.start_time = int(time.time()*1e9)
         self.info(f"Benchmark:copilot, scheme:{self.benchmark.scheme} starts.", rela=self.start_time)
+        # self.info("Let's wait for all 3 replica servers to join", rela=self.start_time)
+        # target_line = "Done connecting to peers"
+        # while True:
+        #     target_count = 0
+        #     with open(self.log.compose, 'r') as file:
+        #         lines = file.readlines()
+        #         for line in lines:
+        #             if target_line in lines:
+        #                 target_count += 1
+        #             if target_count == 3:
+        #                 break
+        #     if target_count == 3:
+        #         break
+        #     time.sleep(1)
+        # self.info("All 3 replica servers done connecting to peers", rela=self.start_time)
+        
+        
     
     def _wait_till_benchmark_ends(self):
         self.info("Wait until benchmark ends", rela=self.start_time)
