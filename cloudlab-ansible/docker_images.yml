@@ -35,5 +35,16 @@
         docker pull zookeeper:3.4.10
         docker pull bde2020/hbase-regionserver:1.0.0-hbase1.2.6
         docker pull bde2020/hbase-master:1.0.0-hbase1.2.6
+        docker pull rmlu/hbase-base:2.5.6
+        docker pull rmlu/hbase-regionserver:2.5.6
+        docker pull rmlu/hbase-master:2.5.6
+        docker pull rmlu/hadoop-base:3.3.6
+        docker pull rmlu/hadoop-datanode:3.3.6
+        docker pull rmlu/hadoop-historyserver:3.3.6
+        docker pull rmlu/hadoop-namenode:3.3.6
+        docker pull rmlu/hadoop-nodemanager:3.3.6
+        docker pull rmlu/hadoop-resourcemanager:3.3.6
+        docker pull rmlu/copilot:latest
+        docker pull rmlu/depfast:latest
       args:
         executable: /bin/bash
