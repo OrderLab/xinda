@@ -29,11 +29,6 @@ class Copilot(TestSystem):
         self._run_copilot()
         # inject slow faults
         if self.fault.type != 'none':
-            '''
-            We need to sleep for approximately 20s since it takes some time for copilot's internal activities like master/replica set up.
-            However, I do think this can be fixed: maybe we can emit some signal in copilot/startexpt.sh to indicate that the benchmark is running and then we inject the slow faults. Or, we separate copilot/startexpt.sh as two
-            '''
-            time.sleep(5)
             self.inject()
         else:
             self.info("Fault type == none, no faults shall be injected")
@@ -57,11 +52,27 @@ class Copilot(TestSystem):
         self.info(f'copilot_nclient: {self.benchmark.nclient}')
         self.info(f'copilot_concurrency: {self.benchmark.concurrency}')
     
+    def check_if_benchmark_starts(self):
+        cmd = "docker exec -it client test -f /root/code/copilot/docker/ifBenchmarkStarts"
+        p = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
+        return p.returncode == 0
+    
     def _run_copilot(self):
         cmd = f"docker exec -it {self.control} bash startexpt.sh {self.benchmark.scheme} 3 {self.benchmark.concurrency} {self.benchmark.nclient} {self.benchmark.exec_time} {self.benchmark.trim_ratio}"
         self.copilot_process = subprocess.Popen(cmd, shell=True, stdout=open(self.log.compose,"w"))
+        self.info(f"Wait for copilot-{self.benchmark.scheme} to start.")
+        sleep_time = 0
+        while True:
+            if self.check_if_benchmark_starts():
+                break
+            else:
+                print(f"{sleep_time}s> copilot-{self.benchmark.scheme} not started yet. Sleep for 1s")
+                time.sleep(1)
+                sleep_time += 1
+            if sleep_time >= 30:
+                raise Exception(f"scheme:{self.benchmark.scheme} never starts after {self.sleep_time}s timeout")
         self.start_time = int(time.time()*1e9)
-        self.info(f"Benchmark:copilot, scheme:{self.benchmark.scheme} starts.", rela=self.start_time)
+        self.info(f"Benchmark:copilot, scheme:{self.benchmark.scheme} starts.", rela = self.start_time)
         # self.info("Let's wait for all 3 replica servers to join", rela=self.start_time)
         # target_line = "Done connecting to peers"
         # while True:
