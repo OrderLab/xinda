@@ -81,7 +81,7 @@ class Copilot(TestSystem):
             self.copilot_process.wait(timeout=int(self.benchmark.exec_time)*2)
             self.info("Benchmark safely ends", rela=self.start_time)
         except:
-            self.info("The subprocess took too long to complete and was killed.")
+            self.info("The subprocess took too long to complete and was killed.", rela=self.start_time)
             self.copilot_process.kill()
     
     def _post_process(self):
