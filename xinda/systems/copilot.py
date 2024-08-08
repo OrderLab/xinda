@@ -1,4 +1,5 @@
 from xinda.systems.TestSystem import *
+from threading import Timer
 
 class Copilot(TestSystem):
     def test(self):
@@ -78,12 +79,15 @@ class Copilot(TestSystem):
     
     def _wait_till_benchmark_ends(self):
         self.info("Wait until benchmark ends", rela=self.start_time)
+        timer = Timer(self.benchmark.exec_time*2, self.copilot_process.kill)
         try:
-            self.copilot_process.wait(timeout=self.benchmark.exec_time*2)
+            timer.start()
+            self.copilot_process.wait()
             self.info("Benchmark safely ends", rela=self.start_time)
         except:
-            self.copilot_process.kill()
             self.info("The subprocess took too long to complete and was killed.")
+        finally:
+            timer.cancel()
     
     def _post_process(self):
         data_dir = '/root/code/copilot/experiments/latest'
