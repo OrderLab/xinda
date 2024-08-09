@@ -52,6 +52,7 @@ class TestSystem:
         p = subprocess.run(cmd, shell=True, cwd=f"{os.path.expanduser('~')}/workdir/xinda", stdout = subprocess.PIPE)
         self.info(f"commit: {p.stdout.decode('utf-8').strip()}")
         self.cleanup()
+        self.blockade_retry = False
     
     def is_port_in_use(self, port):
         def is_single_port_in_use(port):
@@ -256,8 +257,14 @@ class TestSystem:
         p = subprocess.run(up_cmd, cwd=self.tool.blockade, stderr=subprocess.PIPE, shell=True)
         # check return code
         if p.returncode != 0:
-            err_msg = p.stderr.decode('utf-8')
-            raise Exception(f"Unknown error during blockade initialization. Abort. stderr: {err_msg}.")        
+            if not self.blockade_retry:
+                self.blockade_retry = True
+                self.info(f"Blockade failed to start. Retry only once.")
+                p = subprocess.run("rm -rf .blockade", cwd=self.tool.blockade, shell=True)
+                self.blockade_up()
+            else:
+                err_msg = p.stderr.decode('utf-8')
+                raise Exception(f"Unknown error during blockade initialization. Abort. stderr: {err_msg}.")        
         self.info('Blockade created')
         
         # Add running containers to blockade
