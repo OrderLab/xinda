@@ -252,7 +252,7 @@ class DEFAULT_COPILOT(Benchmark):
         self.scheme = scheme_
         self.exec_time = exec_time_
         self.workload = workload_
-        self.identifier = workload_
+        self.identifier = scheme_
         self.concurrency = concurrency_
         self.nclient = nclient_
         self.trim_ratio = trim_ratio_
