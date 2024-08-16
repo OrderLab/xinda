@@ -52,6 +52,11 @@ class Depfast(TestSystem):
         self.info(f'depfast_nclient: {self.benchmark.nclient}')
         self.info(f'depfast_concurrency: {self.benchmark.concurrency}')
     
+    def check_if_benchmark_starts(self):
+        cmd = f"docker exec -it {self.client} test -f /root/code/depfast/docker/ifBenchmarkStarts"
+        p = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
+        return p.returncode == 0
+    
     def _run_depfast(self):
         # depfast_slow_location = ''
         # if self.fault.location == 'server1':
@@ -63,13 +68,32 @@ class Depfast(TestSystem):
         # self.info(f"fault_physical_location: {self.fault.location}, which is {depfast_slow_location} in depfast\'s toplogy ")
         cmd = f"docker exec -it {self.client} bash start-exp.sh testname {self.benchmark.exec_time} 0 3 follower {self.benchmark.nclient} {self.benchmark.concurrency} {self.benchmark.scheme} nonlocal"
         self.depfast_process = subprocess.Popen(cmd, shell=True, stdout=open(self.log.runtime,"w"))
+        self.info(f"Wait for depfast to start.")
+        sleep_time = 0
+        while True:
+            if self.check_if_benchmark_starts():
+                break
+            else:
+                print(f"{sleep_time}s> depfast-{self.benchmark.scheme} not started yet. Sleep for 1s")
+                time.sleep(1)
+                sleep_time += 1
+            if sleep_time >= 30:
+                raise Exception(f"scheme:{self.benchmark.scheme} never starts after {self.sleep_time}s timeout")
         self.start_time = int(time.time()*1e9)
-        self.info("Benchmark:depfast starts.", rela=self.start_time)
+        self.info(f"Benchmark:depfast, scheme:{self.benchmark.scheme} starts.", rela = self.start_time)
     
     def _wait_till_benchmark_ends(self):
         self.info("Wait until benchmark ends", rela=self.start_time)
         self.depfast_process.wait()
         self.info("Benchmark safely ends", rela=self.start_time)
+        depfast_timeout = int(self.benchmark.exec_time) - int((int(time.time()*1e9) - self.start_time)/1e9) + 90
+        self.info(f"Wait until benchmark ends (timeout: {depfast_timeout}s)", rela=self.start_time)
+        try:
+            self.depfast_process.wait(timeout=depfast_timeout)
+            self.info("Benchmark safely ends", rela=self.start_time)
+        except:
+            self.info(f"The subprocess took too long (>={depfast_timeout}s) to complete and was killed.", rela=self.start_time)
+            self.depfast_process.kill()
     
     def _post_process(self):
         # p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
