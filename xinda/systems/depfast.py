@@ -83,9 +83,6 @@ class Depfast(TestSystem):
         self.info(f"Benchmark:depfast, scheme:{self.benchmark.scheme} starts.", rela = self.start_time)
     
     def _wait_till_benchmark_ends(self):
-        self.info("Wait until benchmark ends", rela=self.start_time)
-        self.depfast_process.wait()
-        self.info("Benchmark safely ends", rela=self.start_time)
         depfast_timeout = int(self.benchmark.exec_time) - int((int(time.time()*1e9) - self.start_time)/1e9) + 90
         self.info(f"Wait until benchmark ends (timeout: {depfast_timeout}s)", rela=self.start_time)
         try:
