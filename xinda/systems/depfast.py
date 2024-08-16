@@ -105,7 +105,7 @@ class Depfast(TestSystem):
         p = subprocess.run(cmd, cwd=self.log.data_dir, shell=True)
         # append concurrency levels to the summary yaml
         with open(os.path.join(self.log.data_dir, self.log.depfast_summary), 'a') as file:
-            file.write(f'CONCURRENCY: {self.benchmark.concurrency}')
+            file.write(f'CONCURRENCY: {self.benchmark.concurrency}\n')
         self.info("Data post-processed.")
 
 # None

@@ -236,7 +236,7 @@ class DEFAULT_DEPFAST(Benchmark):
         self.scheme = scheme_
         self.exec_time = exec_time_
         self.workload = workload_
-        self.identifier = workload_
+        self.identifier = f"{scheme_}_{concurrency_}"
         self.concurrency = concurrency_
         self.nclient = nclient_
 
