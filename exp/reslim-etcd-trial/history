@@ -1,0 +1,22 @@
+test_script_path=~/Desktop/UMICH/xinda/xinda/test_scripts/RQ1_1/
+cd $test_script_path
+
+# 30 severity levels
+# Starting from 2024-02-01 6:20pm:
+python3 reslim.py --sys_name etcd --data_dir rq1_1 --start_time 60 --duration 30  --fault_type nw --iter 10
+
+# etcd 6480*3/60=324
+
+# total of 324 hrs
+# total of 23 nodes
+
+# 22 nodes for 280 14hr
+# 1 node for 320 16hr
+
+# starting from 2024-02-06 8:00 pm, est 2024-02-07 15pm
+
+
+
+
+
+

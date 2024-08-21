@@ -1,0 +1,60 @@
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 13 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server1 --fault_duration 40 --fault_severity slow-1ms --fault_start_time 30 --bench_exec_time 120 --benchmark depfast --depfast_concurrency 1 --depfast_scheme copilot --iter 1 --unique_identifier 13 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 13 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 14 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server1 --fault_duration 40 --fault_severity slow-1ms --fault_start_time 30 --bench_exec_time 120 --benchmark depfast --depfast_concurrency 1 --depfast_scheme copilot --iter 2 --unique_identifier 14 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 14 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 15 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server1 --fault_duration 40 --fault_severity slow-1ms --fault_start_time 30 --bench_exec_time 120 --benchmark depfast --depfast_concurrency 1 --depfast_scheme copilot --iter 3 --unique_identifier 15 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 15 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 16 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server2 --fault_duration 40 --fault_severity slow-1ms --fault_start_time 30 --bench_exec_time 120 --benchmark depfast --depfast_concurrency 1 --depfast_scheme copilot --iter 1 --unique_identifier 16 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 16 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 17 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server2 --fault_duration 40 --fault_severity slow-1ms --fault_start_time 30 --bench_exec_time 120 --benchmark depfast --depfast_concurrency 1 --depfast_scheme copilot --iter 2 --unique_identifier 17 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 17 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 18 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server2 --fault_duration 40 --fault_severity slow-1ms --fault_start_time 30 --bench_exec_time 120 --benchmark depfast --depfast_concurrency 1 --depfast_scheme copilot --iter 3 --unique_identifier 18 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 18 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 19 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server3 --fault_duration 40 --fault_severity slow-1ms --fault_start_time 30 --bench_exec_time 120 --benchmark depfast --depfast_concurrency 1 --depfast_scheme copilot --iter 1 --unique_identifier 19 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 19 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 20 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server3 --fault_duration 40 --fault_severity slow-1ms --fault_start_time 30 --bench_exec_time 120 --benchmark depfast --depfast_concurrency 1 --depfast_scheme copilot --iter 2 --unique_identifier 20 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 20 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 21 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server3 --fault_duration 40 --fault_severity slow-1ms --fault_start_time 30 --bench_exec_time 120 --benchmark depfast --depfast_concurrency 1 --depfast_scheme copilot --iter 3 --unique_identifier 21 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 21 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 22 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server1 --fault_duration 40 --fault_severity slow-10ms --fault_start_time 30 --bench_exec_time 120 --benchmark depfast --depfast_concurrency 1 --depfast_scheme copilot --iter 1 --unique_identifier 22 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 22 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 23 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server1 --fault_duration 40 --fault_severity slow-10ms --fault_start_time 30 --bench_exec_time 120 --benchmark depfast --depfast_concurrency 1 --depfast_scheme copilot --iter 2 --unique_identifier 23 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 23 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 24 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server1 --fault_duration 40 --fault_severity slow-10ms --fault_start_time 30 --bench_exec_time 120 --benchmark depfast --depfast_concurrency 1 --depfast_scheme copilot --iter 3 --unique_identifier 24 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 24 / 168" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-depfast-nw-dur--1-40-st-30To30-3iter.log
+

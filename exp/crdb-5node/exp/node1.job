@@ -1,0 +1,99 @@
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 1 --unique_identifier 1 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 2 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 2 --unique_identifier 2 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 2 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 3 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 3 --unique_identifier 3 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 3 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 4 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 4 --unique_identifier 4 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 4 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 5 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 5 --unique_identifier 5 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 5 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 6 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 6 --unique_identifier 6 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 6 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 7 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 7 --unique_identifier 7 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 7 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 8 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 8 --unique_identifier 8 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 8 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 9 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 9 --unique_identifier 9 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 9 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 10 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 10 --unique_identifier 10 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 10 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 11 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 11 --unique_identifier 11 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 11 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 12 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 12 --unique_identifier 12 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 12 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 13 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 13 --unique_identifier 13 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 13 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 14 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 14 --unique_identifier 14 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 14 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 15 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 15 --unique_identifier 15 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 15 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 16 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 16 --unique_identifier 16 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 16 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 17 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 17 --unique_identifier 17 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 17 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 18 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 18 --unique_identifier 18 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 18 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 19 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 19 --unique_identifier 19 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 19 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 20 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 20 --unique_identifier 20 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 20 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-dur-30-st-60-ycsb-50iter.log

@@ -1,0 +1,27 @@
+test_script_path=~/Desktop/UMICH/xinda/xinda/test_scripts/RQ1_1/
+cd $test_script_path
+
+# Starting from 2024-02-01 6:20pm:
+python3 inflection.py --sys_name cassandra --data_dir rq1_1 --start_time 60 --duration 30  --fault_type nw --iter 10
+python3 inflection.py --sys_name hbase --data_dir rq1_1 --start_time 60 --duration 30  --fault_type nw --iter 10
+python3 inflection.py --sys_name crdb --data_dir rq1_1 --start_time 60 --duration 30  --fault_type nw --iter 10 --unique_benchmark ycsb
+python3 inflection.py --sys_name etcd --data_dir rq1_1 --start_time 60 --duration 30  --fault_type nw --iter 10 --unique_benchmark ycsb
+python3 inflection.py --sys_name kafka --data_dir rq1_1 --start_time 60 --duration 30  --fault_type nw --iter 10 --unique_benchmark openmsg
+
+# cassandra 480*7/60=56
+# hbase 480*4.5/60=36
+# crdb 320*3.5/60=19
+# etcd 960*3/60=48
+# kafka 320*3.3/60=18
+
+# total of 177 hrs
+# total of 14 nodes
+
+# 4 nodes for cass 120*4 14hr
+# 3 nodes for hbase 160*3 12hr
+# 2 nodes for crdb 160*2 9.5hr
+# 3 nodes for etcd 320*3 16hr
+# 2 nodes for kafka 160*2 9hr
+
+# starting from 2024-02-02 5:40 pm, est 2024-02-03 10am
+
