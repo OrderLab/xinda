@@ -4,7 +4,7 @@
 hosts=( $(cat ./hosts | awk '{print $1}') )
 username="rmlu"
 # List of all scripts
-testname=copilot=nw=slow-finegrained
+testname=copilot-nw-slow-finegrained
 scripts=( $(ls ~/Desktop/UMICH/xinda/xinda/exp/$testname/exp/*.job | sort) )
 # print number of scripts and hosts
 echo "Looking for jobs in $testname"
