@@ -1,0 +1,24 @@
+test_script_path=~/Desktop/UMICH/xinda/xinda/test_scripts/RQ1_1/
+cd $test_script_path
+
+python3 copilot.py --sys_name copilot --data_dir copilot --start_time1 30 --start_time2 49 --duration -1 5 10 20 40 --concurrent 1 10 --fault_type nw --bench_exec_time 120 --severity nw-slow --iter 3
+
+# python3 copilot.py --sys_name copilot --data_dir copilot --start_time1 30 --start_time2 49 --duration 40 --concurrent 1 10 --fault_type nw --bench_exec_time 120 --severity nw-slow --iter 5
+
+# 210s per each iter
+# A total of 45030 entries
+
+
+# 7578 * 3 /60 / 19= 20 hrs per machine
+
+            iter    *   scheme  *   conc    *   duration    *   start_time  *   severity    *   location
+Copilot     3       *   1       *   2       *   4           *   20          *   5           *   3           = 7200
+CopilotNone 3       *   1       *   2       *   1           *   1           *   1           *   1           = 6
+
+EPaxos      3       *   1       *   2       *   4           *   1           *   5           *   1           = 120
+EPaxosNone  3       *   1       *   2       *   1           *   1           *   1           *   1           = 6
+
+MultiPaxos  3       *   1       *   2       *   4           *   1           *   5           *   2           = 120
+MPNone      3       *   1       *   2       *   1           *   1           *   1           *   1           = 6
+
+720 + 3 + 3*4 + 3 + 3*4 +3=720+9+=753

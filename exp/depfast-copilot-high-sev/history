@@ -1,0 +1,20 @@
+test_script_path=~/Desktop/UMICH/xinda/xinda/test_scripts/RQ1_1/
+cd $test_script_path
+
+python3 depfast.py --sys_name depfast --data_dir depfast --start_time1 30 --start_time2 30 --duration -1 40 --concurrent 1 10 --fault_type nw --bench_exec_time 120 --severity nw --iter 3
+
+# 2 * 9 * 3 * 3 = 162 + 6 baseine = 168 / 14nodes = 12 tasksPerNode
+for conc in 1 100
+do
+    for iter in 1 2 3
+    do
+        python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location server1 --fault_duration -1 --fault_severity slow-100us --fault_start_time 50 --bench_exec_time 120 --benchmark depfast --depfast_scheme copilot --depfast_concurrency $conc --iter $iter --log_root_dir /users/rmlu/workdir/data/depfast-copilot-high-sev
+        for loc in server1 server2 server3
+        do
+            for sev in slow-100us slow-1ms slow-10ms slow-100ms slow-1s flaky-p1 flaky-p5 flaky-p10 flaky-p40 
+            do
+                python3 /users/rmlu/workdir/xinda/main.py --sys_name depfast --data_dir depfast --fault_type nw --fault_location $loc --fault_duration 40 --fault_severity $sev --fault_start_time 50 --bench_exec_time 120 --benchmark depfast --depfast_scheme copilot --depfast_concurrency $conc --iter $iter --log_root_dir /users/rmlu/workdir/data/depfast-copilot-high-sev
+            done
+        done
+    done
+done

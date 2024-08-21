@@ -1,0 +1,280 @@
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 129 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 29 --unique_identifier 129 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 129 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 130 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 30 --unique_identifier 130 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 130 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 131 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 31 --unique_identifier 131 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 131 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 132 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 32 --unique_identifier 132 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 132 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 133 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 33 --unique_identifier 133 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 133 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 134 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 34 --unique_identifier 134 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 134 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 135 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 35 --unique_identifier 135 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 135 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 136 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 36 --unique_identifier 136 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 136 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 137 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 37 --unique_identifier 137 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 137 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 138 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 38 --unique_identifier 138 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 138 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 139 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 39 --unique_identifier 139 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 139 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 140 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 40 --unique_identifier 140 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 140 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 141 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 41 --unique_identifier 141 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 141 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 142 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 42 --unique_identifier 142 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 142 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 143 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 43 --unique_identifier 143 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 143 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 144 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 44 --unique_identifier 144 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 144 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 145 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 45 --unique_identifier 145 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 145 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 146 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 46 --unique_identifier 146 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 146 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 147 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 47 --unique_identifier 147 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 147 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 148 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 48 --unique_identifier 148 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 148 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 149 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 49 --unique_identifier 149 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 149 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 150 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location datanode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 50 --unique_identifier 150 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 150 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 151 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location namenode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 1 --unique_identifier 151 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 151 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 152 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location namenode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 2 --unique_identifier 152 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 152 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 153 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location namenode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 3 --unique_identifier 153 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 153 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 154 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location namenode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 4 --unique_identifier 154 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 154 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 155 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location namenode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 5 --unique_identifier 155 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 155 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 156 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location namenode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 6 --unique_identifier 156 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 156 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 157 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location namenode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 7 --unique_identifier 157 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 157 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 158 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location namenode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 8 --unique_identifier 158 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 158 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 159 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location namenode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 9 --unique_identifier 159 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 159 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 160 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir rq1_1 --fault_type nw --fault_location namenode --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --benchmark terasort --iter 10 --unique_identifier 160 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 160 / 200" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-hadoop-fs-nw-dur--1-st-60-terasort-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 11 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name cassandra --data_dir rq1_1 --fault_type nw --fault_location cas1 --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl mixed --benchmark ycsb --iter 11 --unique_identifier 11 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 11 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 12 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name cassandra --data_dir rq1_1 --fault_type nw --fault_location cas1 --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl mixed --benchmark ycsb --iter 12 --unique_identifier 12 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 12 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 13 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name cassandra --data_dir rq1_1 --fault_type nw --fault_location cas1 --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl mixed --benchmark ycsb --iter 13 --unique_identifier 13 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 13 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 14 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name cassandra --data_dir rq1_1 --fault_type nw --fault_location cas1 --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl mixed --benchmark ycsb --iter 14 --unique_identifier 14 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 14 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 15 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name cassandra --data_dir rq1_1 --fault_type nw --fault_location cas1 --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl mixed --benchmark ycsb --iter 15 --unique_identifier 15 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 15 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 16 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name cassandra --data_dir rq1_1 --fault_type nw --fault_location cas1 --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl mixed --benchmark ycsb --iter 16 --unique_identifier 16 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 16 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 17 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name cassandra --data_dir rq1_1 --fault_type nw --fault_location cas1 --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl mixed --benchmark ycsb --iter 17 --unique_identifier 17 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 17 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 18 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name cassandra --data_dir rq1_1 --fault_type nw --fault_location cas1 --fault_duration -1 --fault_severity slow-100us --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl mixed --benchmark ycsb --iter 18 --unique_identifier 18 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 18 / 50" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-cassandra-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 33 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 33 --unique_identifier 33 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 33 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 34 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 34 --unique_identifier 34 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 34 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 35 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 35 --unique_identifier 35 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 35 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 36 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 36 --unique_identifier 36 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 36 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 37 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 37 --unique_identifier 37 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 37 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 38 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 38 --unique_identifier 38 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 38 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 39 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 39 --unique_identifier 39 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 39 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 40 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 40 --unique_identifier 40 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 40 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 41 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 41 --unique_identifier 41 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 41 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 42 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 42 --unique_identifier 42 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 42 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 43 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 43 --unique_identifier 43 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 43 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 44 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 44 --unique_identifier 44 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 44 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 45 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 45 --unique_identifier 45 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 45 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 46 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 46 --unique_identifier 46 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 46 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 47 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 47 --unique_identifier 47 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 47 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 48 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name crdb --data_dir rq1_1 --fault_type fs --fault_location roach1 --fault_duration -1 --fault_severity 1000 --fault_start_time 60 --bench_exec_time 150 --ycsb_wkl a --benchmark ycsb --iter 48 --unique_identifier 48 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 48 / 100" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-crdb-fs-nw-dur--1-st-60-ycsb-50iter.log
+

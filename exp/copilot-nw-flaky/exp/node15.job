@@ -1,0 +1,500 @@
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1401 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 1 --unique_identifier 1401 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1401 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1402 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 2 --unique_identifier 1402 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1402 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1403 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 3 --unique_identifier 1403 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1403 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1404 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 4 --unique_identifier 1404 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1404 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1405 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 5 --unique_identifier 1405 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1405 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1406 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 6 --unique_identifier 1406 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1406 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1407 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 7 --unique_identifier 1407 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1407 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1408 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 8 --unique_identifier 1408 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1408 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1409 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 9 --unique_identifier 1409 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1409 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1410 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 10 --unique_identifier 1410 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1410 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1411 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 11 --unique_identifier 1411 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1411 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1412 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 12 --unique_identifier 1412 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1412 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1413 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 13 --unique_identifier 1413 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1413 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1414 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 14 --unique_identifier 1414 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1414 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1415 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 15 --unique_identifier 1415 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1415 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1416 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 16 --unique_identifier 1416 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1416 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1417 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 17 --unique_identifier 1417 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1417 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1418 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 18 --unique_identifier 1418 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1418 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1419 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 19 --unique_identifier 1419 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1419 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1420 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 20 --unique_identifier 1420 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1420 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1421 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 21 --unique_identifier 1421 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1421 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1422 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 22 --unique_identifier 1422 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1422 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1423 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 23 --unique_identifier 1423 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1423 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1424 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 24 --unique_identifier 1424 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1424 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1425 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 25 --unique_identifier 1425 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1425 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1426 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 26 --unique_identifier 1426 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1426 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1427 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 27 --unique_identifier 1427 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1427 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1428 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 28 --unique_identifier 1428 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1428 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1429 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 29 --unique_identifier 1429 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1429 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1430 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 30 --unique_identifier 1430 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1430 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1431 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 31 --unique_identifier 1431 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1431 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1432 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 32 --unique_identifier 1432 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1432 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1433 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 33 --unique_identifier 1433 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1433 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1434 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 34 --unique_identifier 1434 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1434 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1435 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 35 --unique_identifier 1435 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1435 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1436 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 36 --unique_identifier 1436 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1436 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1437 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 37 --unique_identifier 1437 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1437 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1438 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 38 --unique_identifier 1438 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1438 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1439 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 39 --unique_identifier 1439 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1439 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1440 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 40 --unique_identifier 1440 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1440 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1441 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 41 --unique_identifier 1441 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1441 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1442 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 42 --unique_identifier 1442 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1442 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1443 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 43 --unique_identifier 1443 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1443 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1444 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 44 --unique_identifier 1444 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1444 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1445 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 45 --unique_identifier 1445 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1445 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1446 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 46 --unique_identifier 1446 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1446 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1447 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 47 --unique_identifier 1447 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1447 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1448 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 48 --unique_identifier 1448 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1448 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1449 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 49 --unique_identifier 1449 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1449 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1450 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica2 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 50 --unique_identifier 1450 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1450 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1451 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 1 --unique_identifier 1451 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1451 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1452 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 2 --unique_identifier 1452 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1452 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1453 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 3 --unique_identifier 1453 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1453 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1454 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 4 --unique_identifier 1454 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1454 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1455 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 5 --unique_identifier 1455 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1455 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1456 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 6 --unique_identifier 1456 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1456 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1457 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 7 --unique_identifier 1457 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1457 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1458 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 8 --unique_identifier 1458 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1458 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1459 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 9 --unique_identifier 1459 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1459 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1460 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 10 --unique_identifier 1460 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1460 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1461 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 11 --unique_identifier 1461 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1461 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1462 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 12 --unique_identifier 1462 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1462 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1463 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 13 --unique_identifier 1463 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1463 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1464 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 14 --unique_identifier 1464 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1464 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1465 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 15 --unique_identifier 1465 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1465 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1466 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 16 --unique_identifier 1466 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1466 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1467 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 17 --unique_identifier 1467 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1467 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1468 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 18 --unique_identifier 1468 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1468 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1469 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 19 --unique_identifier 1469 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1469 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1470 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 20 --unique_identifier 1470 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1470 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1471 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 21 --unique_identifier 1471 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1471 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1472 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 22 --unique_identifier 1472 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1472 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1473 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 23 --unique_identifier 1473 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1473 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1474 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 24 --unique_identifier 1474 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1474 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1475 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 25 --unique_identifier 1475 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1475 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1476 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 26 --unique_identifier 1476 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1476 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1477 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 27 --unique_identifier 1477 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1477 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1478 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 28 --unique_identifier 1478 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1478 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1479 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 29 --unique_identifier 1479 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1479 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1480 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 30 --unique_identifier 1480 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1480 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1481 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 31 --unique_identifier 1481 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1481 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1482 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 32 --unique_identifier 1482 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1482 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1483 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 33 --unique_identifier 1483 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1483 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1484 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 34 --unique_identifier 1484 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1484 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1485 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 35 --unique_identifier 1485 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1485 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1486 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 36 --unique_identifier 1486 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1486 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1487 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 37 --unique_identifier 1487 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1487 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1488 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 38 --unique_identifier 1488 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1488 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1489 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 39 --unique_identifier 1489 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1489 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1490 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 40 --unique_identifier 1490 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1490 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1491 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 41 --unique_identifier 1491 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1491 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1492 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 42 --unique_identifier 1492 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1492 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1493 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 43 --unique_identifier 1493 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1493 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1494 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 44 --unique_identifier 1494 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1494 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1495 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 45 --unique_identifier 1495 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1495 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1496 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 46 --unique_identifier 1496 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1496 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1497 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 47 --unique_identifier 1497 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1497 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1498 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 48 --unique_identifier 1498 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1498 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1499 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 49 --unique_identifier 1499 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1499 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 1500 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name copilot --data_dir copilot --fault_type nw --fault_location replica3 --fault_duration 40 --fault_severity flaky-p30 --fault_start_time 30 --bench_exec_time 120 --benchmark copilot --copilot_concurrency 10 --copilot_scheme copilot --iter 50 --unique_identifier 1500 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 1500 / 1800" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-copilot-nw-dur-40-st-30To30-50iter.log
+

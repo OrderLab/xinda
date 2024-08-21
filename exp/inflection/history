@@ -1,0 +1,15 @@
+test_script_path=~/Desktop/UMICH/xinda/xinda/test_scripts/RQ1_1/
+cd $test_script_path
+
+
+# 2024-01-31 10:20 pm
+python3 inflection.py --sys_name cassandra --data_dir rq1_1 --start_time 60 --duration 30  --fault_type nw --iter 10
+python3 inflection.py --sys_name hbase --data_dir rq1_1 --start_time 60 --duration 30  --fault_type nw --iter 10
+
+# 6 nodes each running 95 cass: 95*7/60=11hr
+# 4 nodes each running 145 hbase: 145*4.5/60=10.9hr
+# est. 2024-02-01 11am
+
+
+# cassandra 570*7/60=67hr
+# hbase 570*4.5/60=43

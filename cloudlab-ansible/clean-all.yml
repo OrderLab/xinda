@@ -4,60 +4,60 @@
   become: false
 
   tasks:
-    - name: Delete all tmux sessions
-      shell: |
-        tmux ls | cut -d: -f 1 | xargs -n 1 tmux kill-session -t
-      args:
-        executable: /bin/bash
-      failed_when: false
+    # - name: Delete all tmux sessions
+    #   shell: |
+    #     tmux ls | cut -d: -f 1 | xargs -n 1 tmux kill-session -t
+    #   args:
+    #     executable: /bin/bash
+    #   failed_when: false
 
-    - name: Remove logs
-      become: false
-      shell: |
-        rm -rf $HOME/workdir/xinda/test_scripts/RQ1_1/*log
-        rm -rf stdout.log
-      args:
-        executable: /bin/bash
+    # - name: Remove logs
+    #   become: false
+    #   shell: |
+    #     rm -rf $HOME/workdir/xinda/test_scripts/RQ1_1/*log
+    #     rm -rf stdout.log
+    #   args:
+    #     executable: /bin/bash
     
-    - name: Remove jobs
-      become: false
-      shell: |
-        rm -rf $HOME/workdir/xinda/test_scripts/*.job
-      args:
-        executable: /bin/bash
+    # - name: Remove jobs
+    #   become: false
+    #   shell: |
+    #     rm -rf $HOME/workdir/xinda/test_scripts/*.job
+    #   args:
+    #     executable: /bin/bash
 
-    - name: Remove data
-      become: false
-      shell: |
-        rm -rf $HOME/workdir/data
-      args:
-        executable: /bin/bash
+    # - name: Remove data
+    #   become: false
+    #   shell: |
+    #     rm -rf $HOME/workdir/data
+    #   args:
+    #     executable: /bin/bash
 
-    - name: Reset docker group
-      become: false
-      ansible.builtin.shell: |
-        sudo usermod -aG docker $USER
-      args:
-        executable: /bin/bash
+    # - name: Reset docker group
+    #   become: false
+    #   ansible.builtin.shell: |
+    #     sudo usermod -aG docker $USER
+    #   args:
+    #     executable: /bin/bash
 
-    - name: Run xinda/cleanup.py
-      shell: |
-        cd $HOME/workdir/xinda
-        source ~/miniconda3/bin/activate py36; python3 cleanup.py
-      args:
-        executable: /bin/bash
+    # - name: Run xinda/cleanup.py
+    #   shell: |
+    #     cd $HOME/workdir/xinda
+    #     source ~/miniconda3/bin/activate py36; python3 cleanup.py
+    #   args:
+    #     executable: /bin/bash
 
-    - name: Delete charybdefs.pid
-      become: false
-      ansible.builtin.file:
-        path: "$HOME/workdir/xinda-software/charybdefs/charybdefs.pid"
-        state: absent
+    # - name: Delete charybdefs.pid
+    #   become: false
+    #   ansible.builtin.file:
+    #     path: "$HOME/workdir/xinda-software/charybdefs/charybdefs.pid"
+    #     state: absent
 
-    - name: Delete charybdefs mount folders
-      become: true
-      ansible.builtin.file:
-        path: "/var/lib/docker/cfs_mount/tmp"
-        state: absent
+    # - name: Delete charybdefs mount folders
+    #   become: true
+    #   ansible.builtin.file:
+    #     path: "/var/lib/docker/cfs_mount/tmp"
+    #     state: absent
     
     - name: Remove .blockade
       become: false

@@ -1,0 +1,10 @@
+test_script_path=~/Desktop/UMICH/xinda/xinda/test_scripts/RQ1_1/
+cd $test_script_path
+
+
+python3 reslim.py --sys_name etcd --data_dir rq1_1 --start_time 60 --duration 30  --fault_type nw --iter 10
+
+
+2160*3/60/12 =9hr
+
+Starting from 04-17 2am, 9hr will be 11am

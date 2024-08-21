@@ -50,6 +50,7 @@ class GenerateTestScript():
             'multipaxos': [start_time1]
         }
         self.scheme_ary = ['multipaxos', 'epaxos', 'copilot']
+        # self.scheme_ary = ['copilot']
         # severity
         self.severity_dict = {
             'nw': ['slow-100us', 'slow-1ms', 'slow-10ms', 'slow-100ms', 'slow-1s', 'flaky-p1', 'flaky-p10', 'flaky-p40', 'flaky-p70'],
@@ -61,9 +62,11 @@ class GenerateTestScript():
             elif severity == 'fs':
                 self.severity_dict = {'fs': self.severity_dict['fs']}
             elif severity == 'nw-flaky':
-                self.severity_dict = {'nw': ['flaky-p1','flaky-p10', 'flaky-p40', 'flaky-p70']}
+                # self.severity_dict = {'nw': ['flaky-p1','flaky-p10', 'flaky-p40', 'flaky-p70']}
+                self.severity_dict = {'nw': ['flaky-p1','flaky-p5', 'flaky-p10', 'flaky-p30', 'flaky-p50', 'flaky-p70']}
             elif severity == 'nw-slow':
-                self.severity_dict = {'nw': ['slow-100us', 'slow-1ms', 'slow-10ms', 'slow-100ms', 'slow-1s']}
+                # self.severity_dict = {'nw': ['slow-100us', 'slow-1ms', 'slow-10ms', 'slow-100ms', 'slow-1s']}
+                self.severity_dict = {'nw': ['slow-100ms', 'slow-200ms', 'slow-300ms', 'slow-400ms', 'slow-500ms', 'slow-600ms', 'slow-700ms', 'slow-800ms', 'slow-900ms', 'slow-1s']}
         # benchmark
         self.benchmark = 'copilot'
     
