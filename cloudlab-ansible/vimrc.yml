@@ -1,0 +1,10 @@
+---
+- name: Setup vimrc in $HOME
+  hosts: all
+  become: false
+
+  tasks:
+    - name: Copy .vimrc to home directory
+      copy:
+        src: ./.vimrc
+        dest: ~/

@@ -46,6 +46,9 @@
 - name: Add alias
   import_playbook: alias.yml
 
+- name: Add vimrc
+  import_playbook: vimrc.yml
+
 - name: Pre-pull all docker images
   import_playbook: docker_images.yml
 
