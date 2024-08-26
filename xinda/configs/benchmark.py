@@ -29,7 +29,8 @@ class YCSB_HBASE(Benchmark):
                  operationcount_ = '10000000',
                  measurementtype_ = 'raw',
                  status_interval_ = '1',
-                 columnfamily_ = 'family'):
+                 columnfamily_ = 'family',
+                 threadcount_ = 8):
         # self.run_exec_time = run_exec_time_
         # self.load_exec_time = load_exec_time_
         self.exec_time = exec_time_
@@ -41,6 +42,7 @@ class YCSB_HBASE(Benchmark):
         self.status_interval = status_interval_
         self.columnfamily = columnfamily_
         self.identifier = 'ycsb-' + workload_
+        self.threadcount = threadcount_
 
 class YCSB_ETCD(Benchmark):
     def __init__(self, 

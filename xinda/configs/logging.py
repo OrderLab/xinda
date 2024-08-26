@@ -32,6 +32,9 @@ class Logging:
         self.iter = iter_
 
         self.description = fault_.location + '-' + fault_.info + '-' + iter_
+        
+        if data_dir_ == 'perseus' and sys_name_ == 'hbase':
+            self.description = fault_.location + '-' + fault_.info + '-' + 'tc' + str(benchmark_.threadcount) + '-' + iter_
 
         self.compose = os.path.join(path2, 'compose-' + self.description + ".log")
         self.info = os.path.join(path2, 'info-' + self.description + ".log")
@@ -49,8 +52,10 @@ class Logging:
         self.crdb_stderr_log = os.path.join(path2, 'stderr-' + self.description + ".log")
 
         # For HBase
-        self.raw_container = f"/tmp/raw-{fault_.location}-{fault_.info}-{iter_}.log"
-        self.runtime_container = f"/tmp/runtime-{fault_.location}-{fault_.info}-{iter_}.log"
+        # self.raw_container = f"/tmp/raw-{fault_.location}-{fault_.info}-{iter_}.log"
+        # self.runtime_container = f"/tmp/runtime-{fault_.location}-{fault_.info}-{iter_}.log"
+        self.raw_container = f"/tmp/raw-{self.description}.log"
+        self.runtime_container = f"/tmp/runtime-{self.description}.log"
         self.raw_load_container = []
         self.runtime_load_container = []
         self.raw_run_container = []

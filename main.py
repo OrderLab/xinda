@@ -86,6 +86,8 @@ parser.add_argument('--ycsb_status_interval', type = str, default = '1',
                     help='[Benchmark] YCSB measurement itervals (unit: seconds).')
 parser.add_argument('--ycsb_columnfamily', type = str, default = 'family',
                     help='[Benchmark] The column family of HBase that YCSB workloads take effect on.')
+parser.add_argument('--ycsb_hbase_threadcount', type = int, default = 8,
+                    help='[Benchmark] Number of YCSB client threads for HBase.')
 parser.add_argument('--ycsb_etcd_threadcount', type = int, default = 300,
                     help='[Benchmark] Number of YCSB client threads for etcd.')
 parser.add_argument('--ycsb_etcd_endpoints', type = str, default = 'http://0.0.0.0:2379',
@@ -243,7 +245,8 @@ def main(args):
                                 operationcount_ = args.ycsb_operationcount,
                                 measurementtype_ = args.ycsb_measurementtype,
                                 status_interval_ = args.ycsb_status_interval,
-                                columnfamily_ = args.ycsb_columnfamily)
+                                columnfamily_ = args.ycsb_columnfamily,
+                                threadcount_ = args.ycsb_hbase_threadcount)
         sys = hbase.HBase(sys_name_ = sys_name,
                             fault_ = fault,
                             benchmark_ = benchmark,
