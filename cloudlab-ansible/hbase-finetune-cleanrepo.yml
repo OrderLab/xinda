@@ -1,0 +1,11 @@
+---
+- name: rm xinda and hbase-pipeline
+  hosts: all
+  become: false
+
+  tasks:
+    - name: Remove
+      shell: |
+        rm -rf ~/workdir/hbase-pipeline ~/workdir/xinda
+      args:
+        executable: /bin/bash
