@@ -23,7 +23,10 @@ def gen_stats(gmctx: GenMetaContext, stats: dict):
         "tool":300,
     }
     total_start = 30
-    total_end = DUR_MAP[gmctx.ctx.question]
+    if gmctx.ctx.question.startswith('combi'):
+        total_end = 150
+    else:
+        total_end = DUR_MAP[gmctx.ctx.question]
     slow_start, slow_end, fault_actual_begin, fault_actual_end = get_slow_period(gmctx)
     
     # parse stats
