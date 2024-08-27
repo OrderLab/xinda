@@ -84,8 +84,7 @@ class HBase(TestSystem):
             p = subprocess.run(cmd, timeout=60)
             self.info("TABLE:usertable COLUMNFAMILY:family initiated")
         except subprocess.TimeoutExpired:
-            p.kill()
-            self.info("TABLE:usertable COLUMNFAMILY:family initiation timeout")
+            self.info("TABLE:usertable COLUMNFAMILY:family initiation timeout (60s)")
             self._post_process()
             self.docker_down()
             if self.fault.type == 'nw':
@@ -118,8 +117,7 @@ class HBase(TestSystem):
             p = subprocess.run(cmd, shell=True, timeout=60)
             self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload} successfully loaded")
         except subprocess.TimeoutExpired:
-            p.kill()
-            self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload} load timeout")
+            self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload} load timeout (60s)")
             self._post_process()
             self.docker_down()
             if self.fault.type == 'nw':
@@ -152,7 +150,6 @@ class HBase(TestSystem):
             self.ycsb_process = subprocess.run(cmd, shell=True, timeout=2*(int(self.benchmark.exec_time)))
         except subprocess.TimeoutExpired:
             self.info(f"ycsb_process took too long (>={2*(int(self.benchmark.exec_time))}s) to complete and was killed.", rela=self.start_time)
-            self.ycsb_process.kill()
             self._post_process()
             self.docker_down()
             if self.fault.type == 'nw':
