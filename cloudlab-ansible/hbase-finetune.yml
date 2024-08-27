@@ -36,7 +36,7 @@
     
     - name: pip3 install
       shell: |
-        pip3 install gitpython
+        conda run -n py36 pip3 install gitpython
       args:
         executable: /bin/bash
       environment:
