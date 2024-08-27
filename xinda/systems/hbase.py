@@ -31,6 +31,7 @@ class HBase(TestSystem):
         if self.coverage:
             self._jacoco_export_hbase_opts()
             self._jacoco_restart()
+        # self.ready_time = int(time.time()*1e9)
         self._init_hbase()
         self._load_ycsb()
         self.start_time = int(time.time()*1e9)
@@ -79,9 +80,16 @@ class HBase(TestSystem):
                'exec', '-it',
                self.dest,
                'bash', '/tmp/hbase-init.sh']
-        p = subprocess.run(cmd)
-        self.info("TABLE:usertable COLUMNFAMILY:family initiated")
+        try:
+            p = subprocess.run(cmd, timeout=60)
+            self.info("TABLE:usertable COLUMNFAMILY:family initiated")
+        except subprocess.TimeoutExpired:
+            self.info("TABLE:usertable COLUMNFAMILY:family initiation timeout")
+            exit(1)
     
+    # def injectAndTimeout(self):
+    #     super().inject()
+        
     def inject(self):
         self.inject_thread = threading.Thread(target=super().inject)
         self.inject_thread.start()
@@ -98,8 +106,12 @@ class HBase(TestSystem):
                f'-p recordcount={self.benchmark.recordcount}',
                f"-p columnfamily={self.benchmark.columnfamily}\""]
         cmd = ' '.join(cmd)
-        p = subprocess.run(cmd, shell=True)
-        self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload} successfully loaded")
+        try:
+            p = subprocess.run(cmd, shell=True, timeout=60)
+            self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload} successfully loaded")
+        except subprocess.TimeoutExpired:
+            self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload} load timeout")
+            exit(1)
     
     def _run_ycsb(self):
         cmd = ['docker exec -it',
@@ -120,16 +132,36 @@ class HBase(TestSystem):
                f"2> {self.log.runtime_container}\""]
         cmd = ' '.join(cmd)
         self.info("Benchmark:ycsb starts. We should inject faults after 30s till the cluster performance is stable", rela=self.start_time)
-        self.ycsb_process = subprocess.run(cmd, shell=True)
+        try:
+            self.ycsb_process = subprocess.run(cmd, shell=True, timeout=2*(int(self.benchmark.exec_time)))
+        except subprocess.TimeoutExpired:
+            self.info(f"ycsb_process took too long (>={2*(int(self.benchmark.exec_time))}s) to complete and was killed.", rela=self.start_time)
+            self.ycsb_process.kill()
+            exit(1)
     
-    def _wait_till_benchmark_ends(self):
-        cmd = ['docker exec -it',
-               self.dest,
-               'bash /tmp/hbase-check-pid.sh']
-        cmd = ' '.join(cmd)
-        self.info("Now wait until the benchmark ends", rela=self.start_time)
-        p = subprocess.run(cmd, shell=True)
-        self.info("Benchmark safely ends", rela=self.start_time)
+    # def _wait_till_benchmark_ends(self):
+        # cmd = ['docker exec -it',
+        #        self.dest,
+        #        'bash /tmp/hbase-check-pid.sh']
+        # cmd = ' '.join(cmd)
+        # self.info("Now wait until the benchmark ends", rela=self.start_time)
+        # p = subprocess.run(cmd, shell=True)
+        # self.info("Benchmark safely ends", rela=self.start_time)
+        # self.info(f"{int(self.benchmark.exec_time)} {int((int(time.time()*1e9) - self.start_time)/1e9)}")
+        # current_time = int((int(time.time()*1e9) - self.ready_time)/1e9)
+        # hbase_timeout = int(self.benchmark.exec_time) + 120
+        # self.info(f"Wait until benchmark ends (timeout: {hbase_timeout}s)", rela=self.start_time)
+        # while current_time < hbase_timeout:
+        #     print(f'Benchmark not finished (now: {current_time}s, timeout: {hbase_timeout}s)')
+        #     time.sleep(10)
+        #     current_time = int((int(time.time()*1e9) - self.start_time)/1e9)
+        
+        # try:
+        #     self.ycsb_process.wait(timeout=hbase_timeout)
+        #     self.info("Benchmark safely ends", rela=self.start_time)
+        # except:
+        #     self.info(f"The subprocess took too long (>={hbase_timeout}s) to complete and was killed.", rela=self.start_time)
+        #     self.ycsb_process.kill()
     
     def _post_process(self):
         p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
