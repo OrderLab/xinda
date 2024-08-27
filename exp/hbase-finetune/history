@@ -5,7 +5,13 @@ for (i in 1:(length(ary)-1)) {
     cat(paste0("cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start ",ary[i]," --end ", ary[i+1]-1, "\n"))
 }
 
+
+
 There are 14 nodes and 257 combinations (see hbase-pipeline/finetune/combinations.json)
+
+
+# CAUTION !!!!!!!!!!!!!!
+# Should start with zero!!!!
 
 cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 1 --end 21
 cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 22 --end 41
