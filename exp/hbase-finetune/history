@@ -1,3 +1,5 @@
+ansible-playbook -i ansible_host clean-all.yml update-xinda.yml hbase-finetune.yml
+
 ary = c(1, 22, seq(42,258,18))
 for (i in 1:(length(ary)-1)) {
     cat(paste0("cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start ",ary[i]," --end ", ary[i+1]-1, "\n"))
