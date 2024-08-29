@@ -1,0 +1,14 @@
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 0 --end 39
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 40 --end 78
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 79 --end 116
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 117 --end 152
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 153 --end 188
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 189 --end 224
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 225 --end 260
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 261 --end 296
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 297 --end 332
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 333 --end 368
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 369 --end 404
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 405 --end 440
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 441 --end 476
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 477 --end 512
