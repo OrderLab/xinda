@@ -4,7 +4,7 @@
 hosts=( $(cat ./hosts | awk '{print $1}') )
 username="rmlu"
 # List of all scripts
-scripts=( $(ls ~/Desktop/UMICH/xinda/xinda/exp/hbase-finetune-512/exp/*.job | sort) )
+scripts=( $(ls ~/xinda/exp/hbase-finetune-512/exp/*.job | sort) )
 # print number of scripts and hosts
 echo "Number of scripts: ${#scripts[@]}"
 echo "Number of hosts: ${#hosts[@]}"
@@ -34,6 +34,6 @@ for i in "${!scripts[@]}"; do
 #  ansible_connection=ssh ansible_user=YXXinda ansible_port=22
   echo $host ansible_connection=ssh ansible_user=$username ansible_port=22 > ./tmp_host
   # Run ansible playbook for this host and script
-  ansible-playbook -i ./tmp_host ~/Desktop/UMICH/xinda/xinda/cloudlab-ansible/run-script-in-tmux-finetune.yml
+  ansible-playbook -i ./tmp_host ~/xinda/cloudlab-ansible/run-script-in-tmux-finetune.yml
   echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z")] $script, $host" >> jobs_mapping.log
 done
