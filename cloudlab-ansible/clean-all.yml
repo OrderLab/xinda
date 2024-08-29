@@ -16,6 +16,7 @@
       shell: |
         rm -rf $HOME/workdir/xinda/test_scripts/RQ1_1/*log
         rm -rf stdout.log
+        rm -rf $HOME/workdir/hbase-pipeline/finetune/*.log
       args:
         executable: /bin/bash
     
@@ -23,6 +24,7 @@
       become: false
       shell: |
         rm -rf $HOME/workdir/xinda/test_scripts/*.job
+        rm -rf $HOME/workdir/hbase-pipeline/finetune/*.job
       args:
         executable: /bin/bash
 
