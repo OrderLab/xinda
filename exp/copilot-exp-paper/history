@@ -1,3 +1,5 @@
+ansible-playbook -i ansible_host clean-all.yml hbase-finetune-cleanrepo.yml clone-xinda-only.yml
+
 test_script_path=~/Desktop/UMICH/xinda/xinda/test_scripts/RQ1_1/
 cd $test_script_path
 
