@@ -63,7 +63,7 @@ class GenerateTestScript():
             elif severity == 'nw-flaky':
                 self.severity_dict = {'nw': ['flaky-p1','flaky-p10', 'flaky-p40', 'flaky-p70']}
             elif severity == 'nw-slow':
-                self.severity_dict = {'nw': ['slow-100us', 'slow-1ms', 'slow-10ms', 'slow-100ms', 'slow-1s']}
+                self.severity_dict = {'nw': ['slow-100us', 'slow-1ms', 'slow-5ms','slow-10ms', 'slow-100ms', 'slow-200ms','slow-300ms','slow-400ms','slow-500ms',]}
         # benchmark
         self.benchmark = 'copilot'
     
