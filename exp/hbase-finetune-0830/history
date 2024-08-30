@@ -1,0 +1,28 @@
+ansible-playbook -i ansible_host clean-all.yml hbase-finetune-cleanrepo.yml clone-xinda-only.yml hbase-finetune.yml
+ary = c(0, c(42, seq(84,540,38)) + 1 )
+for (i in 1:(length(ary)-1)) {
+    cat(paste0("cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start ",ary[i]," --end ", ary[i+1]-1, "\n"))
+}
+
+
+
+There are 14 nodes and 541 combinations (see hbase-pipeline/finetune/newCombinations.json)
+
+
+# CAUTION !!!!!!!!!!!!!!
+# Should start with zero!!!!
+
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 0 --end 42
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 43 --end 84
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 85 --end 122
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 123 --end 160
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 161 --end 198
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 199 --end 236
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 237 --end 274
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 275 --end 312
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 313 --end 350
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 351 --end 388
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 389 --end 426
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 427 --end 464
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 465 --end 502
+cd ~/workdir/hbase-pipeline/finetune; python3 finetune.py --start 503 --end 540
