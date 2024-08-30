@@ -38,7 +38,8 @@ class GenerateTestScript():
         self.exec_time = exec_time
         self.concurrent = concurrent
         # location
-        self.location_list = ['server1', 'server2', 'server3']
+        # self.location_list = ['server1', 'server2', 'server3']
+        self.location_list = ['server1']
         # start_time
         self.start_time_dict = {
             'copilot': self.start_time_ary,
@@ -57,7 +58,7 @@ class GenerateTestScript():
             elif severity == 'nw-flaky':
                 self.severity_dict = {'nw': ['flaky-p1','flaky-p10', 'flaky-p40', 'flaky-p70']}
             elif severity == 'nw-slow':
-                self.severity_dict = {'nw': ['slow-100us', 'slow-1ms', 'slow-10ms', 'slow-100ms', 'slow-1s']}
+                self.severity_dict = {'nw': ['slow-100us', 'slow-1ms', 'slow-5ms', 'slow-10ms', 'slow-100ms', 'slow-200ms', 'slow-300ms', 'slow-400ms', 'slow-500ms']}
         # benchmark
         self.benchmark = 'copilot'
     

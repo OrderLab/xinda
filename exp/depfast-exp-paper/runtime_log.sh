@@ -9,10 +9,10 @@ mkdir -p logs
 for i in "${!hosts[@]}"; do
     host=${hosts[$i]}
     echo -n "$host [$(($i+1))/${#hosts[@]}]"
-    ssh ${username}@$host cat "~/workdir/hbase-pipeline/finetune/*.log" > logs/${host}.log
+    ssh ${username}@$host cat "~/workdir/xinda/test_scripts/RQ1_1/*.log" > logs/${host}.log
     if ! grep -ie "error" -ie "exception" "logs/${host}.log"; then
         echo -n " [OK]"
     fi
     num_end=$(cat logs/${host}.log | grep END | wc -l)
-    echo " [Done: $(echo "scale=2; $num_end / 2" | bc)]"
+    echo " [Done: "$num_end"]"
 done
