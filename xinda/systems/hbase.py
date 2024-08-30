@@ -102,6 +102,12 @@ class HBase(TestSystem):
         self.inject_thread.start()
     
     def _load_ycsb(self):
+        if int(self.benchmark.recordcount) > 10000:
+            loadThreadCount = 32
+            loadTimeout = 120
+        else:
+            loadThreadCount = 8
+            loadTimeout = 60
         cmd = ['docker exec -it',
                self.dest,
                'sh -c',
@@ -111,13 +117,14 @@ class HBase(TestSystem):
                f"-P {self.tool.hbase_ycsb_wkl}/workload{self.benchmark.workload}",
                '-cp /etc/hbase',
                f'-p recordcount={self.benchmark.recordcount}',
+               f"-p threadcount={loadThreadCount}",
                f"-p columnfamily={self.benchmark.columnfamily}\""]
         cmd = ' '.join(cmd)
         try:
-            p = subprocess.run(cmd, shell=True, timeout=60)
+            p = subprocess.run(cmd, shell=True, timeout=loadTimeout)
             self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload} successfully loaded")
         except subprocess.TimeoutExpired:
-            self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload} load timeout (60s)")
+            self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload} load timeout ({loadTimeout}s)")
             self._post_process()
             self.docker_down()
             if self.fault.type == 'nw':
