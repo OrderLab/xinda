@@ -227,8 +227,8 @@ if __name__ == "__main__":
                         help="Redo tasks")
 
     args = parser.parse_args()
-    output_dir = os.path.abspath(args.output_dir or args.data_dir.replace("/data/ruiming", "/data/yunchi"))
-
+    # output_dir = os.path.abspath(args.output_dir or args.data_dir.replace("/data/ruiming", "/data/yunchi"))
+    output_dir = os.path.abspath(args.output_dir or args.data_dir.replace("/data/ruiming", "/home/ruiming/processed_results"))
 
     parse_batch(
         data_dir=os.path.abspath(args.data_dir),
