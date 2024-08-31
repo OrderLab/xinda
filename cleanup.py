@@ -66,3 +66,20 @@ if len(matching_processes) != 0:
     info(f'charybdefs stopped at {charybdefs_dir}')
 else:
     info('No running charybdefs instance. Skip')
+
+# charybdefs pid
+# $HOME/workdir/xinda-software/charybdefs/charybdefs.pid
+cmd = 'rm charybdefs.pid'
+_ = subprocess.run(cmd, shell=True, cwd=f"{os.path.expanduser('~')}/workdir/xinda-software/charybdefs")
+info('Removed charybdefs.pid')
+
+# charybdefs mount dir 
+# /var/lib/docker/cfs_mount/tmp
+cmd = 'sudo rm -rf /var/lib/docker/cfs_mount/tmp'
+_ = subprocess.run(cmd, shell=True)
+info('Removed charybdefs mount dir ')
+
+# Cleaning up .blockade
+cmd = 'rm -rf .blockade'
+_ = subprocess.run(cmd, shell=True, cwd=f"{os.path.expanduser('~')}/workdir/xinda/tools/blockade")
+info('Removed .blockade')
