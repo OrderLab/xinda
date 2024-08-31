@@ -43,8 +43,9 @@ class GenerateTestScript():
         # start_time
         self.start_time_dict = {
             'copilot': self.start_time_ary,
+            'fpga_raft': self.start_time_ary,
         }
-        self.scheme_ary = ['copilot']
+        self.scheme_ary = ['copilot', 'fpga_raft']
         # severity
         self.severity_dict = {
             'nw': ['slow-100us', 'slow-1ms', 'slow-10ms', 'slow-100ms', 'slow-1s', 'flaky-p1', 'flaky-p10', 'flaky-p40', 'flaky-p70'],
@@ -64,7 +65,6 @@ class GenerateTestScript():
     
     def generate(self):
         for sys_name in self.sys_name_ary:
-            benchmark_ary = ['copilot']
             for scheme in self.scheme_ary:
                 for conc in self.concurrent:
                     for duration in self.duration_ary:
