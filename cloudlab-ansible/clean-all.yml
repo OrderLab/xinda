@@ -49,22 +49,22 @@
       args:
         executable: /bin/bash
 
-    - name: Delete charybdefs.pid
-      become: false
-      ansible.builtin.file:
-        path: "$HOME/workdir/xinda-software/charybdefs/charybdefs.pid"
-        state: absent
+    # - name: Delete charybdefs.pid
+    #   become: false
+    #   ansible.builtin.file:
+    #     path: "$HOME/workdir/xinda-software/charybdefs/charybdefs.pid"
+    #     state: absent
 
-    - name: Delete charybdefs mount folders
-      become: true
-      ansible.builtin.file:
-        path: "/var/lib/docker/cfs_mount/tmp"
-        state: absent
+    # - name: Delete charybdefs mount folders
+    #   become: true
+    #   ansible.builtin.file:
+    #     path: "/var/lib/docker/cfs_mount/tmp"
+    #     state: absent
     
-    - name: Remove .blockade
-      become: false
-      shell: |
-        rm -rf $HOME/workdir/xinda/tools/blockade/.blockade
-      args:
-        executable: /bin/bash
+    # - name: Remove .blockade
+    #   become: false
+    #   shell: |
+    #     rm -rf $HOME/workdir/xinda/tools/blockade/.blockade
+    #   args:
+    #     executable: /bin/bash
 
