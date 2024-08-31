@@ -67,6 +67,7 @@ class Depfast(TestSystem):
         #     raise ValueError(f"Exception: fault physical location ({self.fault.location}) does not match depfast topology (not {depfast_slow_location})")
         # self.info(f"fault_physical_location: {self.fault.location}, which is {depfast_slow_location} in depfast\'s toplogy ")
         cmd = f"docker exec -it {self.client} bash start-exp.sh testname {self.benchmark.exec_time} 0 3 follower {self.benchmark.nclient} {self.benchmark.concurrency} {self.benchmark.scheme} nonlocal"
+        print(f"Run depfast with command: {cmd}")
         self.depfast_process = subprocess.Popen(cmd, shell=True, stdout=open(self.log.runtime,"w"))
         self.info(f"Wait for depfast to start.")
         sleep_time = 0

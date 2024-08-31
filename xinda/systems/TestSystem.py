@@ -351,6 +351,16 @@ class TestSystem:
                 cmd_inject = ['./inject_client', '--pattern', cfs_pattern, '--delay', self.fault.severity]
             cmd_clear = ['./inject_client', '--clear']
             work_dir = self.tool.cfs_source
+        cmd_inject = ' '.join(cmd_inject)
+        cmd_clear = ' '.join(cmd_clear)
+        if self.sys_name == 'depfast':
+            if self.fault.type == 'nw' and 'slow' in self.fault.severity:
+                delay = self.fault.severity.split('-')[1]
+                self.info(f"We are injecting in the DepFast way (delay: {delay})")
+                cmd_inject = f"docker exec -it {self.fault.location} sudo /sbin/tc qdisc add dev eth0 root netem delay {delay}"
+                cmd_clear = f"docker exec -it {self.fault.location} sudo /sbin/tc qdisc del dev eth0 root"
+            else:
+                raise ValueError(f"Exception: Fault type:{self.fault.type} and severity:{self.fault.severity} are not supported in DepFast")
         # Sleep until fault begins
         cur_time = self.get_current_ts()
         delta_time = self.fault.start_time - cur_time
@@ -359,7 +369,7 @@ class TestSystem:
             time.sleep(delta_time)
         # Faults begin (inject)
         self.info("fault command BEGINs", rela=self.start_time)
-        p = subprocess.run(cmd_inject, cwd=work_dir)
+        p = subprocess.run(cmd_inject, shell=True, cwd=work_dir)
         if self.fault.type == 'nw':
             self.check_blockade_slowness()
         self.info("fault actually BEGINs", rela=self.start_time)
@@ -375,7 +385,7 @@ class TestSystem:
             cur_time = self.get_current_ts()
             if cur_time - fault_actually_begin_time < self.fault.duration:
                 self.info("after restart: fault command BEGINs", rela=self.start_time)
-                p = subprocess.run(cmd_inject, cwd=work_dir)
+                p = subprocess.run(cmd_inject, shell = True,cwd=work_dir)
                 self.info("after restart: fault actually BEGINs", rela=self.start_time)
                 cur_time = self.get_current_ts()
                 delta_time = self.fault.duration - (cur_time - fault_actually_begin_time)
@@ -403,5 +413,5 @@ class TestSystem:
         
         # Faults end (clear)
         self.info("fault command ENDs", rela=self.start_time)
-        p = subprocess.run(cmd_clear, cwd=work_dir)
+        p = subprocess.run(cmd_clear, shell = True, cwd=work_dir)
         self.info("fault actually ENDs", rela=self.start_time)
