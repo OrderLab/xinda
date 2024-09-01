@@ -32,3 +32,5 @@ cd ~/workdir/hbase-pipeline/finetune; python3 tune_workload.py --batch 291 292 3
 cd ~/workdir/hbase-pipeline/finetune; python3 tune_workload.py --batch 344 346 349 361 363 370 372 379 380 397
 cd ~/workdir/hbase-pipeline/finetune; python3 tune_workload.py --batch 399 416 417 434 451 452 453 470 471 480
 cd ~/workdir/hbase-pipeline/finetune; python3 tune_workload.py --batch 487 488 506 507 516 523 524 527 529 532
+
+ansible-playbook -i hosts ../../cloudlab-ansible/compress_exp_data_hbase_finetune.yml --extra-vars "task=hbase-finetune-0831"
