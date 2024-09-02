@@ -1,0 +1,25 @@
+test_script_path=~/Desktop/UMICH/xinda/xinda/test_scripts/RQ1_1/
+cd $test_script_path
+
+
+# Starting from 2024-02-01 6:20pm:
+python3 duration.py --sys_name cassandra --data_dir rq1_1 --start_time 0 --duration 30 60 90 120 150  --fault_type nw --iter 20
+python3 duration.py --sys_name hbase --data_dir rq1_1 --start_time 0 --duration 30 60 90 120 150  --fault_type nw --iter 20 
+python3 duration.py --sys_name kafka --data_dir rq1_1 --start_time 0 --duration 30 60 90 120 150  --fault_type nw --iter 20 --unique_benchmark openmsg
+python3 duration.py --sys_name crdb --data_dir rq1_1 --start_time 0 --duration 30 60 90 120 150  --fault_type nw --iter 20 --unique_benchmark ycsb
+python3 duration.py --sys_name etcd --data_dir rq1_1 --start_time 0 --duration 30 60 90 120 150  --fault_type nw --iter 20 --unique_benchmark ycsb
+
+# cassandra 500*7/60=58
+# crdb 500*3.5/60=29
+# etcd 1000*3/60=50
+# hbase 500*4.5/60=37.5
+# kafka 500*3.3/60=27.5
+
+58+29+50+37.5+27.5=218.7
+218.7/22 = 
+
+# node1: cassandra
+# node2: crdb + kafka
+# node3: etcd
+# node4: hbase
+# node5 hadoop
