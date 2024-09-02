@@ -6,4 +6,4 @@ python3 depfast.py --sys_name depfast --data_dir depfast --start_time1 0 --start
 
 search and replace: concurrency 10 => concurrency 100
 
-ansible-playbook -i hosts ../../cloudlab-ansible/compress_exp_data.yml --extra-vars "task=depfast-exp-paper-re"
+ansible-playbook -i hosts ../../cloudlab-ansible/compress_exp_data.yml --extra-vars "task=depfast-exp-paper-conc100"
