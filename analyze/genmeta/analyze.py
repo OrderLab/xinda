@@ -28,7 +28,8 @@ def gen_stats(gmctx: GenMetaContext, stats: dict):
     else:
         total_end = DUR_MAP[gmctx.ctx.question]
     slow_start, slow_end, fault_actual_begin, fault_actual_end = get_slow_period(gmctx)
-    
+    if slow_start <= total_start:
+        total_start = 0
     # parse stats
     if gmctx.ctx.system == "hadoop":
         stats[FIELD_METRIC] = "total_execution_time(s)"
@@ -167,7 +168,7 @@ def gen_stats(gmctx: GenMetaContext, stats: dict):
                 df_bf_slow = df[mask_bf_slow]
                 df_slow = df[mask_slow]
                 df_af_slow = df[mask_af_slow]
-                if len(df_bf_slow)*len(df_slow)*len(df_af_slow) == 0: 
+                if len(df_bf_slow)*len(df_slow)*len(df_af_slow) == 0 and slow_start > total_start and slow_end < total_end: 
                     raise EmptySlowFaultDataError(gmctx.driver_csv)
                 stats[FIELD_VAL_BF_SLOW] = df_bf_slow[[PUB_TP, CONS_PT]].mean().sum()
                 stats[FIELD_VAL_IN_SLOW] = df_slow[[PUB_TP, CONS_PT]].mean().sum()
@@ -209,8 +210,9 @@ def gen_stats(gmctx: GenMetaContext, stats: dict):
             df_bf_slow = df[df[TIME_SEC]<slow_start]
             df_slow = df[(df[TIME_SEC]>slow_start)&(df[TIME_SEC]<slow_end)]
             df_af_slow = df[df[TIME_SEC]>slow_end]
-            if len(df_bf_slow)*len(df_slow)*len(df_af_slow) == 0: 
-                    raise EmptySlowFaultDataError(gmctx.runtime_csv)
+            if len(df_bf_slow)*len(df_slow)*len(df_af_slow) == 0 and slow_start > total_start and slow_end < total_end: 
+                raise EmptySlowFaultDataError(gmctx.runtime_csv)
+                # print(f'ERROR check analyze/genmeta/analyze.py: len(df_bf_slow)*len(df_slow)*len(df_af_slow) == 0')
             stats[FIELD_VAL_BF_SLOW] = df_bf_slow[TP].mean()
             stats[FIELD_VAL_IN_SLOW] = df_slow[TP].mean()
             stats[FIELD_VAL_AF_SLOW] = df_af_slow[TP].mean()
