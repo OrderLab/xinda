@@ -83,3 +83,15 @@ info('Removed charybdefs mount dir ')
 cmd = 'rm -rf .blockade'
 _ = subprocess.run(cmd, shell=True, cwd=f"{os.path.expanduser('~')}/workdir/xinda/tools/blockade")
 info('Removed .blockade')
+
+# Cleaning up main.py
+keyword = "/users/rmlu/workdir/xinda/main.py"
+process_list = psutil.process_iter(attrs=['pid', 'cmdline'])
+matching_processes = [process.info for process in process_list if keyword in process.info['cmdline']]
+if len(matching_processes) != 0:
+    for p in matching_processes:
+        cmd = f'kill -9 {p["pid"]}'
+        _ = subprocess.run(cmd, shell=True)
+        info(f'Killed xinda: main.py at {p["pid"]}')
+else:
+    info('No running xinda: main.py instance. Skip')
