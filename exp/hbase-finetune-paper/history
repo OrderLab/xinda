@@ -1,5 +1,6 @@
 ansible-playbook -i ansible_host clean-all.yml hbase-finetune-cleanrepo.yml clone-xinda-only.yml hbase-finetune.yml
 
+ansible-playbook -i ../exp/hbase-finetune-paper/hosts compress_exp_data_hbase_finetune.yml --extra-vars "task=hbase-finetune-paper"
 
 cd ~/workdir/hbase-pipeline/finetune; python3 tune_workload.py --batch 99
 cd ~/workdir/hbase-pipeline/finetune; python3 tune_workload.py --batch 243
