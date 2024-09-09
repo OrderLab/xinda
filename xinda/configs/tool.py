@@ -10,7 +10,8 @@ class Tool:
                  reslim_: ResourceLimit,
                  version_: str = None,
                  coverage_: bool = False,
-                 coverage_dir_: str = None
+                 coverage_dir_: str = None,
+                 change_workload_: bool = False,
                  ):
         self.version = version_
         self.xinda_software_dir = xinda_software_dir_
@@ -62,6 +63,9 @@ class Tool:
 
         # HBase
         self.hbase_init=os.path.join(xinda_tools_dir_, "hbase-init.sh")
+        if change_workload_ and sys_name_ == 'hbase':
+            self.hbase_init=os.path.join(xinda_tools_dir_, "hbase-init2.sh")
+            print('Copying hbase-init2.sh')
         self.hbase_check_pid=os.path.join(xinda_tools_dir_, "hbase-check-pid.sh")
         self.hbase_ycsb="/tmp/ycsb-0.17.0"
         self.hbase_ycsb_wkl="/tmp/ycsb-workloads/ycsb"

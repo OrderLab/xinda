@@ -72,6 +72,8 @@ parser.add_argument('--version', type = str, default = None,
                     help='[Init] Version of the system to be tested')
 parser.add_argument('--coverage', action='store_true', default=False,
                     help="[Init] Whether to run coverage study, supported systems: hadoop and etcd")
+parser.add_argument('--change_workload', action='store_true', default=False,
+                    help="[Init] Whether to change workload at runtime")
 
 # YCSB - Benchmark
 parser.add_argument('--ycsb_wkl', type = str, default = 'mixed',
@@ -100,6 +102,19 @@ parser.add_argument('--ycsb_crdb_load_conn_string', type = str, default = 'postg
                     help='[Benchmark] Connection strings during YCSB load phase')
 parser.add_argument('--ycsb_crdb_run_conn_string', type = str, default = 'postgresql://root@roach3:26257,roach2:26257,roach1:26257?sslmode=disable',
                     help='[Benchmark] Connection strings during YCSB run phase')
+# YCSB - HBASE - Two workloads
+
+parser.add_argument('--ycsb_hbase_threadcount2', type = int, default = 32,
+                    help='[Benchmark] Number of YCSB client threads for HBase.')
+parser.add_argument('--bench_exec_time2', type = str, default = '150',
+                    help='[Benchmark] Benchmark duration in seconds')
+parser.add_argument('--ycsb_wkl2', type = str, default = 'writeonly',
+                    help='[Benchmark] YCSB workload type.')
+parser.add_argument('--ycsb_recordcount2', type = str, default = '1000000',
+                    help='[Benchmark] Number of records during ycsb-load phase')
+parser.add_argument('--ycsb_columnfamily2', type = str, default = 'family2',
+                    help='[Benchmark] The column family of HBase that YCSB workloads take effect on.')
+
 # hadoop - Benchmark
 parser.add_argument('--benchmark', type = str, required=True,
                     help='[Benchmark] Specify which benchmark to test the system',
@@ -207,6 +222,9 @@ def main(args):
     elif args.cpu_limit is None or args.mem_limit is None:
         print(f'At least one of cpu_limit ({args.cpu_limit}) or mem_limit ({args.mem_limit}) is None')
         exit(1)
+    if args.change_workload and sys_name not in ['hbase']:
+        print('Currently only hbase support changing workload at runtime')
+        exit(1)
     reslim = ResourceLimit(cpu_limit_ = args.cpu_limit,
                            mem_limit_ = args.mem_limit)
 
@@ -247,6 +265,14 @@ def main(args):
                                 status_interval_ = args.ycsb_status_interval,
                                 columnfamily_ = args.ycsb_columnfamily,
                                 threadcount_ = args.ycsb_hbase_threadcount)
+        benchmark2 = YCSB_HBASE(exec_time_ = args.bench_exec_time2,
+                                workload_ = args.ycsb_wkl2,
+                                recordcount_ = args.ycsb_recordcount2,
+                                operationcount_ = args.ycsb_operationcount,
+                                measurementtype_ = args.ycsb_measurementtype,
+                                status_interval_ = args.ycsb_status_interval,
+                                columnfamily_ = args.ycsb_columnfamily2,
+                                threadcount_ = args.ycsb_hbase_threadcount2)
         sys = hbase.HBase(sys_name_ = sys_name,
                             fault_ = fault,
                             benchmark_ = benchmark,
@@ -259,7 +285,9 @@ def main(args):
                             reslim_ = reslim,
                             version_=args.version,
                             if_restart_ = args.if_restart,
-                            coverage_ = args.coverage,)
+                            coverage_ = args.coverage,
+                            change_workload_ = args.change_workload,
+                            benchmark2_ = benchmark2)
         # sys.test()
     elif sys_name == 'etcd':
         version = args.version if args.version is not None else '3.5.10'

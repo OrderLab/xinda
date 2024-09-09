@@ -34,6 +34,8 @@ class HBase(TestSystem):
         # self.ready_time = int(time.time()*1e9)
         self._init_hbase()
         self._load_ycsb()
+        if self.change_workload:
+            self._load_ycsb2()
         self.start_time = int(time.time()*1e9)
         # inject slow faults (in a background thread)
         if self.fault.type != 'none':
@@ -41,6 +43,8 @@ class HBase(TestSystem):
         else:
             self.info("Fault type == none, no faults shall be injected")
         self._run_ycsb()
+        if self.change_workload:
+            self._run_ycsb2()
         # wrap-up and end
         if self.fault.type != 'none':
             self.inject_thread.join()
@@ -52,6 +56,7 @@ class HBase(TestSystem):
         elif self.fault.type == 'fs':
             self.charybdefs_down()
         self.info("THE END")
+        self.info(self.log.data_dir)
     
     def _copy_file_to_container(self):
         cmd = ['docker',
@@ -122,9 +127,42 @@ class HBase(TestSystem):
         cmd = ' '.join(cmd)
         try:
             p = subprocess.run(cmd, shell=True, timeout=loadTimeout)
-            self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload} successfully loaded")
+            self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload}-{self.benchmark.columnfamily} successfully loaded")
         except subprocess.TimeoutExpired:
-            self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload} load timeout ({loadTimeout}s)")
+            self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark.workload}-{self.benchmark.columnfamily} load timeout ({loadTimeout}s)")
+            self._post_process()
+            self.docker_down()
+            if self.fault.type == 'nw':
+                self.blockade_down()
+            elif self.fault.type == 'fs':
+                self.charybdefs_down()
+            self.info("THE END")
+            exit(1)
+    
+    def _load_ycsb2(self):
+        if int(self.benchmark2.recordcount) > 10000:
+            loadThreadCount = 32
+            loadTimeout = 120
+        else:
+            loadThreadCount = 8
+            loadTimeout = 60
+        cmd = ['docker exec -it',
+               self.dest,
+               'sh -c',
+               f'\"{self.tool.hbase_ycsb}/bin/ycsb load hbase20',
+               '-s',
+            #    f"-P {self.tool.hbase_ycsb}/workloads/workload{self.benchmark.workload}",
+               f"-P {self.tool.hbase_ycsb_wkl}/workload{self.benchmark2.workload}",
+               '-cp /etc/hbase',
+               f'-p recordcount={self.benchmark2.recordcount}',
+               f"-p threadcount={loadThreadCount}",
+               f"-p columnfamily={self.benchmark2.columnfamily}\""]
+        cmd = ' '.join(cmd)
+        try:
+            p = subprocess.run(cmd, shell=True, timeout=loadTimeout)
+            self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark2.workload}-{self.benchmark2.columnfamily} successfully loaded")
+        except subprocess.TimeoutExpired:
+            self.info(f"{self.tool.ycsb}/workloads/workload{self.benchmark2.workload}-{self.benchmark2.columnfamily} load timeout ({loadTimeout}s)")
             self._post_process()
             self.docker_down()
             if self.fault.type == 'nw':
@@ -152,11 +190,48 @@ class HBase(TestSystem):
                f"> {self.log.raw_container}",
                f"2> {self.log.runtime_container}\""]
         cmd = ' '.join(cmd)
-        self.info("Benchmark:ycsb starts. We should inject faults after 30s till the cluster performance is stable", rela=self.start_time)
+        self.info(f"Benchmark:ycsb-{self.benchmark.workload} starts. We should inject faults after 30s till the cluster performance is stable", rela=self.start_time)
         try:
             self.ycsb_process = subprocess.run(cmd, shell=True, timeout=2*(int(self.benchmark.exec_time)))
         except subprocess.TimeoutExpired:
             self.info(f"ycsb_process took too long (>={2*(int(self.benchmark.exec_time))}s) to complete and was killed.", rela=self.start_time)
+            self._post_process()
+            self.docker_down()
+            if self.fault.type == 'nw':
+                self.blockade_down()
+            elif self.fault.type == 'fs':
+                self.charybdefs_down()
+            self.info("THE END")
+            exit(1)
+    
+    def _run_ycsb2(self):
+        cmd = ['docker exec -it',
+               self.dest,
+               'sh -c',
+               f"\"{self.tool.hbase_ycsb}/bin/ycsb run hbase20",
+               '-s',
+            #    f"-P {self.tool.hbase_ycsb}/workloads/workload{self.benchmark.workload}",
+               f"-P {self.tool.hbase_ycsb_wkl}/workload{self.benchmark2.workload}",
+               '-cp /etc/hbase',
+               f"-p measurementtype={self.benchmark2.measurementtype}",
+               f"-p operationcount={self.benchmark2.operationcount}",
+               f"-p maxexecutiontime={self.benchmark2.exec_time}",
+               f"-p status.interval={self.benchmark2.status_interval}",
+               f"-p columnfamily={self.benchmark2.columnfamily}",
+               f"-p threadcount={self.benchmark2.threadcount}",
+               f"> {self.log.raw_container2}",
+               f"2> {self.log.runtime_container2}\""]
+        cmd = ' '.join(cmd)
+        self.info(f"Benchmark:ycsb-{self.benchmark2.workload} starts.", rela=self.start_time)
+        self.info(f"wkl: {self.benchmark.workload} -> {self.benchmark2.workload}")
+        self.info(f"tc: {self.benchmark.threadcount} -> {self.benchmark2.threadcount}")
+        self.info(f"exec_time: {self.benchmark.exec_time} -> {self.benchmark2.exec_time}")
+        self.info(f"recordCount: {self.benchmark.recordcount} -> {self.benchmark2.recordcount}")
+        self.info(f"columnfamily: {self.benchmark.columnfamily} -> {self.benchmark2.columnfamily}")
+        try:
+            self.ycsb_process = subprocess.run(cmd, shell=True, timeout=2*(int(self.benchmark2.exec_time)))
+        except subprocess.TimeoutExpired:
+            self.info(f"ycsb_process took too long (>={2*(int(self.benchmark2.exec_time))}s) to complete and was killed.", rela=self.start_time)
             self._post_process()
             self.docker_down()
             if self.fault.type == 'nw':
@@ -202,6 +277,17 @@ class HBase(TestSystem):
         # Convert raw.log => sum.log
         cmd = f"cat {self.log.raw} | grep -v -e \"READ,\" -e \"UPDATE,\" -e \"SCAN,\" -e \"INSERT,\" -e \"READ-MODIFY-WRITE,\" > {self.log.summary}"
         p = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if self.change_workload:
+            cmd = f"docker cp {self.dest}:{self.log.raw_container2} ."
+            p = subprocess.run(cmd, cwd=self.log.data_dir, shell=True)
+            cmd = f"docker cp {self.dest}:{self.log.runtime_container2} ."
+            p = subprocess.run(cmd, cwd=self.log.data_dir, shell=True)
+            # Convert raw.log => ts.log
+            cmd = f"cat {self.log.raw2} | grep -e \"READ,\" -e \"UPDATE,\" -e \"SCAN,\" -e \"INSERT,\" -e \"READ-MODIFY-WRITE,\" > {self.log.time_series2}"
+            p = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            # Convert raw.log => sum.log
+            cmd = f"cat {self.log.raw2} | grep -v -e \"READ,\" -e \"UPDATE,\" -e \"SCAN,\" -e \"INSERT,\" -e \"READ-MODIFY-WRITE,\" > {self.log.summary2}"
+            p = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         '''
         for iter in range(self.benchmark.num_cycle):
             # Copy logs to local

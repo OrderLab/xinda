@@ -12,7 +12,8 @@ class Logging:
                  iter_ : int,
                  log_root_dir_ : str,
                  version_ : str,
-                 reslim_ : ResourceLimit):
+                 reslim_ : ResourceLimit,
+                 change_workload: bool,):
         self.create_dir_if_not_exist(log_root_dir_)
         if version_ is None:
             path0 = os.path.join(log_root_dir_, sys_name_)
@@ -56,6 +57,12 @@ class Logging:
         # self.runtime_container = f"/tmp/runtime-{fault_.location}-{fault_.info}-{iter_}.log"
         self.raw_container = f"/tmp/raw-{self.description}.log"
         self.runtime_container = f"/tmp/runtime-{self.description}.log"
+        if change_workload and sys_name_ == 'hbase':
+            self.raw_container2 = f"/tmp/raw2-{self.description}.log"
+            self.raw2 = os.path.join(path2, 'raw2-' + self.description + ".log")
+            self.runtime_container2 = f"/tmp/runtime2-{self.description}.log"
+            self.time_series2 = os.path.join(path2, 'ts2-' + self.description + ".log")
+            self.summary2 = os.path.join(path2, 'sum2-' + self.description + ".log")
         self.raw_load_container = []
         self.runtime_load_container = []
         self.raw_run_container = []
