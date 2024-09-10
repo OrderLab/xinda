@@ -4,6 +4,5 @@
   tasks:
     - name: Compress experiment data into a tarball
       shell: >
-        # tar cf $HOME/workdir/data/default_$(hostname -i)_{{ task_name }}.tar $HOME/workdir/data
         tar --exclude="**/ts*" --exclude="**/raw*"  -cf $HOME/workdir/data/default_$(hostname -i)_{{ task_name }}.tar $HOME/workdir/data
 # ansible-playbook compress_exp_data_hbase_finetune.yml -i ansible_host --extra-vars "task=hbase-finetune"
