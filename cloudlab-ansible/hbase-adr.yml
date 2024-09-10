@@ -1,0 +1,51 @@
+---
+- name: Get hbase-pipeline finetune ready
+  hosts: all
+  become: false
+
+  tasks:
+    - name: check if hbase-pipeline exists
+      stat:
+        path: $HOME/workdir/hbase-pipeline
+      register: hbase_exists
+      
+    - name: Clone hbase-pipeline
+      ansible.builtin.git:
+        dest: "$HOME/workdir/hbase-pipeline"
+        repo: git@github.com:OrderLab/hbase-pipeline.git
+        version: main
+        accept_hostkey: yes
+      when: hbase_exists.stat.exists == False
+    
+    - name: Update hbase-pipeline
+      shell: |
+        cd ~/workdir/hbase-pipeline
+        git checkout finetune
+        git pull
+      args:
+        executable: /bin/bash
+      when: hbase_exists.stat.exists == True
+    
+    - name: init
+      shell: |
+        cd ~/workdir/hbase-pipeline
+        bash init.sh
+      args:
+        executable: /bin/bash
+      when: hbase_exists.stat.exists == False
+    
+    - name: pip3 install
+      shell: |
+        conda run -n py36 pip3 install gitpython
+      args:
+        executable: /bin/bash
+      environment:
+        PATH: "{{ ansible_env.HOME }}/miniconda3/condabin:{{ ansible_env.PATH }}"
+    
+    - name: Pre-pull
+      shell: |
+        docker pull rmlu/hbase-regionserver:testing 
+        docker pull rmlu/hbase-master:testing 
+        docker pull rmlu/hbase-base:testing
+      args:
+        executable: /bin/bash
