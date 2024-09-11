@@ -8,6 +8,11 @@
       stat:
         path: $HOME/workdir/hbase-pipeline
       register: hbase_exists
+    
+    - name: rm hbase-pipeline
+      shell: |
+        rm -rf $HOME/workdir/hbase-pipeline
+      when: hbase_exists.stat.exists == True
       
     - name: Clone hbase-pipeline
       ansible.builtin.git:
@@ -15,24 +20,13 @@
         repo: git@github.com:OrderLab/hbase-pipeline.git
         version: main
         accept_hostkey: yes
-      when: hbase_exists.stat.exists == False
-    
-    - name: Update hbase-pipeline
-      shell: |
-        cd ~/workdir/hbase-pipeline
-        git checkout finetune
-        git pull
-      args:
-        executable: /bin/bash
-      when: hbase_exists.stat.exists == True
     
     - name: init
       shell: |
         cd ~/workdir/hbase-pipeline
-        bash init.sh
+        bash init_xinda.sh
       args:
         executable: /bin/bash
-      when: hbase_exists.stat.exists == False
     
     - name: pip3 install
       shell: |
