@@ -6,7 +6,8 @@ class HBase(TestSystem):
         self.jacoco_loc = 'hbase-regionserver'
         self.jacoco_report_dir = self.tool.coverage_dir
         self._jacoco_cleanup()
-        self.dest = 'hbase-regionserver2'
+        self.dest = 'hbase-benchmark'
+        self.hbase_init_loc = 'hbase-regionserver2'
         self.info(self.fault.get_info(), if_time=False)
         if self.fault.type == 'nw':
             self.docker_up()
@@ -62,13 +63,13 @@ class HBase(TestSystem):
         cmd = ['docker',
                'cp',
                self.tool.hbase_init,
-               f"{self.dest}:/tmp/hbase-init.sh"]
+               f"{self.hbase_init_loc}:/tmp/hbase-init.sh"]
         p = subprocess.run(cmd)
-        cmd = ['docker',
-               'cp',
-               self.tool.hbase_check_pid,
-               f"{self.dest}:/tmp/hbase-check-pid.sh"]
-        p = subprocess.run(cmd)
+        # cmd = ['docker',
+        #        'cp',
+        #        self.tool.hbase_check_pid,
+        #        f"{self.hbase_init_loc}:/tmp/hbase-check-pid.sh"]
+        # p = subprocess.run(cmd)
         cmd = ['docker',
                'cp',
                self.tool.ycsb,
@@ -79,11 +80,21 @@ class HBase(TestSystem):
                self.tool.ycsb_wkl_root,
                f"{self.dest}:/tmp/"]
         p = subprocess.run(cmd)
+        cmd = ['docker',
+               'exec', '-it',
+               self.dest,
+               'mkdir', '/tmp/conf']
+        p = subprocess.run(cmd)
+        cmd = ['docker',
+               'cp',
+               self.tool.hbase_conf,
+               f"{self.dest}:/tmp/conf/hbase-site.xml"]
+        p = subprocess.run(cmd)
     
     def _init_hbase(self):
         cmd = ['docker',
                'exec', '-it',
-               self.dest,
+               self.hbase_init_loc,
                'bash', '/tmp/hbase-init.sh']
         try:
             p = subprocess.run(cmd, timeout=60)
@@ -120,7 +131,7 @@ class HBase(TestSystem):
                '-s',
             #    f"-P {self.tool.hbase_ycsb}/workloads/workload{self.benchmark.workload}",
                f"-P {self.tool.hbase_ycsb_wkl}/workload{self.benchmark.workload}",
-               '-cp /etc/hbase',
+               '-cp /tmp/conf',
                f'-p recordcount={self.benchmark.recordcount}',
                f"-p threadcount={loadThreadCount}",
                f"-p columnfamily={self.benchmark.columnfamily}\""]
@@ -153,7 +164,7 @@ class HBase(TestSystem):
                '-s',
             #    f"-P {self.tool.hbase_ycsb}/workloads/workload{self.benchmark.workload}",
                f"-P {self.tool.hbase_ycsb_wkl}/workload{self.benchmark2.workload}",
-               '-cp /etc/hbase',
+               '-cp /tmp/conf',
                f'-p recordcount={self.benchmark2.recordcount}',
                f"-p threadcount={loadThreadCount}",
                f"-p columnfamily={self.benchmark2.columnfamily}\""]
@@ -180,7 +191,7 @@ class HBase(TestSystem):
                '-s',
             #    f"-P {self.tool.hbase_ycsb}/workloads/workload{self.benchmark.workload}",
                f"-P {self.tool.hbase_ycsb_wkl}/workload{self.benchmark.workload}",
-               '-cp /etc/hbase',
+               '-cp /tmp/conf',
                f"-p measurementtype={self.benchmark.measurementtype}",
                f"-p operationcount={self.benchmark.operationcount}",
                f"-p maxexecutiontime={self.benchmark.exec_time}",
@@ -212,7 +223,7 @@ class HBase(TestSystem):
                '-s',
             #    f"-P {self.tool.hbase_ycsb}/workloads/workload{self.benchmark.workload}",
                f"-P {self.tool.hbase_ycsb_wkl}/workload{self.benchmark2.workload}",
-               '-cp /etc/hbase',
+               '-cp /tmp/conf',
                f"-p measurementtype={self.benchmark2.measurementtype}",
                f"-p operationcount={self.benchmark2.operationcount}",
                f"-p maxexecutiontime={self.benchmark2.exec_time}",

@@ -63,6 +63,7 @@ class Tool:
 
         # HBase
         self.hbase_init=os.path.join(xinda_tools_dir_, "hbase-init.sh")
+        self.hbase_conf=os.path.join(xinda_tools_dir_, "hbase-site.xml")
         if change_workload_ and sys_name_ == 'hbase':
             self.hbase_init=os.path.join(xinda_tools_dir_, "hbase-init2.sh")
             print('Copying hbase-init2.sh')

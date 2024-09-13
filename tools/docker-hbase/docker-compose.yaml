@@ -11,6 +11,8 @@ services:
     environment:
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zoo1:2888:3888 server.3=zoo2:2888:3888
+    networks:
+      - hbase
   
   zoo1:
     image: zookeeper:3.4.10
@@ -22,6 +24,8 @@ services:
     environment:
       ZOO_MY_ID: 2
       ZOO_SERVERS: server.1=zoo:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zoo2:2888:3888
+    networks:
+      - hbase
   
   zoo2:
     image: zookeeper:3.4.10
@@ -33,6 +37,8 @@ services:
     environment:
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=zoo:2888:3888 server.2=zoo1:2888:3888 server.3=0.0.0.0:2888:3888
+    networks:
+      - hbase
 
   namenode:
     image: rmlu/hadoop-namenode:3.3.6
@@ -49,6 +55,8 @@ services:
       - zoo
       - zoo1
       - zoo2
+    networks:
+      - hbase
 
   datanode:
     image: rmlu/hadoop-datanode:3.3.6
@@ -61,6 +69,8 @@ services:
       - ./hadoop.env
     ports:
       - 9864:9864
+    networks:
+      - hbase
 
   resourcemanager:
     image: rmlu/hadoop-resourcemanager:3.3.6
@@ -71,6 +81,8 @@ services:
       - ./hadoop.env
     ports:
       - 8088:8088
+    networks:
+      - hbase
 
   nodemanager1:
     image: rmlu/hadoop-nodemanager:3.3.6
@@ -81,6 +93,8 @@ services:
       - ./hadoop.env
     ports:
       - 8042:8042
+    networks:
+      - hbase
 
   historyserver:
     image: rmlu/hadoop-historyserver:3.3.6
@@ -93,6 +107,8 @@ services:
       - ./hadoop.env
     ports:
       - 8188:8188
+    networks:
+      - hbase
 
 
   hbase-master:
@@ -111,6 +127,8 @@ services:
         limits:
           cpus: ${CPU_LIMIT}
           memory: ${MEM_LIMIT}
+    networks:
+      - hbase
 
   hbase-regionserver:
     image: rmlu/hbase-regionserver:2.5.6
@@ -131,6 +149,8 @@ services:
         limits:
           cpus: ${CPU_LIMIT}
           memory: ${MEM_LIMIT}
+    networks:
+      - hbase
   
   hbase-regionserver1:
     image: rmlu/hbase-regionserver:2.5.6
@@ -149,6 +169,8 @@ services:
         limits:
           cpus: ${CPU_LIMIT}
           memory: ${MEM_LIMIT}
+    networks:
+      - hbase
   
   hbase-regionserver2:
     image: rmlu/hbase-regionserver:2.5.6
@@ -167,7 +189,25 @@ services:
         limits:
           cpus: ${CPU_LIMIT}
           memory: ${MEM_LIMIT}
+    networks:
+      - hbase
+    
+  hbase-benchmark:
+    image: rmlu/hbase-regionserver:2.5.6
+    container_name: hbase-benchmark
+    privileged: true
+    depends_on:
+      - hbase-regionserver
+      - hbase-regionserver1
+      - hbase-regionserver2
+      - hbase-master
+    command: tail -f /dev/null
+    networks:
+      - hbase
 
+networks:
+  hbase:
+    driver: bridge
 # volumes:
 #   hadoop_namenode:
 #   hadoop_datanode:
