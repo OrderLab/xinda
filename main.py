@@ -41,6 +41,8 @@ parser.add_argument('--if_restart', action='store_true', default=False,
                     help='If we need to restart the system after fault injection')
 parser.add_argument('--if_reslim', action='store_true', default=False,
                     help='[Deprecated] If we need to set resource limits on CPU and memory')
+parser.add_argument('--if_iaso', action='store_true', default=False,
+                    help='If we want to mimic IASO')
 parser.add_argument('--cpu_limit', type=str, default=None,
                     help='The number of CPU cores that each container can get at most (e.g., 0.5 or 1 or 5)')
 parser.add_argument('--mem_limit', type=str, default=None,
@@ -287,7 +289,8 @@ def main(args):
                             if_restart_ = args.if_restart,
                             coverage_ = args.coverage,
                             change_workload_ = args.change_workload,
-                            benchmark2_ = benchmark2)
+                            benchmark2_ = benchmark2,
+                            if_iaso_ = args.if_iaso)
         # sys.test()
     elif sys_name == 'etcd':
         version = args.version if args.version is not None else '3.5.10'
