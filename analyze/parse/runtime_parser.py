@@ -49,6 +49,8 @@ def _runtime_parser_cassandra_ycsb(log_raw):
     matches = re.findall(pattern, log_raw)
     data_raw = {}
     for real_time, sec, tp in matches:
+        if tp == "∞":
+            tp = 0
         data_raw[int(sec)] = data_raw.get(int(sec), (real_time, int(sec), float(tp)))
     data = []
     for sec in sorted(data_raw):
