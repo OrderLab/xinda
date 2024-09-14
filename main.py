@@ -348,6 +348,7 @@ def main(args):
                                     max_rate_ = args.ycsb_crdb_max_rate,
                                     concurrency_ = args.ycsb_crdb_concurrency,
                                     status_interval_ = args.ycsb_status_interval,
+                                    recordcount_ = args.ycsb_recordcount,
                                     load_connection_string_ = args.ycsb_crdb_load_conn_string,
                                     run_connection_string_ = args.ycsb_crdb_run_conn_string)
         elif args.benchmark == 'sysbench':

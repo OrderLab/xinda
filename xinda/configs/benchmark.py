@@ -128,6 +128,7 @@ class YCSB_CRDB(Benchmark):
     def __init__(self, 
                  exec_time_ : str, # in seconds
                  workload_ : str, # a b c d e f
+                 recordcount_ = '10000',
                  operationcount_ = '500000000',
                  benchmark_ = 'ycsb',
                  max_rate_ = '0',
@@ -137,6 +138,7 @@ class YCSB_CRDB(Benchmark):
                  run_connection_string_ = 'postgresql://root@roach3:26257,roach2:26257,roach1:26257?sslmode=disable'):
         self.exec_time = exec_time_ +'s'
         self.benchmark = benchmark_
+        self.recordcount = recordcount_
         self.workload = workload_.upper()
         self.operationcount = operationcount_
         self.max_rate = max_rate_

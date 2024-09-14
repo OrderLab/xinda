@@ -52,12 +52,20 @@ class Crdb(TestSystem):
         _ = subprocess.run(cmd, shell=True)
     
     def _load_ycsb(self):
+        if int(self.benchmark.recordcount) > 10000:
+            loadThreadCount = 32
+            loadTimeout = 120
+        else:
+            loadThreadCount = 8
+            loadTimeout = 60
         cmd = ['docker exec -it roach0',
                './cockroach workload init ycsb',
+               f'--insert-count {self.benchmark.recordcount}',
+               f'--concurrency {loadThreadCount}',
                '--drop',
                self.benchmark.load_connection_string]
         cmd = ' '.join(cmd)
-        p = subprocess.run(cmd, shell=True)
+        p = subprocess.run(cmd, shell=True, timeout=loadTimeout)
         self.info("./cockroach YCSB workload successfully loaded")
     
     def _run_ycsb(self):
