@@ -1,0 +1,26 @@
+- hosts: all
+  vars:
+    script_path: "{{ lookup('env','SCRIPT_NAME') }}"
+    script_name: "{{ script_path | basename }}"
+  tasks:
+    - name: Copy script to server
+      copy:
+        src: "{{ script_path }}"
+        dest: "/users/rmlu/workdir/crdb-pipeline/figure/workload-change/{{ script_name }}"
+        
+    - name: Change script mode to executable
+      file:
+        path: "/users/rmlu/workdir/crdb-pipeline/figure/workload-change/{{ script_name }}"
+        mode: 0755
+
+    # - name: Run script inside tmux session
+    #   shell: >
+    #     tmux new-session -d -s xinda_exp 'bash -c "source ~/miniconda3/bin/activate py36; /users/rmlu/workdir/xinda/test_scripts/{{ script_name }}; read"'
+    
+    - name: Run script inside tmux session
+      shell: >
+        tmux new-session -d -s adr 'bash -c "source ~/miniconda3/bin/activate py36; /users/rmlu/workdir/crdb-pipeline/figure/workload-change/{{ script_name }}; read"'
+    
+    - name: Tail meta log
+      shell: >
+        tmux split-window -t adr:0 'bash -c "tail -f /users/rmlu/workdir/crdb-pipeline/figure/workload-change/meta.log"'

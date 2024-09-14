@@ -1,0 +1,29 @@
+---
+- name: Get crdb-pipeline finetune ready
+  hosts: all
+  become: false
+
+  tasks:
+    - name: check if crdb-pipeline exists
+      stat:
+        path: $HOME/workdir/crdb-pipeline
+      register: crdb_exists
+    
+    - name: rm crdb-pipeline
+      shell: |
+        rm -rf $HOME/workdir/crdb-pipeline
+      when: crdb_exists.stat.exists == True
+      
+    - name: Clone crdb-pipeline
+      ansible.builtin.git:
+        dest: "$HOME/workdir/crdb-pipeline"
+        repo: git@github.com:OrderLab/crdb-pipeline.git
+        version: main
+        accept_hostkey: yes
+    
+    - name: Pre-pull
+      shell: |
+        docker pull rmlu/cockroach:testing
+        docker pull rmlu/cockroach:ycsb
+      args:
+        executable: /bin/bash

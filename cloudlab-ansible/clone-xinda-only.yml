@@ -9,20 +9,26 @@
         path: $HOME/workdir/xinda
       register: xinda_exists
 
-    - name: update xinda
+    # - name: update xinda
+    #   shell: |
+    #     cd $HOME/workdir/xinda
+    #     git pull
+    #   args:
+    #     executable: /bin/bash
+    #   when: xinda_exists.stat.exists
+    - name: rm xinda
       shell: |
-        cd $HOME/workdir/xinda
-        git pull
+        rm -rf $HOME/workdir/xinda
       args:
         executable: /bin/bash
       when: xinda_exists.stat.exists
 
-    - name: create Xinda dir
-      become: false
-      ansible.builtin.file:
-        path: "$HOME/workdir/xinda"
-        state: directory
-      when: xinda_exists.stat.exists == False
+    # - name: create Xinda dir
+    #   become: false
+    #   ansible.builtin.file:
+    #     path: "$HOME/workdir/xinda"
+    #     state: directory
+    #   when: xinda_exists.stat.exists == False
 
     - name: clone Xinda repo
       become: false
@@ -31,4 +37,3 @@
         repo: git@github.com:OrderLab/xinda.git
         version: master
         accept_hostkey: yes
-      when: xinda_exists.stat.exists == False

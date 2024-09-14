@@ -1,0 +1,29 @@
+ansible-playbook -i ../exp/crdb-adr-diff-wkl/hosts clean-all.yml clone-xinda-only.yml crdb-adr.yml
+ansible-playbook -i ../exp/crdb-adr-diff-wkl/hosts compress_exp_data_hbase_finetune.yml --extra-vars "task=crdb-adr-diff-wkl"
+for (tc in c(1,8,32)) {
+  for (rc in c('10000','100000')) {
+    for (wkl in c('a','c','g')) {
+      cat(paste0("cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc ",rc," --tc ", tc," --wkl ",wkl, "\n"))
+    }
+  }
+}
+
+
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 10000 --tc 1 --wkl a
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 10000 --tc 1 --wkl c
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 10000 --tc 1 --wkl g
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 100000 --tc 1 --wkl a
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 100000 --tc 1 --wkl c
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 100000 --tc 1 --wkl g
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 10000 --tc 8 --wkl a
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 10000 --tc 8 --wkl c
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 10000 --tc 8 --wkl g
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 100000 --tc 8 --wkl a
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 100000 --tc 8 --wkl c
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 100000 --tc 8 --wkl g
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 10000 --tc 32 --wkl a
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 10000 --tc 32 --wkl c
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 10000 --tc 32 --wkl g
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 100000 --tc 32 --wkl a
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 100000 --tc 32 --wkl c
+cd ~/workdir/crdb-pipeline/figure/workload-change; python3 different-workload.py --rc 100000 --tc 32 --wkl g

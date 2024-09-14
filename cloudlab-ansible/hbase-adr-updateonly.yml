@@ -1,0 +1,18 @@
+---
+- name: Get hbase-pipeline finetune ready
+  hosts: all
+  become: false
+
+  tasks:
+    - name: check if hbase-pipeline exists
+      stat:
+        path: $HOME/workdir/hbase-pipeline
+      register: hbase_exists
+
+    - name: Git pull hbase-pipeline
+      shell: |
+        cd /users/rmlu/workdir/hbase-pipeline
+        git pull
+      args:
+        executable: /bin/bash
+      when: hbase_exists.stat.exists == True
