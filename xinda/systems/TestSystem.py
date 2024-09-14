@@ -381,18 +381,19 @@ class TestSystem:
             self.check_blockade_slowness()
         self.info("fault actually BEGINs", rela=self.start_time)
         fault_actually_begin_time = self.get_current_ts()
-        if self.sys_name == 'hbase' and self.if_iaso != 'None':
+        if self.sys_name in ['hbase','crdb'] and self.if_iaso != 'None':
             iaso_time = self.get_current_ts()
             while iaso_time - fault_actually_begin_time < 5:
                 iaso_time = self.get_current_ts()
                 time.sleep(1)
             if self.fault.severity in ['slow-100ms', 'slow-1s']:
-                self.info(f"Mimicing IASO: VM {self.if_iaso}", rela=self.start_time)
                 cmd_iaso=""
                 if self.if_iaso == 'reboot':
                     cmd_iaso = f'docker restart {self.fault.location}'
+                    self.info(f"Mimicing IASO: VM {self.if_iaso}", rela=self.start_time)
                 if self.if_iaso == 'shutdown':
                     cmd_iaso = f'docker stop {self.fault.location}'
+                    self.info(f"Mimicing IASO: VM {self.if_iaso}", rela=self.start_time)
                 _ = subprocess.Popen(cmd_iaso, shell=True)
         # restart
         if self.if_restart:

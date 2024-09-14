@@ -371,7 +371,8 @@ def main(args):
                         charybdefs_mount_dir_ = args.charybdefs_mount_dir,
                         reslim_ = reslim,
                         version_=args.version,
-                        if_restart_ = args.if_restart)
+                        if_restart_ = args.if_restart,
+                        if_iaso_ = args.if_iaso)
         # sys.test()
     elif sys_name == 'hadoop':
         if args.benchmark is None or args.benchmark not in ['terasort', 'mrbench']:
