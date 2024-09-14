@@ -4,7 +4,7 @@ services:
   # roach0 serves as bystander outside cluster
   # mainly to use its cockroach cli to access cluster members
   roach0:
-    image: rmlu/cockroach:ycsb
+    image: cockroachdb/cockroach:v23.1.11
     container_name: roach0
     hostname: roach0
     networks:
