@@ -29,7 +29,7 @@ class TestSystem:
                  if_restart_: bool = False,
                  change_workload_: bool = False,
                  benchmark2_: Benchmark = None,
-                 if_iaso_: bool = False,
+                 if_iaso_: str = 'reboot',
                  iter_: int = 1):# = "/users/YXXinda/workdir/tmp"):
         self.sys_name = sys_name_
         self.if_restart = if_restart_
@@ -45,6 +45,7 @@ class TestSystem:
         self.change_workload = change_workload_
         self.benchmark2 = benchmark2_
         self.if_iaso = if_iaso_
+        self.info(f"if_iaso: {if_iaso_}")
         ct_yaml = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                'container.yaml')
         with open(ct_yaml, "r") as config_file:
@@ -380,15 +381,19 @@ class TestSystem:
             self.check_blockade_slowness()
         self.info("fault actually BEGINs", rela=self.start_time)
         fault_actually_begin_time = self.get_current_ts()
-        if self.sys_name == 'hbase' and self.if_iaso:
+        if self.sys_name == 'hbase' and self.if_iaso != 'None':
             iaso_time = self.get_current_ts()
             while iaso_time - fault_actually_begin_time < 5:
                 iaso_time = self.get_current_ts()
                 time.sleep(1)
             if self.fault.severity in ['slow-100ms', 'slow-1s']:
-                self.info("Mimicing IASO: VM reboot", rela=self.start_time)
-                cmd_restart = f'docker restart {self.fault.location}'
-                _ = subprocess.Popen(cmd_restart, shell=True)
+                self.info(f"Mimicing IASO: VM {self.if_iaso}", rela=self.start_time)
+                cmd_iaso=""
+                if self.if_iaso == 'reboot':
+                    cmd_iaso = f'docker restart {self.fault.location}'
+                if self.if_iaso == 'shutdown':
+                    cmd_iaso = f'docker stop {self.fault.location}'
+                _ = subprocess.Popen(cmd_iaso, shell=True)
         # restart
         if self.if_restart:
             time.sleep(5)
