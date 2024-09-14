@@ -386,7 +386,7 @@ class TestSystem:
             while iaso_time - fault_actually_begin_time < 5:
                 iaso_time = self.get_current_ts()
                 time.sleep(1)
-            if self.fault.severity in ['slow-100ms', 'slow-1s']:
+            if self.fault.severity in ['slow-100ms', 'slow-1s', '100000', '1000000']:
                 cmd_iaso=""
                 if self.if_iaso == 'reboot':
                     cmd_iaso = f'docker restart {self.fault.location}'

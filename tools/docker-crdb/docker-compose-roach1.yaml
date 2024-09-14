@@ -4,7 +4,7 @@ services:
   # roach0 serves as bystander outside cluster
   # mainly to use its cockroach cli to access cluster members
   roach0:
-    image: cockroachdb/cockroach:v23.1.11
+    image: rmlu/cockroach:ycsb
     container_name: roach0
     hostname: roach0
     networks:
@@ -13,7 +13,7 @@ services:
     command: start-single-node
 
   roach1:
-    image: cockroachdb/cockroach:v23.1.11
+    image: rmlu/cockroach:testing
     container_name: roach1
     hostname: roach1
     user: ${UID}:${GID}
@@ -34,7 +34,7 @@ services:
           memory: ${MEM_LIMIT}
 
   roach2:
-    image: cockroachdb/cockroach:v23.1.11
+    image: rmlu/cockroach:testing
     container_name: roach2
     hostname: roach2
     ports:
@@ -53,7 +53,7 @@ services:
           memory: ${MEM_LIMIT}
 
   roach3:
-    image: cockroachdb/cockroach:v23.1.11
+    image: rmlu/cockroach:testing
     container_name: roach3
     hostname: roach3
     ports:
