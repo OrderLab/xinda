@@ -46,5 +46,7 @@
         docker pull rmlu/hadoop-resourcemanager:3.3.6
         docker pull rmlu/copilot:latest
         docker pull rmlu/depfast:latest
+        docker pull rmlu/cockroach:testing
+        docker pull rmlu/cockroach:ycsb
       args:
         executable: /bin/bash

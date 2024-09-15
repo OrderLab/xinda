@@ -9,7 +9,7 @@ mkdir -p logs
 for i in "${!hosts[@]}"; do
     host=${hosts[$i]}
     echo -n "$host [$(($i+1))/${#hosts[@]}]"
-    ssh ${username}@$host cat "~/workdir/crdb-pipeline/figure/workload-change/*.log" > logs/${host}.log
+    ssh ${username}@$host cat "~/workdir/xinda/test_scripts/RQ1_1/*.log" > logs/${host}.log
     if ! grep -ie "error" -ie "exception" "logs/${host}.log"; then
         echo -n " [OK]"
     fi
