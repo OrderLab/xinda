@@ -331,6 +331,7 @@ def main(args):
                         version_=version,
                         if_restart_ = args.if_restart,
                         coverage_ = args.coverage,
+                        cluster_size_ = args.cluster_size
                         )
         # sys.test()
     elif sys_name == 'crdb':

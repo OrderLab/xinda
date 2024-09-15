@@ -164,7 +164,7 @@ class TestSystem:
                 time.sleep(1)
                 print('try again')
                 _ = subprocess.Popen(cmd, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL, cwd=self.tool.compose)
-        self.info('Bringing up a new docker-compose cluster')
+        self.info(f'Bringing up a new docker-compose cluster ({self.compose_file})')
         '''
         Why do we have to start the cluster TWICE? I have looked into this problem for a long time. If you:
         1. open a new terminal

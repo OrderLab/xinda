@@ -1,0 +1,503 @@
+version: '3.0'
+
+services:
+  etcd0:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd0
+    container_name: etcd0
+    command:
+      - etcd
+      - --name=etcd0
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd0:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd0:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd0vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd1:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd1
+    container_name: etcd1
+    command:
+      - etcd
+      - --name=etcd1
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd1:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd1:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd1vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd2:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd2
+    container_name: etcd2
+    command:
+      - etcd
+      - --name=etcd2
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd2:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd2:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd2vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd3:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd3
+    container_name: etcd3
+    command:
+      - etcd
+      - --name=etcd3
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd3:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd3:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd3vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd4:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd4
+    container_name: etcd4
+    command:
+      - etcd
+      - --name=etcd4
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd4:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd4:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd4vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd5:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd5
+    container_name: etcd5
+    command:
+      - etcd
+      - --name=etcd5
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd5:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd5:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd5vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd6:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd6
+    container_name: etcd6
+    command:
+      - etcd
+      - --name=etcd6
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd6:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd6:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd6vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd7:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd7
+    container_name: etcd7
+    command:
+      - etcd
+      - --name=etcd7
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd7:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd7:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd7vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd8:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd8
+    container_name: etcd8
+    command:
+      - etcd
+      - --name=etcd8
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd8:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd8:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd8vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd9:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd9
+    container_name: etcd9
+    command:
+      - etcd
+      - --name=etcd9
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd9:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd9:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd9vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd10:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd10
+    container_name: etcd10
+    command:
+      - etcd
+      - --name=etcd10
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd10:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd10:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd10vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd11:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd11
+    container_name: etcd11
+    command:
+      - etcd
+      - --name=etcd11
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd11:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd11:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd11vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd12:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd12
+    container_name: etcd12
+    command:
+      - etcd
+      - --name=etcd12
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd12:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd12:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd12vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd13:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd13
+    container_name: etcd13
+    command:
+      - etcd
+      - --name=etcd13
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd13:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd13:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd13vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd14:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd14
+    container_name: etcd14
+    command:
+      - etcd
+      - --name=etcd14
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd14:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd14:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd14vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd15:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd15
+    container_name: etcd15
+    command:
+      - etcd
+      - --name=etcd15
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd15:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd15:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd15vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd16:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd16
+    container_name: etcd16
+    command:
+      - etcd
+      - --name=etcd16
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd16:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd16:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd16vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd17:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd17
+    container_name: etcd17
+    command:
+      - etcd
+      - --name=etcd17
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd17:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd17:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd17vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd18:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd18
+    container_name: etcd18
+    command:
+      - etcd
+      - --name=etcd18
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd18:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd18:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd18vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+  etcd19:
+    image: matt12313/xinda-etcd:3.5.10 # quay.io/coreos/etcd:v3.5.0
+    hostname: etcd19
+    container_name: etcd19
+    command:
+      - etcd
+      - --name=etcd19
+      - --data-dir=data.etcd
+      - --advertise-client-urls=http://etcd19:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --initial-advertise-peer-urls=http://etcd19:2380
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380,etcd4=http://etcd4:2380,etcd5=http://etcd5:2380,etcd6=http://etcd6:2380,etcd7=http://etcd7:2380,etcd8=http://etcd8:2380,etcd9=http://etcd9:2380,etcd10=http://etcd10:2380,etcd11=http://etcd11:2380,etcd12=http://etcd12:2380,etcd13=http://etcd13:2380,etcd14=http://etcd14:2380,etcd15=http://etcd15:2380,etcd16=http://etcd16:2380,etcd17=http://etcd17:2380,etcd18=http://etcd18:2380,etcd19=http://etcd19:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-cluster-1
+    volumes:
+      - etcd19vol:/data.etcd
+    networks:
+      - etcd
+    restart: always
+
+
+  etcd-benchmark:
+    image: rmlu/etcd-benchmark:latest
+    container_name: etcd-benchmark
+    privileged: true
+    depends_on:
+      - etcd0
+      - etcd1
+      - etcd2
+      - etcd3
+      - etcd4
+      - etcd5
+      - etcd6
+      - etcd7
+      - etcd8
+      - etcd9
+      - etcd10
+      - etcd11
+      - etcd12
+      - etcd13
+      - etcd14
+      - etcd15
+      - etcd16
+      - etcd17
+      - etcd18
+      - etcd19
+    command: tail -f /dev/null
+    networks:
+      - etcd
+
+
+
+
+
+
+volumes:
+  etcd0vol:
+    driver: local
+  etcd1vol:
+    driver: local
+  etcd2vol:
+    driver: local
+  etcd3vol:
+    driver: local
+  etcd4vol:
+    driver: local
+  etcd5vol:
+    driver: local
+  etcd6vol:
+    driver: local
+  etcd7vol:
+    driver: local
+  etcd8vol:
+    driver: local
+  etcd9vol:
+    driver: local
+  etcd10vol:
+    driver: local
+  etcd11vol:
+    driver: local
+  etcd12vol:
+    driver: local
+  etcd13vol:
+    driver: local
+  etcd14vol:
+    driver: local
+  etcd15vol:
+    driver: local
+  etcd16vol:
+    driver: local
+  etcd17vol:
+    driver: local
+  etcd18vol:
+    driver: local
+  etcd19vol:
+    driver: local
+
+networks:
+  etcd:
+    driver: bridge

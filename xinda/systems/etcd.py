@@ -7,12 +7,20 @@ class Etcd(TestSystem):
         if self.fault.type == 'nw':
             self.docker_up()
             time.sleep(10)
+            if self.cluster_size == 10:
+                time.sleep(20)
+            elif self.cluster_size == 20:
+                time.sleep(40)
             self.docker_get_status()
             self.blockade_up()
         elif self.fault.type == 'fs':
             self.charybdefs_up()
             self.docker_up_charybdefs_etcd()
             time.sleep(10)
+            if self.cluster_size == 10:
+                time.sleep(20)
+            elif self.cluster_size == 20:
+                time.sleep(40)
             self.docker_get_status()
         elif self.fault.type == 'none':
             self.docker_up()
@@ -54,20 +62,53 @@ class Etcd(TestSystem):
         self.info("THE END")
     
     def docker_up_charybdefs_etcd(self):
+        def get_container_info():
+            client = docker.from_env()
+            containers = client.containers.list(all=True)
+            status = {}
+            for container in containers:
+                status[container.name] = container.status
+            return status
+        self.compose_file = 'docker-compose-all.yaml'
+        if self.cluster_size == 10:
+            self.compose_file = 'docker-compose-all-10node.yaml'
+        elif self.cluster_size == 20:
+            self.compose_file = 'docker-compose-all-20node.yaml'
         cmd = ['docker-compose',
-                '-f', 'docker-compose-all.yaml',
+                '-f', self.compose_file,
                 'up',
                 '-d']
         cmd = ' '.join(cmd)
-        print("Try exactly 4 times :O")
-        for i in range(4):
+        
+        counter = 0
+        while True:
             _ = subprocess.Popen(cmd, shell=True, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL, cwd=self.tool.compose)
-            time.sleep(1)
-            print(f'try again {i+1}/4')
+            status = get_container_info()
+            if len(status) == 0:
+                time.sleep(1)
+                continue
+            if status[f'etcd{counter}'] != 'running':
+                print(f"Sleep 1s for etcd{counter} to be running")
+                time.sleep(1)
+            else:
+                counter += 1
+                print(f"etcd{counter} is running")
+            if counter == self.cluster_size:
+                break
+        # print(f"Try exactly {self.cluster_size+1} times :O")
+        # for i in range(self.cluster_size+1):
+        #     _ = subprocess.Popen(cmd, shell=True, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL, cwd=self.tool.compose)
+        #     time.sleep(3)
+        #     print(f'try again {i+1}/{self.cluster_size+1}')
         self.info('Bringing up a new docker-compose cluster in the charybdefs way')
     
     def get_leader_name(self):
-        cmd = 'docker exec etcd0 etcdctl --write-out=table --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 endpoint status'
+        self.endpoints = "etcd0:2379,etcd1:2379,etcd2:2379"
+        if self.cluster_size == 10:
+            self.endpoints = "etcd0:2379,etcd1:2379,etcd2:2379,etcd3:2379,etcd4:2379,etcd5:2379,etcd6:2379,etcd7:2379,etcd8:2379,etcd9:2379"
+        elif self.cluster_size == 20:
+            self.endpoints = "etcd0:2379,etcd1:2379,etcd2:2379,etcd3:2379,etcd4:2379,etcd5:2379,etcd6:2379,etcd7:2379,etcd8:2379,etcd9:2379,etcd10:2379,etcd11:2379,etcd12:2379,etcd13:2379,etcd14:2379,etcd15:2379,etcd16:2379,etcd17:2379,etcd18:2379,etcd19:2379"
+        cmd = f'docker exec etcd0 etcdctl --write-out=table --endpoints={self.endpoints} endpoint status'
         awk_cmd = "awk '/true/ {print $2}'"
         p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
         cmd_output = p.stdout.read()
@@ -75,10 +116,15 @@ class Etcd(TestSystem):
         awk_process = subprocess.Popen(awk_cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         leader_name, _ = awk_process.communicate(input=cmd_output)
         p.stdout.close()
-        self.leader_name = leader_name.decode('utf-8').strip()[:5]
+        # self.leader_name = leader_name.decode('utf-8').strip()[:5]
+        self.leader_name = leader_name.decode('utf-8').split(":")[0]
         etcd_nodes = ['etcd0','etcd1','etcd2']
+        if self.cluster_size == 10:
+            etcd_nodes = ['etcd0','etcd1','etcd2','etcd3','etcd4','etcd5','etcd6','etcd7','etcd8','etcd9']
+        elif self.cluster_size == 20:
+            etcd_nodes = ['etcd0','etcd1','etcd2','etcd3','etcd4','etcd5','etcd6','etcd7','etcd8','etcd9','etcd10','etcd11','etcd12','etcd13','etcd14','etcd15','etcd16','etcd17','etcd18','etcd19']
         if self.leader_name not in etcd_nodes:
-            raise ValueError(f"Leader name {self.leader_name} is not in {{etcd0, etcd1, etcd2}}")
+            raise ValueError(f"Leader name {self.leader_name} is not in {etcd_nodes}")
         etcd_nodes.remove(self.leader_name)
         self.follower_name = etcd_nodes[0]
         self.info(f"Leader: {self.leader_name}, followers:{etcd_nodes}, choose one follower: {self.follower_name}")
@@ -90,12 +136,19 @@ class Etcd(TestSystem):
         self.info(f"Fault injection location changed from {fault_loc} to {self.fault.location}")
     
     def _load_ycsb(self):
+        self.ycsb_endpoints = f"http://{self.container_info['etcd0']}:2379"
+        if self.cluster_size == 10:
+            # self.ycsb_endpoints = f"http://{self.container_info[{self.leader_name}]}:2379"
+            self.ycsb_endpoints = f"http://{self.container_info['etcd0']}:2379,{self.container_info['etcd1']}:2379,{self.container_info['etcd2']}:2379,{self.container_info['etcd3']}:2379,{self.container_info['etcd4']}:2379,{self.container_info['etcd5']}:2379,{self.container_info['etcd6']}:2379,{self.container_info['etcd7']}:2379,{self.container_info['etcd8']}:2379,{self.container_info['etcd9']}:2379"
+        elif self.cluster_size == 20:
+            # self.ycsb_endpoints = f"http://{self.container_info[{self.leader_name}]}:2379"
+            self.ycsb_endpoints = f"http://{self.container_info['etcd0']}:2379,{self.container_info['etcd1']}:2379,{self.container_info['etcd2']}:2379,{self.container_info['etcd3']}:2379,{self.container_info['etcd4']}:2379,{self.container_info['etcd5']}:2379,{self.container_info['etcd6']}:2379,{self.container_info['etcd7']}:2379,{self.container_info['etcd8']}:2379,{self.container_info['etcd9']}:2379,{self.container_info['etcd10']}:2379,{self.container_info['etcd11']}:2379,{self.container_info['etcd12']}:2379,{self.container_info['etcd13']}:2379,{self.container_info['etcd14']}:2379,{self.container_info['etcd15']}:2379,{self.container_info['etcd16']}:2379,{self.container_info['etcd17']}:2379,{self.container_info['etcd18']}:2379,{self.container_info['etcd19']}:2379"
         cmd = [self.tool.go_ycsb_bin,
                'load', 'etcd',
             #    '-P', os.path.join(self.tool.go_ycsb, ('workloads/workload' + self.benchmark.workload)),
                '-P', os.path.join(self.tool.go_ycsb_wkl, ('workload' + self.benchmark.workload)),
                '-p', f'recordcount={self.benchmark.recordcount}',
-               '-p', f"etcd.endpoints=http://{self.container_info['etcd0']}:2379",
+               '-p', f"etcd.endpoints={self.ycsb_endpoints}",
                '-p', f'threadcount={self.benchmark.threadcount}'
         ]
         cmd = [str(item) for item in cmd]
@@ -108,7 +161,7 @@ class Etcd(TestSystem):
             #    '-P', os.path.join(self.tool.go_ycsb, ('workloads/workload' + self.benchmark.workload)),
                '-P', os.path.join(self.tool.go_ycsb_wkl, ('workload' + self.benchmark.workload)),
                '-p', f'operationcount={self.benchmark.operationcount}',
-               '-p', f"etcd.endpoints=http://{self.container_info['etcd0']}:2379",
+               '-p', f"etcd.endpoints={self.ycsb_endpoints}",
                '--interval', self.benchmark.status_interval,
                '-p', f'threadcount={self.benchmark.threadcount}'
         ]
@@ -198,7 +251,7 @@ class Etcd(TestSystem):
     
     def _post_process(self):
         p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
-        cmd = 'docker exec etcd0 etcdctl --write-out=table --endpoints=etcd0:2379,etcd1:2379,etcd2:2379 endpoint status'
+        cmd = f'docker exec etcd0 etcdctl --write-out=table --endpoints={self.endpoints} endpoint status'
         awk_cmd = "awk '/true/ {print $2}'"
         p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
         cmd_output = p.stdout.read()
