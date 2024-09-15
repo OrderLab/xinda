@@ -1,0 +1,501 @@
+version: '3.9'
+
+services:
+  # roach0 serves as bystander outside cluster
+  # mainly to use its cockroach cli to access cluster members
+  roach0:
+    image: rmlu/cockroach:ycsb
+    container_name: roach0
+    hostname: roach0
+    networks:
+      - roachnet
+    restart: always
+    command: start-single-node
+
+  roach1:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach1
+    hostname: roach1
+    user: ${UID}:${GID}
+    ports:
+      - "26257:26257"
+      - "8079:8080"
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach1:26357 --http-addr=roach1:8080 --listen-addr=roach1:26357 --sql-addr=roach1:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    volumes:
+      - ${LOCAL_DIR_roach1}:${CONTAINER_DIR_roach1}
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach2:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach2
+    hostname: roach2
+    ports:
+      - "26258:26257"
+      - "8081:8080"
+    volumes:
+      - roach2:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach2:26357 --http-addr=roach2:8080 --listen-addr=roach2:26357 --sql-addr=roach2:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach3:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach3
+    hostname: roach3
+    ports:
+      - "26259:26257"
+      - "8082:8080"
+    volumes:
+      - roach3:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach3:26357 --http-addr=roach3:8080 --listen-addr=roach3:26357 --sql-addr=roach3:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach4:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach4
+    hostname: roach4
+    ports:
+      - "26260:26257"
+      - "8083:8080"
+    volumes:
+      - roach4:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach4:26357 --http-addr=roach4:8080 --listen-addr=roach4:26357 --sql-addr=roach4:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach5:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach5
+    hostname: roach5
+    ports:
+      - "26261:26257"
+      - "8084:8080"
+    volumes:
+      - roach5:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach5:26357 --http-addr=roach5:8080 --listen-addr=roach5:26357 --sql-addr=roach5:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach6:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach6
+    hostname: roach6
+    ports:
+      - "26262:26257"
+      - "8085:8080"
+    volumes:
+      - roach6:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach6:26357 --http-addr=roach6:8080 --listen-addr=roach6:26357 --sql-addr=roach6:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach7:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach7
+    hostname: roach7
+    ports:
+      - "26263:26257"
+      - "8086:8080"
+    volumes:
+      - roach7:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach7:26357 --http-addr=roach7:8080 --listen-addr=roach7:26357 --sql-addr=roach7:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach8:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach8
+    hostname: roach8
+    ports:
+      - "26264:26257"
+      - "8087:8080"
+    volumes:
+      - roach8:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach8:26357 --http-addr=roach8:8080 --listen-addr=roach8:26357 --sql-addr=roach8:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach9:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach9
+    hostname: roach9
+    ports:
+      - "26265:26257"
+      - "8088:8080"
+    volumes:
+      - roach9:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach9:26357 --http-addr=roach9:8080 --listen-addr=roach9:26357 --sql-addr=roach9:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach10:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach10
+    hostname: roach10
+    ports:
+      - "26266:26257"
+      - "8089:8080"
+    volumes:
+      - roach10:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach10:26357 --http-addr=roach10:8080 --listen-addr=roach10:26357 --sql-addr=roach10:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach11:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach11
+    hostname: roach11
+    ports:
+      - "26267:26257"
+      - "8090:8080"
+    volumes:
+      - roach11:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach11:26357 --http-addr=roach11:8080 --listen-addr=roach11:26357 --sql-addr=roach11:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach12:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach12
+    hostname: roach12
+    ports:
+      - "26268:26257"
+      - "8091:8080"
+    volumes:
+      - roach12:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach12:26357 --http-addr=roach12:8080 --listen-addr=roach12:26357 --sql-addr=roach12:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+
+  roach13:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach13
+    hostname: roach13
+    ports:
+      - "26269:26257"
+      - "8092:8080"
+    volumes:
+      - roach13:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach13:26357 --http-addr=roach13:8080 --listen-addr=roach13:26357 --sql-addr=roach13:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach14:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach14
+    hostname: roach14
+    ports:
+      - "26270:26257"
+      - "8093:8080"
+    volumes:
+      - roach14:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach14:26357 --http-addr=roach14:8080 --listen-addr=roach14:26357 --sql-addr=roach14:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach15:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach15
+    hostname: roach15
+    ports:
+      - "26271:26257"
+      - "8094:8080"
+    volumes:
+      - roach15:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach15:26357 --http-addr=roach15:8080 --listen-addr=roach15:26357 --sql-addr=roach15:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach16:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach16
+    hostname: roach16
+    ports:
+      - "26272:26257"
+      - "8095:8080"
+    volumes:
+      - roach16:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach16:26357 --http-addr=roach16:8080 --listen-addr=roach16:26357 --sql-addr=roach16:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach17:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach17
+    hostname: roach17
+    ports:
+      - "26273:26257"
+      - "8096:8080"
+    volumes:
+      - roach17:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach17:26357 --http-addr=roach17:8080 --listen-addr=roach17:26357 --sql-addr=roach17:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach18:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach18
+    hostname: roach18
+    ports:
+      - "26274:26257"
+      - "8097:8080"
+    volumes:
+      - roach18:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach18:26357 --http-addr=roach18:8080 --listen-addr=roach18:26357 --sql-addr=roach18:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+  roach19:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach19
+    hostname: roach19
+    ports:
+      - "26275:26257"
+      - "8098:8080"
+    volumes:
+      - roach19:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach19:26357 --http-addr=roach19:8080 --listen-addr=roach19:26357 --sql-addr=roach19:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+
+  roach20:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach20
+    hostname: roach20
+    ports:
+      - "26276:26257"
+      - "8099:8080"
+    volumes:
+      - roach20:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --advertise-addr=roach20:26357 --http-addr=roach20:8080 --listen-addr=roach20:26357 --sql-addr=roach20:26257 --insecure --join=roach1:26357,roach2:26357,roach3:26357,roach4:26357,roach5:26357,roach6:26357,roach7:26357,roach8:26357,roach9:26357,roach10:26357,roach11:26357,roach12:26357,roach13:26357,roach14:26357,roach15:26357,roach16:26357,roach17:26357,roach18:26357,roach19:26357,roach20:26357
+    env_file:
+      - .env
+    depends_on:
+      roach1:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPU_LIMIT}
+          memory: ${MEM_LIMIT}
+
+volumes:
+  roach0:
+  roach1:
+  roach2:
+  roach3:
+  roach4:
+  roach5:
+  roach6:
+  roach7:
+  roach8:
+  roach9:
+  roach10:
+  roach11:
+  roach12:
+  roach13:
+  roach14:
+  roach15:
+  roach16:
+  roach17:
+  roach18:
+  roach19:
+  roach20:
+
+
+networks:
+  roachnet:
+    driver: bridge

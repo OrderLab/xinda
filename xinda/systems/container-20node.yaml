@@ -1,0 +1,72 @@
+cassandra:
+    - cas1
+    - cas2
+    - cas3
+
+hbase:
+    - hbase-master
+    - hbase-regionserver
+    - hbase-regionserver1
+    - hbase-regionserver2
+    - datanode
+    - namenode
+
+hadoop:
+    - namenode
+    - datanode
+    - datanode1
+    - datanode2
+#    - historyserver
+#    - nodemanager1
+
+etcd:
+    - etcd0
+    - etcd1
+    - etcd2
+
+crdb:
+    - roach1
+    - roach2
+    - roach3
+    - roach4
+    - roach5
+    - roach6
+    - roach7
+    - roach8
+    - roach9
+    - roach10
+    - roach11
+    - roach12
+    - roach13
+    - roach14
+    - roach15
+    - roach16
+    - roach17
+    - roach18
+    - roach19
+    - roach20
+
+kafka:
+    - kafka1
+    - kafka2
+    - kafka3
+    # - kafka4
+
+depfast:
+    - server1
+    - server2
+    - server3
+    - server4
+    - server5
+    - client
+
+copilot:
+    - control
+    - master
+    - replica1
+    - replica2
+    - replica3
+    - client
+
+
+

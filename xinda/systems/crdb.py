@@ -47,7 +47,12 @@ class Crdb(TestSystem):
     
     def docker_up(self):
         super().docker_up()
-        time.sleep(20)
+        if self.cluster_size == 3:
+            time.sleep(20)
+        elif self.cluster_size == 10:
+            time.sleep(40)
+        elif self.cluster_size == 20:
+            time.sleep(60)
         cmd = 'docker exec -it roach0 ./cockroach --host=roach1:26357 init --insecure'
         _ = subprocess.run(cmd, shell=True)
     

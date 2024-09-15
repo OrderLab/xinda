@@ -30,6 +30,7 @@ class TestSystem:
                  change_workload_: bool = False,
                  benchmark2_: Benchmark = None,
                  if_iaso_: str = 'reboot',
+                 cluster_size_: int = 3,
                  iter_: int = 1):# = "/users/YXXinda/workdir/tmp"):
         self.sys_name = sys_name_
         self.if_restart = if_restart_
@@ -45,9 +46,13 @@ class TestSystem:
         self.change_workload = change_workload_
         self.benchmark2 = benchmark2_
         self.if_iaso = if_iaso_
+        self.cluster_size = cluster_size_
         self.info(f"if_iaso: {if_iaso_}")
+        container_yaml = 'container.yaml'
+        if self.cluster_size > 3:
+            container_yaml = f'container-{self.cluster_size}node.yaml'
         ct_yaml = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                               'container.yaml')
+                               container_yaml)
         with open(ct_yaml, "r") as config_file:
             self.container_config = yaml.safe_load(config_file)
         if fault_.location not in self.container_config[sys_name_]:
@@ -134,23 +139,31 @@ class TestSystem:
     def docker_up(self):
         cmd = [1]
         if self.fault.type == 'nw' or self.fault.type == 'none':
+            self.compose_file = 'docker-compose.yaml'
+            if self.cluster_size > 3:
+                self.compose_file = f'docker-compose-{self.cluster_size}node.yaml'
             cmd = [f'docker-compose',
-                   '-f', 'docker-compose.yaml',
+                   '-f', self.compose_file,
                    'up',
                    '-d']
         elif self.fault.type == 'fs':
+            self.compose_file = f'docker-compose-{self.fault.location}.yaml'
+            if self.cluster_size > 3:
+                self.compose_file = f'docker-compose-{self.fault.location}-{self.cluster_size}node.yaml'
             cmd = ['docker-compose',
-                   '-f', f'docker-compose-{self.fault.location}.yaml',
+                   '-f', self.compose_file,
                    'up',
                    '-d']
         else:
             raise ValueError(f"Exception: Slow fault type:{self.fault.type} is not a member of {{nw, fs, none}}")
         # UP
+        print(' '.join(cmd))
         _ = subprocess.Popen(cmd, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL, cwd=self.tool.compose)
         if self.fault.type == 'fs':
-            time.sleep(1)
-            print('try again')
-            _ = subprocess.Popen(cmd, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL, cwd=self.tool.compose)
+            for i in range(0, self.cluster_size-2):
+                time.sleep(1)
+                print('try again')
+                _ = subprocess.Popen(cmd, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL, cwd=self.tool.compose)
         self.info('Bringing up a new docker-compose cluster')
         '''
         Why do we have to start the cluster TWICE? I have looked into this problem for a long time. If you:
@@ -250,6 +263,7 @@ class TestSystem:
         p = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
         self.info(p.stdout.decode('utf-8'))
         cmd = ['docker-compose',
+               '-f', self.compose_file,
                'down',
                '-v']
         p = subprocess.run(cmd, cwd=self.tool.compose)

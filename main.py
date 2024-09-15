@@ -43,6 +43,8 @@ parser.add_argument('--if_reslim', action='store_true', default=False,
                     help='[Deprecated] If we need to set resource limits on CPU and memory')
 parser.add_argument('--if_iaso', type=str, default='none', choices=['reboot', 'shutdown', 'none'],
                     help='If we want to mimic IASO')
+parser.add_argument('--cluster_size', type=int, default=3,
+                    help='Cluster size (default: 3)')
 parser.add_argument('--cpu_limit', type=str, default=None,
                     help='The number of CPU cores that each container can get at most (e.g., 0.5 or 1 or 5)')
 parser.add_argument('--mem_limit', type=str, default=None,
@@ -227,6 +229,9 @@ def main(args):
     if args.change_workload and sys_name not in ['hbase']:
         print('Currently only hbase support changing workload at runtime')
         exit(1)
+    if args.cluster_size not in [3, 10, 20]:
+        print('Currently only support cluster size of 3 or 10 or 20')
+        exit(1)
     reslim = ResourceLimit(cpu_limit_ = args.cpu_limit,
                            mem_limit_ = args.mem_limit)
 
@@ -341,6 +346,14 @@ def main(args):
             exit(1)
         else:
             wkl = args.ycsb_wkl
+        ycsb_crdb_run_conn_string = args.ycsb_crdb_run_conn_string
+        ycsb_crdb_load_conn_string = args.ycsb_crdb_load_conn_string
+        if args.cluster_size == 10:
+            ycsb_crdb_run_conn_string = 'postgresql://root@roach10:26257,roach9:26257,roach8:26257,roach7:26257,roach6:26257,roach5:26257,roach4:26257,roach3:26257,roach2:26257,roach1:26257?sslmode=disable'
+            ycsb_crdb_load_conn_string = 'postgresql://root@roach3:26257?sslmode=disable'
+        if args.cluster_size == 20:
+            ycsb_crdb_run_conn_string = 'postgresql://root@roach20:26257,roach19:26257,roach18:26257,roach17:26257,roach16:26257,roach15:26257,roach14:26257,roach13:26257,roach12:26257,roach11:26257,roach10:26257,roach9:26257,roach8:26257,roach7:26257,roach6:26257,roach5:26257,roach4:26257,roach3:26257,roach2:26257,roach1:26257?sslmode=disable'
+            ycsb_crdb_load_conn_string = 'postgresql://root@roach3:26257?sslmode=disable'
         if args.benchmark == 'ycsb':
             benchmark = YCSB_CRDB(exec_time_ = args.bench_exec_time,
                                     workload_ = wkl,
@@ -349,8 +362,8 @@ def main(args):
                                     concurrency_ = args.ycsb_crdb_concurrency,
                                     status_interval_ = args.ycsb_status_interval,
                                     recordcount_ = args.ycsb_recordcount,
-                                    load_connection_string_ = args.ycsb_crdb_load_conn_string,
-                                    run_connection_string_ = args.ycsb_crdb_run_conn_string)
+                                    load_connection_string_ = ycsb_crdb_load_conn_string,
+                                    run_connection_string_ = ycsb_crdb_run_conn_string)
         elif args.benchmark == 'sysbench':
             benchmark = SYSBENCH_CRDB(workload_ = args.benchmark,
                                       lua_scheme_ = args.sysbench_lua_scheme,
@@ -372,7 +385,8 @@ def main(args):
                         reslim_ = reslim,
                         version_=args.version,
                         if_restart_ = args.if_restart,
-                        if_iaso_ = args.if_iaso)
+                        if_iaso_ = args.if_iaso,
+                        cluster_size_ = args.cluster_size)
         # sys.test()
     elif sys_name == 'hadoop':
         if args.benchmark is None or args.benchmark not in ['terasort', 'mrbench']:
