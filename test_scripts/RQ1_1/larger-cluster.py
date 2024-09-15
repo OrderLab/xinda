@@ -153,89 +153,91 @@ class GenerateTestScript():
         for sys_name in self.sys_name_ary:
             benchmark_ary = self.benchmark_dict[sys_name]
             for start_time in self.start_time_ary:
-                for duration in self.duration_ary:
-                    for fault_type in self.fault_type_ary:
-                        severity_ary = self.severity_dict[fault_type]
-                        if sys_name == 'hbase':
-                            location_ary = self.location_dict[f'{sys_name}-{fault_type}']
-                        else:
-                            location_ary = self.location_dict[sys_name]
-                        for severity in severity_ary:
-                            for location in location_ary:
-                                meta_cmd = [f"python3 {self.main_py}",
-                                    f"--sys_name {sys_name}",
-                                    f"--data_dir {self.data_dir}",
-                                    f"--fault_type {fault_type}",
-                                    f"--fault_location {location}",
-                                    f"--fault_duration {duration}",
-                                    f"--fault_severity {severity}",
-                                    f"--fault_start_time {start_time}",
-                                    f"--bench_exec_time {self.exec_time}"]
-                                if self.version is not None:
-                                    meta_cmd.append(f"--version {self.version}")
-                                if self.coverage_enabled:
-                                    meta_cmd.append("--coverage")
-                                if self.if_restart:
-                                    meta_cmd.append("--if_restart")
-                                if sys_name in ['hbase', 'etcd', 'cassandra', 'crdb']:
-                                    for wkl in self.benchmark_dict[sys_name]['ycsb']:
-                                        if self.unique_benchmark is None or 'ycsb' == self.unique_benchmark:
-                                            cmd = meta_cmd + [
-                                                f"--ycsb_wkl {wkl}",
-                                                f"--benchmark ycsb"]
-                                            self.append_to_file(msg=' '.join(cmd))
-                                    if sys_name == 'crdb':
-                                        if self.unique_benchmark is None or 'sysbench' == self.unique_benchmark:
-                                            # sysbench
-                                            for lua_scheme in self.sysbench_wkl:
+                for cluster_size in [10, 20]:
+                    for duration in self.duration_ary:
+                        for fault_type in self.fault_type_ary:
+                            severity_ary = self.severity_dict[fault_type]
+                            if sys_name == 'hbase':
+                                location_ary = self.location_dict[f'{sys_name}-{fault_type}']
+                            else:
+                                location_ary = self.location_dict[sys_name]
+                            for severity in severity_ary:
+                                for location in location_ary:
+                                    meta_cmd = [f"python3 {self.main_py}",
+                                        f"--sys_name {sys_name}",
+                                        f"--data_dir {self.data_dir}",
+                                        f"--fault_type {fault_type}",
+                                        f"--fault_location {location}",
+                                        f"--fault_duration {duration}",
+                                        f"--fault_severity {severity}",
+                                        f"--fault_start_time {start_time}",
+                                        f"--bench_exec_time {self.exec_time}",
+                                        f"--cluster_size {cluster_size}"]
+                                    if self.version is not None:
+                                        meta_cmd.append(f"--version {self.version}")
+                                    if self.coverage_enabled:
+                                        meta_cmd.append("--coverage")
+                                    if self.if_restart:
+                                        meta_cmd.append("--if_restart")
+                                    if sys_name in ['hbase', 'etcd', 'cassandra', 'crdb']:
+                                        for wkl in self.benchmark_dict[sys_name]['ycsb']:
+                                            if self.unique_benchmark is None or 'ycsb' == self.unique_benchmark:
                                                 cmd = meta_cmd + [
-                                                    f"--benchmark sysbench",
-                                                    f"--sysbench_lua_scheme {lua_scheme}"
-                                                ]
+                                                    f"--ycsb_wkl {wkl}",
+                                                    f"--benchmark ycsb"]
                                                 self.append_to_file(msg=' '.join(cmd))
-                                    if sys_name == 'etcd':
-                                        if self.unique_benchmark is None or 'etcd-official' == self.unique_benchmark:
-                                            # etcd-official
-                                            for item in self.etcd_official:
-                                                for wkl_name, flag_list in item.items():
-                                                    for flag in flag_list:
-                                                        cmd = meta_cmd + [
-                                                            f"--benchmark etcd-official",
-                                                            f"--etcd_official_wkl {wkl_name}",
-                                                            flag
-                                                        ]
-                                                        self.append_to_file(msg=' '.join(cmd))
-                                            
-                                elif sys_name == 'hadoop':
-                                    if self.if_restart and location == 'namenode':
-                                        pass
-                                    else:
-                                        if self.unique_benchmark is None or 'mrbench' == self.unique_benchmark:
-                                            # mrbench
-                                            cmd = meta_cmd + ["--benchmark mrbench"]
+                                        if sys_name == 'crdb':
+                                            if self.unique_benchmark is None or 'sysbench' == self.unique_benchmark:
+                                                # sysbench
+                                                for lua_scheme in self.sysbench_wkl:
+                                                    cmd = meta_cmd + [
+                                                        f"--benchmark sysbench",
+                                                        f"--sysbench_lua_scheme {lua_scheme}"
+                                                    ]
+                                                    self.append_to_file(msg=' '.join(cmd))
+                                        if sys_name == 'etcd':
+                                            if self.unique_benchmark is None or 'etcd-official' == self.unique_benchmark:
+                                                # etcd-official
+                                                for item in self.etcd_official:
+                                                    for wkl_name, flag_list in item.items():
+                                                        for flag in flag_list:
+                                                            cmd = meta_cmd + [
+                                                                f"--benchmark etcd-official",
+                                                                f"--etcd_official_wkl {wkl_name}",
+                                                                flag
+                                                            ]
+                                                            self.append_to_file(msg=' '.join(cmd))
+                                                
+                                    elif sys_name == 'hadoop':
+                                        if self.if_restart and location == 'namenode':
+                                            pass
+                                        else:
+                                            if self.unique_benchmark is None or 'mrbench' == self.unique_benchmark:
+                                                # mrbench
+                                                cmd = meta_cmd + ["--benchmark mrbench"]
+                                                self.append_to_file(msg=' '.join(cmd))
+                                            if self.unique_benchmark is None or 'terasort' == self.unique_benchmark:
+                                                # terasort
+                                                cmd = meta_cmd + ["--benchmark terasort"]
                                             self.append_to_file(msg=' '.join(cmd))
-                                        if self.unique_benchmark is None or 'terasort' == self.unique_benchmark:
-                                            # terasort
-                                            cmd = meta_cmd + ["--benchmark terasort"]
-                                        self.append_to_file(msg=' '.join(cmd))
-                                elif sys_name == 'kafka':
-                                    if self.unique_benchmark is None or 'perf_test' == self.unique_benchmark:
-                                        # perf_test
-                                        cmd = meta_cmd + ["--benchmark perf_test"]
-                                        self.append_to_file(msg=' '.join(cmd))
-                                    if self.unique_benchmark is None or 'openmsg' == self.unique_benchmark:
-                                        # openmsg
-                                        for driver in self.benchmark_dict['kafka']['openmsg']['driver']:
-                                            for workload in self.benchmark_dict['kafka']['openmsg']['workload']:
-                                                cmd = meta_cmd + [
-                                                    f"--benchmark openmsg",
-                                                    f"--openmsg_driver {driver}",
-                                                    f"--openmsg_workload {workload}"
-                                                ]
-                                                self.append_to_file(msg=' '.join(cmd))
-                            if duration == -1:
-                                print("We dont care about different severities for duration=-1")
-                                break
+                                    elif sys_name == 'kafka':
+                                        if self.unique_benchmark is None or 'perf_test' == self.unique_benchmark:
+                                            # perf_test
+                                            cmd = meta_cmd + ["--benchmark perf_test"]
+                                            self.append_to_file(msg=' '.join(cmd))
+                                        if self.unique_benchmark is None or 'openmsg' == self.unique_benchmark:
+                                            # openmsg
+                                            for driver in self.benchmark_dict['kafka']['openmsg']['driver']:
+                                                for workload in self.benchmark_dict['kafka']['openmsg']['workload']:
+                                                    cmd = meta_cmd + [
+                                                        f"--benchmark openmsg",
+                                                        f"--openmsg_driver {driver}",
+                                                        f"--openmsg_workload {workload}"
+                                                    ]
+                                                    self.append_to_file(msg=' '.join(cmd))
+                                if duration == -1:
+                                    print("We dont care about different severities for duration=-1")
+                                    break
         with open(self.output_file, 'r') as file:
             content = file.read()
         content = content.replace('REPLACE_WITH_TOTAL_NUM', f"{self.counter}")
