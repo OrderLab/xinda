@@ -18,11 +18,17 @@
       register: cfs_mount_exists
       become: true
 
+    - name: Delete existing cfs_mount directory
+      shell: rm -rf /var/lib/docker/cfs_mount
+      args:
+        executable: /bin/bash
+      when: cfs_mount_exists.stat.exists == True
+      become: true
+
     - name: Create cfs_mount directory
       shell: mkdir /var/lib/docker/cfs_mount
       args:
         executable: /bin/bash
-      when: cfs_mount_exists.stat.exists == False
       become: true
     
     - name: Change ownership of cfs_mount directory

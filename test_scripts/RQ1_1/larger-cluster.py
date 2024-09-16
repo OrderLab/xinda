@@ -172,6 +172,7 @@ class GenerateTestScript():
                                         f"--fault_severity {severity}",
                                         f"--fault_start_time {start_time}",
                                         f"--bench_exec_time {self.exec_time}",
+                                        f"--log_root_dir /users/rmlu/workdir/data/{sys_name}-{cluster_size}node",
                                         f"--cluster_size {cluster_size}"]
                                     if self.version is not None:
                                         meta_cmd.append(f"--version {self.version}")

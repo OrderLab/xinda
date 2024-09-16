@@ -45,7 +45,7 @@
     - name: Run xinda/cleanup.py
       shell: |
         cd $HOME/workdir/xinda
-        source ~/miniconda3/bin/activate py36; python3 cleanup.py
+        source ~/miniconda3/bin/activate py36; python3 cleanup.py --docker_aggressive
       args:
         executable: /bin/bash
 
