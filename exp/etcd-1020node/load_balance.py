@@ -51,6 +51,8 @@ def process_and_update_file(input_file_path, new_file_path, num_lines):
     first_100_lines = lines[:num_lines]
     remaining_lines = lines[num_lines:]
     print(f"Get {len(first_100_lines)} lines from {input_file_path} to {new_file_path}")
+    with open(new_file_path, 'a') as new_file:
+        new_file.write("cd /users/rmlu/workdir/xinda/tools/docker-etcd/3.5.10/; docker-compose -f docker-compose-10node.yaml down -v ; docker-compose -f docker-compose-10node.yaml up -d; sleep 5; docker exec etcd0 etcdctl --write-out=table --endpoints=etcd0:2379,etcd1:2379,etcd2:2379,etcd3:2379,etcd4:2379,etcd5:2379,etcd6:2379,etcd7:2379,etcd8:2379,etcd9:2379 endpoint status; docker-compose -f docker-compose-10node.yaml down -v\n")
     # Append the first 100 lines to the new file
     with open(new_file_path, 'a') as new_file:
         new_file.writelines(first_100_lines)
