@@ -4,7 +4,7 @@
 hosts=( $(cat ./hosts | awk '{print $1}') )
 username="rmlu"
 # List of all scripts
-scripts=( $(ls ~/xinda/exp/etcd-1020node/exp/*.job | sort) )
+scripts=( $(ls ~/xinda/exp/crdb-1020node-new/exp/*.job | sort) )
 # print number of scripts and hosts
 echo "Number of scripts: ${#scripts[@]}"
 echo "Number of hosts: ${#hosts[@]}"

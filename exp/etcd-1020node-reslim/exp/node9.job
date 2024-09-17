@@ -1,0 +1,451 @@
+cd /users/rmlu/workdir/xinda/tools/docker-etcd/3.5.10/; docker-compose -f docker-compose-10node.yaml down -v ; docker-compose -f docker-compose-10node.yaml up -d; sleep 5; docker exec etcd0 etcdctl --write-out=table --endpoints=etcd0:2379,etcd1:2379,etcd2:2379,etcd3:2379,etcd4:2379,etcd5:2379,etcd6:2379,etcd7:2379,etcd8:2379,etcd9:2379 endpoint status; docker-compose -f docker-compose-10node.yaml down -v
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 721 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 1 --unique_identifier 721 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 721 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 722 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 2 --unique_identifier 722 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 722 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 723 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 3 --unique_identifier 723 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 723 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 724 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 4 --unique_identifier 724 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 724 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 725 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 5 --unique_identifier 725 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 725 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 726 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 6 --unique_identifier 726 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 726 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 727 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 7 --unique_identifier 727 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 727 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 728 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 8 --unique_identifier 728 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 728 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 729 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 9 --unique_identifier 729 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 729 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 730 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 10 --unique_identifier 730 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 730 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 731 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 1 --unique_identifier 731 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 731 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 732 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 2 --unique_identifier 732 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 732 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 733 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 3 --unique_identifier 733 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 733 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 734 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 4 --unique_identifier 734 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 734 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 735 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 5 --unique_identifier 735 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 735 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 736 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 6 --unique_identifier 736 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 736 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 737 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 7 --unique_identifier 737 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 737 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 738 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 8 --unique_identifier 738 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 738 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 739 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 9 --unique_identifier 739 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 739 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 740 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 10 --unique_identifier 740 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 740 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 741 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 1 --unique_identifier 741 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 741 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 742 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 2 --unique_identifier 742 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 742 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 743 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 3 --unique_identifier 743 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 743 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 744 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 4 --unique_identifier 744 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 744 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 745 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 5 --unique_identifier 745 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 745 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 746 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 6 --unique_identifier 746 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 746 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 747 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 7 --unique_identifier 747 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 747 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 748 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 8 --unique_identifier 748 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 748 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 749 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 9 --unique_identifier 749 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 749 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 750 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 10 --unique_identifier 750 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 750 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 751 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-10ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 1 --unique_identifier 751 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 751 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 752 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-10ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 2 --unique_identifier 752 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 752 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 753 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-10ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 3 --unique_identifier 753 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 753 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 754 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-10ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 4 --unique_identifier 754 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 754 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 755 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-10ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 5 --unique_identifier 755 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 755 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 756 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-10ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 6 --unique_identifier 756 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 756 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 757 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-10ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 7 --unique_identifier 757 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 757 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 758 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-10ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 8 --unique_identifier 758 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 758 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 759 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-10ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 9 --unique_identifier 759 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 759 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 760 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-10ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 10 --unique_identifier 760 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 760 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 761 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-100ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 1 --unique_identifier 761 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 761 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 762 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-100ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 2 --unique_identifier 762 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 762 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 763 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-100ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 3 --unique_identifier 763 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 763 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 764 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-100ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 4 --unique_identifier 764 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 764 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 765 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-100ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 5 --unique_identifier 765 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 765 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 766 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-100ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 6 --unique_identifier 766 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 766 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 767 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-100ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 7 --unique_identifier 767 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 767 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 768 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-100ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 8 --unique_identifier 768 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 768 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 769 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-100ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 9 --unique_identifier 769 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 769 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 770 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-100ms --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 10 --unique_identifier 770 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 770 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 771 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-1s --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 1 --unique_identifier 771 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 771 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 772 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-1s --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 2 --unique_identifier 772 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 772 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 773 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-1s --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 3 --unique_identifier 773 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 773 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 774 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-1s --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 4 --unique_identifier 774 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 774 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 775 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-1s --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 5 --unique_identifier 775 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 775 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 776 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-1s --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 6 --unique_identifier 776 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 776 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 777 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-1s --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 7 --unique_identifier 777 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 777 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 778 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-1s --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 8 --unique_identifier 778 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 778 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 779 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-1s --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 9 --unique_identifier 779 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 779 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 780 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-1s --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 8G --ycsb_wkl mixed --benchmark ycsb --iter 10 --unique_identifier 780 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 780 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 781 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 1 --unique_identifier 781 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 781 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 782 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 2 --unique_identifier 782 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 782 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 783 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 3 --unique_identifier 783 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 783 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 784 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 4 --unique_identifier 784 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 784 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 785 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 5 --unique_identifier 785 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 785 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 786 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 6 --unique_identifier 786 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 786 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 787 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 7 --unique_identifier 787 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 787 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 788 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 8 --unique_identifier 788 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 788 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 789 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 9 --unique_identifier 789 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 789 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 790 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p1 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 10 --unique_identifier 790 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 790 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 791 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 1 --unique_identifier 791 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 791 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 792 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 2 --unique_identifier 792 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 792 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 793 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 3 --unique_identifier 793 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 793 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 794 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 4 --unique_identifier 794 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 794 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 795 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 5 --unique_identifier 795 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 795 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 796 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 6 --unique_identifier 796 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 796 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 797 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 7 --unique_identifier 797 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 797 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 798 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 8 --unique_identifier 798 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 798 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 799 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 9 --unique_identifier 799 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 799 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 800 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p10 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 10 --unique_identifier 800 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 800 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 801 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 1 --unique_identifier 801 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 801 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 802 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 2 --unique_identifier 802 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 802 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 803 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 3 --unique_identifier 803 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 803 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 804 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 4 --unique_identifier 804 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 804 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 805 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 5 --unique_identifier 805 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 805 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 806 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 6 --unique_identifier 806 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 806 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 807 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 7 --unique_identifier 807 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 807 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 808 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 8 --unique_identifier 808 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 808 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 809 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 9 --unique_identifier 809 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 809 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), BEGIN] 810 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir rq1_1 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity flaky-p40 --fault_start_time 60 --bench_exec_time 150 --log_root_dir /users/rmlu/workdir/data/etcd-20node --cluster_size 20 --if_reslim --cpu_limit 2 --mem_limit 16G --ycsb_wkl mixed --benchmark ycsb --iter 10 --unique_identifier 810 --batch_test_log /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo "## [$(date +%s%N), $(date +"%Y-%m-%d %H:%M:%S %Z utc%z"), END] 810 / 1080" >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+echo -e '\n' >> /users/rmlu/workdir/xinda/test_scripts/RQ1_1/meta-norestart-etcd-nw-dur-30-st-60-ycsb-10iter.log
+
