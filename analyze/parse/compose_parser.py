@@ -13,10 +13,10 @@ COLNAME_ERR = "errors"
 KWS = {
     "cassandra": ["hinted handoff", "DOWN"],
     "etcd": ["slow", "became leader at term", "heartbeat", "overloaded network", "apply request took too long", "i/o timeout", "peer became inactive", "failed to reach the peer URL", "traceutil/trace.go:171", "overloaded network", "lost TCP streaming connection with remote peer"],
-    "hbase": ["slow", "Slow sync", "log roll", "Slow datanode", "an edit"],
+    "hbase": ["slow", "Slow sync", "log roll", "Slow datanode", "an edit", "fatal"],
     "kafka": ["Error", "timeout "],
     "hadoop": ["Failed to place enough replicas", "Slow", "WARN"],
-    "crdb": ["slow" ,"alerts" ,"retry" ,"error" ,"transport" ,"another CREATE STATISTICS job is already running" ,"DistSender.S" , "latch"]
+    "crdb": ["slow" ,"alerts" ,"retry" ,"error" ,"transport" ,"another CREATE STATISTICS job is already running" ,"DistSender.S" , "latch", "DETECT", "ULTIMATE"]
 }
 
 class ComposeParser:
