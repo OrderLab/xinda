@@ -6,20 +6,16 @@
     - name: Copy script to server
       copy:
         src: "{{ script_path }}"
-        dest: "/users/rmlu/workdir/xinda/test_scripts/{{ script_name }}"
+        dest: "$HOME/workdir/xinda/test_scripts/{{ script_name }}"
         
     - name: Change script mode to executable
       file:
-        path: "/users/rmlu/workdir/xinda/test_scripts/{{ script_name }}"
+        path: "$HOME/workdir/xinda/test_scripts/{{ script_name }}"
         mode: 0755
 
-    # - name: Run script inside tmux session
-    #   shell: >
-    #     tmux new-session -d -s xinda_exp 'bash -c "source ~/miniconda3/bin/activate py36; /users/rmlu/workdir/xinda/test_scripts/{{ script_name }}; read"'
-    
     - name: Run script inside tmux session
       shell: >
-        tmux new-session -d -s xinda_exp 'bash -c "source ~/miniconda3/bin/activate py36; /users/rmlu/workdir/xinda/test_scripts/{{ script_name }}; read"'
+        tmux new-session -d -s xinda_exp 'bash -c "source ~/miniconda3/bin/activate py36; $HOME/workdir/xinda/test_scripts/{{ script_name }}; read"'
     
     - name: Tail meta log
       shell: >

@@ -11,7 +11,7 @@
 
     - name: Git pull hbase-pipeline
       shell: |
-        cd /users/rmlu/workdir/hbase-pipeline
+        cd $HOME/workdir/hbase-pipeline
         git pull
       args:
         executable: /bin/bash

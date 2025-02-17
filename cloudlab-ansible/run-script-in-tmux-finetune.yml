@@ -6,21 +6,17 @@
     - name: Copy script to server
       copy:
         src: "{{ script_path }}"
-        dest: "/users/rmlu/workdir/hbase-pipeline/finetune/{{ script_name }}"
+        dest: "$HOME/workdir/hbase-pipeline/finetune/{{ script_name }}"
         
     - name: Change script mode to executable
       file:
-        path: "/users/rmlu/workdir/hbase-pipeline/finetune/{{ script_name }}"
+        path: "$HOME/workdir/hbase-pipeline/finetune/{{ script_name }}"
         mode: 0755
 
-    # - name: Run script inside tmux session
-    #   shell: >
-    #     tmux new-session -d -s xinda_exp 'bash -c "source ~/miniconda3/bin/activate py36; /users/rmlu/workdir/xinda/test_scripts/{{ script_name }}; read"'
-    
     - name: Run script inside tmux session
       shell: >
-        tmux new-session -d -s finetune 'bash -c "source ~/miniconda3/bin/activate py36; /users/rmlu/workdir/hbase-pipeline/finetune/{{ script_name }}; read"'
+        tmux new-session -d -s finetune 'bash -c "source ~/miniconda3/bin/activate py36; $HOME/workdir/hbase-pipeline/finetune/{{ script_name }}; read"'
     
     - name: Tail meta log
       shell: >
-        tmux split-window -t finetune:0 'bash -c "tail -f /users/rmlu/workdir/hbase-pipeline/finetune/meta.log"'
+        tmux split-window -t finetune:0 'bash -c "tail -f $HOME/workdir/hbase-pipeline/finetune/meta.log"'
