@@ -151,7 +151,8 @@ class GenerateTestScript():
             elif severity == 'fs':
                 self.severity_dict = {'fs': self.severity_dict['fs']}
             elif severity == 'nw-flaky':
-                self.severity_dict = {'nw': ['flaky-p10', 'flaky-p40', 'flaky-p70']}
+                # self.severity_dict = {'nw': ['flaky-p0.1', 'flaky-p0.2', 'flaky-p0.3', 'flaky-p0.4', 'flaky-p0.5', 'flaky-p0.6', 'flaky-p0.7', 'flaky-p0.8', 'flaky-p0.9', 'flaky-p80', 'flaky-p90', 'flaky-p100']}
+                self.severity_dict = {'nw': ['flaky-p1', 'flaky-p5', 'flaky-p10', 'flaky-p20', 'flaky-p30', 'flaky-p40', 'flaky-p50', 'flaky-p60', 'flaky-p70']}
             elif severity == 'nw-slow':
                 self.severity_dict = {'nw': ['slow-100us', 'slow-1ms', 'slow-10ms', 'slow-100ms']}
         # benchmark
@@ -170,9 +171,9 @@ class GenerateTestScript():
                 "terasort": "terasort"},
             "kafka": {
                 "openmsg": {
-                    "driver": ["kafka-throughput",
-                               "kafka-big-batches-gzip",
-                            #    "kafka-sync"
+                    "driver": [#"kafka-throughput",
+                               #"kafka-big-batches-gzip",
+                               "kafka-sync"
                                ],
                     "workload": ["1-topic-1-partition-1kb",
                                 #  "1-topic-16-partitions-1kb",
