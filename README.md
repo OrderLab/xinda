@@ -1,6 +1,6 @@
 # Overview
 
-This repo contains the source code of (1) Xinda, a slow-fault testing pipeline; and (2) ADR, a lightweight runtime slow-fault detection library. The following sections are for building and running Xinda. Please refer to `./adr` for more information on ADR.
+This repo contains the source code of (1) Xinda, a slow-fault testing pipeline; and (2) ADR, a lightweight runtime slow-fault detection library. The following sections are for building and running Xinda. Please refer to [./adr](adr) for more information on ADR.
 
 - [Overview](#overview)
   - [Requirements](#requirements)
@@ -47,7 +47,7 @@ ansible-playbook -h
 ```
 
 
-Next, we need to configure the host file for Ansible to access the remote machine. A more detailed guideline is available [here](https://github.com/OrderLab/xinda/blob/nsdi25/cloudlab-ansible/README.md). We provide an example of the host file in `./cloudlab-ansible/ansible_host`. You need to modify the hostname, username, and port number to match your remote machine. Once set, we can set up the remote machine in one click using the following command:
+Next, we need to configure the host file for Ansible to access the remote machine. A more detailed guideline is available [here](cloudlab-ansible/README.md). We provide an example of the host file in `./cloudlab-ansible/ansible_host`. You need to modify the hostname, username, and port number to match your remote machine. Once set, we can set up the remote machine in one click using the following command:
 ```bash
 # cd ./cloudlab-ansible/
 ansible-playbook -i ansible_host configure.yml
