@@ -160,7 +160,7 @@ The script will generate a summary of the test results into `meta.csv` stored in
 
 ## Examples
 
-Let's start by running a sample Xinda test in HBase. We will inject a 1ms network delay to the regionserver for 60s:
+Let's start by running a sample Xinda test in HBase. More examples can be found in `./examples`. We will inject a 1ms network delay to the regionserver for 60s:
 ```bash
 python3 main.py \
     --sys_name hbase \

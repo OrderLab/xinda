@@ -58,14 +58,6 @@ class Depfast(TestSystem):
         return p.returncode == 0
     
     def _run_depfast(self):
-        # depfast_slow_location = ''
-        # if self.fault.location == 'server1':
-        #     depfast_slow_location = 'leader'
-        # elif self.fault.location == 'server3':
-        #     depfast_slow_location = 'follower'
-        # else:
-        #     raise ValueError(f"Exception: fault physical location ({self.fault.location}) does not match depfast topology (not {depfast_slow_location})")
-        # self.info(f"fault_physical_location: {self.fault.location}, which is {depfast_slow_location} in depfast\'s toplogy ")
         cmd = f"docker exec -it {self.client} bash start-exp.sh testname {self.benchmark.exec_time} 0 3 follower {self.benchmark.nclient} {self.benchmark.concurrency} {self.benchmark.scheme} nonlocal"
         print(f"Run depfast with command: {cmd}")
         self.depfast_process = subprocess.Popen(cmd, shell=True, stdout=open(self.log.runtime,"w"))
@@ -94,7 +86,6 @@ class Depfast(TestSystem):
             self.depfast_process.kill()
     
     def _post_process(self):
-        # p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
         # Rename experiment results
         cmd = f"docker exec -it {self.client} bash -c \'mv results/*.yml {self.log.depfast_summary}; mv log {self.log.depfast_misc};\'"
         p = subprocess.run(cmd, shell=True)

@@ -33,7 +33,6 @@ class Etcd(TestSystem):
             # load and run benchmark
             self._load_ycsb()
             self._run_ycsb()
-            # self._run_ycsb_double_wrapper()
             # inject slow faults
             if self.fault.type != 'none':
                 self.inject(cfs_pattern=f".*{self.fault.location}.*")
@@ -95,11 +94,6 @@ class Etcd(TestSystem):
                 print(f"etcd{counter} is running")
             if counter == self.cluster_size:
                 break
-        # print(f"Try exactly {self.cluster_size+1} times :O")
-        # for i in range(self.cluster_size+1):
-        #     _ = subprocess.Popen(cmd, shell=True, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL, cwd=self.tool.compose)
-        #     time.sleep(3)
-        #     print(f'try again {i+1}/{self.cluster_size+1}')
         self.info('Bringing up a new docker-compose cluster in the charybdefs way')
     
     def get_leader_name(self):
@@ -116,7 +110,6 @@ class Etcd(TestSystem):
         awk_process = subprocess.Popen(awk_cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         leader_name, _ = awk_process.communicate(input=cmd_output)
         p.stdout.close()
-        # self.leader_name = leader_name.decode('utf-8').strip()[:5]
         self.leader_name = leader_name.decode('utf-8').split(":")[0]
         etcd_nodes = ['etcd0','etcd1','etcd2']
         if self.cluster_size == 10:
@@ -138,14 +131,11 @@ class Etcd(TestSystem):
     def _load_ycsb(self):
         self.ycsb_endpoints = f"http://{self.container_info['etcd0']}:2379"
         if self.cluster_size == 10:
-            # self.ycsb_endpoints = f"http://{self.container_info[{self.leader_name}]}:2379"
             self.ycsb_endpoints = f"http://{self.container_info['etcd0']}:2379,{self.container_info['etcd1']}:2379,{self.container_info['etcd2']}:2379,{self.container_info['etcd3']}:2379,{self.container_info['etcd4']}:2379,{self.container_info['etcd5']}:2379,{self.container_info['etcd6']}:2379,{self.container_info['etcd7']}:2379,{self.container_info['etcd8']}:2379,{self.container_info['etcd9']}:2379"
         elif self.cluster_size == 20:
-            # self.ycsb_endpoints = f"http://{self.container_info[{self.leader_name}]}:2379"
             self.ycsb_endpoints = f"http://{self.container_info['etcd0']}:2379,{self.container_info['etcd1']}:2379,{self.container_info['etcd2']}:2379,{self.container_info['etcd3']}:2379,{self.container_info['etcd4']}:2379,{self.container_info['etcd5']}:2379,{self.container_info['etcd6']}:2379,{self.container_info['etcd7']}:2379,{self.container_info['etcd8']}:2379,{self.container_info['etcd9']}:2379,{self.container_info['etcd10']}:2379,{self.container_info['etcd11']}:2379,{self.container_info['etcd12']}:2379,{self.container_info['etcd13']}:2379,{self.container_info['etcd14']}:2379,{self.container_info['etcd15']}:2379,{self.container_info['etcd16']}:2379,{self.container_info['etcd17']}:2379,{self.container_info['etcd18']}:2379,{self.container_info['etcd19']}:2379"
         cmd = [self.tool.go_ycsb_bin,
                'load', 'etcd',
-            #    '-P', os.path.join(self.tool.go_ycsb, ('workloads/workload' + self.benchmark.workload)),
                '-P', os.path.join(self.tool.go_ycsb_wkl, ('workload' + self.benchmark.workload)),
                '-p', f'recordcount={self.benchmark.recordcount}',
                '-p', f"etcd.endpoints={self.ycsb_endpoints}",
@@ -158,7 +148,6 @@ class Etcd(TestSystem):
     def _run_ycsb(self):
         cmd = [self.tool.go_ycsb_bin,
                'run', 'etcd',
-            #    '-P', os.path.join(self.tool.go_ycsb, ('workloads/workload' + self.benchmark.workload)),
                '-P', os.path.join(self.tool.go_ycsb_wkl, ('workload' + self.benchmark.workload)),
                '-p', f'operationcount={self.benchmark.operationcount}',
                '-p', f"etcd.endpoints={self.ycsb_endpoints}",
@@ -166,13 +155,9 @@ class Etcd(TestSystem):
                '-p', f'threadcount={self.benchmark.threadcount}'
         ]
         cmd = [str(item) for item in cmd]
-        # We don't have as summary in etcd.ycsb
         self.ycsb_process = subprocess.Popen(cmd, stdout=open(self.log.runtime,"w"), stderr=subprocess.DEVNULL)#, stderr=open(self.log.raw,"w"))
-        # self.ycsb_process = subprocess.Popen(cmd, stderr=open(self.log.runtime, "w"), stdout=open(self.log.raw,"w"))
         self.start_time = int(time.time()*1e9)
         self.info("Benchmark:ycsb starts. We should inject faults after 30s till the cluster performance is stable", rela=self.start_time)
-        # self.info("Benchmark:ycsb starts. Now wait 30s before cluster performance is stable", rela=self.start_time)
-        # time.sleep(30)
     
     def _run_ycsb_double_wrapper(self):
         self.start_time = int(time.time()*1e9)
@@ -187,7 +172,6 @@ class Etcd(TestSystem):
                 self.info(f"Sleep {delta_time}s till current benchmark ends")
                 time.sleep(delta_time)
             p.terminate()
-            # self.info("Benchmark safely ends", rela=self.start_time)
         
         wkl = 'readonly'
         cmd = [self.tool.go_ycsb_bin,
@@ -225,12 +209,6 @@ class Etcd(TestSystem):
         self.info(f"Benchmark:{self.benchmark.identifier} starts. We should inject faults after 30s till the cluster performance is stable", rela=self.start_time)
     
     def _wait_till_official_ends(self):
-        # cur_time = self.get_current_ts()
-        # if cur_time < int(self.benchmark.max_execution_time): # and self.official_process.poll() is not None:
-        #     self.info(f"Waiting till benchmark ends. Current time:{cur_time}, max_execution_time:{self.benchmark.max_execution_time} {self.official_process.returncode}", rela=self.start_time)
-        #     time.sleep(1)
-        #     cur_time = self.get_current_ts()
-        # # self.official_process.terminate()
         cur_time = self.get_current_ts()
         self.info(f"Waiting till benchmark ends. Current time:{cur_time}, max_execution_time:{self.benchmark.max_execution_time}", rela=self.start_time)
         self.official_process.communicate(timeout=self.benchmark.max_execution_time)
@@ -261,35 +239,3 @@ class Etcd(TestSystem):
         p.stdout.close()
         cur_leader_name = cur_leader_name.decode('utf-8').strip()[:5]
         self.info(f"Current leader: {cur_leader_name}; Previous leader: {self.leader_name}; Leader changed: {cur_leader_name != self.leader_name}")
-
-
-
-
-# nw_fault = SlowFault(
-#     type_="nw", # nw or fs
-#     location_ = "etcd0", # e.g., datanode
-#     duration_ = -1,
-#     severity_ = "slow3",
-#     start_time_ = 35)
-# # fs_fault = SlowFault(
-# #     type_="fs", # nw or fs
-# #     location_ = "etcd0", # e.g., datanode
-# #     duration_ = 10,
-# #     severity_ = "100000",
-# #     start_time_ = 35)
-# # b = YCSB_ETCD(exec_time_='150',workload_='a', threadcount_=500)
-# b = OFFICIAL_ETCD(workload_='lease-keepalive', total_=100000)
-
-# import os
-# t = Etcd(sys_name_= "etcd",
-#                fault_ = nw_fault,
-#                benchmark_= b,
-#                data_dir_= "xixi1",
-#                log_root_dir_ = f"{os.path.expanduser('~')}/workdir/data/default",
-#                xinda_software_dir_ = f"{os.path.expanduser('~')}/workdir/xinda-software",
-#                 xinda_tools_dir_ = f"{os.path.expanduser('~')}/workdir/xinda/tools",
-#                 charybdefs_mount_dir_ = f"{os.path.expanduser('~')}/workdir/tmp")
-
-# python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir 11_11 --fault_type fs --fault_location leader --fault_duration 30 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 60 --ycsb_wkl writeonly --benchmark ycsb
-
-# python3 /users/rmlu/workdir/xinda/main.py --sys_name etcd --data_dir 11_11 --fault_type nw --fault_location leader --fault_duration 30 --fault_severity slow-high --fault_start_time 10 --bench_exec_time 60 --ycsb_wkl writeonly --benchmark ycsb

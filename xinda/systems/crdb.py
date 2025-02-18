@@ -88,8 +88,6 @@ class Crdb(TestSystem):
         self.benchmark_process = subprocess.Popen(cmd, shell=True, stdout=open(self.log.runtime,"w"))
         self.start_time = int(time.time()*1e9)
         self.info("Benchmark:ycsb starts. We should consider injecting faults after 30s till the cluster performance is stable", rela=self.start_time)
-        # self.info("Benchmark:ycsb starts. Now wait 30s before cluster performance is stable", rela=self.start_time)
-        # time.sleep(30)
     
     def _wait_till_benchmark_ends(self):
         self.info("Wait until benchmark ends", rela=self.start_time)
@@ -97,7 +95,6 @@ class Crdb(TestSystem):
         self.info("Benchmark safely ends", rela=self.start_time)
     
     def _post_process(self):
-        # p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
         log_dict = [
             {'log_on_container': '/cockroach/cockroach-data/logs/cockroach.log', 'log_on_host': self.log.crdb_log},
             {'log_on_container': '/cockroach/cockroach-data/logs/cockroach-pebble.log', 'log_on_host': self.log.crdb_pebble_log},
@@ -166,30 +163,3 @@ class Crdb(TestSystem):
         self.benchmark_process = subprocess.Popen(cmd, shell=True, stdout=open(self.log.runtime, 'a'))
         self.start_time = int(time.time()*1e9)
         self.info(f"Benchmark:sysbench {self.benchmark.lua_scheme} starts.", rela=self.start_time)
-        # Step 1:
-        # docker exec -it roach0 ./cockroach sql --host=roach1:26257 --insecure
-        # CREATE DATABASE testdb;
-        # Step 2:
-        # docker run --rm -it --network=docker-crdb_roachnet sysbench:latest src/sysbench src/lua/oltp_write_only.lua --pgsql-host=roach3 --pgsql-port=26257 --pgsql-db=testdb --pgsql-user=root --pgsql-password= --table_size=100000 --tables=3 --threads=1 --db-driver=pgsql prepare
-        # docker run --rm -it --network=docker-crdb_roachnet sysbench:latest src/sysbench src/lua/oltp_write_only.lua --pgsql-host=roach3 --pgsql-port=26257 --pgsql-db=testdb --pgsql-user=root --pgsql-password= --table_size=1000000 --tables=3 --threads=1 --time=20 --report-interval=5 --db-driver=pgsql run
-
-
-
-# nw_fault = SlowFault(
-#     type_="nw", # nw or fs
-#     location_ = "roach1", # e.g., datanode
-#     duration_ = 30,
-#     severity_ = "slow3",
-#     start_time_ = 35)
-# fs_fault = SlowFault(
-#     type_="fs", # nw or fs
-#     location_ = "roach1", # e.g., datanode
-#     duration_ = 30,
-#     severity_ = "100000",
-#     start_time_ = 35)
-# b = YCSB_CRDB(exec_time_='150',workload_='a',concurrency_='16')
-
-# t = Crdb(sys_name_= "crdb",
-#                fault_ = nw_fault,
-#                benchmark_= b,
-#                data_dir_= "xixi1")

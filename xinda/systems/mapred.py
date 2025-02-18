@@ -99,20 +99,11 @@ class Mapred(TestSystem):
         for i in range(1, self.benchmark.num_iter+1):
             raw_log = os.path.join(self.log.data_dir, 
                                    'raw-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-mrbench" + ".log")
-            # print(raw_log)
             runtime_log = os.path.join(self.log.data_dir, 
                                    'runtime-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-mrbench" + str(i) +  ".log")
-            # print(runtime_log)
             while not check_mrbench_completion(runtime_log):
                 cmd = f"docker exec datanode2 yarn jar {self.tool.mapred_mrbench_on_container} mrbench -reduces {self.benchmark.num_reduces}"
                 self.info(f"{i} begins /{self.benchmark.num_iter}", rela=self.start_time)
-                # try:
-                #     _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"), timeout=60)
-                # except subprocess.TimeoutExpired:
-                #     self.info(f"TimeoutExpired, {i} FAILed !!!!!", rela=self.start_time)
-                # self.info(f"{i} ends /{self.benchmark.num_iter}", rela=self.start_time)
-                # if not check_mrbench_completion(runtime_log):
-                #     self.info(f"{i} FAILed !!!!!", rela=self.start_time)
                 _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"))
                 self.info(f"{i} ends /{self.benchmark.num_iter}", rela=self.start_time)
                 if not check_mrbench_completion(runtime_log):
@@ -122,11 +113,6 @@ class Mapred(TestSystem):
         raw_log = os.path.join(self.log.data_dir, 'raw-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-teragen" + ".log")
         runtime_log = os.path.join(self.log.data_dir, 'runtime-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-teragen" +  ".log")
         cmd = f"docker exec datanode2 yarn jar {self.tool.mapred_terasort_on_container} teragen {self.benchmark.num_of_100_byte_rows} {self.benchmark.input_dir}"
-        # try:
-        #     _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"), timeout=60)
-        # except subprocess.TimeoutExpired:
-        #     self.info(f"TimeoutExpired, teraGEN FAILed !!!!!", rela=self.start_time)
-        #     self._terasort_gen()
         self.info("teragen BEGINs", rela=self.start_time)
         _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"))
         self.info("teragen ENDs", rela=self.start_time)
@@ -135,11 +121,6 @@ class Mapred(TestSystem):
         raw_log = os.path.join(self.log.data_dir, 'raw-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-terasort" + ".log")
         runtime_log = os.path.join(self.log.data_dir, 'runtime-' + self.fault.location + '-' + self.fault.info + '-' + self.log.iter + "-terasort" +  ".log")
         cmd = f"docker exec datanode2 yarn jar {self.tool.mapred_terasort_on_container} terasort {self.benchmark.input_dir} {self.benchmark.output_dir}"
-        # try: 
-        #     _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"), timeout=180)
-        # except subprocess.TimeoutExpired:
-        #     self.info(f"TimeoutExpired, teraSORT FAILed !!!!!", rela=self.start_time)
-        #     self._terasort_sort()
         self.info("terasort BEGINs", rela=self.start_time)
         _ = subprocess.run(cmd, shell=True, stdout=open(raw_log, "a"), stderr=open(runtime_log, "a"))
         self.info("terasort ENDs", rela=self.start_time)
@@ -161,8 +142,6 @@ class Mapred(TestSystem):
         p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
         if self.coverage:
             self._jacoco_get_report()
-            # chmod_cmd = "docker exec -it datanode2 chmod -R 777 /jacoco/data /jacoco/reports"
-            # _ = subprocess.run(chmod_cmd, shell=True)
             copylogs_cmd = f"docker cp {self.jacoco_loc}:/jacoco/reports/ {self.jacoco_report_dir}"
             _ = subprocess.run(copylogs_cmd, shell=True)
             self.info('jacoco reports retrieved')
@@ -175,7 +154,6 @@ class Mapred(TestSystem):
     def _jacoco_export_hadoop_opts(self):
         export_cmd = f"docker exec -it {self.jacoco_loc} sh -c 'echo export HADOOP_OPTS=\"-javaagent:/jacoco/lib/jacocoagent.jar=destfile=/jacoco/data/out.exec,classdumpdir=/jacoco/data/dump -Djacoco-agent.attach=true \$HADOOP_OPTS\" >> /etc/hadoop/hadoop-env.sh'"
         _ = subprocess.run(export_cmd, shell=True)
-        # self.info("export HADOOP_OPTS=\"-javaagent:/jacoco/lib/jacocoagent.jar=destfile=/jacoco/data/out.exec,classdumpdir=/jacoco/data/dump -Djacoco-agent.attach=true \$HADOOP_OPTS\" >> /etc/hadoop/hadoop-env.sh")
         tail_cmd = f"docker exec {self.jacoco_loc} tail /etc/hadoop/hadoop-env.sh -n 1"
         p = subprocess.run(tail_cmd, shell=True, stdout=subprocess.PIPE)
         self.info(p.stdout.decode('utf-8').strip())
@@ -217,28 +195,6 @@ class Mapred(TestSystem):
             cmd = f"docker exec -it {self.jacoco_loc} java -jar /jacoco/lib/jacococli.jar report /jacoco/data/out.exec --classfiles /opt/hadoop-{self.version}/share/hadoop/{module} --html /jacoco/reports/{module}"
             _ = subprocess.run(cmd, shell=True)
             self.info(f'Module:{module}: jacoco reports generated', rela=self.start_time)
-        # cmd = f"docker exec -it {self.jacoco_loc} java -jar /jacoco/lib/jacococli.jar report /jacoco/data/out.exec --classfiles /opt/hadoop-{self.version}/share/hadoop --html /jacoco/reports/hadoop"
-        # _ = subprocess.run(cmd, shell=True)
-# nw_fault = SlowFault(
-#     type_="nw", # nw or fs
-#     location_ = "datanode", # e.g., datanode
-#     duration_ = 20,
-#     severity_ = "slow3",
-#     start_time_ = 5)
-# fs_fault = SlowFault(
-#     type_="fs", # nw or fs
-#     location_ = "datanode", # e.g., datanode
-#     duration_ = 20,
-#     severity_ = "100000",
-#     start_time_ = 5)
-# b = MRBENCH_MAPRED(num_reduces_='3',
-#                    num_iter_=3)
-
-# t = Mapred(sys_name_= "hadoop",
-#                fault_ = nw_fault,
-#                benchmark_= b,
-#                data_dir_= "xixi1")
-
 # python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir newv --fault_type nw --fault_location datanode --fault_duration 10 --fault_severity slow-low --fault_start_time 10 --bench_exec_time 150 --benchmark mrbench --coverage --version 3.0.0
 # python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir newv --fault_type fs --fault_location datanode --fault_duration 10 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 150 --benchmark mrbench --coverage --version 3.0.0
 # python3 /users/rmlu/workdir/xinda/main.py --sys_name hadoop --data_dir newv --fault_type fs --fault_location namenode --fault_duration 10 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 150 --benchmark mrbench --coverage --version 3.0.0

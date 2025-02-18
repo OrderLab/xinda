@@ -65,12 +65,6 @@ class Kafka(TestSystem):
                '--create --bootstrap-server kafka1:9092',
                f'--replication-factor {self.benchmark.replication_factor}',
                f'--partitions {self.benchmark.topic_partition}',
-            #    f"--config cleanup.policy='delete'",
-            #    f"--config retention.bytes=100000000", # 1GB= 1000000000 bytes
-            #    f"--config retention.ms=-1",
-            #    f"--config segment.bytes=10000000",
-            #    f"--config retention.ms=10000",
-            #    f"--config delete.retention.ms=10000",
                f'--topic {self.benchmark.topic_title}']
         cmd = ' '.join(cmd)
         _ = subprocess.run(cmd, shell=True)
@@ -105,8 +99,6 @@ class Kafka(TestSystem):
         cmd = ' '.join(cmd)
         self.info("[CONSUMER] kafka-consumer-perf-test.sh started", rela=self.start_time)
         self.consumer_process = subprocess.Popen(cmd, shell=True, stdout=open(self.log.kafka_consumer, 'a'), stderr=subprocess.DEVNULL)
-        ## docker exec -it kafka-benchmarking sh /kafka/bin/kafka-topics.sh --bootstrap-server kafka1:9092,kafka2:9092,kafka3:9092,kafka4:9092 --describe --topic test-xinda
-        ## docker exec -it kafka-benchmarking sh /kafka/bin/kafka-metadata-quorum.sh --bootstrap-server kafka1:9092 describe --replication
     
     def _wait_till_perftest_ends(self):
         self.producer_process.poll()
@@ -122,11 +114,6 @@ class Kafka(TestSystem):
         self.driver_process.poll()
         self.worker1_process.poll()
         self.worker2_process.poll()
-        # return_code = self.driver_process.returncode and self.worker1_process.returncode and self.worker2_process.returncode
-        # cur_time = self.get_current_ts()
-        # if cur_time < self.benchmark.exec_time + 30 and return_code != 0:
-        #     self.info(f"Sleep {self.benchmark.exec_time + 30 - cur_time}s till the end", rela=self.start_time)
-        #     time.sleep(self.benchmark.exec_time + 30 - cur_time)
         counter = 0
         while True:
             if self.check_string_in_file(file_path=self.log.openmsg_driver, target_string="Writing test result"):
@@ -139,16 +126,10 @@ class Kafka(TestSystem):
             if counter >= self.benchmark.exec_time + 300:
                 self.info(f"FATAL: benchmark does not end even after {self.benchmark.exec_time}+300={self.benchmark.exec_time + 30}s")
                 exit(1)
-        # process = psutil.Process(self.worker1_process.pid)
-        # print(process.children(recursive=True))
-        # process = psutil.Process(self.worker2_process.pid)
-        # print(process.children(recursive=True))
         process = psutil.Process(self.driver_process.pid)
-        # print(process.children(recursive=True))
         for proc in process.children(recursive=True):
             proc.kill()
         process.kill()
-        # self.driver_process.send_signal(signal.SIGINT)
         self.worker1_process.send_signal(signal.SIGINT)
         self.worker2_process.send_signal(signal.SIGINT)
         if self.is_port_in_use([8082,8083,8084,8085]):
@@ -175,7 +156,6 @@ class Kafka(TestSystem):
         cmd = ['bin/benchmark',
         f'--drivers driver-kafka/{self.benchmark.driver}.yaml',
         '--workers http://0.0.0.0:8082,http://0.0.0.0:8084',
-        # f'workloads/{self.benchmark.workload_file}.yaml']
         f'workloads/this.yaml']
         # kafka-latency.yaml has (nearly) the same configs as kafka.yaml in previous commits. kafka.yaml is said to be the standard configs.
         # https://github.com/openmessaging/benchmark/blob/211cbcd436b022d1734d8d1d9e760b34a05f4488/driver-kafka/kafka.yaml
@@ -220,28 +200,3 @@ class Kafka(TestSystem):
     def _post_process(self):
         p = subprocess.run(['docker-compose', 'logs'], stdout=open(self.log.compose,'w'), stderr =subprocess.STDOUT, cwd=self.tool.compose)
         p = subprocess.run(f'mv *.json {self.log.openmsg_summary}', shell=True, stdout=open(self.log.openmsg_worker1, 'a'), cwd=self.tool.openmsg_compiled_source)
-
-
-# nw_fault = SlowFault(
-#     type_="nw", # nw or fs
-#     location_ = "kafka1", # e.g., datanode
-#     duration_ = 10,
-#     severity_ = "slow-low",
-#     start_time_ = 5)
-# fs_fault = SlowFault(
-#     type_="fs", # nw or fs
-#     location_ = "kafka1", # e.g., datanode
-#     duration_ = 20,
-#     severity_ = "10000",
-#     start_time_ = 5)
-# b = PERFTEST_KAFKA(exec_time_ = 30)
-# # b = OPENMSG_KAFKA(exec_time_ = 30)
-
-# t = Kafka(sys_name_= "kafka",
-#                fault_ = fs_fault,
-#                benchmark_= b,
-#                data_dir_= "xixi1",
-#                log_root_dir_='/users/YXXinda/workdir/data/default',
-#                xinda_software_dir_="/users/YXXinda/workdir/xinda-software",
-#                xinda_tools_dir_="/users/YXXinda/workdir/xinda/tools",
-#                charybdefs_mount_dir_="/users/YXXinda/workdir/tmp")

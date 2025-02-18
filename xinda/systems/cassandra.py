@@ -60,15 +60,6 @@ class Cassandra(TestSystem):
             self.tool.cas_init_cql,
             f"cas1:/opt/cassandra/bin/init.cql"]
         p = subprocess.run(cmd)
-        # cmd = [self.tool.cas_cqlsh,
-        #        self.container_info['cas1'],
-        #        9042,
-        #        '-f',
-        #        self.tool.cas_init_cql
-        # ]
-        # cmd = [str(item) for item in cmd]
-        # print(' '.join(cmd))
-        # p = subprocess.run(cmd)
         cmd = 'docker exec -it cas1 ./opt/cassandra/bin/cqlsh -f /opt/cassandra/bin/init.cql'
         p = subprocess.run(cmd, shell=True)
         self.info("KEYSPACE:ycsb and TABLE:usertable initiated")
@@ -78,7 +69,6 @@ class Cassandra(TestSystem):
                'load', 'cassandra-cql',
                f"-p hosts={self.container_info['cas1']}",
                '-s',
-            #    '-P', os.path.join(self.tool.ycsb, ('workloads/workload' + self.benchmark.workload)),
                '-P', os.path.join(self.tool.ycsb_wkl, ('workload' + self.benchmark.workload)),
                f'-p recordcount={self.benchmark.recordcount}'
         ]
@@ -91,7 +81,6 @@ class Cassandra(TestSystem):
                'run', 'cassandra-cql',
                f"-p hosts={self.container_info['cas1']}",
                '-s',
-            #    '-P', os.path.join(self.tool.ycsb, ('workloads/workload' + self.benchmark.workload)),
                '-P', os.path.join(self.tool.ycsb_wkl, ('workload' + self.benchmark.workload)),
                f'-p measurementtype={self.benchmark.measurementtype}',
                f'-p operationcount={self.benchmark.operationcount}',
@@ -102,8 +91,6 @@ class Cassandra(TestSystem):
         self.ycsb_process = subprocess.Popen(cmd, stderr=open(self.log.runtime, "w"), stdout=open(self.log.raw,"w"))
         self.start_time = int(time.time()*1e9)
         self.info("Benchmark:ycsb starts. We should inject faults after 30s till the cluster performance is stable", rela=self.start_time)
-        # self.info("Benchmark:ycsb starts. Now wait 30s before cluster performance is stable", rela=self.start_time)
-        # time.sleep(30)
     
     def _wait_till_benchmark_ends(self):
         self.info("Wait until benchmark ends", rela=self.start_time)
@@ -119,38 +106,3 @@ class Cassandra(TestSystem):
         cmd = f"cat {self.log.raw} | grep -v -e \"READ,\" -e \"UPDATE,\" -e \"SCAN,\" -e \"INSERT,\" -e \"READ-MODIFY-WRITE,\" > {self.log.summary}"
         p = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         self.info("Convert raw to ts/sum")
-
-
-# nw_fault = SlowFault(
-#     type_="nw", # nw or fs
-#     location_ = "cas1", # e.g., datanode
-#     duration_ = 30,
-#     severity_ = "slow3",
-#     start_time_ = 35)
-# fs_fault = SlowFault(
-#     type_="fs", # nw or fs
-#     location_ = "cas1", # e.g., datanode
-#     duration_ = 30,
-#     severity_ = "100000",
-#     start_time_ = 35)
-
-# b = YCSB_CASSANDRA(exec_time_='150',workload_='a')
-
-# t = Cassandra(sys_name_= "cassandra",
-#                fault_ = nw_fault,
-#                benchmark_= b,
-#                data_dir_= "xixi1")
-
-# t.docker_up()
-# # sleep
-# t.docker_status_checker()
-# t.blockade_up()
-# t.init_ycsb()
-# t.load_ycsb()
-# t.run_ycsb()
-# # charybdefs start
-# # benchmark start
-# # inject slow faults
-# t.docker_down()
-# t.blockade_down()
-# # charybdefs end

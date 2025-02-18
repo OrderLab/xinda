@@ -19,6 +19,7 @@ parser.add_argument('--sys_name', type = str, required=True,
                     help='Name of the distributed systems to be tested.')
 parser.add_argument('--data_dir', type = str, required=True,
                     help='Name of data directory to store all the logs')
+
 # Slow fault
 parser.add_argument('--fault_type', type = str, required=True,
                     choices=['nw','fs','none'],
@@ -47,17 +48,8 @@ parser.add_argument('--cpu_limit', type=str, default=None,
                     help='The number of CPU cores allocated to each container instance')
 parser.add_argument('--mem_limit', type=str, default=None,
                     help='The size of memory allocated to each container instance')
+
 # Init
-# parser.add_argument('--log_root_dir', type = str, default = '/data/ruiming/data/default',
-#                     help='[Init] The root directory to store logs (data)')
-# parser.add_argument('--xinda_software_dir', type = str, default = "/data/ruiming/xinda/xinda-software",
-#                     help='[Init] The path to xinda-software')
-# parser.add_argument('--xinda_tools_dir', type = str, default = "/data/ruiming/xinda/tools",
-#                     help='[Init] The path to xinda/tools')
-# parser.add_argument('--charybdefs_mount_dir', type = str, default = "/data/ruiming/tmp1",
-#                     help='[Init] The path where docker volume and charybdefs use to mount')
-# parser.add_argument('--iter', type = str, default = '1',
-#                     help='[Init] Iteration of current experiment setup')
 parser.add_argument('--log_root_dir', type = str, default = f"{os.path.expanduser('~')}/workdir/data/default",
                     help='[Init] The root directory to store logs (data)')
 parser.add_argument('--xinda_software_dir', type = str, default = f"{os.path.expanduser('~')}/workdir/xinda-software",
@@ -104,8 +96,8 @@ parser.add_argument('--ycsb_crdb_load_conn_string', type = str, default = 'postg
                     help='[Benchmark] Connection strings during YCSB load phase')
 parser.add_argument('--ycsb_crdb_run_conn_string', type = str, default = 'postgresql://root@roach3:26257,roach2:26257,roach1:26257?sslmode=disable',
                     help='[Benchmark] Connection strings during YCSB run phase')
-# YCSB - HBASE - Two workloads
 
+# YCSB - HBASE - Two workloads
 parser.add_argument('--ycsb_hbase_threadcount2', type = int, default = 32,
                     help='[Benchmark] Number of YCSB client threads for HBase.')
 parser.add_argument('--bench_exec_time2', type = str, default = '150',
@@ -121,14 +113,13 @@ parser.add_argument('--ycsb_columnfamily2', type = str, default = 'family2',
 parser.add_argument('--benchmark', type = str, required=True,
                     help='[Benchmark] Specify which benchmark to test the system',
                     choices=['ycsb','mrbench', 'terasort', 'perf_test', 'openmsg', 'ycsb', 'sysbench', 'etcd-official', 'depfast', 'copilot'])
-# parser.add_argument('--hadoop_wkl', type = str,
-#                     help='[Benchmark] Specify which benchmark to test mapreduce',
-#                     choices=['mrbench', 'terasort'])
+
 # mrbench - hadoop - Benchmark
 parser.add_argument('--mrbench_num_iter', type = int, default = 10,
                     help='[Benchmark] Number of mrbench jobs running iteratively')
 parser.add_argument('--mrbench_num_reduce', type = str, default = '3',
                     help='[Benchmark] Number of mapreduce reduce tasks')
+
 # terasort - hadoop - Benchmark
 parser.add_argument('--terasort_num_of_100_byte_rows', type = str, default = '10737418',
                     help='[Benchmark] Number of 100-byte rows to sort in terasort')
@@ -136,11 +127,8 @@ parser.add_argument('--terasort_input_dir', type = str, default = '/input',
                     help='[Benchmark] The input directory to store teragen data in HDFS')
 parser.add_argument('--terasort_output_dir', type = str, default = '/output',
                     help='[Benchmark] The output directory to store terasort results in HDFS')
+
 # kafka - Benchmark
-# parser.add_argument('--kafka_wkl', type = str,
-#                     help='[Benchmark] Specify which benchmark to test kafka',
-#                     choices=['perf_test', 'openmsg'])
-# perf_test - kafka - Benchmark
 parser.add_argument('--kafka_replication_factor', type = str, default = '3',
                     help='[Benchmark] Replication factor of performance testing in Kafka')
 parser.add_argument('--kafka_topic_partition', type = str, default = '10',
@@ -149,15 +137,13 @@ parser.add_argument('--kafka_throughput_ub', type = int, default = 10000,
                     help='[Benchmark] The upper bound (limit) of throughput in performance testing in Kafka')
 parser.add_argument('--kafka_num_msg', type = int, default = 14000000,
                     help='[Benchmark] The number of messages in performance testing in Kafka')
+
 # openmsg - kafka - Benchmark
 parser.add_argument('--openmsg_driver', type = str, default = 'kafka-latency',
                     help='[Benchmark] The yaml filename of openmsg kafka driver')
 parser.add_argument('--openmsg_workload', type = str, default = 'simple-workload',
                     help='[Benchmark] The yaml filename of openmsg workload')
-# crdb - Benchmark
-# parser.add_argument('--crdb_wkl', type = str,
-#                     help='[Benchmark] Specify which benchmark to test crdb',
-#                     choices=['ycsb', 'sysbench'])
+
 # sysbench - crdb - Benchmark
 parser.add_argument('--sysbench_lua_scheme', type = str, default='oltp_write_only',
                     help='[Benchmark] The lua scheme to run sysbench workload on crdb')
@@ -170,6 +156,7 @@ parser.add_argument('--sysbench_num_thread', type = int, default = 1,
                     help='[Benchmark] Number of threads to run sysbench workloads on crdb')
 parser.add_argument('--sysbench_report_interval', type = int, default = 1,
                     help='[Benchmark] Granularity of sysbench statistics at run-time')
+
 # official-benchmark - etcd - Benchmark
 parser.add_argument('--etcd_official_wkl', type = str, default = 'lease-keepalive',
                     choices=['txn-put', 'lease-keepalive', 'range', 'stm', 'watch', 'watch-get'],
@@ -186,6 +173,7 @@ parser.add_argument('--etcd_official_locker', type = str, default = 'stm',
                     help='[Benchmark] The locking scheme of transactions in official:stm benchmark')
 parser.add_argument('--etcd_official_num_watchers', type = int, default = 1000000,
                     help='[Benchmark] Number of watchers in benchmark:official-watch-get')
+
 # depfast
 parser.add_argument('--depfast_concurrency', type = int, default = 100,
                     help='[Benchmark] The number of client threads in depfast')
@@ -239,7 +227,6 @@ def main(args):
                         severity_ = args.fault_severity,
                         start_time_ = args.fault_start_time,
                         if_restart_= args.if_restart)
-    # benchmark = Benchmark()
     if sys_name == 'cassandra':
         benchmark = YCSB_CASSANDRA(exec_time_ = args.bench_exec_time,
                                     workload_ = args.ycsb_wkl,
@@ -260,7 +247,6 @@ def main(args):
                                     reslim_ = reslim,
                                     version_=args.version,
                                     if_restart_ = args.if_restart,)
-        # sys.test()
     elif sys_name == 'hbase':
         benchmark = YCSB_HBASE(exec_time_ = args.bench_exec_time,
                                 workload_ = args.ycsb_wkl,
@@ -294,7 +280,6 @@ def main(args):
                             change_workload_ = args.change_workload,
                             benchmark2_ = benchmark2,
                             if_iaso_ = args.if_iaso)
-        # sys.test()
     elif sys_name == 'etcd':
         version = args.version if args.version is not None else '3.5.10'
         if version not in ['3.0.0', '3.4.0', '3.5.10']:
@@ -331,7 +316,6 @@ def main(args):
                         coverage_ = args.coverage,
                         cluster_size_ = args.cluster_size
                         )
-        # sys.test()
     elif sys_name == 'crdb':
         if args.benchmark is None or args.benchmark not in ['ycsb', 'sysbench']:
             print("Need to specify which benchmark to test crdb (--benchmark). Options: ycsb OR sysbench.")
@@ -386,7 +370,6 @@ def main(args):
                         if_restart_ = args.if_restart,
                         if_iaso_ = args.if_iaso,
                         cluster_size_ = args.cluster_size)
-        # sys.test()
     elif sys_name == 'hadoop':
         if args.benchmark is None or args.benchmark not in ['terasort', 'mrbench']:
             print("Need to specify which benchmark to test hadoop (--benchmark). Options: terasort OR mrbench.")
@@ -418,7 +401,6 @@ def main(args):
                             if_restart_ = args.if_restart,
                             coverage_ = args.coverage, # TODO: implement logic for this
                             )
-        # sys.test()    
     elif sys_name == 'kafka':
         if args.benchmark is None or args.benchmark not in ['perf_test', 'openmsg']:
             print("Need to specify which benchmark to test kafka (--benchmark). Options: perf_test OR openmsg.")
@@ -446,7 +428,6 @@ def main(args):
                             version_=args.version,
                             if_restart_ = args.if_restart
                           )
-        # sys.test()  
     elif sys_name == 'depfast':
         benchmark = DEFAULT_DEPFAST(exec_time_ = args.bench_exec_time,
                                     concurrency_ = args.depfast_concurrency,
@@ -490,40 +471,18 @@ if __name__ == "__main__":
     try:
         args = parser.parse_args()
         cur_command = ' '.join(sys.argv)
-        # raise ValueError("This is a test")
         sys = main(args)
         sys.info(f"Current command:\npython3 {cur_command}")
         sys.test()
-    # except KeyboardInterrupt:
-    #     pass
     except (KeyboardInterrupt, Exception) as e:
         if args.batch_test_log is not None:
             log_file_path = args.batch_test_log
         else:
             log_file_path = './stderr.log'
         with open(log_file_path, 'a') as log_file:
-            # if args.unique_identifier is not None:
-            #     log_file.write('[' + args.unique_identifier + ']' + '#'*30 + '\n')
-            # else:
-            #     log_file.write('#'*30+'\n')
             log_file.write('#'*50+'\n')
             cur_ts = int(time.time()*1e9)
             log_file.write(f"[{str(cur_ts)}, {datetime.datetime.now()}]\n")
             log_file.write(f"{cur_command}\n")
             traceback.print_exc(file=log_file)
             log_file.write('#'*50+'\n')
-        
-# python3 main.py --sys_name cassandra --data_dir test1 --fault_type nw --fault_location cas1 --fault_duration 30 --fault_severity slow3 --fault_start_time 10 --bench_exec_time 60
-# python3 main.py --sys_name cassandra --data_dir writeonly --fault_type nw --fault_location cas1 --fault_duration 30 --fault_severity slow3 --fault_start_time 10 --bench_exec_time 60 --ycsb_wkl writeonly
-
-## nw kafka
-# python3 main.py --sys_name kafka --data_dir xixi2 --fault_type nw --fault_location kafka1 --fault_duration 30 --fault_severity slow-low --fault_start_time 10 --bench_exec_time 60 --kafka_wkl perf_test
-# python3 main.py --sys_name kafka --data_dir xixi2 --fault_type nw --fault_location kafka1 --fault_duration 30 --fault_severity flaky-low --fault_start_time 10 --bench_exec_time 60 --kafka_wkl openmsg
-## fs kafka
-# python3 main.py --sys_name kafka --data_dir xixi2 --fault_type fs --fault_location kafka1 --fault_duration 30 --fault_severity 1000 --fault_start_time 10 --bench_exec_time 60 --kafka_wkl perf_test
-
-## nw crdb
-# python3 main.py --sys_name crdb --data_dir xixi2 --fault_type nw --fault_location roach1 --fault_duration 30 --fault_severity slow-low --fault_start_time 10 --bench_exec_time 60 --ycsb_wkl a --benchmark ycsb
-# python3 main.py --sys_name crdb --data_dir xixi2 --fault_type nw --fault_location roach1 --fault_duration 30 --fault_severity flaky-low --fault_start_time 10 --bench_exec_time 60 --benchmark sysbench
-## fs crdb
-# python3 main.py --sys_name crdb --data_dir xixi2 --fault_type fs --fault_location roach1 --fault_duration 30 --fault_severity 10000 --fault_start_time 10 --bench_exec_time 60 --benchmark sysbench

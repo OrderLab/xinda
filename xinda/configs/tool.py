@@ -4,8 +4,8 @@ from xinda.configs.reslim import *
 class Tool:
     def __init__(self, 
                  sys_name_ : str,
-                 xinda_software_dir_ : str, #= "/data/ruiming/xinda/xinda-software",
-                 xinda_tools_dir_ : str, #= "/data/ruiming/xinda/tools",
+                 xinda_software_dir_ : str, 
+                 xinda_tools_dir_ : str, 
                  charybdefs_mount_dir_ : str,
                  reslim_: ResourceLimit,
                  version_: str = None,
@@ -52,7 +52,6 @@ class Tool:
 
         # charybdefs
         self.cfs_root = charybdefs_mount_dir_
-        # self.cfs_root = '/home/ruiming/temp2'
         self.cfs_dir = os.path.join(self.cfs_root, 'cfs_mount')
         self.fuse_dir = os.path.join(self.cfs_dir, sys_name_)
         self.dummy_dir = os.path.join(self.cfs_root, 'fuser')
@@ -81,7 +80,6 @@ class Tool:
 
         # Kafka
         self.kafka_compiled_source = os.path.join(xinda_software_dir_, 'kafka')
-        # self.openmsg_compiled_source = '/data/ruiming/temp/openmessaging' # test use only (on razor14)
         self.openmsg_compiled_source = os.path.join(xinda_software_dir_, 'openmessaging')
         self.generate_env()
     
@@ -103,7 +101,6 @@ class Tool:
                'CONTAINER_DIR_roach2=/cockroach/cockroach-data',
                # etcd
                f'LOCAL_DIR_etcd0={self.fuse_dir}/etcd0',
-            #    'CONTAINER_DIR_etcd=/data.etcd/data1',
                'CONTAINER_DIR_etcd=/data.etcd',
                f'LOCAL_DIR_etcd1={self.fuse_dir}/etcd1',
                f'LOCAL_DIR_etcd2={self.fuse_dir}/etcd2',

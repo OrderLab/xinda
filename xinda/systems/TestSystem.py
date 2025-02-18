@@ -19,9 +19,9 @@ class TestSystem:
                  fault_: SlowFault, 
                  benchmark_: Benchmark,
                  data_dir_: str,
-                 log_root_dir_: str, #='/users/YXXinda/workdir/data/default',
-                 xinda_software_dir_: str, #= "/users/YXXinda/workdir/xinda-software",
-                 xinda_tools_dir_: str, # = "/users/YXXinda/workdir/xinda/tools",
+                 log_root_dir_: str, 
+                 xinda_software_dir_: str, 
+                 xinda_tools_dir_: str,
                  charybdefs_mount_dir_: str,
                  reslim_: ResourceLimit,
                  version_: str = None,
@@ -31,7 +31,7 @@ class TestSystem:
                  benchmark2_: Benchmark = None,
                  if_iaso_: str = 'reboot',
                  cluster_size_: int = 3,
-                 iter_: int = 1):# = "/users/YXXinda/workdir/tmp"):
+                 iter_: int = 1):
         self.sys_name = sys_name_
         self.if_restart = if_restart_
         self.reslim = reslim_
@@ -112,10 +112,6 @@ class TestSystem:
         self.info(f'Cleaning charybdefs mount directory.')
         cmd = f'rm -rf {self.tool.charybdefs_mount_dir}'
         _ = subprocess.run(cmd, shell=True)
-        # if self.sys_name == 'kafka' and self.benchmark.benchmark == 'openmsg':
-        #     if self.is_port_in_use(8082) or self.is_port_in_use(8083) or self.is_port_in_use(8084) or self.is_port_in_use(8085):
-        #         self.info(f'Prior openmsg instance detected. Stopping now.')
-        #         keyword = "8082"
         time.sleep(5)
     
     def info(self,
@@ -165,18 +161,6 @@ class TestSystem:
                 print('try again')
                 _ = subprocess.Popen(cmd, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL, cwd=self.tool.compose)
         self.info(f'Bringing up a new docker-compose cluster ({self.compose_file})')
-        '''
-        Why do we have to start the cluster TWICE? I have looked into this problem for a long time. If you:
-        1. open a new terminal
-        2. cd to charybdefs folder and start charybdefs
-        3. cd to docker-xxxx folder
-        4. docker-compose up -d to start the service
-        5. We will have something similar to 
-            "Error response from daemon: error while creating mount source path '/data/ruiming/tmp/cfs_mount/cassandra/cas1': chown /data/ruiming/tmp/cfs_mount/cassandra/cas1: operation not permitted"
-        However:
-        1. if you docker-compose up -d again, everything works well.
-        2. or, if you docker-compose up -d in another terminal when doing step 3/4, everything works well too.
-        '''
     
     def charybdefs_up(self):
         def remove_dir(path):
@@ -203,20 +187,6 @@ class TestSystem:
         if p_output is not None and 'Stop' in p_output:
             raise Exception(f"CharybdeFS has already started. Stop it first.")
         self.info('charybdefs started')
-        '''
-        # docker-compose up
-        # mount_pattern = f"{data_dir}:/var/lib/cassandra/data"
-        # cmd = f"CURRENT_UID=$(id -u):$(id -g) DATA_DIR={mount_pattern} docker-compose -f docker-compose-{self.fault.location}.yaml up -d"
-        # print(cmd)
-        # print(f"_ = subprocess.Popen('{cmd}', shell=True, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL, cwd={self.tool.compose})")
-        # _ = subprocess.Popen(f"'{cmd}'", shell=True, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL, cwd=self.tool.compose)
-        # _ = subprocess.Popen(cmd, shell=True, cwd=self.tool.compose)
-        # time.sleep(200)
-        # ## docker-compose down
-        # cmd = f"CURRENT_UID=$(id -u):$(id -g)  DATA_DIR={data_dir} docker-compose -f docker-compose-{self.fault.location}.yaml down -v"
-        # print(cmd)
-        # _ = subprocess.Popen(cmd, shell=True, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL, cwd=self.tool.compose)
-        '''
     
     def charybdefs_down(self):
         def remove_dir(path):
@@ -228,7 +198,6 @@ class TestSystem:
         _ = subprocess.run(cmd, cwd=self.tool.cfs_source)
         # charybdefs down
         cmd = f"./stop.sh {self.tool.fuse_dir}"
-        # print(cmd)
         _ = subprocess.run(cmd, shell=True, cwd=self.tool.cfs_source)
         self.info('charybdefs destroyed')
         remove_dir(self.tool.cfs_root)
@@ -273,7 +242,6 @@ class TestSystem:
         cp_cmd = f'cp blockade-{self.fault.severity}.yaml blockade.yaml'
         p = subprocess.run(cp_cmd, cwd=self.tool.blockade, shell=True)
         up_cmd = f'blockade up'
-        # cmd = f'blockade --config blockade-{self.fault.severity}.yaml up'
         p = subprocess.run(up_cmd, cwd=self.tool.blockade, stderr=subprocess.PIPE, shell=True)
         # check return code
         if p.returncode != 0:
@@ -298,16 +266,7 @@ class TestSystem:
         cmd = ['blockade', 'status']
         p = subprocess.run(cmd, cwd=self.tool.blockade, stdout=subprocess.PIPE)
         self.info(p.stdout.decode('utf-8'), if_time=False)
-        # except:
-        #     err_msg = p_up.stderr.decode('utf-8')
-        #     if 'already exists' in err_msg:
-        #         print("Error: a blockade already exists. Trying self.blockade_down() now.")
-        #         self.blockade_down()
-        #         print("Trying self.blockade_up() again.")
-        #         self.blockade_up()
-        #     else:
-        #         raise subprocess.CalledProcessError("Unknown error during blockade initialization. Abort.")
-        
+    
     def check_blockade_slowness(self):
         p = subprocess.run('tc qdisc | grep netem', shell=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
         self.info(p.stdout.decode('utf-8').strip(), if_time=True)

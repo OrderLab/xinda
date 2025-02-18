@@ -20,10 +20,8 @@ class Logging:
         else:
             path0 = os.path.join(log_root_dir_, sys_name_+'-'+version_)
         self.create_dir_if_not_exist(path0)
-        # path1 = os.path.join(log_root_dir_, sys_name_, data_dir_)
         path1 = os.path.join(path0, data_dir_)
         self.create_dir_if_not_exist(path1)
-        # path2 = os.path.join(log_root_dir_, sys_name_, data_dir_, benchmark_.identifier)
         path2 = os.path.join(path1, benchmark_.identifier)
         path2 = os.path.join(path2, f"cpu_{reslim_.cpu_limit}", f"mem_{reslim_.mem_limit}")
         self.data_dir = path2
@@ -52,8 +50,6 @@ class Logging:
         self.crdb_stderr_log = os.path.join(path2, 'stderr-' + self.description + ".log")
 
         # For HBase
-        # self.raw_container = f"/tmp/raw-{fault_.location}-{fault_.info}-{iter_}.log"
-        # self.runtime_container = f"/tmp/runtime-{fault_.location}-{fault_.info}-{iter_}.log"
         self.raw_container = f"/tmp/raw-{self.description}.log"
         self.runtime_container = f"/tmp/runtime-{self.description}.log"
         if change_workload and sys_name_ == 'hbase':
@@ -87,8 +83,6 @@ class Logging:
             self.runtime_run.append(os.path.join(path2, 'runtime-run' + str(i) + "-" + self.description + ".log"))
             self.ts_run.append(os.path.join(path2, 'ts-run' + str(i) + "-" + self.description + ".log"))
             self.sum_run.append(os.path.join(path2, 'sum-run' + str(i) + "-" + self.description + ".log"))
-        # self.raw_container = f"/tmp/raw-{fault_.info}-{iter_}.log"
-        # self.runtime_container = f"/tmp/runtime-{fault_.info}-{iter_}.log"
 
         # For Kafka
         self.kafka_producer = os.path.join(path2, 'producer-' + self.description + ".log")
@@ -97,9 +91,6 @@ class Logging:
         self.openmsg_summary = os.path.join(path2, 'sum-' + self.description + ".json")
         self.openmsg_worker1 = os.path.join(path2, 'worker1-' + self.description + ".log")
         self.openmsg_worker2 = os.path.join(path2, 'worker2-' + self.description + ".log")
-        # self.openmsg_driver_stderr = os.path.join(path2, 'err-driver-' + self.description + ".log")
-        # self.openmsg_worker1_stderr = os.path.join(path2, 'err-worker1-' + self.description + ".log")
-        # self.openmsg_worker2_stderr = os.path.join(path2, 'err-worker2-' + self.description + ".log")
         
         # For Depfast
         self.depfast_filename = f"raw-{self.description}"

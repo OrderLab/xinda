@@ -22,8 +22,6 @@ class YCSB_CASSANDRA(Benchmark):
 class YCSB_HBASE(Benchmark):
     def __init__(self, 
                  exec_time_ : str,
-                #  run_exec_time_ : str,
-                #  load_exec_time_ : str,
                  workload_ : str, # a b c d e f
                  recordcount_ = '10000',
                  operationcount_ = '10000000',
@@ -31,8 +29,6 @@ class YCSB_HBASE(Benchmark):
                  status_interval_ = '1',
                  columnfamily_ = 'family',
                  threadcount_ = 8):
-        # self.run_exec_time = run_exec_time_
-        # self.load_exec_time = load_exec_time_
         self.exec_time = exec_time_
         self.workload = workload_
         self.benchmark = 'ycsb'
