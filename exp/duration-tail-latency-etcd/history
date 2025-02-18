@@ -1,7 +1,0 @@
-cd ~/xinda/cloudlab-ansible
-
-ansible-playbook -i ../exp/duration-tail-latency-etcd/hosts clean-all.yml update_xinda.yml
-
-ansible-playbook -i ../exp/duration-tail-latency-etcd/hosts compress_exp_data.yml --extra-vars "task=duration-tail-latency"
-
-python3 duration.py --sys_name etcd --data_dir rq1_1 --start_time 0 --duration 120 150  --fault_type nw --iter 20 --unique_benchmark ycsb

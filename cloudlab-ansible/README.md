@@ -52,8 +52,7 @@ ansible-galaxy collection install ansible.posix
 The `ansible_hosts` file is used to specify the hosts that you want to run the ansible playbook on. The format of the file is as follows:
 
 ```bash
-clnode147.clemson.cloudlab.us ansible_connection=ssh ansible_user=YXXinda ansible_port=22
-clnode148.clemson.cloudlab.us ansible_connection=ssh ansible_user=YXXinda ansible_port=22
+c220g2-011110.wisc.cloudlab.us ansible_connection=ssh ansible_user=YXXinda ansible_port=22
 ```
 
 You can add as many hosts as you want to the file. The `ansible_user` is the username that you use to login to the host. The `ansible_port` is the port that you use to ssh to the host. The `ansible_connection` is the connection type that you use to connect to the host. In our case, we use ssh.

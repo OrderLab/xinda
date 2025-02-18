@@ -1,9 +1,0 @@
-cd ~/workdir/hbase-pipeline/figure/workload-change; python3 different-resource.py --cpu 1 --mem 8
-cd ~/workdir/hbase-pipeline/figure/workload-change; python3 different-resource.py --cpu 1 --mem 16
-cd ~/workdir/hbase-pipeline/figure/workload-change; python3 different-resource.py --cpu 1 --mem 32
-cd ~/workdir/hbase-pipeline/figure/workload-change; python3 different-resource.py --cpu 2 --mem 8
-cd ~/workdir/hbase-pipeline/figure/workload-change; python3 different-resource.py --cpu 2 --mem 16
-cd ~/workdir/hbase-pipeline/figure/workload-change; python3 different-resource.py --cpu 2 --mem 32
-cd ~/workdir/hbase-pipeline/figure/workload-change; python3 different-resource.py --cpu 5 --mem 8
-cd ~/workdir/hbase-pipeline/figure/workload-change; python3 different-resource.py --cpu 5 --mem 16
-cd ~/workdir/hbase-pipeline/figure/workload-change; python3 different-resource.py --cpu 5 --mem 32

@@ -1,9 +1,0 @@
-ansible-playbook -i hosts ../../cloudlab-ansible/clean-all.yml
-test_script_path=~/Desktop/UMICH/xinda/xinda/test_scripts/RQ1_1/
-cd $test_script_path
-
-python3 depfast.py --sys_name depfast --data_dir depfast --start_time1 0 --start_time2 0 --duration -1 100 --concurrent 10 --fault_type nw --bench_exec_time 60 --severity nw-slow --iter 48
-
-search and replace: concurrency 10 => concurrency 100
-
-ansible-playbook -i hosts ../../cloudlab-ansible/compress_exp_data.yml --extra-vars "task=depfast-exp-paper-conc100"

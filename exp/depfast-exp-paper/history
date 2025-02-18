@@ -1,4 +1,0 @@
-test_script_path=~/Desktop/UMICH/xinda/xinda/test_scripts/RQ1_1/
-cd $test_script_path
-
-python3 depfast.py --sys_name depfast --data_dir depfast --start_time1 0 --start_time2 0 --duration -1 200 --concurrent 10 --fault_type nw --bench_exec_time 150 --severity nw-slow --iter 48

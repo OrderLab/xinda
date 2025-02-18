@@ -23,9 +23,6 @@ services:
       - ./healthcheck.sh:/tmp/healthcheck.sh
     healthcheck:
       test: 'bash /tmp/healthcheck.sh'
-      #test: ["CMD-SHELL", "[ '$(nodetool status | grep 'UN ' | awk '{print $2}' | wc -l)' == 2 ]"]
-      #test: ["CMD", "curl", "-f", "http://localhost:9042"]
-      #test: ["CMD-SHELL", "[ $$(nodetool status | grep 'UN ' | awk '{print $2}' | wc -l) = 2 ]"]
       interval: 30s
       timeout: 10s
       retries: 5

@@ -1,8 +1,0 @@
-test_script_path=~/Desktop/UMICH/xinda/xinda/test_scripts/RQ1_1/
-cd $test_script_path
-
-
-python3 rq1_1.py --sys_name crdb --data_dir rq1_1 --start_time 60 --duration 3-  --fault_type fs --unique_benchmark ycsb --iter 50
-
-3.5*20/60 = 1.17 hr = 70min = 19:00pm
-
