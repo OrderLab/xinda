@@ -21,6 +21,7 @@ def gen_stats(gmctx: GenMetaContext, stats: dict):
         "coverage":150,
         "test":150,
         "tool":300,
+        "sample_test":150
     }
     total_start = 30
     if gmctx.ctx.question.startswith('combi'):

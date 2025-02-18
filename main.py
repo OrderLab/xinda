@@ -13,7 +13,7 @@ from xinda.configs.reslim import *
 import traceback
 
 
-parser = argparse.ArgumentParser(description="Gray failure study on six distributed systems")
+parser = argparse.ArgumentParser(description="Xinda: A slow-fault testing pipeline for distributed systems.")
 parser.add_argument('--sys_name', type = str, required=True,
                     choices=['cassandra', 'hbase', 'hadoop', 'etcd', 'crdb', 'kafka', 'depfast', 'copilot'],
                     help='Name of the distributed systems to be tested.')
@@ -39,16 +39,14 @@ parser.add_argument('--batch_test_log', type = str, default = None,
                     help='Path to the meta log file of batch test')
 parser.add_argument('--if_restart', action='store_true', default=False,
                     help='If we need to restart the system after fault injection')
-parser.add_argument('--if_reslim', action='store_true', default=False,
-                    help='[Deprecated] If we need to set resource limits on CPU and memory')
 parser.add_argument('--if_iaso', type=str, default='none', choices=['reboot', 'shutdown', 'none'],
                     help='If we want to mimic IASO')
 parser.add_argument('--cluster_size', type=int, default=3,
                     help='Cluster size (default: 3)')
 parser.add_argument('--cpu_limit', type=str, default=None,
-                    help='The number of CPU cores that each container can get at most (e.g., 0.5 or 1 or 5)')
+                    help='The number of CPU cores allocated to each container instance')
 parser.add_argument('--mem_limit', type=str, default=None,
-                    help='The size of memory that each container can get at most (e.g., 512M or 1GB or 2GB) ')
+                    help='The size of memory allocated to each container instance')
 # Init
 # parser.add_argument('--log_root_dir', type = str, default = '/data/ruiming/data/default',
 #                     help='[Init] The root directory to store logs (data)')

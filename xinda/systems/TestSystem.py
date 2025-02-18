@@ -251,7 +251,6 @@ class TestSystem:
         self.info('Containers IP addr retrieved')
         for container_name, ip_address in container_info.items():
             self.info(f"Container Name: {container_name}, IP Address: {ip_address}", if_time=False)
-        # if self.reslim.if_reslim:
         cmd = 'docker stats --no-stream'
         p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
         cmd_output = p.stdout.read()

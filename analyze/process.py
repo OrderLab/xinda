@@ -8,7 +8,6 @@ from pandas import DataFrame
 from tqdm import tqdm
 from collections import OrderedDict
 
-from config import DATA_DIR
 from typing import List, Tuple, Dict, Optional
 from parse.runtime_parser import RuntimeParser
 from parse.raw_parser import RawParser
@@ -219,17 +218,16 @@ def gen_meta_batch(data_dir, output_dir) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="xinda log parser")
-    parser.add_argument("-d", "--data_dir", default=DATA_DIR,
+    parser.add_argument("-d", "--data_dir", required=True,
                         help="Specify root of data directory containing all logs")
-    parser.add_argument("-o", "--output_dir", default=None,
+    parser.add_argument("-o", "--output_dir", required=True,
                         help="Specify root of output directory for outputing all logs")
     parser.add_argument("-r", "--redo", default="",
                         help="Redo tasks")
 
     args = parser.parse_args()
-    # output_dir = os.path.abspath(args.output_dir or args.data_dir.replace("/data/ruiming", "/data/yunchi"))
-    output_dir = os.path.abspath(args.output_dir or args.data_dir.replace("/data/ruiming", "/home/ruiming/processed_results"))
-
+    # output_dir = os.path.abspath(args.output_dir or args.data_dir.replace("data", "processed_results"))
+    output_dir = os.path.abspath(args.output_dir)
     parse_batch(
         data_dir=os.path.abspath(args.data_dir),
         output_dir=output_dir,
