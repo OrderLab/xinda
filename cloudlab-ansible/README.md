@@ -24,7 +24,7 @@ Specifically, below are the things that this folder do:
 
 ### Step0: Create nodes on CloudLab
 
-Create nodes on CloudLab with a `Ubuntu 18.04` profile by clicking Experiments -> Start Experiment.
+Create nodes on CloudLab with a `Ubuntu 18.04` profile. A detailed instruction on how to use CloudLab can be found [here](https://docs.cloudlab.us/getting-started.html).
 
 ### Step1: Setup ssh key forwarding
 
