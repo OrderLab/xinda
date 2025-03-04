@@ -19,7 +19,7 @@
       ansible.builtin.git:
         dest: "{{ home.stdout }}/workdir/xinda"
         repo: git@github.com:OrderLab/xinda.git
-        version: nsdi25
+        version: master
         accept_hostkey: yes
 
     - name: create Xinda-Software dir

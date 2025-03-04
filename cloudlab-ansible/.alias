@@ -19,6 +19,5 @@ alias al='cat ~/.alias' # Check the current list of alias
 alias dps='docker ps -a'
 alias gis='git status'
 alias clean='python3 ~/workdir/xinda/cleanup.py'
-alias work='cd ~/workdir/hbase-pipeline'
 alias down='docker-compose down -v'
 alias up='docker-compose up -d'

@@ -2,13 +2,13 @@
 
 ## What does this do?
 
-This folder contains `ansible` playbooks that can be used to configure any machines for `xinda`. We use it to configure the nodes on cloudlab.
+This folder contains `ansible` playbooks that can be used to configure any machines for `Xinda`. We use it to configure the nodes on CloudLab.
 
 Specifically, below are the things that this folder do:
 
 1. Installation
     - `docker` and `docker-compose`
-    - `blockade``: installed in a conda environment with python3.6. The env is automatically activated when you login to the node.
+    - `blockade`: installed in a conda environment with python3.6. The env is automatically activated when you login to the node.
     - `Thrift` and the correct toolchain to build it.
     - `Charybdefs` and the correct toolchain to build it: the `Charybdefs` source code is the modified version from the xinda-software repo. The built directory is copied to `~/charybdefs`.
 2. Setup environment variables in `~/.bashrc`.
@@ -22,13 +22,13 @@ Specifically, below are the things that this folder do:
 
 ## How to use it?
 
-### Step0: Create nodes on cloudlab
+### Step0: Create nodes on CloudLab
 
-Create nodes on cloudlab with `Ubuntu 18.04` image. To do this, the failureDetection project has a `Ubuntu18` profile that you can use. You can also use other profiles as long as the image is `Ubuntu 18.04`.
+Create nodes on CloudLab with a `Ubuntu 18.04` profile by clicking Experiments -> Start Experiment.
 
 ### Step1: Setup ssh key forwarding
 
-Execute the following command to start the ssh-agent
+Execute the following command to start the ssh-agent on your local machine.
 
 ```bash
 eval `ssh-agent -s`
@@ -42,25 +42,29 @@ ssh-add <path-to-private-key>
 
 ### Step2: Install ansible
 
+We use Python==3.9.20 and pip==24.2 to install ansible in our local environment.
+
 ```bash
-pip install ansible
-ansible-galaxy collection install ansible.posix
+pip3 install ansible
+ansible-playbook -h
 ```
 
-### Step2: Create your `ansible_hosts` file
+### Step2: Create your `ansible_host` file
 
-The `ansible_hosts` file is used to specify the hosts that you want to run the ansible playbook on. The format of the file is as follows:
+The `ansible_host` file is used to specify the hosts that you want to run the ansible-playbook on. The format of the file is as follows:
 
 ```bash
-c220g2-011110.wisc.cloudlab.us ansible_connection=ssh ansible_user=YXXinda ansible_port=22
+c220g2-011110.wisc.cloudlab.us ansible_connection=ssh ansible_user=YOUR_USERNAME ansible_port=22
 ```
 
 You can add as many hosts as you want to the file. The `ansible_user` is the username that you use to login to the host. The `ansible_port` is the port that you use to ssh to the host. The `ansible_connection` is the connection type that you use to connect to the host. In our case, we use ssh.
 
-### Step3: Run the ansible playbook
+### Step3: One-click setup using ansible-playbook
 
 ```bash
-ansible-playbook -i ansible_hosts configure.yml
+ansible-playbook -i ansible_host configure.yml
 ```
 
 The `configure.yml` file is the playbook that runs all playbooks in this directory. You can also run individual playbooks by specifying the corresponding file name.
+
+The setup process will take ~30 minutes to complete. The script will install all necessary dependencies for Xinda to deploy a distributed system, run benchmarks, inject slow faults, collect runtime logs and stats, and analyze the results. Once the setup is done, you can ssh into the remote machine and start using Xinda (by default, the code is located at `$HOME/workdir/xinda`).

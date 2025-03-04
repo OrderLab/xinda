@@ -1,135 +1,48 @@
 # Overview
 
-This repo contains the source code of (1) Xinda, a slow-fault testing pipeline; and (2) ADR, a lightweight runtime slow-fault detection library. The following sections are for building and running Xinda. Please refer to [./adr](adr) for more information on ADR.
+This repo contains the source code of (1) Xinda, a slow-fault testing pipeline; and (2) ADR, a lightweight runtime slow-fault detection library. The following sections are for building and running Xinda. More information about ADR can be found [here](adr).
 
-- [Overview](#overview)
-  - [Requirements](#requirements)
-  - [Install and configure dependencies](#install-and-configure-dependencies)
-  - [Usage](#usage)
-    - [1. Configuring Xinda](#1-configuring-xinda)
-      - [1.1 Experiment Configuration](#11-experiment-configuration)
-      - [1.2 System Configuration](#12-system-configuration)
-      - [1.3 Benchmark Configuration](#13-benchmark-configuration)
-      - [1.4 Slow-Fault Configuration](#14-slow-fault-configuration)
-    - [2. Results Analysis](#2-results-analysis)
-  - [Examples](#examples)
-  - [Publication](#publication)
+# Xinda
 
-## Requirements
+![Preview](docs/example-xinda.jpg)
 
-* OS: Xinda is developed and deployed under **Ubuntu 18.04**.
-* Hardware:
-    - The basic workflow of Xinda described in this README can be done in just one single node.
-    - Our experiment node uses the [CloudLab c220g2](https://docs.cloudlab.us/hardware.html#%28part._cloudlab-wisconsin%29) node type, which has two
-    Intel E5-2660 v3 10-core CPUs at 2.60 GHz, 160GB ECC DDR4 2133 MHz memory, 
-    and a 480GB Intel DC SATA SSD plus two 1.2TB 10K RPM 6G SAS HDDs for storage.
-* Xinda leverages two fault injection tools. Here are the exact environment to build:
-    - Python (==3.6.13)
-    - Blockade (==0.4.0, for injecting network-related slow faults)
-    - CharybdeFS for injecting filesystem-related slow faults:
-        - CMake (==3.23.0)
-        - Thrift (==0.10.0)
-        - M4 (==1.4.19)
-        - Autoconf (==2.69)
-* Xinda maintains a separate repo, [xinda-software](https://github.com/OrderLab/xinda-software/tree/master), to build and configure cloud benchmarks (YCSB and OpenMessaging) and other utilities (docker-compose).
-* The analysis part of Xinda requires the following Python packages:
+Xinda is designed to be a flexible and extensible slow-fault testing pipeline for distributed systems. It automates the process of initializing a distributed cluster, running cloud benchmarks, injecting flexible and fine-grained slow faults, collecting runtime logs and stats, and analyzing the results. It can be extended to support new distributed systems, benchmarks, and fault injection methods.
+
+## Build
+
+(**Recommended**) The easiest way to configure and deploy Xinda is to use [ansible-playbook](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html) on [CloudLab](https://www.cloudlab.us/) [c220g2](https://docs.cloudlab.us/hardware.html#%28part._cloudlab-wisconsin%29) nodes. A more detailed guideline is available [here](cloudlab-ansible/README.md).
+
+<details>
+<summary> To build and install Xinda manually </summary>
+
+It is still recommended to go through each step of the [playbook](cloudlab-ansible/configure.yml). We highlight the following prerequisites:
+
+* OS: Ubuntu 18.04
+* Hardware: 
+  - An SSD is required to mount the docker directory (`/var/lib/docker` by default).
+  - As a reference, our evaluation runs on [CloudLab c220g2](https://docs.cloudlab.us/hardware.html#%28part._cloudlab-wisconsin%29) node type, which has two
+  Intel E5-2660 v3 10-core CPUs at 2.60 GHz, 160GB ECC DDR4 2133 MHz memory, 
+  and a 480GB Intel DC SATA SSD plus two 1.2TB 10K RPM 6G SAS HDDs for storage.
+* Software:
+  - [xinda-software](https://github.com/OrderLab/xinda-software/tree/master)
+  - Python (==3.6.13). For data processing:
     - pandas (==2.2.2)
     - tqdm (==4.66.2)
+  - [Blockade](https://github.com/worstcase/blockade) (==0.4.0, for injecting network-related slow faults)
+  - [CharybdeFS](https://github.com/scylladb/charybdefs) for injecting filesystem-related slow faults:
+    - [CMake](https://github.com/Kitware/CMake/releases/) (==3.23.0)
+    - [Thrift](https://archive.apache.org/dist/thrift/0.10.0/) (==0.10.0)
+    - [M4](https://ftp.gnu.org/gnu/m4) (==1.4.19)
+    - [Autoconf](https://ftp.gnu.org/gnu/autoconf/) (==2.69)
 
+</details>
 
-## Install and configure dependencies
-Below we show how to configure Xinda on a remote CloudLab c220g2 machine. We use Ansible to automate the process.
-
-First, let's install Ansible on your local machine. We use Python==3.9.20 and pip==24.2 to install Ansible in our local environment.
-```bash
-pip3 install ansible
-ansible-playbook -h
-```
-
-
-Next, we need to configure the host file for Ansible to access the remote machine. A more detailed guideline is available [here](cloudlab-ansible/README.md). We provide an example of the host file in `./cloudlab-ansible/ansible_host`. You need to modify the hostname, username, and port number to match your remote machine. Once set, we can set up the remote machine in one click using the following command:
-```bash
-# cd ./cloudlab-ansible/
-ansible-playbook -i ansible_host configure.yml
-```
-The setup process will take ~30 minutes to complete. The script will install all necessary dependencies for Xinda to deploy a distributed system, run benchmarks, inject slow faults, collect runtime logs and stats, and analyze the results. Once the setup is done, you can ssh into the remote machine and start using Xinda (by default, the code is located at `$HOME/workdir/xinda`).
-
-## Usage
-Applying Xinda to a system involves two steps: (1) configuring Xinda arguments and running the test experiment using `main.py`; (2) analyzing the test results using `analyze/process.py`.
-
-
-
-
-### 1. Configuring Xinda
-
-
-
-There are a few arguments to configure Xinda in terms of the system under test, the benchmark used, and the slow faults injected. Below are the main arguments to configure Xinda. The rest of the arguments can be found in `main.py` and are for development purposes.
-
-```bash
-python3 main.py -h
-
-# Xinda: A slow-fault testing pipeline for distributed systems.
-# optional arguments:
-# ...
-```
-
-To reset/clean up the working environment for next Xinda test:
-
-```bash
-python3 cleanup.py
-```
-
-#### 1.1 Experiment Configuration
-| Field | Default<br>Value | Description |
-| - | - | - |
-| log_root_dir | $HOME/workdir/data/default | The root directory to store logs (data) |
-| data_dir | REQUIRED | Name of the experiment. Results will be stored in $log_root_dir/$sys_name/$data_dir |
-| bench_exec_time\* | 150 | Benchmark duration in seconds |
-| iter | 1 | Label for repeated experiments |
-
-> \* Note that for Hadoop, we use special flags to control the duration of the benchmark. Namely, the number of MRBench runs (--mrbench_num_iter) and the size of the data generated by TeraGen (--terasort_num_of_100_byte_rows) followed by the TeraSort benchmark.
-
-#### 1.2 System Configuration
-| Field | Default<br>Value | Description |
-| - | - | - |
-| sys_name | REQUIRED |  Name of the distributed systems to be tested |
-| cpu_limit | None | The number of CPU cores allocated to each container instance |
-| mem_limit | None | The size of memory allocated to each container instance |
-
-
-
-#### 1.3 Benchmark Configuration
-| Field | Default<br>Value | Description |
-| - | - | - |
-| benchmark | REQUIRED | Specify which benchmark to test the system |
-| ycsb_wkl | mixed | Other options are available in $HOME/workdir/xinda-software/ycsb-workloads |
-| openmsg_driver | kafka-latency | The yaml filename of openmsg kafka driver. Available options are listed in `xinda-software/openmessaging/driver-kafka` |
-| openmsg_workload | simple-workload |  The yaml filename of openmsg workload. Available options are listed in `xinda-software/openmessaging/workloads` |
-| sysbench_lua_scheme | oltp_write_only | The lua scheme to run sysbench workload on crdb |
-| etcd_official_wkl |  lease-keepalive | The benchmark from etcd official benchmarking tool to test etcd |
-
-#### 1.4 Slow-Fault Configuration
-| Field | Default<br>Value | Description |
-| - | - | - |
-| fault_type | REQUIRED |  Types of slow faults to be injected. Can be {nw, fs, None} |
-| fault_location | REQUIRED | Fault injection location. Available hostnames are listed in `./xinda/systems/container.yaml` |
-| fault_duration | REQUIRED | Duration of the fault injection in seconds |
-| fault_severity | REQUIRED | Severity of the fault injection. For network slow faults, available options are listed in `./tools/blockade` (e.g., flaky-p10 or slow-100ms). For filesystem delays, just pass the delay to be injected in us (e.g., 1000 for 1ms or 100000 for 100ms) |
-| fault_start_time | REQUIRED | Inject slow faults at X seconds after the benchmark is running |
-
-### 2. Results Analysis
-By default each Xinda test will generate a directory in `$HOME/workdir/data/default/${data_dir}`. The directory contains system logs and runtime stats of the test. To analyze the results, you can use the following command:
-```bash
-python3 $HOME/workdir/xinda/analyze/process.py \
-    --data_dir PATH_TO_DATA_DIR \
-    --output_dir PATH_TO_OUTPUT_DIR
-```
-The script will generate a summary of the test results into `meta.csv` stored in the output directory. It will also parse runtime logs (e.g., fault injection timestamps) and stats (e.g., system throughput time series).
+## Getting started
+Applying Xinda to a system involves two steps: (1) configuring Xinda arguments and running the test experiment using `main.py`; (2) analyzing the test results using `data-analysis/process.py`. We list the detailed steps of using Xinda [here](docs/getting-started.md).
 
 ## Examples
 
-Let's start by running a sample Xinda test in HBase. More examples can be found in `./examples`. We will inject a 1ms network delay to the regionserver for 60s:
+Let's start by running a sample Xinda test on HBase. More examples can be found in [`./examples`](examples). We will inject a 1ms network delay to the regionserver for 60s:
 ```bash
 python3 main.py \
     --sys_name hbase \
@@ -145,17 +58,24 @@ python3 main.py \
     --benchmark ycsb \
     --iter 1
 ```
-Xinda will first start to set up an HBase cluster, wait till initialization finishes, and run the YCSB benchmark for 150s (--bench_exec_time). After 60s (--fault_start_time) of the benchmark, Xinda will inject the slow fault and then clear it after 60s (--fault_duration). After benchmark ends, Xinda will save system logs and runtime stats to $HOME/workdir/data/example/hbase/sample_test (--log_root_dir and --data_dir). Finally, Xinda will safely shutdown the cluster and do the cleanup.
+Xinda will first start to set up an HBase cluster, wait till initialization finishes, and run the YCSB benchmark for 150s (`--bench_exec_time`). After 60s (`--fault_start_time`) of the benchmark, Xinda will inject the slow fault and then clear it after 60s (`--fault_duration`). After benchmark ends, Xinda will save system logs and runtime stats to $HOME/workdir/data/example/hbase/sample_test (`--log_root_dir` and `--data_dir`). Finally, Xinda will safely shutdown the cluster and do the cleanup.
 
 Now, let's analyze the test results using `process.py`
 ```bash
-python3 $HOME/workdir/xinda/analyze/process.py \
+python3 $HOME/workdir/xinda/data-analysis/process.py \
     --data_dir $HOME/workdir/data/example \
     --output_dir $HOME/workdir/parsed_results
 ```
 The parsed results will be stored in `$HOME/workdir/parsed_results`.
 
+## Contributing
+
+Thank you for your interest in Xinda and ADR! We greatly value your feedback and contributions. If you would like to report a bug, suggest an enhancement, or ask any questions, please submit a [GitHub Issue](https://github.com/OrderLab/xinda/issues/new). For code contributions, feel free to open a [Pull Request](https://github.com/OrderLab/xinda/pulls). 
+
 ## Publication
+
+If you find Xinda and ADR useful, please consider citing our paper:
+
 ```bibtex
 @inproceedings{SlowFaultStudy2025NSDI,
   author = {Lu, Ruiming and Lu, Yunchi and Jiang, Yuxuan and Xue, Guangtao and Huang, Peng},
