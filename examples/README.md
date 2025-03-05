@@ -9,11 +9,11 @@ The [minimal-working-examples](./minimal-working-examples/) folder contains basi
 
 ## Xinda Tests in Parallel
 
-The [parallel-tests](./parallel-tests/) folder contains scripts to run batch Xinda tests in parallel. Below we use `etcd` as an example, evaluating how diverse fault configurations ($\S$ 3.1 in our [paper](../docs/SlowFaultStudy2025NSDI.pdf) ) and resource limits ($\S$ 3.2) affect its slow-fault tolerance. We also showcase how to measure the danger zone ($\S$ 3.3) of `etcd`, where a small increase in slow-fault severity leads to a significant increase in performance degradation.
+The [parallel-tests](./parallel-tests/) folder contains scripts to run batch Xinda tests in parallel. Below we use `etcd` as an example, evaluating how diverse fault configurations ($\S$ 3.1 in our [paper](../docs/SlowFaultStudy2025NSDI.pdf)) and resource limits ($\S$ 3.2) affect its slow-fault tolerance. We also showcase how to measure the danger zone ($\S$ 3.3) of `etcd`, where a small increase in slow-fault severity leads to a significant increase in performance degradation.
 
 ### Step 1: Generate Batched Test Scripts
 
-We use `generate.py` to generate all possible Xinda configurations of `etcd` under diverse slow faults ($\S$ 3.1) and save them to a file. 
+We use [`generate.py`](./parallel-tests/generate.py) to generate all possible Xinda configurations of `etcd` under diverse slow faults ($\S$ 3.1) and save them to a file. 
 
 ```bash
 python3 generate.py \
@@ -58,13 +58,13 @@ def __init__(...):
 ```
 
 ### Step 2: Split
-First of all, we need to register the test nodes in the `hosts` file. Remember to fill in the hostnames and your CloudLab username.
+First of all, we need to register the test nodes in the [`hosts`](./parallel-tests/hosts) file. Remember to fill in the hostnames and your CloudLab username.
 ```bash
 c220g2-011310.wisc.cloudlab.us ansible_connection=ssh ansible_user=YOUR_USERNAME ansible_port=22 
 ...
 ```
 
-Then, we use `load_balance.py` to split the batched test scripts generated in Step 1 into multiple jobs for each test node. It will cut the `etcd.sh` script into multiple parts in-place and assign them to different job files. 
+Then, we use [`load_balance.py`](./parallel-tests/load_balance.py) to split the batched test scripts generated in Step 1 into multiple jobs for each test node. It will cut the `etcd.sh` script into multiple parts in-place and assign them to different job files. 
 
 ```bash
 # Only print the assignment
@@ -73,7 +73,7 @@ $ python3 load_balance.py
 # Assign jobs to each node and save to ./exp
 $ python3 load_balance.py --generate
 ```
-The script will also output the assignment to the console, including an estimated completion time for each node. The completion time is calculated based on a rough estimation of each test's runtime when `--bench_exec_time` is set to be 150s. This can be changed by tuning the `estimated_time` variable in `load_balance.py`.
+The script will also output the assignment to the console, including an estimated completion time for each node. The completion time is calculated based on a rough estimation of each test's runtime when `--bench_exec_time` is set to be 150s. This can be changed by tuning the `estimated_time` variable in [`load_balance.py`](./parallel-tests/load_balance.py).
 
 The output will be similar to the following:
 ```log
@@ -88,7 +88,7 @@ Node 3: {'etcd': 60}, Total time: 180min / 3.00hr / 03-05 15:38 -> 03-05 18:38
 ```
 
 ### Step 3: Distribute
-Lastly, we use `distribute_scripts.sh` to distribute and execute the job files. It will first upload job files to test nodes using `scp`, and then execute them in a remote `tmux` session using `ansible-playbook`. 
+Lastly, we use [`distribute_scripts.sh`](./parallel-tests/distribute_scripts.sh) to distribute and execute the job files. It will first upload job files to test nodes using `scp`, and then execute them in a remote `tmux` session using `ansible-playbook`. 
 
 **(Important)** The script will prompt you to confirm the number of scripts and hosts, and ask for the path to the Xinda repo on the test nodes.
 
@@ -107,7 +107,7 @@ TASK [Gathering Facts] *******
 ```
 
 ### Step 4: Monitor (Optional)
-You can use the `monitor.sh` script to check the progress on each node.
+You can use the [`monitor.sh`](./parallel-tests/monitor.sh) script to check the progress on each node.
 
 **(Important)** The script will prompt you for your username on CloudLab and the path to the Xinda repo on the test nodes.
 ```bash
