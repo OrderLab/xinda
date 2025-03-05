@@ -1,6 +1,6 @@
 # Development Guide
 
-In this guide, we will walk you through how to extend Xinda to support a new fault injection method, a new benchmark, or a new distributed system.
+In this guide, we will walk you through how to extend Xinda to support a new fault injection method, a new benchmark, or a new distributed system. This guide can act as a checkbox for future development.
 
 ## Basics
 
@@ -85,10 +85,10 @@ Suppose we want to support a new benchmark in system `DummySys`. At least the fo
 
 Suppose we want to support a new system named `DummySys`. At least the following modules should be adapted:
 
-* DummySys.py: we should create a new DummySys class inherited from [TestSystem](../xinda/systems/TestSystem.py). In this class, we need to implement functions to initilize the system/benchmark/fault injection tool, run the benchmark, inject faults, collect logs, and gracefully shutdown eveything. It is not hard to implement these functions, as we have already provided a lot of examples in existing systems, including [Cassandra](../xinda/systems/cassandra.py), [HBase](../xinda/systems/hbase.py), [CRDB](../xinda/systems/crdb.py), [etcd](../xinda/systems/etcd.py), [Hadoop](../xinda/systems/mapred.py), and [Kafka](../xinda/systems/kafka.py)
+* DummySys.py: we should create a new DummySys class inherited from [TestSystem](../xinda/systems/TestSystem.py). In this class, we need to implement functions to initilize the system/benchmark/fault injection tool, run the benchmark, inject faults, collect logs, and gracefully shutdown eveything. We have already provided a few examples in implementing existing systems, including [Cassandra](../xinda/systems/cassandra.py), [HBase](../xinda/systems/hbase.py), [CRDB](../xinda/systems/crdb.py), [etcd](../xinda/systems/etcd.py), [Hadoop](../xinda/systems/mapred.py), and [Kafka](../xinda/systems/kafka.py)
 
 *  [tools/](../tools/) and [Tool](../xinda/configs/tool.py): update binaries (if needed) of the new system. We also need to add a workable  `docker-compose` file under `tools/docker-DummySys`, similar to what we have done for [docker-hbase](../tools/docker-hbase/), [docker-etcd](../tools/docker-etcd/), etc.
 
-*  [main.py](../main.py): create an instance of the new system and pass all configurations to it in the main function
+*  [main.py](../main.py): create an instance of the new system with all configuration flags in the main function 
 
-* [container.yaml](../xinda/systems/container.yaml): add the new system container names to the container list
+* [container.yaml](../xinda/systems/container.yaml): add the new system container names to the container list for sanity checks
