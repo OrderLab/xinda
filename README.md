@@ -1,6 +1,6 @@
 # Overview
 
-This repo contains the source code of (1) Xinda, a slow-fault testing pipeline; and (2) ADR, a lightweight runtime slow-fault detection library. The following sections are for building and running Xinda. More information about ADR can be found [here](adr).
+This repo contains the source code of (1) Xinda, an automated slow-fault testing pipeline; and (2) ADR, a lightweight runtime slow-fault detection library. The following sections are for building and running Xinda. More information about ADR can be found [here](adr).
 
 # Xinda
 
@@ -42,7 +42,9 @@ Applying Xinda to a system involves two steps: (1) configuring Xinda arguments a
 
 ## Examples
 
-Let's start by running a sample Xinda test on HBase. More examples can be found in [`./examples`](examples). We will inject a 1ms network delay to the regionserver for 60s:
+### Minimal Working Example
+
+Let's start by running a simple Xinda test on HBase as a minimal working example (MWE). More MWEs can be found [here](./examples/minimal-working-examples/). We will inject a 1ms network delay to the regionserver for 60s:
 ```bash
 python3 main.py \
     --sys_name hbase \
@@ -67,6 +69,16 @@ python3 $HOME/workdir/xinda/data-analysis/process.py \
     --output_dir $HOME/workdir/parsed_results
 ```
 The parsed results will be stored in `$HOME/workdir/parsed_results`.
+
+### Batched Tests in Parallel
+
+Running a single Xinda test usually takes minutes (depends on system init time and `--bench_exec_time`). In many cases, we would like to test with hundreds or even thousands of configurations. For example, say we want to test a system with 10 fault severity levels, 2 fault locations and 3 benchmark workloads; each test repeats 10 times for generalizability. This will results in $10\times 2\times 3\times10 = 600$ tests. If each test takes 3 minutes, running all tests sequentially will take $600\times 3 = 1800$ minutes, or 30 hours, which is not efficient.
+
+Thus, we also provide scripts that can generate and execute batched tests in parallel on a cluster of test nodes. A detailed tutorial can be found [here](./examples/README.md).
+
+## Development
+
+Xinda is modularized and extensible to support testing of other distributed systems, running different benchmarks, or adding new fault injection methods. We provide a detailed guide on how to extend Xinda [here](docs/DEV.md).
 
 ## Contributing
 

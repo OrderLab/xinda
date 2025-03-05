@@ -9,6 +9,7 @@
         conda run -n py36 pip3 install docker
         conda run -n py36 pip3 install psutil
         conda run -n py36 pip3 install gitpython
+        conda run -n py36 pip3 install pyyaml
       args:
         executable: /bin/bash
       environment:

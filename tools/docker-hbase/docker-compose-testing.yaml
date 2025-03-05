@@ -134,8 +134,6 @@ services:
     image: rmlu/hbase-regionserver:testing
     container_name: hbase-regionserver
     hostname: hbase-regionserver
-    volumes:
-      - ./jacoco:/jacoco
     env_file:
       - ./hbase-distributed-local.env
       - .env

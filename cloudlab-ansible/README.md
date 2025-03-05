@@ -67,4 +67,4 @@ ansible-playbook -i ansible_host configure.yml
 
 The `configure.yml` file is the playbook that runs all playbooks in this directory. You can also run individual playbooks by specifying the corresponding file name.
 
-The setup process will take ~30 minutes to complete. The script will install all necessary dependencies for Xinda to deploy a distributed system, run benchmarks, inject slow faults, collect runtime logs and stats, and analyze the results. Once the setup is done, you can ssh into the remote machine and start using Xinda (by default, the code is located at `$HOME/workdir/xinda`).
+The setup process will take ~30 minutes to complete (depending on your Internet connection). The script will install all necessary dependencies for Xinda to deploy a distributed system, run benchmarks, inject slow faults, collect runtime logs and stats, and analyze the results. Once the setup is done, you can ssh into the remote machine and start using Xinda (by default, the code is located at `$HOME/workdir/xinda`).
