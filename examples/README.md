@@ -4,16 +4,16 @@ Welcome to the `examples` folder! This folder contains helper scripts of how to 
 
 ## Minimal Working Example (MWE)
 
-The [minimal-working-examples](./minimal-working-examples/) folder contains basic scripts to run a simple Xinda test on all supported distributed systems, **with a single fault injection**. By changing slow-fault-related (e.g., `fault_severity`, `fault_location`, etc.) and benchmark-related (e.g., `ycsb_wkl`, `benchmark`, `openmsg_driver`, etc.) flags, you can easily test different fault scenarios.
+The [minimal-working-examples](./minimal-working-examples/) folder contains basic scripts to run a simple Xinda test on supported distributed systems, **with a single fault injection**. By changing slow-fault-related (e.g., `fault_severity`, `fault_location`, etc.) and benchmark-related (e.g., `ycsb_wkl`, `benchmark`, `openmsg_driver`, etc.) flags, you can easily test different fault scenarios.
 
 
 ## Xinda Tests in Parallel
 
-The [parallel-tests](./parallel-tests/) folder contains scripts to run batch Xinda tests in parallel. Below we use `etcd` as an example, evaluating how diverse fault configurations ($\S$ 3.1 in our [paper](../docs/SlowFaultStudy2025NSDI.pdf)) and resource limits ($\S$ 3.2) affect its slow-fault tolerance. We also showcase how to measure the danger zone ($\S$ 3.3) of `etcd`, where a small increase in slow-fault severity leads to a significant increase in performance degradation.
+The [parallel-tests](./parallel-tests/) folder contains scripts to run batch Xinda tests in parallel. Below we use `etcd` as an example, evaluating how diverse fault configurations ($\S3.1$ in our [paper](../docs/SlowFaultStudy2025NSDI.pdf)) and resource limits ($\S3.2$) affect its slow-fault tolerance. We also showcase how to measure the danger zone ($\S3.3$) of `etcd`, where a small increase in slow-fault severity leads to a significant increase in performance degradation.
 
 ### Step 1: Generate Batched Test Scripts
 
-We use [`generate.py`](./parallel-tests/generate.py) to generate all possible Xinda configurations of `etcd` under diverse slow faults ($\S$ 3.1) and save them to a file. 
+We use [`generate.py`](./parallel-tests/generate.py) to generate all possible Xinda configurations of `etcd` under diverse slow faults ($\S3.1$) and save them to a file. 
 
 ```bash
 python3 generate.py \
@@ -28,12 +28,12 @@ python3 generate.py \
     --scheme sensitivity
 ```
 
-The `--path_to_xinda` flag specifies the path to the Xinda repo on your **test** nodes. The `--scheme` also accepts other test schemes, like `--scheme resource-limits` ($\S$ 3.2) and `--scheme danger-zone` ($\S$ 3.3). 
+The `--path_to_xinda` flag specifies the path to the Xinda repo on your **test** nodes. The `--scheme` also accepts other test schemes, like `--scheme resource-limits` ($\S3.2$) and `--scheme danger-zone` ($\S3.3$). 
 
 <details>
-<summary> The generated scripts will be saved as ./parallel-tests/scripts/etcd.sh. </summary>
+<summary> The generated scripts will be saved to ./parallel-tests/scripts/etcd.sh. </summary>
 
-Despite commands to invoke Xinda (`main.py`), there are also wrappers to log the start and end time of each test into a meta log (`--batch_test_log`):
+Despite commands to invoke Xinda (`main.py`), there are also wrappers to log the start and end time of each test into a meta log (`--batch_test_log`) for later monitoring:
 ```bash
 $ head scripts/etcd.sh
 
@@ -64,7 +64,7 @@ c220g2-011310.wisc.cloudlab.us ansible_connection=ssh ansible_user=YOUR_USERNAME
 ...
 ```
 
-Then, we use [`load_balance.py`](./parallel-tests/load_balance.py) to split the batched test scripts generated in Step 1 into multiple jobs for each test node. It will cut the `etcd.sh` script into multiple parts in-place and assign them to different job files. 
+Then, we use [`load_balance.py`](./parallel-tests/load_balance.py) to split batched test scripts generated in Step 1 evenly (best efforts) across test nodes. It will cut `etcd.sh` into multiple parts in-place and assign them to individual job files. 
 
 ```bash
 # Only print the assignment
@@ -88,11 +88,11 @@ Node 3: {'etcd': 60}, Total time: 180min / 3.00hr / 03-05 15:38 -> 03-05 18:38
 ```
 
 ### Step 3: Distribute
-Lastly, we use [`distribute_scripts.sh`](./parallel-tests/distribute_scripts.sh) to distribute and execute the job files. It will first upload job files to test nodes using `scp`, and then execute them in a remote `tmux` session using `ansible-playbook`. 
+Lastly, we use [`distribute_scripts.sh`](./parallel-tests/distribute_scripts.sh) to distribute and execute the job file on each node. It will first upload job files to test nodes using `scp`, and then execute them in a remote `tmux` session using `ansible-playbook`. 
 
 **(Important)** The script will prompt you to confirm the number of scripts and hosts, and ask for the path to the Xinda repo on the test nodes.
 
-```bash
+```log
 $ ./distribute_scripts.sh
 
 Number of scripts: 3
@@ -110,7 +110,7 @@ TASK [Gathering Facts] *******
 You can use the [`monitor.sh`](./parallel-tests/monitor.sh) script to check the progress on each node.
 
 **(Important)** The script will prompt you for your username on CloudLab and the path to the Xinda repo on the test nodes.
-```bash
+```log
 $ ./monitor.sh
 
 Enter your CloudLab username: YOUR_USERNAME
@@ -122,7 +122,7 @@ c220g2-011003.wisc.cloudlab.us [2/3] [OK] [Done: 2]
 c220g2-011309.wisc.cloudlab.us [3/3] [OK] [Done: 1]
 ```
 
-The `tmux` session created in Step 3 is split into 2 panes, one for the job execution and the other for monitoring the progress. To log onto a specific node and check progress:
+The `tmux` session created in Step 3 is split into 2 panes: one for the job execution and the other for monitoring the progress. To log onto a specific node and check progress:
 
 ```bash
 ssh USERNAME@HOSTNAME
@@ -130,9 +130,9 @@ tmux a -t xinda_exp
 ```
 
 ### Step 5: Collect Results
-After all tests are done, you can use our [analysis scripts](../data-analysis/process.py) to parse the results. After it finishes, you can use the [compress_exp_data.yml](../cloudlab-ansible/compress_exp_data.yml) playbook to compress the results on each node into a .tar archive. 
+After all tests are done, you can use [analysis scripts](../data-analysis/process.py) to parse the results. After it finishes, you can use the [compress_exp_data.yml](../cloudlab-ansible/compress_exp_data.yml) playbook to compress parsed results on each node into a .tar archive. 
 
-(**Important**) Remember to double-check the path to the parsed results in `compress_exp_data.yml` and also pass the `task` variable to specify the task name. After tat, you can download the compressed results to a persistent storage for further analysis.
+(**Important**) Remember to double-check the path to the parsed results in `compress_exp_data.yml`. Also, you can pass a `task` variable to specify the task name. After that, you can download the compressed results to a persistent storage for further analysis. 
 
 ```bash
 # cd path_to_xinda/examples/parallel-tests

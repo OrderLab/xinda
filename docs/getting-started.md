@@ -1,7 +1,7 @@
-# Testing with Xinda
+# Getting Started with Xinda
 
 
-## 1. Configuring Xinda
+## 1. Configuring a Xinda Experiment
 
 There are a few arguments to configure Xinda in terms of the system under test, the benchmark used, and the slow faults injected. Below are the main arguments to configure Xinda. The rest of the arguments can be found in `main.py` and are for development purposes.
 
@@ -33,8 +33,8 @@ python3 cleanup.py
 | Field | Default<br>Value | Description |
 | - | - | - |
 | sys_name | REQUIRED |  Name of the distributed systems to be tested |
-| cpu_limit | None | The number of CPU cores allocated to each container instance |
-| mem_limit | None | The size of memory allocated to each container instance |
+| cpu_limit | 4 | The number of CPU cores allocated to each container instance |
+| mem_limit | 32G | The size of memory allocated to each container instance |
 
 
 
@@ -42,20 +42,24 @@ python3 cleanup.py
 | Field | Default<br>Value | Description |
 | - | - | - |
 | benchmark | REQUIRED | Specify which benchmark to test the system |
-| ycsb_wkl | mixed | Other options are available in $HOME/workdir/xinda-software/ycsb-workloads |
-| openmsg_driver | kafka-latency | The yaml filename of openmsg kafka driver. Available options are listed in `xinda-software/openmessaging/driver-kafka` |
-| openmsg_workload | simple-workload |  The yaml filename of openmsg workload. Available options are listed in `xinda-software/openmessaging/workloads` |
-| sysbench_lua_scheme | oltp_write_only | The lua scheme to run sysbench workload on crdb |
-| etcd_official_wkl |  lease-keepalive | The benchmark from etcd official benchmarking tool to test etcd |
+| ycsb_wkl | mixed | [YCSB](https://github.com/brianfrankcooper/YCSB) workloads. Other options are available in `xinda-software/ycsb-workloads` |
+| openmsg_driver | kafka-latency | The yaml filename of [OpenMessaging](https://github.com/openmessaging/benchmark) kafka driver. Available options are listed in `xinda-software/openmessaging/driver-kafka` |
+| openmsg_workload | simple-workload |  The yaml filename of OpenMessaging workload. Available options are listed in `xinda-software/openmessaging/workloads` |
+| sysbench_lua_scheme | oltp_write_only | The lua scheme to run [SysBench](https://github.com/akopytov/sysbench) workload on crdb |
+| etcd_official_wkl |  lease-keepalive | etcd official [v3 benchmark tool](https://github.com/etcd-io/etcd/tree/main/tools/benchmark) |
+
+
 
 ### 1.4 Slow-Fault Configuration
 | Field | Default<br>Value | Description |
 | - | - | - |
 | fault_type | REQUIRED |  Types of slow faults to be injected. Can be {nw, fs, None} |
-| fault_location | REQUIRED | Fault injection location. Available hostnames are listed in `./xinda/systems/container.yaml` |
+| fault_location | REQUIRED | Fault injection location. Available hostnames are listed in `./xinda/systems/container.yaml`\* |
 | fault_duration | REQUIRED | Duration of the fault injection in seconds |
 | fault_severity | REQUIRED | Severity of the fault injection. For network slow faults, available options are listed in `./tools/blockade` (e.g., flaky-p10 or slow-100ms). For filesystem delays, just pass the delay to be injected in us (e.g., 1000 for 1ms or 100000 for 100ms) |
 | fault_start_time | REQUIRED | Inject slow faults at X seconds after the benchmark is running |
+
+> \* For etcd, directly specify the fault location as `leader` or `follower` as the leaders are elected dynamically.
 
 ## 2. Results Analysis
 By default each Xinda test will generate a directory in `$HOME/workdir/data/default/${data_dir}`. The directory contains system logs and runtime stats of the test. To analyze the results, you can use the following command:

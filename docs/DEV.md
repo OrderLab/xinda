@@ -9,7 +9,7 @@ In this guide, we will walk you through how to extend Xinda to support a new fau
   ┣ ...
   ┣ main.py                 (main entry of Xinda)
   ┣ 📈 data-analysis/       (data analysis scripts)
-  ┣ 🔧 tools/               (binaries and utilities)
+  ┣ 🔧 tools/               (a collection of binaries and utilities)
   ┣ xinda                   (source files of Xinda)
     ┣ 🤖️ systems
       ┣ container.yaml      (container meta info)
@@ -21,7 +21,7 @@ In this guide, we will walk you through how to extend Xinda to support a new fau
       ┣ benchmark.py        (benchmark configs)
       ┣ logging.py          (data collection configs)
       ┣ slow_fault.py       (slow fault attributes)
-      ┣ tool.py             (a collection of binaries and utilities)
+      ┣ tool.py             (path and configs for binaries and utilities)
       ┣ reslim.py           (base class to enforce resource limits)
 ```
 
@@ -31,17 +31,17 @@ Above showcases the main structure and modules of Xinda. Let's go through them o
 
 * [data-analysis/](../data-analysis) contains scripts to parse and analyze the runtime logs and stats collected by Xinda
 
-* [tools/](../tools/) contains the requried binaries and utilities .
+* [tools/](../tools/) contains the required binaries and utilities
 
-* [container.yaml](../xinda/systems/container.yaml) records legal container names of all supported distributed systems. It is used by a sanity check to ensure the user input of `--fault_location` is valid
+* [container.yaml](../xinda/systems/container.yaml) records legal container names of all supported distributed systems. It is used as a sanity check to ensure the user input of `--fault_location` is valid
 
-* [TestSystem](../xinda/systems/TestSystem.py) is the base class to implement all distributed systems in Xinda. It has already implemented basic functions like:
+* [TestSystem](../xinda/systems/TestSystem.py) is the base class to implement the test pipeline of all distributed systems. It has already implemented basic functions like:
     + `docker_up()` and `docker_down()` to bring up/down the cluster
     + `blockade_up()` and `blockade_down()` to init/shut down Blockade (which is used to inject network-related slow faults)
     + `charybdefs_up()` and `charybdefs_down()` to init/shut down CharybdeFS (which is used to inject filesystem-related slow faults)
-    + `inject()` to inject slow faults at a specific time, wait for a duration, and then clear the fault
-    + `info()` to log INFO messages
-    + `cleanup()` to clean up the system (e.g., docker containers, Blockade, CharybdeFS, etc.) for next test
+    + `inject()` to inject slow faults at a specific time, location and severity level, wait for a duration, and then clear the fault
+    + `info()` to log INFO-level messages
+    + `cleanup()` to ensure a clean state for next test (e.g., garbage-collecting docker containers, Blockade/CharybdeFS instances, etc.)
 
 * [Benchmark](../xinda/configs/benchmark.py) and its subclasses are used to pass benchmark-related configurations to the system
 
@@ -49,9 +49,9 @@ Above showcases the main structure and modules of Xinda. Let's go through them o
 
 * [SlowFault](../xinda/configs/slow_fault.py) is the base class to record slow-fault attributes, like fault type, location, start time, duration, etc.
 
-* [Tool](../xinda/configs/tool.py) records the path to important binaries and utilities that are used by Xinda, like the Blockade binary, YCSB binary, etc.
+* [Tool](../xinda/configs/tool.py) records the path to and configs of important binaries and utilities (stored in [tools/](../tools/)) that are used by Xinda, like the Blockade binary, YCSB binary, etc.
 
-* [ResourceLimit](../xinda/configs/reslim.py) is the base class to record CPU/memory limits of each container instance. It can be used as a reference if you want to control other conditions in the future
+* [ResourceLimit](../xinda/configs/reslim.py) is the base class to define CPU/memory limits of each container instance. It can be used as a reference if you want to control other conditions in the future
 
 ## 1. Support a New Fault Injection Tool
 
@@ -76,7 +76,7 @@ Suppose we want to support a new benchmark in system `DummySys`. At least the fo
     + `_load_ycsb()` and `_run_ycsb()` to initialize and run YCSB workloads. [Benchmark](../xinda/configs/benchmark.py) configs will be passed here. Benchmark binaries or utilities from [Tool](../xinda/configs/tool.py) and [tools/](../tools/) will be invoked here. Runtime logs will be redirected to the path in [Logging](../xinda/configs/logging.py)
     + (Optional) `_wait_till_ycsb_ends()` to wait till benchmark ends. Some benchmarks can be configured to run for a specific duration and thus do not need to add this function
 
-* [main.py](../main.py): new benchmark flags and configurations should be addded to the argument parser
+* [main.py](../main.py): new benchmark flags and configurations should be added to the argument parser
 
 * [data-analysis](../data-analysis/): a new benchmark log parser should be implemented here. The parser is mostly a collection of regular expressions to extract useful information like timestamp, throughput, latency, etc.
 
@@ -85,7 +85,7 @@ Suppose we want to support a new benchmark in system `DummySys`. At least the fo
 
 Suppose we want to support a new system named `DummySys`. At least the following modules should be adapted:
 
-* DummySys.py: we should create a new DummySys class inherited from [TestSystem](../xinda/systems/TestSystem.py). In this class, we need to implement functions to initilize the system/benchmark/fault injection tool, run the benchmark, inject faults, collect logs, and gracefully shutdown eveything. We have already provided a few examples in implementing existing systems, including [Cassandra](../xinda/systems/cassandra.py), [HBase](../xinda/systems/hbase.py), [CRDB](../xinda/systems/crdb.py), [etcd](../xinda/systems/etcd.py), [Hadoop](../xinda/systems/mapred.py), and [Kafka](../xinda/systems/kafka.py)
+* DummySys.py: we should create a new DummySys class inherited from [TestSystem](../xinda/systems/TestSystem.py). In this class, we need to implement functions to initilize the system and the fault injection tool, load and then run the benchmark, inject faults, collect logs, and gracefully shut down eveything. We have provided a few examples in implementing existing systems, including [Cassandra](../xinda/systems/cassandra.py), [HBase](../xinda/systems/hbase.py), [CRDB](../xinda/systems/crdb.py), [etcd](../xinda/systems/etcd.py), [Hadoop](../xinda/systems/mapred.py), and [Kafka](../xinda/systems/kafka.py)
 
 *  [tools/](../tools/) and [Tool](../xinda/configs/tool.py): update binaries (if needed) of the new system. We also need to add a workable  `docker-compose` file under `tools/docker-DummySys`, similar to what we have done for [docker-hbase](../tools/docker-hbase/), [docker-etcd](../tools/docker-etcd/), etc.
 

@@ -1,12 +1,12 @@
 # Overview
 
-This repo contains the source code of (1) Xinda, an automated slow-fault testing pipeline; and (2) ADR, a lightweight runtime slow-fault detection library. The following sections are for building and running Xinda. More information about ADR can be found [here](adr).
+This repo contains the source code of (1) Xinda, an automated slow-fault testing pipeline, and (2) ADR, a lightweight runtime slow-fault detection library. The following sections are for building and running Xinda. More information about ADR can be found [here](adr).
 
 # Xinda
 
 ![Preview](docs/example-xinda.jpg)
 
-Xinda is designed to be a flexible and extensible slow-fault testing pipeline for distributed systems. It automates the process of initializing a distributed cluster, running cloud benchmarks, injecting flexible and fine-grained slow faults, collecting runtime logs and stats, and analyzing the results. It can be extended to support new distributed systems, benchmarks, and fault injection methods.
+Xinda is designed to be a flexible and extensible slow-fault testing pipeline for distributed systems. It automates the process of initializing a distributed cluster, running cloud benchmarks, injecting flexible and fine-grained slow faults, collecting runtime logs and stats, and analyzing the results. It can be extended to support new fault injection methods, benchmarks, and distributed systems. 
 
 ## Build
 
@@ -15,7 +15,7 @@ Xinda is designed to be a flexible and extensible slow-fault testing pipeline fo
 <details>
 <summary> To build and install Xinda manually </summary>
 
-It is still recommended to go through each step of the [playbook](cloudlab-ansible/configure.yml). We highlight the following prerequisites:
+⚠️ It is still recommended to go through each step of the [playbook](cloudlab-ansible/configure.yml). We highlight the following prerequisites:
 
 * OS: Ubuntu 18.04
 * Hardware: 
@@ -38,7 +38,7 @@ It is still recommended to go through each step of the [playbook](cloudlab-ansib
 </details>
 
 ## Getting started
-Applying Xinda to a system involves two steps: (1) configuring Xinda arguments and running the test experiment using `main.py`; (2) analyzing the test results using `data-analysis/process.py`. We list the detailed steps of using Xinda [here](docs/getting-started.md).
+Applying Xinda to a system involves two steps: (1) configuring Xinda and running the test experiment using [main.py](./main.py); (2) analyzing the test results using [data-analysis/process.py](./data-analysis/process.py). We list the detailed steps of using Xinda [here](docs/getting-started.md).
 
 ## Examples
 
@@ -56,29 +56,31 @@ python3 main.py \
     --fault_severity slow-1ms \
     --fault_start_time 60 \
     --bench_exec_time 150 \
-    --ycsb_wkl mixed \
     --benchmark ycsb \
+    --ycsb_wkl mixed \
     --iter 1
 ```
-Xinda will first start to set up an HBase cluster, wait till initialization finishes, and run the YCSB benchmark for 150s (`--bench_exec_time`). After 60s (`--fault_start_time`) of the benchmark, Xinda will inject the slow fault and then clear it after 60s (`--fault_duration`). After benchmark ends, Xinda will save system logs and runtime stats to $HOME/workdir/data/example/hbase/sample_test (`--log_root_dir` and `--data_dir`). Finally, Xinda will safely shutdown the cluster and do the cleanup.
+1. Xinda will first set up an HBase cluster, wait till initialization finishes, and load/run a YCSB benchmark (`--benchmark` and `--ycsb_wkl`) for 150s (`--bench_exec_time`). 
+2. After 60s (`--fault_start_time`) of the benchmark, Xinda will inject the preset slow fault (`--fault_type`, `--fault_severity`, `--fault_location`) and then clear it after 60s (`--fault_duration`). 
+3. After benchmark ends, Xinda will save system logs and runtime stats to `$HOME/workdir/data/example/hbase/sample_test` (`--log_root_dir` and `--data_dir`). Finally, Xinda will safely shutdown the cluster and do the cleanup.
 
-Now, let's analyze the test results using `process.py`
+Now, let's analyze the test results (`--data_dir`) using `process.py`
 ```bash
 python3 $HOME/workdir/xinda/data-analysis/process.py \
     --data_dir $HOME/workdir/data/example \
     --output_dir $HOME/workdir/parsed_results
 ```
-The parsed results will be stored in `$HOME/workdir/parsed_results`.
+The parsed results will be stored in `$HOME/workdir/parsed_results` (`--output_dir`).
 
 ### Batched Tests in Parallel
 
-Running a single Xinda test usually takes minutes (depends on system init time and `--bench_exec_time`). In many cases, we would like to test with hundreds or even thousands of configurations. For example, say we want to test a system with 10 fault severity levels, 2 fault locations and 3 benchmark workloads; each test repeats 10 times for generalizability. This will results in $10\times 2\times 3\times10 = 600$ tests. If each test takes 3 minutes, running all tests sequentially will take $600\times 3 = 1800$ minutes, or 30 hours, which is not efficient.
+Running a single Xinda test usually takes minutes (depending on system init time and `--bench_exec_time`). In many cases, we would like to test with hundreds or even thousands of configurations. For example, say we want to test a system with 10 fault severity levels, 2 fault locations and 3 benchmark workloads; each test repeats 10 times for generalizability. This will results in $10\times 2\times 3\times10 = 600$ tests. If each test takes 3 minutes, running all tests sequentially will take $600\times 3 = 1800$ minutes, or 30 hours, which is not efficient.
 
 Thus, we also provide scripts that can generate and execute batched tests in parallel on a cluster of test nodes. A detailed tutorial can be found [here](./examples/README.md).
 
 ## Development
 
-Xinda is modularized and extensible to support testing of other distributed systems, running different benchmarks, or adding new fault injection methods. We provide a detailed guide on how to extend Xinda [here](docs/DEV.md).
+Xinda is modularized and extensible to incorporate new fault injection methods, running new benchmarks, or testing new distributed systems. We provide a detailed guide on how to extend Xinda [here](docs/DEV.md).
 
 ## Contributing
 

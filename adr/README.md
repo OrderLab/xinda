@@ -1,6 +1,10 @@
 # Overview
 
-This repo contains the source code of ADR, a lightweight adaptive fail-slow detection library for distributed systems. ADR can be used as a plug-in when adding fail-slow handling code. ADR traces some built-in variables (e.g., syncOpLatency), automatically adapts the associated threshold variables to decide slowness, and invokes different levels of defined actions.
+This repo contains the source code of ADR, a lightweight adaptive fail-slow detection library for distributed systems. ADR can be used as a plug-in when adding fail-slow handling code. 
+
+As shown below, developers usually define static and often over-conservative thresholds to detect slowness in some built-in variables (e.g., [hadoop](https://github.com/apache/hadoop/blob/release-3.3.6-RC0/hadoop-hdfs-project/hadoop-hdfs-client/src/main/java/org/apache/hadoop/hdfs/DataStreamer.java#L1138-L1149), [CASSANDRA-12403](https://issues.apache.org/jira/browse/CASSANDRA-12403), [CRDB](https://github.com/cockroachdb/cockroach/blob/v23.1.11/pkg/storage/pebble.go#L1246-L1275), [HBASE-22301](https://issues.apache.org/jira/browse/HBASE-22301)). ADR traces these system variables, automatically adapts the associated threshold variables to decide slowness, and invokes different levels of defined actions.
+
+![Preview](../docs/example-adr-background.jpg)
 
 # Use Case
 ![Preview](../docs/example-adr.jpg)
